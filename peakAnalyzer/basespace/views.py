@@ -11,7 +11,7 @@ import basespace.settings
 
 
 
-FileTypes={'Extensions':'bam,vcf','Limit':'10000'}
+FileTypes={'Extensions':'bam,vcf'}
 # Create your views here.
 def createSession(request):
     if 'appsessionuri' not in request.GET:
