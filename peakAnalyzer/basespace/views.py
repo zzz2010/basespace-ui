@@ -42,13 +42,14 @@ def listFiles(request,session_id):
             myProjects.append(trigger_project)
     except basespace.models.Session.DoesNotExist:
         raise Http404
+    
+    user        = myAPI.getUserById('current')
+    if len(User.objects.filter(UserId=user.Id))==0:
+        myuser=basespace.models.User(UserId=user.Id,Email=user.Email,Name=user.Name)
+        myuser.save()
+    else:
+        myuser=User.objects.filter(UserId=user.Id)[0]
     if len(myProjects)==0:
-        user        = myAPI.getUserById('current')
-        if len(User.objects.filter(UserId=user.Id))==0:
-            myuser=basespace.models.User(UserId=user.Id,Email=user.Email,Name=user.Name)
-            myuser.save()
-        else:
-            myuser=User.objects.filter(UserId=user.Id)[0]
         myProjects   = myAPI.getProjectByUser('current')
     for singleProject in myProjects:
         outstr+="<H>"+singleProject.Name+"</H>"
