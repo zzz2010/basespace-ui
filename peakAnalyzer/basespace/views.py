@@ -35,7 +35,7 @@ def listFiles(request,session_id):
     try:
         session=basespace.models.Session.objects.get(pk=session_id)
         myAPI=session.getBSapi()
-        appsession=myAPI.getAppSession(Id=session_id)
+        appsession=myAPI.getAppSessionById(session.Session)
         prjstr=appsession.References.Href
         if "project" in prjstr:
             trigger_project=myAPI.getProjectById(prjstr.replace(basespace.settings.version+"/projects/",""))
