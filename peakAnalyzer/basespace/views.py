@@ -16,7 +16,7 @@ FileTypes={'Extensions':'bam,vcf'}
 # Create your views here.
 def createSession(request):
     if 'appsessionuri' not in request.GET:
-	return HttpResponse("Hello!")
+        return HttpResponse("Hello!")
     AppSessionId=request.GET['appsessionuri'].replace(basespace.settings.version+"/appsessions/",'')
     BSapi = BaseSpaceAPI(basespace.settings.client_key, basespace.settings.client_secret, basespace.settings.BaseSpaceUrl, basespace.settings.version, AppSessionId)
     BSapi.updatePrivileges(request.GET['authorization_code'])
@@ -29,6 +29,28 @@ def createSession(request):
     session.save()
     return redirect('basespace.views.listFolders',session_id=session.id)
 
+
+def listAppResultFiles(request,session_id,ar_id):
+    try:
+        session=basespace.models.Session.objects.get(pk=session_id)
+        myAPI=session.getBSapi()
+    except basespace.models.Session.DoesNotExist:
+        raise Http404
+    ar=myAPI.getAppResultById(ar_id)
+    files=ar.getFiles(myAPI,myQp=FileTypes)
+    return render_to_response('basespace/filelist.html', {'files_list':files})
+        
+        
+def listSampleFiles(request,session_id,sa_id):
+    try:
+        session=basespace.models.Session.objects.get(pk=session_id)
+        myAPI=session.getBSapi()
+    except basespace.models.Session.DoesNotExist:
+        raise Http404
+    sa=myAPI.getSampleById(sa_id)
+    files=sa.getFiles(myAPI,myQp=FileTypes)
+    return render_to_response('basespace/filelist.html', {'files_list':files})
+        
 def listFolders(request,session_id):
     outstr=""
     myProjects=list()
@@ -69,7 +91,7 @@ def listFolders(request,session_id):
             if len(my_sa)==0:
                 myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name)
             
-    return render_to_response('basespace/demo.html', {'user': myuser,'projects_list':myProjects})
+    return render_to_response('basespace/index.html', {'user': myuser,'projects_list':myProjects,'session_id':session_id})
 
 def listFiles(request,session_id):
     outstr=""

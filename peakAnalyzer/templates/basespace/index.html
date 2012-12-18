@@ -2,17 +2,25 @@
 
 <script type="text/javascript">
 // Load and display the list of file
-function load_files() {
+function load_arfiles(trigger) {
 	$.ajax({   
         type: "GET",
-        url: "/admin/run/load_log/?id="+{{run.id}},       
-        dataType:'json',   
+        url: "/peakAnalyzer/basespace/{{session_id}}/"+trigger.split("__")[1]+"/listAppResultFiles",       
+        dataType:'text',   
         success: function(data, textStatus){
-        	if(data.length > 0) {
-        		$("#log_content").html(data[0].text);
-        		$("#log_content").append('<a href="#" onclick="load_log()">[Toggle]</a>');
-        		$("#log_content").collapse('toggle');
-        	}
+        		$(trigger).html(data);
+		}
+	})
+}
+
+
+function load_safiles(trigger) {
+	$.ajax({   
+        type: "GET",
+        url: "/peakAnalyzer/basespace/{{session_id}}/"+trigger.split("__")[1]+"/listSampleFiles",    
+        dataType:'text',   
+        success: function(data, textStatus){
+        		$(trigger).html(data);
 		}
 	})
 }
@@ -30,11 +38,13 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 {% for project in projects_list %}
 	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
 	{% for appresult in project.appresult_set.all %}
-		<li><a class="accordion-toggle" data-toggle="collapse" data-target="#demo" href="#"><i class="icon-list"></i>{{ appresult.Name }}</a></li>
+		<li><a class="accordion-toggle" data-toggle="collapse" data-target="#ar__{{ appresult.AppResultId }}" href="#" onclick=load_arfiles("#ar__{{ appresult.AppResultId }}") ><i class="icon-list"></i>{{ appresult.Name }}</a></li>
+	  <div id="ar__{{ appresult.AppResultId }}" class="collapse" > Loading...</div>
 	{% endfor %}
         <hr>
 	{% for sample in project.sample_set.all %}
-                <li><a class="accordion-toggle" data-toggle="collapse" data-target="#demo" href="#"><i class="icon-plus"></i>{{ sample.Name }}</a></li>
+                <li><a class="accordion-toggle" data-toggle="collapse" data-target=data-target="#sa__{{ sample.SampleId }}" href="#" onclick=load_safiles("#sa__{{ sample.SampleId }}") ><i class="icon-plus"></i>{{ sample.Name }}</a></li>
+         <div id="sa__{{ sample.SampleId }}" class="collapse" > Loading...</div>
         {% endfor %}
 {% endfor %}
             </ul>
