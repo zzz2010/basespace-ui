@@ -9,6 +9,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
 	{% for appresult in project.appresult_set.all %}
 		<li><a a class="accordion-toggle" data-toggle="collapse" data-target="#demo" href="#"><i class="icon-list"></i>{{ appresult.Name }}</a></li>
+		 <div id="demo" class="collapse in"> Anim pariatur cliche reprehenderit</div>
 	{% endfor %}
         <hr>
 	{% for sample in project.sample_set.all %}
@@ -18,5 +19,5 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-          <div id="demo" class="collapse in"> Anim pariatur cliche reprehenderit</div>
+         
 {% endblock %}
