@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>{% block title %}Pretty Good Sequencing - Admin Site{%	endblock %}</title>
+
+<!-- CSS -->
+<!-- <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css"
+	type="text/css" /> -->
+<link rel="stylesheet"
+	href="{{ APP_URL }}/static/bootstrap/css/bootstrap-responsive.css" type="text/css" />
+<link rel="stylesheet" href="{{ APP_URL }}/static/css/pgsadmin.less" type="text/less" />
+<link rel="stylesheet" href="{{ APP_URL }}/static/bootstrap/css/bootstrap.min.css" type="text/css" />
+<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/ui-darkness/jquery-ui.css" type="text/css" /> -->
+
+<!-- LESS -->
+<script type="text/javascript"
+	src="{{ APP_URL }}/static/js/less-1.3.0.min.js"></script>
+
+<!-- JavaScript -->
+<script type="text/javascript" src="{{ APP_URL }}/static/js/pgsadmin.js"></script>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script>
+<script type="text/javascript" src="{{ APP_URL }}/static/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		current_page = getVar("menu");
+		$("#" + current_page).addClass("active");
+		$("input").addClass("input-xlarge");
+		$("textarea").addClass("input-xlarge");
+	});
+	
+	 $(function() {
+            $("[rel=popover]").popover();
+        })();
+</script>
+
+{% block header %}{% endblock %}
+</head>
+<body>
+
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> </a> <a
+					class="brand" href="/home">Personalized Genomics Solutions</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="active"><a href="#">Home</a></li>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">Dropdown <b class="caret"></b> </a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li class="nav-header">Nav header</li>
+								<li><a href="#">Separated link</a></li>
+								<li><a href="#">One more separated link</a></li>
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-search pull-left" action="">
+						<input type="text" class="search-query span2" placeholder="Search">
+					</form>
+					<ul class="nav pull-right">
+						<li><a href="#">Link</a></li>
+						<li class="divider-vertical"></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">
+							{% if user.is_authenticated %} <i class="icon-user"></i> {{ user.username }} {% else %} Account {% endif %} <b class="caret"></b> </a>
+							<ul class="dropdown-menu">
+								<li><a href="/profile/change_pwd">Change Password</a></li>
+								<li class="divider"></li>
+								<li><a href="/accounts/logout/">Logout</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- /.nav-collapse -->
+			</div>
+		</div>
+		<!-- /navbar-inner -->
+	</div>
+	<!-- /navbar -->
+	<!-- /navbar -->
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span2 well well-small">
+				<ul class="nav nav-list">
+					<li class="active"><a href="/home/"><i
+							class="icon-home icon-white"></i> Home</a>
+					</li>
+
+					<li class="nav-header"><i class="icon-user"></i>Subject</li>
+					<li id="sub_list"><a href="/subject/list?menu=sub_list"><i class="icon-list"></i>
+							Subject List</a>
+					</li>
+					<li id="sub_sub"><a href="/subject/submit?menu=sub_sub"><i class="icon-plus"></i>
+							Submit Subject</a>
+					</li>
+					<li class="divider"></li>
+
+					<li class="nav-header"><i class="icon-book"></i>Library</li>
+					<li id="lib_list" class=""><a href="/library/list?menu=lib_list"><i class="icon-list"></i>
+							Library List</a>
+					</li>
+					<li id="lib_sub"><a href="/library/submit?menu=lib_sub"><i class="icon-plus"></i>
+							Submit Library</a>
+					</li>
+					<li id="lib_csv"><a href="/library/csv?menu=lib_csv"><i class="icon-circle-arrow-up"></i>
+							Bulk Import</a>
+					</li>
+					<li class="divider"></li>
+					
+					<li class="nav-header"><i class="icon-tasks"></i>Run Requests</li>
+					<li id="req_list"><a href="/request/list?menu=req_list"><i class="icon-list"></i>
+							Your Requests</a>
+					</li>
+					<li id="seq_sub"><a href="/request/submit?menu=seq_sub"><i class="icon-plus"></i>
+							Submit Request</a>
+					</li>
+					<li class="divider"></li>
+					
+					{% if user.is_superuser %}
+					<li class="nav-header"><i class="icon-tasks"></i>Admin</li>
+					<li id="admin_req_list"><a href="/request/list?menu=admin_req_list"><i class="icon-list"></i>
+							Requests</a>
+					</li>
+					<li class="divider"></li>
+					{% endif %}
+					
+
+					<li><a href="#"><i class="icon-wrench"></i> Settings</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /sidebar -->
+			<div class="span10 ">{% block content %} {% endblock %}</div>
+		</div>
+	</div>
+
+</body>
+</html>

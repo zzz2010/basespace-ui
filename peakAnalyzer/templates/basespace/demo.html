@@ -1,0 +1,19 @@
+{% extends 'common/base.html' %} {% block header %} {% endblock %} {% block content %}
+<div class="span3">
+<legend>{{ user.Name }}</legend>
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+{% for project in user.project_set.all %}
+	<li class="nav-header">{{ project.Name }}</li>
+	{% for appresult in project.appresult_set.all %}
+		<li><a href="#">{{ appresult.Name }}</a></li>
+	{% endfor %}
+        <hr>
+	{% for sample in project.sample_set.all %}
+                <li><a href="#">{{ sample.Name }}</a></li>
+        {% endfor %}
+{% endfor %}
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+{% endblock %}
