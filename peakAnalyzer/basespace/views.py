@@ -91,7 +91,7 @@ def listFolders(request,session_id):
             if len(my_sa)==0:
                 myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name)
             
-    return render_to_response('basespace/index.html', {'user': myuser,'projects_list':myProjects,'session_id':str(session_id)})
+    return render_to_response('basespace/demo.html', {'user': myuser,'projects_list':myProjects,'session_id':str(session_id)})
 
 def listFiles(request,session_id):
     outstr=""
