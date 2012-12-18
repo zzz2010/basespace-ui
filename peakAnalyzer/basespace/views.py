@@ -38,7 +38,7 @@ def listAppResultFiles(request,session_id,ar_id):
         raise Http404
     ar=myAPI.getAppResultById(ar_id)
     files=ar.getFiles(myAPI,myQp=FileTypes)
-    return render_to_response('basespace/filelist.html', {'files_list':files})
+    return render_to_response('basespace/filelist.html', {'files_list':files,'session_id':session_id})
         
         
 def listSampleFiles(request,session_id,sa_id):
@@ -49,7 +49,7 @@ def listSampleFiles(request,session_id,sa_id):
         raise Http404
     sa=myAPI.getSampleById(sa_id)
     files=sa.getFiles(myAPI,myQp=FileTypes)
-    return render_to_response('basespace/filelist.html', {'files_list':files})
+    return render_to_response('basespace/filelist.html', {'files_list':files,'session_id':session_id})
         
 def listFolders(request,session_id):
     outstr=""
