@@ -73,12 +73,14 @@ def listFolders(request,session_id):
         myuser=User.objects.filter(UserId=user.Id)[0]
     if len(myProjects)==0:
         myProjects   = myAPI.getProjectByUser('current')
+    projects_list=list()
     for singleProject in myProjects:
         outstr+="<H>"+singleProject.Name+"</H>"
         if len(Project.objects.filter(ProjectId=singleProject.Id))==0:
             myproject=myuser.project_set.create(ProjectId=singleProject.Id,Name=singleProject.Name)
         else:
-            myproject=Project.objects.filter(ProjectId=singleProject.Id)[0]    
+            myproject=Project.objects.filter(ProjectId=singleProject.Id)[0] 
+        projects_list.append(myproject)   
         appResults=singleProject.getAppResults(myAPI)
         for ar in appResults:
             my_ar=AppResult.objects.filter(AppResultId=ar.Id)
@@ -91,7 +93,7 @@ def listFolders(request,session_id):
             if len(my_sa)==0:
                 myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name)
             
-    return render_to_response('basespace/index.html', {'user': myuser,'projects_list':myProjects,'session_id':str(session_id)})
+    return render_to_response('basespace/index.html', {'user': myuser,'projects_list':projects_list,'session_id':str(session_id)})
 
 def listFiles(request,session_id):
     outstr=""
