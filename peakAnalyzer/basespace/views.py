@@ -53,34 +53,33 @@ def listFiles(request,session_id):
         myProjects   = myAPI.getProjectByUser('current')
     for singleProject in myProjects:
         outstr+="<H>"+singleProject.Name+"</H>"
-	if len(Project.objects.filter(ProjectId=singleProject.Id))==0:
-		myproject=myuser.project_set.create(ProjectId=singleProject.Id,Name=singleProject.Name)
-	else:
-		myproject=Project.objects.filter(ProjectId=singleProject.Id)[0]	
-    	appResults=singleProject.getAppResults(myAPI)
-	for ar in appResults:
-		my_ar=AppResult.objects.filter(AppResultId=ar.Id)
-		if len(my_ar)==0:
-			myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name)
-
-        files = ar.getFiles(myAPI,myQp=FileTypes)
-        for f in files:
-            my_file=File.objects.filter(FileId=f.Id)
-            if len(my_file)==0:
-                my_file=File(Name=f.Name,FileId=f.Id,Path=f.Path)
-            outstr+="<p>"+str(f)
-	samples = singleProject.getSamples(myAPI)
-    for sa in samples:
-        my_sa=Sample.objects.filter(AppResultId=sa.Id)
-        if len(my_sa)==0:
-            myproject.sample_set.create(SampleId=ar.Id,Name=ar.Name)
-
-        files = sa.getFiles(myAPI,myQp=FileTypes)
-        for f in files:
-            my_file=File.objects.filter(FileId=f.Id)
-            if len(my_file)==0:
-                my_file=File(Name=f.Name,FileId=f.Id,Path=f.Path)
-            outstr+="<p>"+str(f)
+        if len(Project.objects.filter(ProjectId=singleProject.Id))==0:
+            myproject=myuser.project_set.create(ProjectId=singleProject.Id,Name=singleProject.Name)
+        else:
+            myproject=Project.objects.filter(ProjectId=singleProject.Id)[0]	
+        appResults=singleProject.getAppResults(myAPI)
+        for ar in appResults:
+            my_ar=AppResult.objects.filter(AppResultId=ar.Id)
+            if len(my_ar)==0:
+                myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name)
+            files = ar.getFiles(myAPI,myQp=FileTypes)
+            for f in files:
+                my_file=File.objects.filter(FileId=f.Id)
+                if len(my_file)==0:
+                    my_file=File(Name=f.Name,FileId=f.Id,Path=f.Path)
+                outstr+="<p>"+str(f)
+        samples = singleProject.getSamples(myAPI)
+        for sa in samples:
+            my_sa=Sample.objects.filter(SampleId=sa.Id)
+            if len(my_sa)==0:
+                myproject.sample_set.create(SampleId=ar.Id,Name=ar.Name)
+    
+            files = sa.getFiles(myAPI,myQp=FileTypes)
+            for f in files:
+                my_file=File.objects.filter(FileId=f.Id)
+                if len(my_file)==0:
+                    my_file=File(Name=f.Name,FileId=f.Id,Path=f.Path)
+                outstr+="<p>"+str(f)
             
     return HttpResponse(outstr)
 
