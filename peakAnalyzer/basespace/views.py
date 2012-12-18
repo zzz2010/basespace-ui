@@ -1,7 +1,7 @@
 import basespace
 import datetime, os, sys,  time
 from django.utils import simplejson
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from django.http import HttpResponse
 from BaseSpacePy.api.BaseSpaceAPI import BaseSpaceAPI
@@ -82,5 +82,10 @@ def listFiles(request,session_id):
                 outstr+="<p>"+str(f)
             
     return HttpResponse(outstr)
+
+def demo(request,user_id):
+    u=p = get_object_or_404(User, pk=user_id)
+    return render_to_response('basespace/demo.html', {'user': u})
+    
 
 
