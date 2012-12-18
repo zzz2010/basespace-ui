@@ -5,7 +5,7 @@
 function load_files(trigger) {
 	$.ajax({   
         type: "GET",
-        url: "http://genome.ddns.comp.nus.edu.sg/~genomebrowser/bcs/_sources/index.txt",       
+        url: "/basespace/",       
         dataType:'json',   
         success: function(data, textStatus){
         	if(data.length > 0) {
@@ -26,7 +26,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
 	{% for appresult in project.appresult_set.all %}
 		<li><a a class="accordion-toggle" data-toggle="collapse" data-target="#demo{{ appresult.AppResultId }}" href="#" onclick=load_files("#demo{{ appresult.AppResultId }}") ><i class="icon-list"></i>{{ appresult.Name }}</a></li>
-		 <div id="demo{{ appresult.AppResultId }}" class="collapse" > </div>
+		 <div id="demo{{ appresult.AppResultId }}" class="collapse" > Loading...</div>
 	{% endfor %}
         <hr>
 	{% for sample in project.sample_set.all %}
