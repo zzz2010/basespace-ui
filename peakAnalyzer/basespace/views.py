@@ -1,4 +1,5 @@
-import datetime, os, sys, glob, time
+import basespace
+import datetime, os, sys,  time
 from django.utils import simplejson
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
@@ -22,6 +23,7 @@ def createSession(request):
     myToken = BSapi.getAccessToken()
     print myToken
     myAPI= BaseSpaceAPI(basespace.settings.client_key, basespace.settings.client_secret, basespace.settings.BaseSpaceUrl, basespace.settings.version, AppSessionId, AccessToken=myToken)
+    
     session=basespace.models.Session()
     session.init(myAPI)
     session.save()
@@ -29,18 +31,25 @@ def createSession(request):
 
 def listFiles(request,session_id):
     outstr=""
+    myProjects=list()
     try:
-	session=basespace.models.Session.objects.get(pk=session_id)
-	myAPI=session.getBSapi()
+	    session=basespace.models.Session.objects.get(pk=session_id)
+	    myAPI=session.getBSapi()
+        appsession=myAPI.getAppSession()
+        prjstr=appsession.References.Href
+        if "project" in prjstr:
+            trigger_project=myAPI.getProjectById(prjstr.replace(basespace.settings.version+"/projects/",""))
+            myProjects.append(trigger_project)
     except basespace.models.Session.DoesNotExist:
         raise Http404
-    user        = myAPI.getUserById('current')
-    if len(User.objects.filter(UserId=user.Id))==0:
-        myuser=basespace.models.User(UserId=user.Id,Email=user.Email,Name=user.Name)
-        myuser.save()
-    else:
-        myuser=User.objects.filter(UserId=user.Id)[0]
-    myProjects   = myAPI.getProjectByUser('current')
+    if len(myProjects)==0:
+        user        = myAPI.getUserById('current')
+        if len(User.objects.filter(UserId=user.Id))==0:
+            myuser=basespace.models.User(UserId=user.Id,Email=user.Email,Name=user.Name)
+            myuser.save()
+        else:
+            myuser=User.objects.filter(UserId=user.Id)[0]
+        myProjects   = myAPI.getProjectByUser('current')
     for singleProject in myProjects:
 	if len(Project.objects.filter(ProjectId=singleProject.Id))==0:
 		myproject=myuser.project_set.create(ProjectId=singleProject.Id,Name=singleProject.Name)
