@@ -36,7 +36,7 @@ def listFiles(request,session_id):
         session=basespace.models.Session.objects.get(pk=session_id)
         myAPI=session.getBSapi()
         appsession=myAPI.getAppSessionById(str(session.SessionId))
-        prjstr=appsession.References.Href
+        prjstr=appsession.References[0].Href
         if "project" in prjstr:
             trigger_project=myAPI.getProjectById(prjstr.replace(basespace.settings.version+"/projects/",""))
             myProjects.append(trigger_project)
@@ -51,6 +51,7 @@ def listFiles(request,session_id):
             myuser=User.objects.filter(UserId=user.Id)[0]
         myProjects   = myAPI.getProjectByUser('current')
     for singleProject in myProjects:
+        outstr+="<H>"+singleProject.Name+"</H>"
 	if len(Project.objects.filter(ProjectId=singleProject.Id))==0:
 		myproject=myuser.project_set.create(ProjectId=singleProject.Id,Name=singleProject.Name)
 	else:
