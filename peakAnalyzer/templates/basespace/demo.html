@@ -6,11 +6,11 @@ function load_files(trigger) {
 	$.ajax({   
         type: "GET",
         url: "/peakAnalyzer/basespace/",       
-        dataType:'json',   
+        dataType:'text',   
         success: function(data, textStatus){
-        	if(data.length > 0) {
-        		$(trigger).html(data[0].text);
-        	}
+        	
+        		$(trigger).html(data);
+        	
 		}
 	})
 }
