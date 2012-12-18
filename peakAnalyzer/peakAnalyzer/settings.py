@@ -67,6 +67,7 @@ STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 # Additional locations of static files
 STATICFILES_DIRS = (
+    
   # Put strings here, like "/home/html/static" or "C:/www/django/static".
   # Always use forward slashes, even on Windows.
   # Don't forget to use absolute paths, not relative paths.
@@ -102,7 +103,7 @@ ROOT_URLCONF = 'peakAnalyzer.urls'
 
 
 TEMPLATE_DIRS = (
-    os.path.join(ROOT_DIR, 'templates').replace('\\','/'),
+    os.path.join(ROOT_DIR, '../templates').replace('\\','/'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
