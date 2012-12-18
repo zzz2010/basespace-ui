@@ -25,7 +25,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 {% for project in user.project_set.all %}
 	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
 	{% for appresult in project.appresult_set.all %}
-		<li><a a class="accordion-toggle" data-toggle="collapse" data-target="#demo{{ appresult.AppResultId }}" href="#" onclick="load_files(#demo{{ appresult.AppResultId }})" ><i class="icon-list"></i>{{ appresult.Name }}</a></li>
+		<li><a a class="accordion-toggle" data-toggle="collapse" data-target="#demo{{ appresult.AppResultId }}" href="#" onclick=load_files("#demo{{ appresult.AppResultId }}") ><i class="icon-list"></i>{{ appresult.Name }}</a></li>
 		 <div id="demo{{ appresult.AppResultId }}" class="collapse" > </div>
 	{% endfor %}
         <hr>
