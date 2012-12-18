@@ -1,4 +1,21 @@
 {% extends 'common/base.html' %} {% block header %} {% endblock %} {% block content %}
+
+<script type="text/javascript">
+// Load and display the list of file
+function load_files(trigger) {
+	$.ajax({   
+        type: "GET",
+        url: "http://biogpu.ddns.comp.nus.edu.sg/~chipseq/test.py",       
+        dataType:'json',   
+        success: function(data, textStatus){
+        	if(data.length > 0) {
+        		$(trigger).html(data[0].text);
+        	}
+		}
+	})
+}
+</script>
+
 <div class="span3">
 <li class="nav-header"><a href="#"><i
 class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
@@ -9,7 +26,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
 	{% for appresult in project.appresult_set.all %}
 		<li><a a class="accordion-toggle" data-toggle="collapse" data-target="#demo{{ appresult.AppResultId }}" href="#"><i class="icon-list"></i>{{ appresult.Name }}</a></li>
-		 <div id="demo{{ appresult.AppResultId }}" class="collapse"> Anim pariatur cliche reprehenderit</div>
+		 <div id="demo{{ appresult.AppResultId }}" class="collapse" onshow="load_files(#demo{{ appresult.AppResultId }})"> </div>
 	{% endfor %}
         <hr>
 	{% for sample in project.sample_set.all %}
