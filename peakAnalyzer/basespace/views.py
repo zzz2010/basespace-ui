@@ -27,7 +27,49 @@ def createSession(request):
     session=basespace.models.Session()
     session.init(myAPI)
     session.save()
-    return redirect('basespace.views.listFiles',session_id=session.id)
+    return redirect('basespace.views.listFolders',session_id=session.id)
+
+def listFolders(request,session_id):
+    outstr=""
+    myProjects=list()
+    try:
+        session=basespace.models.Session.objects.get(pk=session_id)
+        myAPI=session.getBSapi()
+        appsession=myAPI.getAppSessionById(str(session.SessionId))
+        prjstr=appsession.References[0].Href
+        if "project" in prjstr:
+            trigger_project=myAPI.getProjectById(prjstr.replace(basespace.settings.version+"/projects/",""))
+            myProjects.append(trigger_project)
+    except basespace.models.Session.DoesNotExist:
+        raise Http404
+    
+    user        = myAPI.getUserById('current')
+    if len(User.objects.filter(UserId=user.Id))==0:
+        myuser=basespace.models.User(UserId=user.Id,Email=user.Email,Name=user.Name)
+        myuser.save()
+    else:
+        myuser=User.objects.filter(UserId=user.Id)[0]
+    if len(myProjects)==0:
+        myProjects   = myAPI.getProjectByUser('current')
+    for singleProject in myProjects:
+        outstr+="<H>"+singleProject.Name+"</H>"
+        if len(Project.objects.filter(ProjectId=singleProject.Id))==0:
+            myproject=myuser.project_set.create(ProjectId=singleProject.Id,Name=singleProject.Name)
+        else:
+            myproject=Project.objects.filter(ProjectId=singleProject.Id)[0]    
+        appResults=singleProject.getAppResults(myAPI)
+        for ar in appResults:
+            my_ar=AppResult.objects.filter(AppResultId=ar.Id)
+            if len(my_ar)==0:
+                myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name)
+
+        samples = singleProject.getSamples(myAPI)
+        for sa in samples:
+            my_sa=Sample.objects.filter(SampleId=sa.Id)
+            if len(my_sa)==0:
+                myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name)
+            
+    return render_to_response('basespace/demo.html', {'user': myuser,'projects_list':myProjects})
 
 def listFiles(request,session_id):
     outstr=""
