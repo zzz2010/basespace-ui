@@ -49,7 +49,7 @@
 				<a class="btn btn-navbar" data-toggle="collapse"
 					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span> </a> <a
-					class="brand" href="/home">Personalized Genomics Solutions</a>
+					class="brand" href="/home">PeakAnalyzer</a>
 				<div class="nav-collapse">
 
 					<form class="navbar-search pull-left" action="">
@@ -78,56 +78,7 @@
 	<!-- /navbar -->
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span2 well well-small">
-				<ul class="nav nav-list">
-					<li class="active"><a href="/home/"><i
-							class="icon-home icon-white"></i> Home</a>
-					</li>
-
-					<li class="nav-header"><i class="icon-user"></i>Subject</li>
-					<li id="sub_list"><a href="/subject/list?menu=sub_list"><i class="icon-list"></i>
-							Subject List</a>
-					</li>
-					<li id="sub_sub"><a href="/subject/submit?menu=sub_sub"><i class="icon-plus"></i>
-							Submit Subject</a>
-					</li>
-					<li class="divider"></li>
-
-					<li class="nav-header"><i class="icon-book"></i>Library</li>
-					<li id="lib_list" class=""><a href="/library/list?menu=lib_list"><i class="icon-list"></i>
-							Library List</a>
-					</li>
-					<li id="lib_sub"><a href="/library/submit?menu=lib_sub"><i class="icon-plus"></i>
-							Submit Library</a>
-					</li>
-					<li id="lib_csv"><a href="/library/csv?menu=lib_csv"><i class="icon-circle-arrow-up"></i>
-							Bulk Import</a>
-					</li>
-					<li class="divider"></li>
-					
-					<li class="nav-header"><i class="icon-tasks"></i>Run Requests</li>
-					<li id="req_list"><a href="/request/list?menu=req_list"><i class="icon-list"></i>
-							Your Requests</a>
-					</li>
-					<li id="seq_sub"><a href="/request/submit?menu=seq_sub"><i class="icon-plus"></i>
-							Submit Request</a>
-					</li>
-					<li class="divider"></li>
-					
-					{% if user.is_superuser %}
-					<li class="nav-header"><i class="icon-tasks"></i>Admin</li>
-					<li id="admin_req_list"><a href="/request/list?menu=admin_req_list"><i class="icon-list"></i>
-							Requests</a>
-					</li>
-					<li class="divider"></li>
-					{% endif %}
-					
-
-					<li><a href="#"><i class="icon-wrench"></i> Settings</a>
-					</li>
-				</ul>
-			</div>
-			<!-- /sidebar -->
+			
 			<div class="span10 ">{% block content %} {% endblock %}</div>
 		</div>
 	</div>

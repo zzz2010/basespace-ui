@@ -4,13 +4,13 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
 {% for project in user.project_set.all %}
-	<li class="nav-header">{{ project.Name }}</li>
+	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
 	{% for appresult in project.appresult_set.all %}
-		<li><a href="#">{{ appresult.Name }}</a></li>
+		<li><a href="#"><i class="icon-list"></i>{{ appresult.Name }}</a></li>
 	{% endfor %}
         <hr>
 	{% for sample in project.sample_set.all %}
-                <li><a href="#">{{ sample.Name }}</a></li>
+                <li><a href="#"><i class="icon-plus"></i>{{ sample.Name }}</a></li>
         {% endfor %}
 {% endfor %}
             </ul>
