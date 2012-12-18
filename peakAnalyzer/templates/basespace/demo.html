@@ -1,6 +1,8 @@
 {% extends 'common/base.html' %} {% block header %} {% endblock %} {% block content %}
 <div class="span3">
-<legend>{{ user.Name }}</legend>
+<li class="active"><a href="#"><i
+							class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
+</li>
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
 {% for project in user.project_set.all %}
