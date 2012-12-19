@@ -24,10 +24,20 @@ function load_safiles(trigger) {
 		}
 	})
 }
+
+
+function add_list(trigger_obj)
+{
+var name=trigger_obj.innerHTML
+var html="<li>"+name+"</li>"
+     $("#datalists").append(html);
+});
+
+}
 </script>
 
 
-
+<div class="row-fluid">
 
 <div class="span3">
 <li class="nav-header"><a href="#"><i
@@ -51,5 +61,22 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-   
+        
+ <div class="span9">
+          <div class="hero-unit">
+          <form class="form-horizontal">
+            <div class="control-group">
+    <label class="control-label" for="inputTitle">Email</label>
+    <div class="controls">
+      <input type="text" id="inputTitle" placeholder="Job Title">
+      <ul id=datalists>
+      
+      </ul>
+      
+	    </div>
+	  </div>
+          </form>
+          </div><!--/hero-->
+  </div><!--/span-->
+ </div><!--/row-->
 {% endblock %}
