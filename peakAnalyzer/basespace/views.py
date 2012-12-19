@@ -8,7 +8,7 @@ from BaseSpacePy.api.BaseSpaceAPI import BaseSpaceAPI
 from django.http import Http404
 from django.shortcuts import redirect
 from basespace.models import Project,User,AppResult,Sample,File
-import jobserver.models.Job
+import jobserver.models
 import basespace.settings
 import peakAnalyzer.settings
 
