@@ -12,7 +12,7 @@ import basespace.settings
 
 
 
-FileTypes={'Extensions':'bam,vcf,fastq,fastq.gz'}
+FileTypes={'Extensions':'bam,vcf,fastq,gz'}
 # Create your views here.
 def createSession(request):
     if 'appsessionuri' not in request.GET:
