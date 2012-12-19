@@ -9,3 +9,5 @@ class Job(models.Model):
     sampleFiles=models.TextField();
     controlFiles=models.TextField();
     jobtitle=models.CharField(max_length=200)
+    def __unicode__(self):
+                return self.jobtitle
