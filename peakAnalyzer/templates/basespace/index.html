@@ -36,10 +36,11 @@ var html="<label class='checkbox'><input type='checkbox' value='' id=cb__"+fid+"
 
 function submit_job()
 {
+//$("#form_jobdata").serialize()
 		$.ajax({   
         type: "POST",
         url: "/peakAnalyzer/basespace/{{session_id}}/submitJob", 
-        data: $("#form_jobdata").serialize(),      
+        data: "jobtitle=test_me",      
         dataType:'text',   
         success: function(data, textStatus){
         		window.alert(data);
