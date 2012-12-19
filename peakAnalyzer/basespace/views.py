@@ -197,7 +197,7 @@ def submitJob(request,session_id):
             controlfiles+=","
         controlfiles+=outf
     myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles)
-    return HttpResponse(simplejson.dumps(myjob), mimetype="application/json");
+    return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
 def demo(request,user_id):
     u=p = get_object_or_404(User, pk=user_id)
