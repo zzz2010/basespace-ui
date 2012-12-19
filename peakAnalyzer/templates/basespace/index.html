@@ -29,7 +29,7 @@ function load_safiles(trigger) {
 function add_list(trigger_obj)
 {
 var name=trigger_obj.innerHTML
-var html="<li>"+name+"</li>"
+var html="<label class='checkbox'><input type='checkbox' value=''>"+name+"</label>";
      $("#datalists").append(html);
 }
 
@@ -63,7 +63,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
         </div><!--/span-->
         
  <div class="span9">
-          <div class="hero-unit">
+         
           <form class="form-horizontal">
             <div class="control-group">
     <label class="control-label" for="inputTitle">Job Title</label>
@@ -76,7 +76,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	    </div>
 	  </div>
           </form>
-          </div><!--/hero-->
+          
   </div><!--/span-->
  </div><!--/row-->
 {% endblock %}
