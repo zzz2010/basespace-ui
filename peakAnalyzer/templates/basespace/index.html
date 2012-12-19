@@ -38,8 +38,8 @@ function submit_job()
 {
 		$.ajax({   
         type: "GET",
-        url: "/peakAnalyzer/basespace/{{session_id}}/"submitJob", 
-        data:$("#form_jobdata").serialize(),      
+        url: "/peakAnalyzer/basespace/{{session_id}}/submitJob", 
+        data: $("#form_jobdata").serialize(),      
         dataType:'text',   
         success: function(data, textStatus){
         		window.alert(data);
