@@ -9,6 +9,7 @@ from django.http import Http404
 from django.shortcuts import redirect
 from basespace.models import Project,User,AppResult,Sample,File
 import jobserver.models
+from django.utils import timezone
 import basespace.settings
 import peakAnalyzer.settings
 
@@ -196,7 +197,7 @@ def submitJob(request,session_id):
         if controlfiles!="":
             controlfiles+=","
         controlfiles+=outf
-    myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles)
+    myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
 def demo(request,user_id):
