@@ -37,7 +37,7 @@ var html="<label class='checkbox'><input type='checkbox' value='' id=cb__"+fid+"
 function submit_job()
 {
 		$.ajax({   
-        type: "GET",
+        type: "POST",
         url: "/peakAnalyzer/basespace/{{session_id}}/submitJob", 
         data: $("#form_jobdata").serialize(),      
         dataType:'text',   
