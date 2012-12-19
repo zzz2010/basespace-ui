@@ -8,8 +8,9 @@ from BaseSpacePy.api.BaseSpaceAPI import BaseSpaceAPI
 from django.http import Http404
 from django.shortcuts import redirect
 from basespace.models import Project,User,AppResult,Sample,File
+import jobserver.models.Job
 import basespace.settings
-
+import peakAnalyzer.settings
 
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz'}
@@ -149,9 +150,58 @@ def listFiles(request,session_id):
             
     return HttpResponse(outstr)
 
+
+def submitJob(request,session_id):
+    try:
+        session=basespace.models.Session.objects.get(pk=session_id)
+        myAPI=session.getBSapi()
+    except basespace.models.Session.DoesNotExist:
+        raise Http404
+    samplefids=list()
+    controlfids=list()
+    cell_line=""
+    ref_genome=""
+    jobtitle=""
+    for postid,postv in request.POST:
+        if "cb__" in postid:
+            fid=postid.split("__")[1]
+            if postv=="checked":
+                controlfids.append(fid)
+            else:
+                samplefids.append(fid)
+        elif "title" in postid:
+            jobtitle=postv
+        elif "genome" in postid:
+            ref_genome=postv
+    user        = myAPI.getUserById('current')
+    myuser=User.objects.filter(UserId=user.Id)[0]
+    
+    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
+    samplefiles=""
+    controlfiles=""
+    for fid in samplefids:
+        f = myAPI.getFileById(fid)
+        outf=outdir+f.Name
+        f.downloadFile(myAPI,outdir)
+        if samplefiles!="":
+            samplefiles+=","
+        samplefiles+=outf
+
+    for fid in controlfids:
+        f = myAPI.getFileById(fid)
+        outf=outdir+f.Name
+        f.downloadFile(myAPI,outdir)
+        if controlfiles!="":
+            controlfiles+=","
+        controlfiles+=outf
+    myjob=myuser.project_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles)
+    return HttpResponse(simplejson.dumps(myjob), mimetype="application/json");
+
 def demo(request,user_id):
     u=p = get_object_or_404(User, pk=user_id)
     return render_to_response('basespace/demo.html', {'user': u})
+
+
     
 
 
