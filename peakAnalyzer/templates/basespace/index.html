@@ -34,9 +34,16 @@ var html="<label class='checkbox'><input type='checkbox' value='' id=cb__"+fid+"
      $("#datalists").append(html);
 }
 
+
+
+function test()
+{
+window.alert($("#form_jobdata").serialize());
+}
 function submit_job()
 {
 //$("#form_jobdata").serialize()
+
 		$.ajax({   
         type: "POST",
         url: "/peakAnalyzer/basespace/{{session_id}}/submitJob", 
@@ -91,7 +98,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	    </div>
 	  </div>
 	  
-	   <button class="btn btn-danger" type="button" onclick="submit_job()">Submit Job</button>
+	   <button class="btn btn-danger" type="button" onclick="test()">Submit Job</button>
           </form>
           
   </div><!--/span-->
