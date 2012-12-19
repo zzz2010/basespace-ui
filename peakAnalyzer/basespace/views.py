@@ -177,6 +177,8 @@ def submitJob(request,session_id):
     myuser=User.objects.filter(UserId=user.Id)[0]
     
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
     samplefiles=""
     controlfiles=""
     for fid in samplefids:
