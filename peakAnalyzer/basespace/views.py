@@ -196,7 +196,7 @@ def submitJob(request,session_id):
         if controlfiles!="":
             controlfiles+=","
         controlfiles+=outf
-    myjob=myuser.project_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles)
+    myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles)
     return HttpResponse(simplejson.dumps(myjob), mimetype="application/json");
 
 def demo(request,user_id):
