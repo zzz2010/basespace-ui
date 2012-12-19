@@ -29,8 +29,22 @@ function load_safiles(trigger) {
 function add_list(trigger_obj)
 {
 var name=trigger_obj.innerHTML
-var html="<label class='checkbox'><input type='checkbox' value=''>"+name+"</label>";
+var fid=trigger_obj.id.split("__")[1]
+var html="<label class='checkbox'><input type='checkbox' value='' id=cb__"+fid+">"+name+"</label>";
      $("#datalists").append(html);
+}
+
+function submit_job()
+{
+		$.ajax({   
+        type: "GET",
+        url: "/peakAnalyzer/basespace/{{session_id}}/"submitJob", 
+        data:$("#form_jobdata").serialize(),      
+        dataType:'text',   
+        success: function(data, textStatus){
+        		window.alert(data);
+		}
+	})
 }
 
 
@@ -64,7 +78,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
         
  <div class="span9">
          
-          <form class="form-horizontal">
+          <form class="form-horizontal" id=form_jobdata >
             <div class="control-group">
     <label class="control-label" for="inputTitle">Job Title</label>
     <div class="controls">
@@ -75,6 +89,8 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
       
 	    </div>
 	  </div>
+	  
+	   <button class="btn btn-danger" type="button" onclick="submit_job()">Submit Job</button>
           </form>
           
   </div><!--/span-->
