@@ -48,6 +48,8 @@ def async(decorated):
 
     return send
 
+async.pool = Pool(4)
+
 ##download files routine
 def downloadFiles(fidlist,api,outdir):
     outfiles=""
