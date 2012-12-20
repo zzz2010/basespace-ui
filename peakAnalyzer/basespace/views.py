@@ -13,42 +13,13 @@ from django.utils import timezone
 import basespace.settings
 import peakAnalyzer.settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from inspect import getmodule
-from multiprocessing import Pool
+
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz'}
 
 
 
 
-def async(decorated):
-    r'''Wraps a top-level function around an asynchronous dispatcher.
-
-        when the decorated function is called, a task is submitted to a
-        process pool, and a future object is returned, providing access to an
-        eventual return value.
-
-        The future object has a blocking get() method to access the task
-        result: it will return immediately if the job is already done, or block
-        until it completes.
-
-        This decorator won't work on methods, due to limitations in Python's
-        pickling machinery (in principle methods could be made pickleable, but
-        good luck on that).
-    '''
-    # Keeps the original function visible from the module global namespace,
-    # under a name consistent to its __name__ attribute. This is necessary for
-    # the multiprocessing pickling machinery to work properly.
-    module = getmodule(decorated)
-    decorated.__name__ += '_original'
-    setattr(module, decorated.__name__, decorated)
-
-    def send(*args, **opts):
-        return async.pool.apply_async(decorated, args, opts)
-
-    return send
-
-async.pool = Pool(4)
 
 ##download files routine
 def downloadFiles(fidlist,api,outdir):
