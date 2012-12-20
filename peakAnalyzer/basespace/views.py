@@ -96,9 +96,9 @@ def listFolders(request,session_id):
         samples = singleProject.getSamples(myAPI)
         for sa in samples:
             my_sa=Sample.objects.filter(SampleId=sa.Id)
-            if hasattr(sa, 'HrefGenome'):
-                genome_id=sa.HrefGenome.replace(basespace.settings.version+"/genomes/","")
-                genome_ids.add(genome_id)
+            #if hasattr(sa, 'HrefGenome'):
+            genome_id=sa.HrefGenome.replace(basespace.settings.version+"/genomes/","")
+            genome_ids.add(genome_id)
             if len(my_sa)==0:
                 myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name)
         
