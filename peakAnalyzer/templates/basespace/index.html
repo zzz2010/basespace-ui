@@ -33,7 +33,7 @@ var name=trigger_obj.innerHTML
 var fid=trigger_obj.id.split("__")[1]
 var html="<tr><td><input type='checkbox' value='' id=cb__"+fid+" name=cb__"+fid+" > </td><td>"+name+"</td></tr>";
      $("#datalists").append(html);
-     $("#inputGenome").attr("placeholder",trigger_obj.genome);
+     $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
 }
 
 
