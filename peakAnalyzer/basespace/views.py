@@ -14,9 +14,10 @@ import basespace.settings
 import peakAnalyzer.settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
+from multiprocessing import Pool
+
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz'}
-
 
 
 
@@ -30,9 +31,9 @@ def downloadFiles(fidlist,api,outdir):
         if outfiles!="":
             outfiles+=","
         outfiles+=outdir+f.Name
+    return outfiles
             
     
-@async
 def downloadSCFiles(sfidlist,cfidlist,api,outdir,jobid):
     myjob=Job.objects.get(pk=jobid)
     sfiles=downloadFiles(sfidlist,api,outdir)
@@ -42,7 +43,10 @@ def downloadSCFiles(sfidlist,cfidlist,api,outdir,jobid):
     myjob.status="Downloaded"
     myjob.save()#update database
     
-    
+ 
+def downloadSCFiles_async(sfidlist,cfidlist,api,outdir,jobid):
+    pool = Pool(processes=1)  
+    pool.apply_async(downloadSCFiles, [sfidlist,cfidlist,api,outdir,jobid], None)
 # Create your views here.
 def createSession(request):
     if 'appsessionuri' not in request.GET:
