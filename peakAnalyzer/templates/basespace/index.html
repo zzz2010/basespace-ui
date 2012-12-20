@@ -38,7 +38,7 @@ var html="<tr><td><input type='checkbox' value='' id=cb__"+fid+" name=cb__"+fid+
 
 function test()
 {
- var data = new FormData();
+ var postdata = "";
  var ctrl_ids="";
  var sample_ids="";
  $("*[name*='cb__']").each(function(i) {
@@ -52,10 +52,11 @@ function test()
                         sample_ids += line + ',';
                 }
         });
- data.append( 'ctrl_ids', ctrl_ids );
-  data.append( 'sample_ids', ctrl_ids );
-    data.append( 'inputTitle', $('#inputTitle').val() );
-window.alert(JSON.stringify(data));
+postdata+='ctrl_ids='+ctrl_ids;
+postdata+='&sample_ids='+sample_ids;
+postdata+='&inputTitle='+$('#inputTitle').val() ;
+    
+window.alert(postdata);
 
 }
 function submit_job()
