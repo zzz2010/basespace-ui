@@ -8,14 +8,68 @@ from BaseSpacePy.api.BaseSpaceAPI import BaseSpaceAPI
 from django.http import Http404
 from django.shortcuts import redirect
 from basespace.models import Project,User,AppResult,Sample,File
-import jobserver.models
+from jobserver.models import Job
 from django.utils import timezone
 import basespace.settings
 import peakAnalyzer.settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-
+from inspect import getmodule
+from multiprocessing import Pool
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz'}
+
+
+
+
+def async(decorated):
+    r'''Wraps a top-level function around an asynchronous dispatcher.
+
+        when the decorated function is called, a task is submitted to a
+        process pool, and a future object is returned, providing access to an
+        eventual return value.
+
+        The future object has a blocking get() method to access the task
+        result: it will return immediately if the job is already done, or block
+        until it completes.
+
+        This decorator won't work on methods, due to limitations in Python's
+        pickling machinery (in principle methods could be made pickleable, but
+        good luck on that).
+    '''
+    # Keeps the original function visible from the module global namespace,
+    # under a name consistent to its __name__ attribute. This is necessary for
+    # the multiprocessing pickling machinery to work properly.
+    module = getmodule(decorated)
+    decorated.__name__ += '_original'
+    setattr(module, decorated.__name__, decorated)
+
+    def send(*args, **opts):
+        return async.pool.apply_async(decorated, args, opts)
+
+    return send
+
+##download files routine
+def downloadFiles(fidlist,api,outdir):
+    outfiles=""
+    for fid in fidlist:
+        f = api.getFileById(fid)
+        f.downloadFile(api,outdir)
+        if outfiles!="":
+            outfiles+=","
+        outfiles+=outdir+f.Name
+            
+    
+@async
+def downloadSCFiles(sfidlist,cfidlist,api,outdir,jobid):
+    myjob=Job.objects.get(pk=jobid)
+    sfiles=downloadFiles(sfidlist,api,outdir)
+    cfiles=downloadFiles(cfidlist,api,outdir)
+    myjob.sampleFiles=sfiles
+    myjob.controlFiles=cfiles
+    myjob.status="Downloaded"
+    myjob.save()#update database
+    
+    
 # Create your views here.
 def createSession(request):
     if 'appsessionuri' not in request.GET:
@@ -164,6 +218,12 @@ def listFiles(request,session_id):
             
     return HttpResponse(outstr)
 
+
+
+
+
+
+    
 @csrf_exempt 
 def submitJob(request,session_id):
     try:
@@ -195,28 +255,27 @@ def submitJob(request,session_id):
             cell_line=postv
     user        = myAPI.getUserById('current')
     myuser=User.objects.filter(UserId=user.Id)[0]
-    
+    sfidlist=list()
+    cfidlist=list()
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     samplefiles=""
     controlfiles=""
     for fid in samplefids:
-        f = myAPI.getFileById(fid)
-        outf=outdir+f.Name
-        f.downloadFile(myAPI,outdir)
+        sfidlist.append(fid)
         if samplefiles!="":
             samplefiles+=","
-        samplefiles+=outf
+        samplefiles+=fid
 
     for fid in controlfids:
-        f = myAPI.getFileById(fid)
-        outf=outdir+f.Name
-        f.downloadFile(myAPI,outdir)
+        cfidlist.append(fid)
         if controlfiles!="":
             controlfiles+=","
-        controlfiles+=outf
+        controlfiles+=fid
     myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
+    downloadSCFiles(sfidlist, cfidlist,myAPI, outdir, myjob.id)
+    
     return HttpResponse(simplejson.dumps(request.POST))
  #   return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 

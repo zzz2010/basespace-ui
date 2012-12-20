@@ -70,12 +70,12 @@ function submit_job()
  $("*[name*='cb__']").each(function(i) {
                 if ($(this).is(":checked")) {
                         line = $(this).attr("name");
-                        ctrl_ids += line + ',';
+                        ctrl_ids += line.split("__")[1] + ',';
                 }
                 else
                 {
                 	 line = $(this).attr("name");
-                        sample_ids += line + ',';
+                        sample_ids += line.split("__")[1] + ',';
                 }
         });
 postdata+='ctrl_ids='+ctrl_ids;
