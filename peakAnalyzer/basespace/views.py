@@ -176,7 +176,7 @@ def submitJob(request,session_id):
     cell_line=""
     ref_genome=""
     jobtitle=""
-    for postid,postv in request.POST:
+    for postid,postv in request.POST.iteritems():
         if "ctrl" in postid:
             for fid in postv.split(','):
                 if fid=="":
