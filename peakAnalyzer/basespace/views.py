@@ -12,6 +12,7 @@ import jobserver.models
 from django.utils import timezone
 import basespace.settings
 import peakAnalyzer.settings
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz'}
@@ -163,7 +164,7 @@ def listFiles(request,session_id):
             
     return HttpResponse(outstr)
 
-
+@csrf_exempt 
 def submitJob(request,session_id):
     try:
         session=basespace.models.Session.objects.get(pk=session_id)
