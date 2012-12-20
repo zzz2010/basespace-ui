@@ -106,7 +106,7 @@ def listFolders(request,session_id):
     for gid in genome_ids:
         genome_names.append(myAPI.getGenomeById(gid).Build) 
         
-    return render_to_response('basespace/index.html', {'genome_names':"|".join(genome_names),'user': myuser,'projects_list':projects_list,'session_id':str(session_id)})
+    return render_to_response('basespace/index.html', {'genome_names':"|".join(genome_ids),'user': myuser,'projects_list':projects_list,'session_id':str(session_id)})
 
 def listFiles(request,session_id):
     outstr=""
