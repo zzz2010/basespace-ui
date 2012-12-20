@@ -87,16 +87,18 @@ def listFolders(request,session_id):
         appResults=singleProject.getAppResults(myAPI)
         for ar in appResults:
             my_ar=AppResult.objects.filter(AppResultId=ar.Id)
-            genome_id=ar.HrefGenome.replace(basespace.settings.version+"/genomes/","")
-            genome_ids.add(genome_id)
+            if hasattr(ar, 'HrefGenome'):
+                genome_id=ar.HrefGenome.replace(basespace.settings.version+"/genomes/","")
+                genome_ids.add(genome_id)
             if len(my_ar)==0:
                 myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name)
 
         samples = singleProject.getSamples(myAPI)
         for sa in samples:
             my_sa=Sample.objects.filter(SampleId=sa.Id)
-            genome_id=sa.HrefGenome.replace(basespace.settings.version+"/genomes/","")
-            genome_ids.add(genome_id)
+            if hasattr(sa, 'HrefGenome'):
+                genome_id=sa.HrefGenome.replace(basespace.settings.version+"/genomes/","")
+                genome_ids.add(genome_id)
             if len(my_sa)==0:
                 myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name)
         
@@ -104,7 +106,7 @@ def listFolders(request,session_id):
     for gid in genome_ids:
         genome_names.append(myAPI.getGenomeById(gid).Build) 
         
-    return render_to_response('basespace/index.html', {'genome_names':"/".join(genome_names),'user': myuser,'projects_list':projects_list,'session_id':str(session_id)})
+    return render_to_response('basespace/index.html', {'genome_names':"|".join(genome_names),'user': myuser,'projects_list':projects_list,'session_id':str(session_id)})
 
 def listFiles(request,session_id):
     outstr=""
