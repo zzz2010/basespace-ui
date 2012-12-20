@@ -30,7 +30,7 @@ function add_list(trigger_obj)
 {
 var name=trigger_obj.innerHTML
 var fid=trigger_obj.id.split("__")[1]
-var html="<label class='checkbox'><input type='checkbox' value='' id=cb__"+fid+" name=cb__"+fid+" >"+name+"</label>";
+var html="<tr><td><input type='checkbox' value='' id=cb__"+fid+" name=cb__"+fid+" > </td><td>"+name+"</td></tr>";
      $("#datalists").append(html);
 }
 
@@ -46,7 +46,7 @@ function submit_job()
 		$.ajax({   
         type: "POST",
         url: "/peakAnalyzer/basespace/{{session_id}}/submitJob", 
-        data: "jobtitle=test_me",      
+        data: $('#form_jobdata').serialize(),      
         dataType:'text',   
         success: function(data, textStatus){
         		window.alert(data);
@@ -86,13 +86,13 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
  <div class="span9">
          
           <form class="form-horizontal" id="form_jobdata" >
-            <div class="control-group">
-    <label class="control-label" for="inputTitle">Job Title</label>
-    <div class="controls">
-      <input type="text" id="inputTitle" name="inputTitle" placeholder="Job Title">
-      <ul id=datalists>
-      
-      </ul>
+          <table  class="table table-bordered" id=datalists>
+          <tr><td> <label class="control-label" for="inputTitle">Job Title</label>  <input type="text" id="inputTitle" name="inputTitle" placeholder="Job Title"></td></tr>
+         <tr><td>IsControl</td><td>File Name</td></tr>
+          
+          </table>
+         
+
       
 	    </div>
 	  </div>
