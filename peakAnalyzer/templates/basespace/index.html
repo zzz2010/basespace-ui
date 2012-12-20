@@ -30,7 +30,7 @@ function add_list(trigger_obj)
 {
 var name=trigger_obj.innerHTML
 var fid=trigger_obj.id.split("__")[1]
-var html="<label class='checkbox'><input type='checkbox' value='' id=cb__"+fid+">"+name+"</label>";
+var html="<label class='checkbox'><input type='checkbox' value='' id=cb__"+fid+" name=cb__"+fid+" >"+name+"</label>";
      $("#datalists").append(html);
 }
 
@@ -42,7 +42,6 @@ window.alert($('#form_jobdata').serialize());
 }
 function submit_job()
 {
-//$("#form_jobdata").serialize()
 
 		$.ajax({   
         type: "POST",
