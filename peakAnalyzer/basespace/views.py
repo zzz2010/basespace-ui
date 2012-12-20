@@ -176,16 +176,22 @@ def submitJob(request,session_id):
     ref_genome=""
     jobtitle=""
     for postid,postv in request.POST:
-        if "cb__" in postid:
-            fid=postid.split("__")[1]
-            if postv=="checked":
+        if "ctrl" in postid:
+            for fid in postv.split(','):
+                if fid=="":
+                    continue
                 controlfids.append(fid)
-            else:
+        elif "sample" in postid:
+            for fid in postv.split(','):
+                if fid=="":
+                    continue
                 samplefids.append(fid)
-        elif "title" in postid:
+        elif "Title" in postid:
             jobtitle=postv
-        elif "genome" in postid:
+        elif "Genome" in postid:
             ref_genome=postv
+        elif "Cell" in postid:
+            cell_line=postv
     user        = myAPI.getUserById('current')
     myuser=User.objects.filter(UserId=user.Id)[0]
     

@@ -57,17 +57,38 @@ function test()
 postdata+='ctrl_ids='+ctrl_ids;
 postdata+='&sample_ids='+sample_ids;
 postdata+='&inputTitle='+$('#inputTitle').val() ;
-    
+postdata+='&inputGenome='+$('#inputGenome').val() ;    
 window.alert(postdata);
 
 }
 function submit_job()
 {
 
+ var postdata = "";
+ var ctrl_ids="";
+ var sample_ids="";
+ $("*[name*='cb__']").each(function(i) {
+                if ($(this).is(":checked")) {
+                        line = $(this).attr("name");
+                        ctrl_ids += line + ',';
+                }
+                else
+                {
+                	 line = $(this).attr("name");
+                        sample_ids += line + ',';
+                }
+        });
+postdata+='ctrl_ids='+ctrl_ids;
+postdata+='&sample_ids='+sample_ids;
+postdata+='&inputTitle='+$('#inputTitle').val() ;
+postdata+='&inputGenome='+$('#inputGenome').val() ;    
+postdata+='&inputCell='+$('#inputCell').val() ;   
+
+
 		$.ajax({   
         type: "POST",
         url: "/peakAnalyzer/basespace/{{session_id}}/submitJob", 
-        data: $('#form_jobdata').serialize(),      
+        data: postdata,      
         dataType:'text',   
         success: function(data, textStatus){
         		window.alert(data);
@@ -110,6 +131,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
           <table  class="table table-bordered" id=datalists>
           <tr><td> <label class="control-label" for="inputTitle">Job Title</label> </td> <td><input type="text" id="inputTitle" name="inputTitle" placeholder="Job Title"></td></tr>
          <tr><td> <label class="control-label" for="inputGenome">Reference Genome</label> </td> <td><input type="text" id="inputGenome" name="inputGenome" placeholder="{{genome_names}}"></td></tr>
+         <tr><td> <label class="control-label" for="inputCell">Cell Type</label> </td> <td><input type="text" id="inputCell" name="inputCell" placeholder="cell"></td></tr>
          
          <tr><td>IsControl</td><td>File Name</td></tr>
           
