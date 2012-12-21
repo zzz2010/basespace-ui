@@ -1,4 +1,7 @@
 import os
+import djcelery
+
+djcelery.setup_loader()
 # Django settings for peakAnalyzer project.
 
 DEBUG = True
@@ -121,4 +124,5 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'basespace',
     'jobserver',
+    'djcelery',
 )

@@ -38,8 +38,10 @@ def downloadFiles(fidlist,api,outdir):
     return outfiles
             
     
-def downloadSCFiles(sfidlist,cfidlist,api,outdir,jobid):
+def downloadSCFiles(sfidlist,cfidlist,session_id,outdir,jobid):
     myjob=Job.objects.get(pk=jobid)
+    session=basespace.models.Session.objects.get(pk=session_id)
+    api=session.getBSapi()
     sfiles=downloadFiles(sfidlist,api,outdir)
     cfiles=downloadFiles(cfidlist,api,outdir)
     myjob.sampleFiles=sfiles
