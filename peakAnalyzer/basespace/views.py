@@ -20,17 +20,20 @@ from multiprocessing import Pool
 FileTypes={'Extensions':'bam,vcf,fastq,gz'}
 
 
-
-
+def downloadFile(f,api,outdir):
+    f.downloadFile(api,outdir)
 ##download files routine
 def downloadFiles(fidlist,api,outdir):
     outfiles=""
+    pool = Pool(processes=10)
     for fid in fidlist:
         f = api.getFileById(fid)
-        f.downloadFile(api,outdir)
+        #f.downloadFile(api,outdir)
+        pool.apply_async(downloadFile,args=(f,api,outdir))
         if outfiles!="":
             outfiles+=","
         outfiles+=outdir+f.Name
+    pool.join()
     return outfiles
             
     
@@ -40,13 +43,13 @@ def downloadSCFiles(sfidlist,cfidlist,api,outdir,jobid):
     cfiles=downloadFiles(cfidlist,api,outdir)
     myjob.sampleFiles=sfiles
     myjob.controlFiles=cfiles
-    myjob.status="Downloaded"
+    myjob.status="Data_Ready"
     myjob.save()#update database
     
  
 def downloadSCFiles_async(sfidlist,cfidlist,api,outdir,jobid):
     pool = Pool(processes=1)  
-    pool.apply_async(downloadSCFiles, [sfidlist,cfidlist,api,outdir,jobid], None)
+    pool.apply_async(downloadSCFiles, (sfidlist,cfidlist,api,outdir,jobid), None)
 # Create your views here.
 def createSession(request):
     if 'appsessionuri' not in request.GET:
@@ -253,8 +256,8 @@ def submitJob(request,session_id):
     myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
     downloadSCFiles_async(sfidlist, cfidlist,myAPI, outdir, myjob.id)
     
-    return HttpResponse(simplejson.dumps(request.POST))
- #   return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
+#    return HttpResponse(simplejson.dumps(request.POST))
+    return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
 def demo(request,user_id):
     u=p = get_object_or_404(User, pk=user_id)
