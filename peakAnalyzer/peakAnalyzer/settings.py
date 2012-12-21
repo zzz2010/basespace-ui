@@ -3,7 +3,7 @@ import djcelery
 
 #celery setting
 djcelery.setup_loader()
-BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+BROKER_URL = 'amqp://zzz:zzz@localhost:5672/'
 
 # Django settings for peakAnalyzer project.
 
