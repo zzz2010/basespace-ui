@@ -30,6 +30,10 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
         f = api.getFileById(fid)
         outfile=outdir+f.Name
         c_outfiles.append(outfile)
+        
+@task()
+def add(x, y):
+    return x + y
 
 @task
 def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid):
