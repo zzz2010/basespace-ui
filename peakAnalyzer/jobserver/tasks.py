@@ -6,6 +6,7 @@ Created on 2012-12-21
 from celery import task
 from basespace.models import Project,User,AppResult,Sample,File,Session
 import os
+from jobserver.models import Job
 from celery import chord,group,chain
 
 @task
@@ -20,17 +21,28 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
     api=session.getBSapi()
     s_outfiles=list()
     c_outfiles=list()
-    downloadGroup=group()
+    downloadtaks_list=list()
     for fid in sfidlist:
         f = api.getFileById(fid)
         outfile=outdir+f.Name
         s_outfiles.append(outfile)
+        downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
        # downloadGroup.
     for fid in sfidlist:
         f = api.getFileById(fid)
         outfile=outdir+f.Name
         c_outfiles.append(outfile)
-        
+        downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
+    #do download parallel
+    downG=group(downloadtaks_list)()
+    downG.get(timeout=1000*60*60)
+    #do the update database
+    myjob=Job.objects.get(pk=jobid)
+    myjob.sampleFiles=s_outfiles
+    myjob.controlFiles=c_outfiles
+    myjob.status="Data_Ready"
+    
+      
 @task()
 def add(x, y):
     return x + y
@@ -38,7 +50,7 @@ def add(x, y):
 @task
 def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid):
     #download first
-    a=1
+    basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid)
     
     #peak calling
     

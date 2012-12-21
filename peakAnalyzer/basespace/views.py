@@ -13,7 +13,7 @@ from django.utils import timezone
 import basespace.settings
 import peakAnalyzer.settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-
+from jobserver.tasks import *
 from multiprocessing import Pool
 
 
@@ -257,8 +257,8 @@ def submitJob(request,session_id):
             controlfiles+=","
         controlfiles+=fid
     myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
-    downloadSCFiles(sfidlist, cfidlist,myAPI, outdir, myjob.id)
-    
+    #downloadSCFiles(sfidlist, cfidlist,myAPI, outdir, myjob.id)
+    basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,myjob.id)
 #    return HttpResponse(simplejson.dumps(request.POST))
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
