@@ -238,27 +238,16 @@ def submitJob(request,session_id):
             cell_line=postv
     user        = myAPI.getUserById('current')
     myuser=User.objects.filter(UserId=user.Id)[0]
-    sfidlist=list()
-    cfidlist=list()
+
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     samplefiles=""
     controlfiles=""
-    for fid in samplefids:
-        sfidlist.append(fid)
-        if samplefiles!="":
-            samplefiles+=","
-        samplefiles+=fid
 
-    for fid in controlfids:
-        cfidlist.append(fid)
-        if controlfiles!="":
-            controlfiles+=","
-        controlfiles+=fid
     myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
     #downloadSCFiles(sfidlist, cfidlist,myAPI, outdir, myjob.id)
-    basespace_Download_PeakCalling_Processing.delay(sfidlist,cfidlist,session_id,outdir,myjob.id)
+    basespace_Download_PeakCalling_Processing.delay(samplefids,controlfids,session_id,outdir,myjob.id)
 #    return HttpResponse(simplejson.dumps(request.POST))
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
