@@ -87,7 +87,7 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 
 		$.ajax({   
         type: "POST",
-        url: "/peakAnalyzer/basespace/{{session_id}}/submitJob", 
+        url: "/peakAnalyzer/basespace/{{session_id}}/submitJob/", 
         data: postdata,      
         dataType:'text',   
         success: function(data, textStatus){
