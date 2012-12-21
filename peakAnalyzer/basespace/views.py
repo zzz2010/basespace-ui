@@ -33,6 +33,7 @@ def downloadFiles(fidlist,api,outdir):
         if outfiles!="":
             outfiles+=","
         outfiles+=outdir+f.Name
+    pool.close()
     pool.join()
     return outfiles
             
