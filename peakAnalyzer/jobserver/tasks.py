@@ -24,13 +24,13 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
     downloadtaks_list=list()
     for fid in sfidlist:
         f = api.getFileById(fid)
-        outfile=outdir+f.Name
+        outfile=outdir+str(fid)+"__"+f.Name
         s_outfiles.append(outfile)
         downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
        # downloadGroup.
-    for fid in sfidlist:
+    for fid in cfidlist:
         f = api.getFileById(fid)
-        outfile=outdir+f.Name
+        outfile=outdir+str(fid)+"__"+f.Name
         c_outfiles.append(outfile)
         downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
     #do download parallel
