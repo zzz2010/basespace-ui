@@ -22,16 +22,20 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
     s_outfiles=list()
     c_outfiles=list()
     downloadtaks_list=list()
+    logger = basespace_Download_PeakCalling_Processing.get_logger()
+    
     for fid in sfidlist:
         f = api.getFileById(fid)
         outfile=outdir+str(fid)+"__"+f.Name
         s_outfiles.append(outfile)
+        logger.info("Adding %s" % (outfile))
         downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
        # downloadGroup.
     for fid in cfidlist:
         f = api.getFileById(fid)
         outfile=outdir+str(fid)+"__"+f.Name
         c_outfiles.append(outfile)
+        logger.info("Adding %s" % (outfile))
         downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
     #do download parallel
     downG=group(downloadtaks_list)()
