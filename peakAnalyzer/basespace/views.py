@@ -14,45 +14,13 @@ import basespace.settings
 import peakAnalyzer.settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from jobserver.tasks import *
-from multiprocessing import Pool
+
 
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz'}
 
 
-def downloadFile(f,api,outdir):
-    f.downloadFile(api,outdir)
-##download files routine
-def downloadFiles(fidlist,api,outdir):
-    outfiles=""
-    pool = Pool(processes=10)
-    for fid in fidlist:
-        f = api.getFileById(fid)
-        #f.downloadFile(api,outdir)
-        pool.apply_async(downloadFile,args=(f,api,outdir))
-        if outfiles!="":
-            outfiles+=","
-        outfiles+=outdir+f.Name
-    pool.close()
-    pool.join()
-    return outfiles
-            
-    
-def downloadSCFiles(sfidlist,cfidlist,session_id,outdir,jobid):
-    myjob=Job.objects.get(pk=jobid)
-    session=basespace.models.Session.objects.get(pk=session_id)
-    api=session.getBSapi()
-    sfiles=downloadFiles(sfidlist,api,outdir)
-    cfiles=downloadFiles(cfidlist,api,outdir)
-    myjob.sampleFiles=sfiles
-    myjob.controlFiles=cfiles
-    myjob.status="Data_Ready"
-    myjob.save()#update database
-    
- 
-def downloadSCFiles_async(sfidlist,cfidlist,api,outdir,jobid):
-    pool = Pool(processes=1)  
-    pool.apply_async(downloadSCFiles, (sfidlist,cfidlist,api,outdir,jobid), None)
+
 # Create your views here.
 def createSession(request):
     if 'appsessionuri' not in request.GET:
@@ -247,7 +215,7 @@ def submitJob(request,session_id):
 
     myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
     #downloadSCFiles(sfidlist, cfidlist,myAPI, outdir, myjob.id)
-    basespace_Download_PeakCalling_Processing(samplefids,controlfids,session_id,outdir,myjob.id)
+    basespace_Download_PeakCalling_Processing.delay(samplefids,controlfids,session_id,outdir,myjob.id)
 #    return HttpResponse(simplejson.dumps(request.POST))
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
