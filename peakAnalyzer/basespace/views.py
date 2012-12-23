@@ -175,7 +175,7 @@ def listFiles(request,session_id):
 
 
     
-
+@csrf_exempt
 def submitJob(request,session_id):
     if session_id!="":
         return HttpResponse("{hello}", mimetype="application/json");
