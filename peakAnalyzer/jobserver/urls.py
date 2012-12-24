@@ -9,6 +9,6 @@ from django.conf.urls import patterns, include, url
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('basespace.views',
+urlpatterns = patterns('jobserver.views',
     url(r'^(?P<user_id>\d+)/listjob/$', 'listjob'),
 )
