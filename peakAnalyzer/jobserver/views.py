@@ -18,5 +18,12 @@ from jobserver.tasks import *
 # Create your views here.
 def listjob(request,user_id):
     u=get_object_or_404(User, pk=user_id)
-    return render_to_response('jobserver/joblist.html', {'jobs_list':u.job_set.all()})
+    css=dict()
+    css["Downloading"]=""
+    css["Data_Ready"]=""
+    css["PeakCalling"]="info"
+    css["Analyzing"]="warning"
+    css["Completed"]="success"
+    css["Error"]="error"
+    return render_to_response('jobserver/joblist.html', {'jobs_list':u.job_set.all(),'css':css})
    
