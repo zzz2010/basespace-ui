@@ -1,8 +1,8 @@
 <table class="table table-bordered">
 <tr><td>JobId</td><td>Title</td><td>Submit Date</td><td>Status</td></tr>
 {% for job in jobs_list %}
-{% with job.status as status_job %}
-<tr id=job__{{ job.id }} class={{ status_job }} ><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td>{{job.status}}</td> </tr>
-{% endwith %}
+
+<tr id=job__{{ job.id }} class={{css|lookup:status_job}} ><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td>{{job.status}}</td> </tr>
+
 {% endfor %}
 </table>
