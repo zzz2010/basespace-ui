@@ -20,7 +20,7 @@ def listjob(request,user_id):
     u=get_object_or_404(User, pk=user_id)
     css=dict()
     css["Downloading"]=""
-    css["Data_Ready"]=""
+    css["Data_Ready"]="info"
     css["PeakCalling"]="info"
     css["Analyzing"]="warning"
     css["Completed"]="success"
