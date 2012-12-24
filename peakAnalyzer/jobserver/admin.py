@@ -1,4 +1,11 @@
 from jobserver.models import *
 from django.contrib import admin
 
-admin.site.register(Job)
+
+
+class JobAdmin(admin.ModelAdmin):
+    # ...
+    list_display = ('jobtitle', 'submitDate','status','user')
+    
+    
+admin.site.register(Job,JobAdmin)

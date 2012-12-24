@@ -11,6 +11,8 @@ from celery import chord,group,chain
 
 @task
 def downloadFile(fid,session_id,outFileName):
+    if os.path.exists(outFileName):
+        return
     session=Session.objects.get(pk=session_id)
     api=session.getBSapi()
     api.fileDownload(fid,os.path.dirname(outFileName),os.path.basename(outFileName))
