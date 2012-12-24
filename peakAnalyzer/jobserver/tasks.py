@@ -47,7 +47,7 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
     myjob.sampleFiles=s_outfiles
     myjob.controlFiles=c_outfiles
     myjob.status="Data_Ready"
-    
+    myjob.save()
       
 @task()
 def add(x, y):
