@@ -1,6 +1,19 @@
 {% extends 'common/base.html' %} {% block header %} {% endblock %} {% block content %}
 
 <script type="text/javascript">
+
+//refresh job list
+
+ $(document).ready(function() {
+ 	 $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.Name }}/listjob");
+   var refreshId = setInterval(function() {
+      $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.Name }}/listjob");
+   }, 5000);
+   $.ajaxSetup({ cache: false });
+});
+
+
+
 // Load and display the list of file
 function load_arfiles(trigger) {
 	$.ajax({   
@@ -92,6 +105,7 @@ postdata+='&inputCell='+$('#inputCell').val() ;
         dataType:'text',   
         success: function(data, textStatus){
         		window.alert(data);
+        		$("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.Name }}/listjob");
 		}
 	})
 }
@@ -142,5 +156,9 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	  
           
   </div><!--/span-->
+  
+   <div class="span9" id="joblist_container">
+   
+   </div>
  </div><!--/row-->
 {% endblock %}

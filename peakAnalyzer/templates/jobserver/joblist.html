@@ -1,0 +1,10 @@
+<table>
+<tr><td>JobId</td><td>Title</td><td>Submit Date</td><td>Status</td></tr>
+
+{% for job in jobs_list %}
+
+<tr id=job__{{ job.Id }}><td>job.Id </td><td>job.jobtitle</td><td>job.submitDate</td><td>job.status</td> </tr>
+
+{% endfor %}
+
+</table>
