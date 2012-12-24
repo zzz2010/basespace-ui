@@ -9,5 +9,5 @@ register = template.Library()
 
 
 @register.filter
-def lookup(dict, key):    
-    return dict[key]
+def lookup(dict_, key):    
+    return dict_[key]
