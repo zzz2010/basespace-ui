@@ -26,4 +26,13 @@ def listjob(request,user_id):
     css["Completed"]="success"
     css["Error"]="error"
     return render_to_response('jobserver/joblist.html', {'jobs_list':u.job_set.all(),'css':css})
-   
+
+def get_immediate_subdirectories(dir):
+    return [name for name in os.listdir(dir)
+            if os.path.isdir(os.path.join(dir, name))]
+
+def viewresult(request,job_id):
+    job=get_object_or_404(Job, pk=job_id)
+    result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.Email+"/"+str(job.id)+"/pipeline_result/"
+    result_list=get_immediate_subdirectories(result_dir)
+    return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job})
