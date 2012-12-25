@@ -1,0 +1,15 @@
+{% load job_extras %}
+<title>{{job.jobtitle}}</title>
+
+
+<ul class="nav nav-tabs">
+<li><a href="#job_info" >Job Info</a> </li> 
+
+
+{% for result in result_list %}
+
+<li><a href="#{{result}}" >{{result}}</a> </li> 
+
+{% endfor %}
+
+</ul>
