@@ -1,5 +1,5 @@
 {% load job_extras %}
-<title>{{job.jobtitle}}</title>
+{% extends 'common/base.html' %} {% block header %} {% endblock %} {% block content %}
 
 
 <ul class="nav nav-tabs">
@@ -13,3 +13,4 @@
 {% endfor %}
 
 </ul>
+{% endblock %}
