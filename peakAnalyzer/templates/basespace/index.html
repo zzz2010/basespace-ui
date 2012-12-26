@@ -38,6 +38,8 @@ function load_safiles(trigger) {
 	})
 }
 
+
+
  addedFiles={};
 function add_list(trigger_obj)
 {
@@ -45,7 +47,16 @@ var name=trigger_obj.innerHTML
 if(!addedFiles.hasOwnProperty(name))
 {
 var fid=trigger_obj.id.split("__")[1]
-var html="<tr><td><input type='checkbox' value='' id=cb__"+fid+" name=cb__"+fid+" > </td><td>"+name+"</td></tr>";
+var html="<tr><td>
+
+
+<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" id=cb__"+fid+" name=cb__"+fid+">
+  <li><a tabindex="-1" href="#">Sample</a></li>
+  <li><a tabindex="-1" href="#">Control</a></li>
+  <li><a tabindex="-1" href="#">Delete</a></li>
+ </ul>
+
+ </td><td>"+name+"</td></tr>";
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
      addedFiles[name]=true;
