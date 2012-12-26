@@ -53,7 +53,7 @@ def resultfolder_html(dir1):
         html_str+="<div><a  href='"+weburl+"' target=_blank><img src='"+weburl+"' width='400'/><br>"+os.path.basename(fl)+"</a></div>"
     #show file download link with accept format
     
-    html_str+="</div>"
+    html_str+="</div>\n"
     return html_str
     
 def viewresult(request,job_id):
