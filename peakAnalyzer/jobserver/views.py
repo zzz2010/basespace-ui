@@ -40,7 +40,7 @@ def resultfolder_html(dir1):
     for files in types:
         files_grabbed.extend(glob.glob(str(dir1)+"/"+files))
     for fl in files_grabbed:
-        weburl=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer/"+peakAnalyzer.settings.MEDIA_URL)
+        weburl=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
         html_str+="<a  href='"+weburl+"' target=_blank><img src='"+weburl+"' width='400'/><br>"+os.path.basename(fl)+"</a>"
     #show file download link with accept format
     
