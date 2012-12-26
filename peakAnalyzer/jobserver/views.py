@@ -31,8 +31,26 @@ def get_immediate_subdirectories(dir):
     return [name for name in os.listdir(dir)
             if os.path.isdir(os.path.join(dir, name))]
 
+
+def resultfolder_html(dir1):
+    html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"'>"
+    #show image first
+    types = ('*.jpg', '*.png','*.bmp') 
+    files_grabbed = []
+    for files in types:
+        files_grabbed.extend(glob.glob(files))
+    for fl in files_grabbed:
+        weburl=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,peakAnalyzer.settings.MEDIA_URL)
+        html_str+="<a  href='"+weburl+"' target=_blank><img src='"+weburl+"' width='400'/><br>"+os.path.basename(fl)+"</a>"
+    #show file download link with accept format
+    
+    html_str+="</div>"
+    
 def viewresult(request,job_id):
     job=get_object_or_404(Job, pk=job_id)
     result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.Email+"/"+str(job.id)+"/pipeline_result/"
     result_list=get_immediate_subdirectories(result_dir)
-    return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job})
+    content_html=""
+    for dir1 in result_list:
+        content_html+=resultfolder_html(result_dir+"/"+dir1)
+    return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
