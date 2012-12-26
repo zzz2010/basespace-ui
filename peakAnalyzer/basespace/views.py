@@ -103,7 +103,7 @@ def listProject(request,session_id):
             my_ar=AppResult.objects.filter(AppResultId=ar.Id)
 
             if len(my_ar)==0:
-                myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name,Detail=ar.Description)
+                myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name,Detail="")
 
         samples = singleProject.getSamples(myAPI)
         for sa in samples:
