@@ -36,8 +36,8 @@ def CENTDIST_result(dir1):
     html_str="<script type='text/javascript'>$('#"+myTab+"').show(function () {"
     html_str+= "$(this).load('http://genome.ddns.comp.nus.edu.sg/~chipseq/webseqtools2/TASKS/Motif_Enrichment/viewresult.php?rundir="+dir1+"');"
     #html_str="<script type='text/javascript'>window.alert('hello');</script>"
-    html_str+="});</script>"
-    html_str+="<div class='tab-pane' id='"+os.path.basename(dir1)+"'></div>"
+    html_str+="});</script>\n"
+    html_str+="<div class='tab-pane' id='"+os.path.basename(dir1)+"'></div>\n"
     
     return html_str
     
