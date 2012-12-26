@@ -38,7 +38,7 @@ def resultfolder_html(dir1):
     types = ('*.jpg', '*.png','*.bmp') 
     files_grabbed = []
     for files in types:
-        files_grabbed.extend(glob.glob(dir1+files))
+        files_grabbed.extend(glob.glob(str(dir1)+files))
     for fl in files_grabbed:
         weburl=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,peakAnalyzer.settings.MEDIA_URL)
         html_str+="<a  href='"+weburl+"' target=_blank><img src='"+weburl+"' width='400'/><br>"+os.path.basename(fl)+"</a>"
