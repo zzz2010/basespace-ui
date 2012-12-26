@@ -50,7 +50,7 @@ def viewresult(request,job_id):
     job=get_object_or_404(Job, pk=job_id)
     result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.Email+"/"+str(job.id)+"/pipeline_result/"
     result_list=get_immediate_subdirectories(result_dir)
-    content_html=""
+    content_html=" "
     for dir1 in result_list:
         content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
     return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
