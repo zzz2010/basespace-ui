@@ -49,6 +49,7 @@ class Project(models.Model):
 class AppResult(models.Model):
     project=models.ForeignKey(Project)
     Name=models.CharField(max_length=200)
+    Detail=models.CharField(max_length=200)
     AppResultId=models.IntegerField()
     def __unicode__(self):
 	    return self.Name
@@ -56,6 +57,7 @@ class AppResult(models.Model):
 class Sample(models.Model):
     project=models.ForeignKey(Project)
     Name=models.CharField(max_length=200)
+    Detail=models.CharField(max_length=200)
     SampleId=models.IntegerField()
     def __unicode__(self):
         return self.Name

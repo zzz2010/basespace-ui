@@ -1,4 +1,4 @@
 {% for file in files_list %}
-	<li id=file__{{ file.Id }} genome={{genome_name}} onclick="add_list(this)">{{ file.Name }}</li>
+	<li id=file__{{ file.Id }} genome={{genome_name}} onclick="add_list(this)">{{ file.Id }}_{{ file.Name }}</li>
 {% endfor %}
 

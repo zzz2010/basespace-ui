@@ -36,7 +36,7 @@ def createSession(request):
     session=basespace.models.Session()
     session.init(myAPI)
     session.save()
-    return redirect('basespace.views.listFolders',session_id=session.id)
+    return redirect('basespace.views.listProject',session_id=session.id)
 
 
 def listAppResultFiles(request,session_id,ar_id):
@@ -68,7 +68,7 @@ def listSampleFiles(request,session_id,sa_id):
     files=sa.getFiles(myAPI,myQp=FileTypes)
     return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':files,'session_id':session_id})
         
-def listFolders(request,session_id):
+def listProject(request,session_id):
     outstr=""
     myProjects=list()
     try:
@@ -103,14 +103,14 @@ def listFolders(request,session_id):
             my_ar=AppResult.objects.filter(AppResultId=ar.Id)
 
             if len(my_ar)==0:
-                myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name)
+                myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name,Detail=ar.Description)
 
         samples = singleProject.getSamples(myAPI)
         for sa in samples:
             my_sa=Sample.objects.filter(SampleId=sa.Id)
 
             if len(my_sa)==0:
-                myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name)
+                myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name,Detail=sa.ExperimentName+","+str(sa.Read1)+"-"+str(sa.Read2))
         
 
         
