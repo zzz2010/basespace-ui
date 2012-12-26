@@ -47,6 +47,9 @@ def listAppResultFiles(request,session_id,ar_id):
         raise Http404
     genome_name=""
     ar=myAPI.getAppResultById(ar_id)
+    myar=AppResult.objects.get(AppResultId=ar_id)
+    myar.Detail=ar.Description
+    myar.save()
     if hasattr(ar, 'HrefGenome'):
         genome_id=ar.HrefGenome.replace(basespace.settings.version+"/genomes/","")
         genome_name=myAPI.getGenomeById(genome_id).Build
@@ -62,6 +65,9 @@ def listSampleFiles(request,session_id,sa_id):
         raise Http404
     genome_name=""
     sa=myAPI.getSampleById(sa_id)
+    mysa=Sample.objects.get(SampleId=sa_id)
+    mysa.Detail=sa.ExperimentName+","+str(sa.Read1)+"-"+str(sa.Read2)
+    mysa.save()
     if hasattr(sa, 'HrefGenome'):
         genome_id=sa.HrefGenome.replace(basespace.settings.version+"/genomes/","")
         genome_name=myAPI.getGenomeById(genome_id).Build
@@ -103,14 +109,14 @@ def listProject(request,session_id):
             my_ar=AppResult.objects.filter(AppResultId=ar.Id)
 
             if len(my_ar)==0:
-                myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name,Detail="")
+                myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name,Detail=ar.Id)
 
         samples = singleProject.getSamples(myAPI)
         for sa in samples:
             my_sa=Sample.objects.filter(SampleId=sa.Id)
 
             if len(my_sa)==0:
-                myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name,Detail=sa.ExperimentName+","+str(sa.Read1)+"-"+str(sa.Read2))
+                myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name,Detail=sa.Id)
         
 
         
