@@ -45,6 +45,7 @@ def resultfolder_html(dir1):
     #show file download link with accept format
     
     html_str+="</div>"
+    return html_str
     
 def viewresult(request,job_id):
     job=get_object_or_404(Job, pk=job_id)
