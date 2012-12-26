@@ -60,5 +60,8 @@ def viewresult(request,job_id):
     result_list=get_immediate_subdirectories(result_dir)
     content_html=" "
     for dir1 in result_list:
-        content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
+        if "CENTDIST" in dir1:
+            content_html+=CENTDIST_result(str(dir1))
+        else:
+            content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
     return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
