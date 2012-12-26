@@ -34,7 +34,7 @@ def get_immediate_subdirectories(dir):
 def CENTDIST_result(dir1):
     myTab=os.path.basename(dir1)
     html_str="<script type='text/javascript'>$('#"+myTab+"').click(function (e) {"
-    html_str+= "$(this).load(http://genome.ddns.comp.nus.edu.sg/~chipseq/webseqtools2/TASKS/Motif_Enrichment/viewresult.php?rundir="+dir1+")})</script>"
+    html_str+= "$(this).load('http://genome.ddns.comp.nus.edu.sg/~chipseq/webseqtools2/TASKS/Motif_Enrichment/viewresult.php?rundir="+dir1+"')})</script>"
     html_str+="<div class='tab-pane' id='"+os.path.basename(dir1)+"'></div>"
     
     return html_str
@@ -61,7 +61,7 @@ def viewresult(request,job_id):
     content_html=" "
     for dir1 in result_list:
         if "CENTDIST" in dir1:
-            content_html+=CENTDIST_result(str(dir1))
+            content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
         else:
             content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
     return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
