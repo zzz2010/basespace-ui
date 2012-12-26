@@ -31,7 +31,14 @@ def get_immediate_subdirectories(dir):
     return [name for name in os.listdir(dir)
             if os.path.isdir(os.path.join(dir, name))]
 
-
+def CENTDIST_result(dir1):
+    myTab=os.path.basename(dir1)
+    html_str="<script type='text/javascript'>$('#"+myTab+"').click(function (e) {"
+    html_str+= "$(this).load(http://genome.ddns.comp.nus.edu.sg/~chipseq/webseqtools2/TASKS/Motif_Enrichment/viewresult.php?rundir="+dir1+")})</script>"
+    html_str+="<div class='tab-pane' id='"+os.path.basename(dir1)+"'></div>"
+    
+    return html_str
+    
 def resultfolder_html(dir1):
     html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"'>"
     #show image first
