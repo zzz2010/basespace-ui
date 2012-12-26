@@ -33,7 +33,7 @@ def get_immediate_subdirectories(dir):
 
 def CENTDIST_result(dir1):
     myTab=os.path.basename(dir1)
-    html_str="<script type='text/javascript'>$('#"+myTab+"').show(function () {"
+    html_str="<script type='text/javascript'>$('#tab__"+myTab+"').click(function () {"
     html_str+= "$(this).load('http://genome.ddns.comp.nus.edu.sg/~chipseq/webseqtools2/TASKS/Motif_Enrichment/viewresult.php?rundir="+dir1+"');"
     #html_str="<script type='text/javascript'>window.alert('hello');</script>"
     html_str+="});</script>\n"
