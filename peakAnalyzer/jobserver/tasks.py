@@ -191,7 +191,7 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
             tasklist.append(GREAT.s(peakfile,outdir2,genome))
             
             
-    return group(tasklist)
+    return group(tasklist)()
 
 def checkCellName(testName, knownName):
     return (testName in knownName) or (knownName in testName)
@@ -296,7 +296,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
             else:
                 tasklist.append(histonePlot.s(peakfile,outdir2,genome,known_match_cell))
         print known_match_cell
-    return group(tasklist)
+    return group(tasklist)()
             
 @task
 def Pipeline_Processing_task(taskconfigfile,jobid):
