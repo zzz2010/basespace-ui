@@ -48,11 +48,11 @@ if(!addedFiles.hasOwnProperty(name))
 {
 var fid=trigger_obj.id.split("__")[1]
 var html="<tr><td>\
-<div class='dropdown'><ul class='dropdown-menu' role='menu' aria-labelledby='dropdownMenu' id=cb__"+fid+" name=cb__"+fid+"> \
-  <li>Sample</li> \
-  <li>Control</li>\
-  <li>Delete</li>\
- </ul></div>\
+<select id=cb__"+fid+" name=cb__"+fid+"> \
+  <option>Sample</option> \
+  <option>Control</option>\
+  <option>Delete</option>\
+ </select>\
  </td><td>"+name+"</td></tr>";
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
