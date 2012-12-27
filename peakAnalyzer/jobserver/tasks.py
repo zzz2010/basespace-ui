@@ -66,7 +66,7 @@ def Denovo_Motif(peakfile,outdir2,genome):
     mkpath(outdir2)
     cmd="sh "+settings.toolpath+"./DenovoMotif/runMetaNovo.sh "+peakfile+" "+settings.GenomeDIR+"/"+genome+"/ "+settings.WebseqtoolDIR+" "+outdir2+" > "+outdir2+"/log.txt 2>&1"
     print cmd
-    exec(cmd)
+    os.system(cmd)
     
 @task
 def CENTDIST(peakfile,outdir2,genome,denovoDir):
@@ -74,10 +74,10 @@ def CENTDIST(peakfile,outdir2,genome,denovoDir):
     if denovoDir!="":
         cmd1="python "+settings.toolpath+"/CENTDIST/combineDeNovo.py "+denovoDir+" "+outdir2
         print cmd1
-        exec(cmd1)
+        os.system(cmd1)
     cmd="sh "+settings.toolpath+"/CENTDIST/runCENTDIST.sh "+peakfile+" "+settings.GenomeDIR+"/"+genome+"/ "+outdir2+"/motifDB "+settings.WebseqtoolDIR+" "+outdir2
     print cmd
-    exec(cmd)
+    os.system(cmd)
 
 @task
 def TagProfileAroundPeaks(peakfile,outdir2,inputdir):
@@ -85,7 +85,7 @@ def TagProfileAroundPeaks(peakfile,outdir2,inputdir):
     mkpath(outdir2)
     cmd2="python "+settings.toolpath+"./profileAroundPeaks/profile5k.py "+peakfile+" "+outdir2+" "+" ".join(taglist)
     print cmd2
-    exec(cmd2)
+    os.system(cmd2)
 
 ##repeat analysis###
 @task
@@ -93,7 +93,7 @@ def repeatAnalysis(peakfile,outdir2,genome):
     mkpath(outdir2)
     cmd="sh "+settings.toolpath+"./repeatAnalysis/overlaprepeat.sh "+peakfile+" "+genome+" "+outdir2
     print cmd
-    exec(cmd)
+    os.system(cmd)
   
 @task
 def TSSPlot(peaklist,outdir2,genome):
@@ -101,15 +101,15 @@ def TSSPlot(peaklist,outdir2,genome):
     cmd="python "+settings.toolpath+"./TSSPlot/TssDistTable.py "+genome
     for peak in peaklist:
             cmd+=" "+peak
-    exec(cmd+" > "+outdir2+"/peak_tssplot.txt")
-    exec("R "+outdir2+"/peak_tssplot.txt  --no-save "+" < "+settings.toolpath+"./TSSPlot/plotTss.R &")
+    os.system(cmd+" > "+outdir2+"/peak_tssplot.txt")
+    os.system("R "+outdir2+"/peak_tssplot.txt  --no-save "+" < "+settings.toolpath+"./TSSPlot/plotTss.R &")
 
 @task
 def conservationPlot(peakfile,outdir2,genome):
     mkpath(outdir2)
     cmd="sh "+settings.toolpath+"./conservationPlot/plotCons.sh "+peakfile+" "+settings.phastconsDIR+"/"+genome+" "+outdir2
     print cmd
-    exec(cmd)
+    os.system(cmd)
     
 
 @task
@@ -117,7 +117,7 @@ def genomeProfile(peakfile,outdir2,genome):
     mkpath(outdir2)
     cmd="sh "+settings.toolpath+"./genomeProfile/profileGenome.sh "+peakfile+" "+genome+" "+outdir2
     print cmd
-    exec(cmd)
+    os.system(cmd)
 
 @task 
 def GREAT(peakfile,outdir2,genome):  
@@ -126,7 +126,7 @@ def GREAT(peakfile,outdir2,genome):
     os.system("cut -f 1-3 "+peakfile+" > "+bed3peak)
     cmd="python "+settings.toolpath+"./GREAT/runGREAT.py "+bed3peak+" "+genome+" "+outdir2
     print cmd
-    exec(cmd)
+    os.system(cmd)
 
 
 
@@ -216,7 +216,7 @@ def getMostOccCellName(lines):
 def ENCODE_TF_chipseq(peakfile,outdir2,genome):
     cmd="sh "+settings.toolpath+"./peaksetSummary/peaksetSummary.sh "+peakfile+" '"+settings.ENCODEchipseqDIR+"/"+genome+"/*.narrowPeak' "+outdir2
     print cmd
-    exec(cmd)
+    os.system(cmd)
     cell_line=""
     try:
         lines=open(outdir2+os.path.basename(peakfile)+".peakset.overlap.top").readlines()
@@ -239,7 +239,7 @@ def histonePlot(peakfile,outdir2,genome,cellline_used):
             cellline_used="UwHistone"+cellline_used
     cmd="python "+settings.toolpath+"./histonePlot/plotHistoneDist.py "+peakfile+" "+cellline_used+" "+histoneDir+" "+outdir2
     print cmd
-    exec(cmd)
+    os.system(cmd)
     if cellline_used=="":
         #check the cell line with largest file size
         datfiles=glob.glob(outdir2+"*.dat")
@@ -281,6 +281,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
     for peakfile in peaklist:
         #encode_chipseq overlap#
         outdir2=outdir+"/encode_chipseq/"
+        mkpath(outdir2)
         if known_match_cell=="":
             known_match_cell=ENCODE_TF_chipseq(peakfile,outdir2,genome)
         else:
@@ -336,7 +337,7 @@ def PeakCalling_task(jobid,outdir):
     cfgFile.close()
     cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+myjob.ref_genome+" "+outdir2
     print(cmd)
-    exec(cmd)
+    os.system(cmd)
     
     
     
