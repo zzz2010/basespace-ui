@@ -5,7 +5,7 @@ Created on 2012-12-21
 '''
 from celery import task
 from basespace.models import Project,User,AppResult,Sample,File,Session
-import os,glob
+import os,glob,traceback
 import ConfigParser
 from jobserver.models import Job
 from celery import chord,group,chain
@@ -312,7 +312,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         myjob.status="Completed"
         myjob.save()
     except Exception, e:
-        print e
+        traceback.print_exc()
         myjob=Job.objects.get(pk=jobid)
         myjob.status="Error"
         myjob.save()
