@@ -311,7 +311,8 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         myjob=Job.objects.get(pk=jobid)
         myjob.status="Completed"
         myjob.save()
-    except:
+    except Exception, e:
+        print e
         myjob=Job.objects.get(pk=jobid)
         myjob.status="Error"
         myjob.save()
