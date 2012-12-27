@@ -144,6 +144,7 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
     outdir=taskconfig.get("task", "outputDIR")
     genome=taskconfig.get("task", "genome")
     tasklist=list()
+    print taskSet
     for peakfile in peaklist:
         #denovo motif
         if len(taskSet)==0 or "denovoMotif" in taskSet :
@@ -280,18 +281,20 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
             break
     for peakfile in peaklist:
         #encode_chipseq overlap#
-        outdir2=outdir+"/encode_chipseq/"
-        mkpath(outdir2)
-        if known_match_cell=="":
-            known_match_cell=ENCODE_TF_chipseq(peakfile,outdir2,genome)
-        else:
-            tasklist.append(ENCODE_TF_chipseq.s(peakfile,outdir2,genome))
+        if len(taskSet)==0 or "encode_chipseq" in taskSet :
+            outdir2=outdir+"/encode_chipseq/"
+            mkpath(outdir2)
+            if known_match_cell=="":
+                known_match_cell=ENCODE_TF_chipseq(peakfile,outdir2,genome)
+            else:
+                tasklist.append(ENCODE_TF_chipseq.s(peakfile,outdir2,genome))
         
         #encode_histone profile#
-        if known_match_cell=="":
-            known_match_cell=histonePlot(peakfile,outdir2,genome,"")
-        else:
-            tasklist.append(histonePlot.s(peakfile,outdir2,genome,known_match_cell))
+        if len(taskSet)==0 or "histonePlot" in taskSet :
+            if known_match_cell=="":
+                known_match_cell=histonePlot(peakfile,outdir2,genome,"")
+            else:
+                tasklist.append(histonePlot.s(peakfile,outdir2,genome,known_match_cell))
         print known_match_cell
     return group(tasklist)
             
