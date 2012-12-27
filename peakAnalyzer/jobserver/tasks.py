@@ -357,6 +357,7 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     configwrite.write("[task]\n")
     configwrite.write("dataDIR="+outdir+"/peakcalling_result/"+"\n")
     configwrite.write("cellline="+myjob.cell_line+"\n")
+    configwrite.write("alternative_cellline="+myjob.cell_line+"\n")
     configwrite.write("genome="+myjob.ref_genome+"\n")
     configwrite.write("outputDIR="+outdir2+"\n")
     configwrite.close()
