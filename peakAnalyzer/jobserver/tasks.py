@@ -10,6 +10,7 @@ import ConfigParser
 from jobserver.models import Job
 from celery import chord,group,chain
 from jobserver import settings
+import peakAnalyzer
 import operator
 
 def mkpath(outdir):
@@ -158,10 +159,15 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
             else:
                 tasklist.append(CENTDIST.s(peakfile,outdir2,genome,denovoDir))
         
+        #TSS plot
+        if len(taskSet)==0 or "TSSPlot" in taskSet :
+            outdir2=outdir+"/TSSPlot/"
+            plist=[peakfile]
+            tasklist.append(TSSPlot.s(plist,outdir2,genome))
         ##Tag around peak##
-        if len(taskSet)==0 or "TagProfileAroundPeaks" in taskSet :
-            outdir2=outdir+"/TagProfileAroundPeaks/"
-            tasklist.append(TagProfileAroundPeaks.s(peakfile,outdir2,inputdir))
+        #if len(taskSet)==0 or "TagProfileAroundPeaks" in taskSet :
+        #    outdir2=outdir+"/TagProfileAroundPeaks/"
+        #    tasklist.append(TagProfileAroundPeaks.s(peakfile,outdir2,inputdir))
         
         ##repeat analysis###
         if len(taskSet)==0 or "repeatAnalysis" in taskSet :
@@ -289,7 +295,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
     return group(tasklist)
             
 @task
-def Pipeline_Processing_task(taskconfigfile,outdir,jobid):
+def Pipeline_Processing_task(taskconfigfile,jobid):
     #do the update database
     myjob=Job.objects.get(pk=jobid)
     myjob.status="Processing"
@@ -298,19 +304,7 @@ def Pipeline_Processing_task(taskconfigfile,outdir,jobid):
         taskconfig=ConfigParser.ConfigParser()
         taskconfig.readfp(open(taskconfigfile))
         inputdir=taskconfig.get("task", "dataDIR")
-        outdir=taskconfig.get("task", "outputDIR")
-        genome=taskconfig.get("task", "genome")
-        peakdir=outdir+"/peakfiles/"
-        if not os.path.exists(peakdir):
-                os.makedirs(peakdir)
-        
-        for lib in os.listdir(inputdir):
-                libdir=inputdir+"/"+lib
-                if os.path.isdir(libdir):
-                        exec("sh "+settings.toolpath+"./preprocessing/preprocess.sh "+libdir+" "+taskconfig.get("task", "CCAT_FC")+" "+taskconfig.get("task", "MACS_FC")+" "+peakdir)
-        outf=open(peakdir+"/peakcount.html",'w')
-        peaklist=glob.glob(peakdir+"/*_*.bed")
-        fullpeaklist=glob.glob(peakdir+"/fullpeak/*_*.bed")
+        peaklist=glob.glob(inputdir+"/*summits.bed")
         grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig))
         grouptasks.get(timeout=1000*60*60)
         #do the update database
@@ -321,6 +315,29 @@ def Pipeline_Processing_task(taskconfigfile,outdir,jobid):
         myjob=Job.objects.get(pk=jobid)
         myjob.status="Error"
         myjob.save()
+
+toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver').replace('\\','/')
+
+@task
+def PeakCalling_task(jobid,outdir):
+    #make configure file
+    myjob=Job.objects.get(pk=jobid)
+    myjob.status="PeakCalling"
+    myjob.save()
+    outdir2=outdir+"/peakcalling_result"
+    mkpath(outdir2)
+    cfgFile=open(outdir2+"/pk.cfg",'w')
+    for sfl in myjob.sampleFiles.split(','):
+            cfgFile.write(sfl+"\n")
+    cfgFile.write("===\n")
+    for cfl in myjob.controlFiles.split(','):
+            cfgFile.write(cfl+"\n")
+    cfgFile.close()
+    cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+myjob.ref_genome+" "+outdir2
+    print(cmd)
+    exec(cmd)
+    
+    
     
 @task
 def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid):
@@ -328,7 +345,20 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid)
     
     #peak calling
+    #PeakCalling_task(outdir,jobid)
     
+    #processing
+    myjob=Job.objects.get(pk=jobid)
+    outdir2=outdir+"/pipeline_result"
+    mkpath(outdir2)
+    taskconfigfile=outdir2+"/task.cfg"
+    configwrite=open(taskconfigfile,'w')
+    configwrite.write("[task]\n")
+    configwrite.write("dataDIR="+outdir+"/peakcalling_result/"+"\n")
+    configwrite.write("cellline="+myjob.cell_line+"\n")
+    configwrite.write("genome="+myjob.ref_genome+"\n")
+    configwrite.write("outputDIR="+outdir2+"\n")
+    configwrite.close()
+    Pipeline_Processing_task(taskconfigfile,jobid)
     
-    #processing 
     

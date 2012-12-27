@@ -39,7 +39,6 @@ function load_safiles(trigger) {
 }
 
 
-
  addedFiles={};
 function add_list(trigger_obj)
 {
@@ -84,6 +83,7 @@ postdata+='&inputGenome='+$('#inputGenome').val() ;
 window.alert(postdata);
 
 }
+
 function submit_job()
 {
 
@@ -91,14 +91,14 @@ function submit_job()
  var ctrl_ids="";
  var sample_ids="";
  $("*[name*='cb__']").each(function(i) {
-                if ($(this).is("Control")) {
+                if ($(this).val() =="Control") {
                         line = $(this).attr("name");
-                        ctrl_ids += line.split("__")[1] + ',';
+                        ctrl_ids += line + ',';
                 }
-                else if($(this).is("Sample")) 
+                else if($(this).val() =="Sample") 
                 {
                 	 line = $(this).attr("name");
-                        sample_ids += line.split("__")[1] + ',';
+                        sample_ids += line + ',';
                 }
         });
 postdata+='ctrl_ids='+ctrl_ids;
