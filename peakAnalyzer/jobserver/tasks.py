@@ -309,7 +309,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         taskconfig.readfp(open(taskconfigfile))
         inputdir=taskconfig.get("task", "dataDIR")
         peaklist=glob.glob(inputdir+"/*summits.bed")
-        grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig))() #,Pipeline_Processing_task_cellline.s(peaklist,taskconfig)
+        grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig))()
         grouptasks.get(timeout=1000*60*60)
         #do the update database
         myjob=Job.objects.get(pk=jobid)
