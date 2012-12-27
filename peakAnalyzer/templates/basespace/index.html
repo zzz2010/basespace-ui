@@ -67,11 +67,11 @@ function test()
  var ctrl_ids="";
  var sample_ids="";
  $("*[name*='cb__']").each(function(i) {
-                if ($(this).text =="Control") {
+                if ($(this).val() =="Control") {
                         line = $(this).attr("name");
                         ctrl_ids += line + ',';
                 }
-                else if($(this).text =="Sample") 
+                else if($(this).val() =="Sample") 
                 {
                 	 line = $(this).attr("name");
                         sample_ids += line + ',';
