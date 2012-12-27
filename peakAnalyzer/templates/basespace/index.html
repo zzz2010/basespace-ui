@@ -67,11 +67,11 @@ function test()
  var ctrl_ids="";
  var sample_ids="";
  $("*[name*='cb__']").each(function(i) {
-                if ($(this).is(":checked")) {
+                if ($(this).text =="Control") {
                         line = $(this).attr("name");
                         ctrl_ids += line + ',';
                 }
-                else
+                else if($(this).text =="Sample") 
                 {
                 	 line = $(this).attr("name");
                         sample_ids += line + ',';
@@ -91,11 +91,11 @@ function submit_job()
  var ctrl_ids="";
  var sample_ids="";
  $("*[name*='cb__']").each(function(i) {
-                if ($(this).is(":checked")) {
+                if ($(this).is("Control")) {
                         line = $(this).attr("name");
                         ctrl_ids += line.split("__")[1] + ',';
                 }
-                else
+                else if($(this).is("Sample")) 
                 {
                 	 line = $(this).attr("name");
                         sample_ids += line.split("__")[1] + ',';
@@ -161,7 +161,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
           
           </table>
         
-	   <button class="btn btn-danger" type="button" onclick="submit_job()">Submit Job</button>
+	   <button class="btn btn-danger" type="button" onclick="test()">Submit Job</button>
           </form>
 	  
           
