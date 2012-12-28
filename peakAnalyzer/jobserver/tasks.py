@@ -157,7 +157,7 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
             denovoDir=""
             if len(taskSet)==0 or "denovoMotif" in taskSet:
                 denovoDir=outdir+"/denovoMotif/"
-                tasklist[len(tasklist)-1]=chain(tasklist[len(tasklist)-1],CENTDIST.s(peakfile,outdir2,genome))()
+                tasklist[len(tasklist)-1]=chain(tasklist[len(tasklist)-1],CENTDIST.s(peakfile,outdir2,genome))
             else:
                 tasklist.append(CENTDIST.s(peakfile,outdir2,genome,denovoDir))
         
@@ -190,8 +190,7 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
         if len(taskSet)==0 or "GREAT" in taskSet :
             outdir2=outdir+"/GREAT/"
             tasklist.append(GREAT.s(peakfile,outdir2,genome))
-            
-            
+       
     return group(tasklist)()
 
 def checkCellName(testName, knownName):
@@ -296,7 +295,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
                 known_match_cell=histonePlot(peakfile,outdir2,genome,"")
             else:
                 tasklist.append(histonePlot.s(peakfile,outdir2,genome,known_match_cell))
-        print known_match_cell
+    print known_match_cell
     return group(tasklist)()
             
 @task
