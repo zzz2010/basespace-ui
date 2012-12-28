@@ -52,8 +52,8 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
     downG.get(timeout=1000*60*60)
     #do the update database
     myjob=Job.objects.get(pk=jobid)
-    myjob.sampleFiles=s_outfiles
-    myjob.controlFiles=c_outfiles
+    myjob.sampleFiles=",".join(s_outfiles)
+    myjob.controlFiles=",".join(c_outfiles)
     myjob.status="Data_Ready"
     myjob.save()
       
