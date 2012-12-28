@@ -341,7 +341,7 @@ def PeakCalling_task(jobid,outdir):
     for cfl in myjob.controlFiles.split(','):
             cfgFile.write(cfl+"\n")
     cfgFile.close()
-    cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+myjob.ref_genome+" "+outdir2
+    cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
     print(cmd)
     os.system(cmd)
     

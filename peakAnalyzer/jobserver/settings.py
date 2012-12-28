@@ -16,3 +16,10 @@ SEMEDIR='./SEME/'
 BedToolDIR='/home/chipseq/ChIPseqPipeline/webseqtools2/ZZZ'
 
 known_cells=['Gm10847', 'Gm12878', 'Gm12891', 'Gm12892', 'Gm15510', 'Gm18505', 'Gm18526', 'Gm18951', 'Gm19099', 'Gm19193', 'H1hesc', 'Hct116', 'Hek293', 'Helas3', 'Hepg2', 'Huvec', 'K562', 'Mcf10', 'Mcf7', 'Nb4', 'Nt2d1', 'Panc1', 'Pbde', 'Raji', 'Shsy5y', 'U2os']
+
+
+bowtie2_path='./home/Ken/jingquan/bowtie2-2.0.0-beta7/bowtie2'
+bowtie2_index = '/home/Ken/index/hg19bowtie2/'
+genome_length_path= '/home/chipseq/ChIPseqPipeline/LGL/genome_length_'
+
+

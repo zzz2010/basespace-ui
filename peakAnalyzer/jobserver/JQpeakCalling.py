@@ -3,15 +3,18 @@ import sys
 import glob
 import commands
 
-#parameters for tweak/tune
-#these are based on plap11 settings
-genome='hg19'
-batmis_dir='/data3/PGS_test/components/batmis/1/BatMis-3.00/bin/'
-batmis_index_dir='/data1/chandana/'+genome+'/'+genome+'.fa'
-genome_length_path='/data4/joanne/zhizhuo/scripts/LGL/genome_length_'+genome+'.txt'
+#Usage Line
+print "Welcome.\n Usage: python <.cfg> <bowtie2_path> <bowtie2_index> <genome_length_file> <output_dir>\n" 
+sys.stdout.flush()    
 
-bowtie2_dir='/data3/jingquan/bowtie2-2.0.0-beta7/bowtie2'
-bowtie2_index_dir='/data1/chandana/hg19bowtie2/hg19'
+#parameters for tweak/tune
+num_proc=" 16 "
+
+# #these are based on user-input
+bowtie2_dir=sys.argv[2]
+bowtie2_index_dir=sys.argv[3]
+genome_length_path=sys.argv[4]
+output_dir=sys.argv[5]+"/"
 
 #tracking vars
 isControl=0
@@ -74,6 +77,8 @@ def setReadFiles():
             global targetMappings_List
             global controlMappings_List
             
+            global num_proc
+            
             for line in configFile:
                 line=line.strip()
                 #print len(line.split())
@@ -92,10 +97,10 @@ def setReadFiles():
                         #bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
                         name, ext = os.path.splitext(line[0])
                         if isControl==0:
-                            targetPair.append(" "+bowtie2_dir + " -p 10 --very-fast -x " + bowtie2_index_dir + " -1 " + line[0] + " -2 " + line[1] + " -S " + name+".sam ")
+                            targetPair.append(" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -1 " + line[0] + " -2 " + line[1] + " -S " + name+".sam ")
                             targetArray.append(name+".sam")                            
                         else:
-                            controlPair.append(" "+bowtie2_dir + " -p 10 --very-fast -x " + bowtie2_index_dir + " -1 " + line[0] + " -2 " + line[1] + " -S " + name+".sam ")
+                            controlPair.append(" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -1 " + line[0] + " -2 " + line[1] + " -S " + name+".sam ")
                             controlArray.append(name+".sam")
                         #print " "+bowtie2_dir + " -p 2 -x " + bowtie2_index_dir + " -1 " + line[0] + " -2 " + line[1] + " -S " + name+".sam "
                 #print line
@@ -111,6 +116,8 @@ def MapFiles():
     global controlfileExtension_List
     global targetMappings_List
     global controlMappings_List
+    
+    global num_proc
     
     for fileName in targetArray:
         targetfileName, targetfileExtension = os.path.splitext(fileName)
@@ -128,13 +135,14 @@ def MapFiles():
     for extension in targetfileExtension_List:        
         if isMapped(extension) == 0:
             #print extension
-            cmd=batmis_dir+'batman -g '+batmis_index_dir+' -q '+ targetfileName_List[cnt]+extension + ' -o ' + targetfileName_List[cnt]+'.bin ' + ' -n 2 -U;'
-            cmd+=batmis_dir+'batdecode -g '+batmis_index_dir+' -i '+ targetfileName_List[cnt]+'.bin -o ' + targetfileName_List[cnt]+'.sam '
-            print 'CMD: '+ cmd + '; rm '+ targetfileName_List[cnt]+'.bin '
-            print '1.Mapping _target_ sequences...: '+targetfileName_List[cnt]
+            cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + " -S " + targetfileName_List[cnt]+".sam "
+            #cmd=batmis_dir+'batman -g '+batmis_index_dir+' -q '+ targetfileName_List[cnt]+extension + ' -o ' + targetfileName_List[cnt]+'.bin ' + ' -n 2 -U;'
+            #cmd+=batmis_dir+'batdecode -g '+batmis_index_dir+' -i '+ targetfileName_List[cnt]+'.bin -o ' + targetfileName_List[cnt]+'.sam '
+            print 'CMD: '+ cmd 
+            print '1.Mapping _target_ sequences...: '+targetfileName_List[cnt]+extension
             os.system(cmd)
-            cmd = 'rm ' + targetfileName_List[cnt]+'.bin '
-            os.system(cmd)
+            #cmd = 'rm ' + targetfileName_List[cnt]+'.bin '
+            #os.system(cmd)
             print '1.Mapping '+ targetfileName_List[cnt]+' Done.'
             targetMappings_List.append(targetfileName_List[cnt]+'.sam')
         else:
@@ -146,13 +154,14 @@ def MapFiles():
         if isControl==0:
             break
         if isMapped(extension) == 0:
-            cmd=batmis_dir+'batman -g '+batmis_index_dir+' -q '+ controlfileName_List[cnt]+extension + ' -o ' + controlfileName_List[cnt]+'.bin ' + ' -n 2 -U;'
-            cmd+=batmis_dir+'batdecode -g '+batmis_index_dir+' -i '+ controlfileName_List[cnt]+'.bin -o ' + controlfileName_List[cnt]+'.sam '
-            print 'CMD: '+ cmd + '; rm '+ controlfileName_List[cnt]+'.bin '
-            print '1.Mapping _control_ sequences...: '+controlfileName_List[cnt]
+            cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + controlfileName_List[cnt]+extension + " -S " + controlfileName_List[cnt]+".sam "
+            #cmd=batmis_dir+'batman -g '+batmis_index_dir+' -q '+ controlfileName_List[cnt]+extension + ' -o ' + controlfileName_List[cnt]+'.bin ' + ' -n 2 -U;'
+            #cmd+=batmis_dir+'batdecode -g '+batmis_index_dir+' -i '+ controlfileName_List[cnt]+'.bin -o ' + controlfileName_List[cnt]+'.sam '
+            print 'CMD: '+ cmd
+            print '1.Mapping _control_ sequences...: '+controlfileName_List[cnt]+extension
             os.system(cmd)
-            cmd = 'rm ' + controlfileName_List[cnt]+'.bin '
-            os.system(cmd)
+            #cmd = 'rm ' + controlfileName_List[cnt]+'.bin '
+            #os.system(cmd)
             print '1.Mapping '+ controlfileName_List[cnt]+' Done.'
             controlMappings_List.append(controlfileName_List[cnt]+'.sam')
         else:
@@ -162,8 +171,18 @@ def MapFiles():
     global targetPair
     global controlPair
     for bt2PairMap in (targetPair+controlPair):
-        print bt2PairMap##
-        ##os.system(bt2PairMap)
+        #print bt2PairMap 
+        print '1.Mapping sequences... CMD: '+bt2PairMap
+        os.system(bt2PairMap)
+
+#This procedure takes in a sorted-rmdup file_path and create a .tags.unique file in the output_dir
+def PrintTagsUnique(path):
+    global output_dir
+    
+    fileName, fileExtension = os.path.splitext(os.path.basename(path))
+    fileName=output_dir+fileName+'.tags.unique'
+    
+    os.system( ' bamToBed -i ' + path + " | " + " awk '{printf(\"%s\\t%d\\t%s\\n\", $1, ($2+$3)/2, $6)}' > " + fileName)
 
 #This procedure takes all the mappings from our mapper and perform:
 # bamConversion, sorting the aln wrt genomic location removing duplicates from each independent mapping file
@@ -179,31 +198,41 @@ def ConvertToBam():
     
     for tmpName in targetMappings_List:
         if FileType(tmpName)==0:    #sam
-            pass #os.system('samtools view -bS -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
+            os.system('samtools view -bS -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
+            os.system('rm '+tmpName)
         elif FileType(tmpName)==1:    #bam
             os.system('samtools view -b -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
         elif FileType(tmpName)==2:    #bed
             os.system('bedToBam -i ' + tmpName + ' -g ' + genome_length_path + ' > ' + tmpName +'.bam')
 
         #print tmpName+"-bamTMP"
-        pass #os.system('samtools sort -m 10000000000 ' + tmpName+'.bam ' + tmpName+'_sorted')
-        pass #os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam')
+        os.system('samtools sort -m 10000000000 ' + tmpName+'.bam ' + tmpName+'_sorted')
+        os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam')
         toMergeTargets+=(tmpName+'_rmdup.bam ')
+        
+        #call function to create .tags.unique for zz
+        PrintTagsUnique(tmpName+'_rmdup.bam')
+        
         # cleanup
-        pass #os.system('rm '+ tmpName+'.bam; rm '+tmpName+'_sorted.bam;')
+        os.system('rm '+ tmpName+'.bam; rm '+tmpName+'_sorted.bam;')
         delayDelete.append(tmpName+'_rmdup.bam ')
         
     for tmpName in controlMappings_List:
         if FileType(tmpName)==0: #sam
             os.system('samtools view -bS -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
+            os.system('rm '+tmpName)
         elif FileType(tmpName)==1: #bam
             os.system('samtools view -b -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
         elif FileType(tmpName)==2:    #bed
             os.system('bedToBam -i ' + tmpName + ' -g ' + genome_length_path + ' > ' + tmpName +'.bam')
             
         os.system('samtools sort -m 10000000000 ' + tmpName+'.bam ' + tmpName+'_sorted')
-        os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam')
+        os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam')        
         toMergeControls+=(tmpName+'_rmdup.bam ')
+        
+        #call function to create .tags.unique for zz
+        PrintTagsUnique(tmpName+'_rmdup.bam')
+        
         # cleanup
         os.system('rm '+ tmpName+'.bam; rm '+tmpName+'_sorted.bam;')
         delayDelete.append(tmpName+'_rmdup.bam ')
@@ -214,18 +243,23 @@ def ConvertToBam():
         cmd = 'samtools merge ' + targetfileName_List[0]+'_COMBINED.bam ' + toMergeTargets
     else :
         cmd = ' mv ' + toMergeTargets.split()[0] + ' ' + targetfileName_List[0]+'_COMBINED.bam '
-    print 'CMD: ' + cmd
-    os.system(cmd)
     
-    cnt=len(toMergeControls.split())
-    if cnt > 1: #assume we have at least 1 input target file
-        cmd = 'samtools merge ' + controlfileName_List[0]+'_COMBINED.bam ' + toMergeControls
-    elif  cnt==1:
-        cmd = ' mv ' + toMergeControls.split()[0] + ' ' + controlfileName_List[0]+'_COMBINED.bam '
-    else:
-        cmd = ' '
     print 'CMD: ' + cmd
     os.system(cmd)
+    os.system('mv ' + targetfileName_List[0] + '_COMBINED.bam ' + output_dir)
+    
+    if isControl != 0: 
+        cnt=len(toMergeControls.split())
+        if cnt > 1: #assume we have at least 1 input target file
+            cmd = 'samtools merge ' + controlfileName_List[0]+'_COMBINED.bam ' + toMergeControls
+        elif  cnt==1:
+            cmd = ' mv ' + toMergeControls.split()[0] + ' ' + controlfileName_List[0]+'_COMBINED.bam '
+        else:
+            cmd = ' '
+        
+        print 'CMD: ' + cmd
+        os.system(cmd)
+        os.system('mv ' + controlfileName_List[0]+ '_COMBINED.bam ' + output_dir)
     
     #after merge then we delete the intermediate files!
     for removeTmp in delayDelete:
@@ -237,9 +271,12 @@ def PeakCall():
     global controlfileName_List
     global isControl
 
-    macsCMD='macs14 -t '+ targetfileName_List[0] +'_COMBINED.bam -f auto -n ' +  targetfileName_List[0]
+    targetfileName, targetfileExtension = os.path.splitext(os.path.basename(targetfileName_List[0]))
+    
+    macsCMD='macs14 -t '+ output_dir+targetfileName +'_COMBINED.bam -f auto -n ' +  output_dir+targetfileName
     if isControl!=0:
-        macsCMD+=' -c '+ controlfileName_List[0] +'_COMBINED.bam '
+        controlfileName, controlfileExtension = os.path.splitext(os.path.basename(controlfileName_List[0]))
+        macsCMD+=' -c '+ output_dir+controlfileName +'_COMBINED.bam '
     
     print "CMD: " + macsCMD
     os.system(macsCMD)        
