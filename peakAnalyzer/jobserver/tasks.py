@@ -70,7 +70,7 @@ def Denovo_Motif(peakfile,outdir2,genome):
     return outdir2
     
 @task
-def CENTDIST(peakfile,outdir2,genome,denovoDir):
+def CENTDIST(denovoDir,peakfile,outdir2,genome):
     mkpath(outdir2)
     if denovoDir!="":
         cmd1="python "+settings.toolpath+"/CENTDIST/combineDeNovo.py "+denovoDir+" "+outdir2
@@ -155,11 +155,12 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
         #CENTDIST
         if len(taskSet)==0 or "CENTDIST" in taskSet :
             denovoDir=""
+            outdir2=outdir+"/CENTDIST/"
             if len(taskSet)==0 or "denovoMotif" in taskSet:
                 denovoDir=outdir+"/denovoMotif/"
                 tasklist[len(tasklist)-1]=chain(tasklist[len(tasklist)-1],CENTDIST.s(peakfile,outdir2,genome))
             else:
-                tasklist.append(CENTDIST.s(peakfile,outdir2,genome,denovoDir))
+                tasklist.append(CENTDIST.s(denovoDir,peakfile,outdir2,genome))
         
         #TSS plot
         if len(taskSet)==0 or "TSSPlot" in taskSet :
