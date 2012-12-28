@@ -156,7 +156,7 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
             denovoDir=""
             if len(taskSet)==0 or "denovoMotif" in taskSet:
                 denovoDir=outdir+"/denovoMotif/"
-                tasklist[len(tasklist)-1]=chain((tasklist[len(tasklist)-1],CENTDIST.s(peakfile,outdir2,genome,denovoDir)))()
+                tasklist[len(tasklist)-1]=chain(tasklist[len(tasklist)-1],CENTDIST.s(peakfile,outdir2,genome,denovoDir))()
             else:
                 tasklist.append(CENTDIST.s(peakfile,outdir2,genome,denovoDir))
         
