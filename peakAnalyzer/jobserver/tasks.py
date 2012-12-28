@@ -383,7 +383,7 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid)
     
     #peak calling
-    #PeakCalling_task(outdir,jobid)
+    PeakCalling_task(outdir,jobid)
     
     #upload peak
     create_upload_AppResult.delay(outdir,session_id,jobid)
