@@ -67,6 +67,7 @@ def Denovo_Motif(peakfile,outdir2,genome):
     cmd="sh "+settings.toolpath+"./DenovoMotif/runMetaNovo.sh "+peakfile+" "+settings.GenomeDIR+"/"+genome+"/ "+settings.WebseqtoolDIR+" "+outdir2+" > "+outdir2+"/log.txt 2>&1"
     print cmd
     os.system(cmd)
+    return outdir2
     
 @task
 def CENTDIST(peakfile,outdir2,genome,denovoDir):
@@ -156,7 +157,7 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
             denovoDir=""
             if len(taskSet)==0 or "denovoMotif" in taskSet:
                 denovoDir=outdir+"/denovoMotif/"
-                tasklist[len(tasklist)-1]=chain(tasklist[len(tasklist)-1],CENTDIST.s(peakfile,outdir2,genome,denovoDir))()
+                tasklist[len(tasklist)-1]=chain(tasklist[len(tasklist)-1],CENTDIST.s(peakfile,outdir2,genome))()
             else:
                 tasklist.append(CENTDIST.s(peakfile,outdir2,genome,denovoDir))
         
