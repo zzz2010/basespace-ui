@@ -33,7 +33,7 @@ controlPair=list()
 #This procedure determines if a "suffix" file is already mapped
 #Return 1 for mapping file; 0 for raw read file.
 def isMapped(suffix):
-    if suffix=='.fa' or suffix=='.fasta' or suffix=='.fq' or suffix=='.fastq':
+    if suffix=='.fa' or suffix=='.fasta' or suffix=='.fq' or suffix=='.fastq' or suffix=='.fastq.gz':
         return 0
     return 1
 
@@ -54,7 +54,14 @@ def FileType(fileName):
         return 3
     elif suffix=='.fq' or suffix=='.fastq':
         return 4
-    
+
+def unzipFile(filename):
+    if filename.endswith(".gz"):
+        outfile="/tmp/"+os.path.basename(filename)
+        cmd="gunzip -c "+filename+" > "+outfile
+        return outfile
+    else:
+        return filename
 #This procedure defines which are Target/Control files
 #A file is read with each line specifying a Target/Control file
 #Delimiter "===" is used to seperate the Target from the Control files
@@ -89,9 +96,9 @@ def setReadFiles():
                 else:
                     if len(line.split())==1:
                         if isControl==0:
-                            targetArray.append( line )
+                            targetArray.append( unzipFile(line) )
                         else:
-                            controlArray.append( line )
+                            controlArray.append( unzipFile(line) )
                     else:
                         line = line.split()
                         #bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
