@@ -215,6 +215,7 @@ def getMostOccCellName(lines):
         
 @task   
 def ENCODE_TF_chipseq(peakfile,outdir2,genome):
+    mkpath(outdir2)
     cmd="sh "+settings.toolpath+"./peaksetSummary/peaksetSummary.sh "+peakfile+" '"+settings.ENCODEchipseqDIR+"/"+genome+"/*.narrowPeak' "+outdir2
     print cmd
     os.system(cmd)
@@ -229,6 +230,7 @@ def ENCODE_TF_chipseq(peakfile,outdir2,genome):
 
 @task
 def histonePlot(peakfile,outdir2,genome,cellline_used):
+    mkpath(outdir2)
     #check data generator: broad
     histoneDir=settings.ENCODEhistoneDIR+"/"+genome+"/"
     datastr="".join(glob.glob(histoneDir+"*"+cellline_used+"*.bigWig"))
@@ -283,7 +285,6 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
         #encode_chipseq overlap#
         if len(taskSet)==0 or "encode_chipseq" in taskSet :
             outdir2=outdir+"/encode_chipseq/"
-            mkpath(outdir2)
             if known_match_cell=="":
                 known_match_cell=ENCODE_TF_chipseq(peakfile,outdir2,genome)
             else:
@@ -291,6 +292,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
         
         #encode_histone profile#
         if len(taskSet)==0 or "histonePlot" in taskSet :
+            outdir2=outdir+"/histonePlot/"
             if known_match_cell=="":
                 known_match_cell=histonePlot(peakfile,outdir2,genome,"")
             else:
