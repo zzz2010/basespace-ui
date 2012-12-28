@@ -57,7 +57,7 @@ def FileType(fileName):
 
 def unzipFile(filename):
     if filename.endswith(".gz"):
-        outfile="/tmp/"+os.path.basename(filename)
+        outfile="/tmp/"+os.path.basename(filename).replace(".gz","")
         cmd="gunzip -c "+filename+" > "+outfile
         print cmd
         os.system(cmd)
