@@ -10,6 +10,7 @@ import ConfigParser
 from jobserver.models import Job
 from celery import chord,group,chain
 from jobserver import settings
+import basespace.settings
 import peakAnalyzer
 import operator
 
@@ -82,7 +83,7 @@ def CENTDIST(denovoDir,peakfile,outdir2,genome):
 
 @task
 def TagProfileAroundPeaks(peakfile,outdir2,inputdir):
-    taglist=glob.glob(inputdir+"/*/MAIN/*.tags.unique")
+    taglist=glob.glob(inputdir+"/*.tags.unique")
     mkpath(outdir2)
     cmd2="python "+settings.toolpath+"./profileAroundPeaks/profile5k.py "+peakfile+" "+outdir2+" "+" ".join(taglist)
     print cmd2
@@ -299,6 +300,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
             else:
                 tasklist.append(histonePlot.s(peakfile,outdir2,genome,known_match_cell))
     print known_match_cell
+    taskconfig.set("task", "cellline", known_match_cell)
     return group(tasklist)()
             
 @task
@@ -317,6 +319,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         #do the update database
         myjob=Job.objects.get(pk=jobid)
         myjob.status="Completed"
+        myjob.cell_line=taskconfig.get("task","cellline")
         myjob.save()
     except Exception, e:
         traceback.print_exc()
@@ -344,8 +347,35 @@ def PeakCalling_task(jobid,outdir):
     cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
     print(cmd)
     os.system(cmd)
+
+@task 
+def upload_file(appResults,localfile,dirname,api):
+    filetype="image/png"
+    if localfile.endswith('.txt') or localfile.endswith('.bed') or localfile.endswith('.html'):
+        filetype='text/plain'
+    appResults.uploadFile(api, localfile , os.path.basename(localfile),'/'+dirname+'/', filetype)
     
-    
+@task
+def create_upload_AppResult(outdir,session_id,jobid):    
+    session=Session.objects.get(pk=session_id)
+    myjob=Job.objects.get(pk=jobid)
+    api=session.getBSapi()
+    appsession=api.getAppSessionById(str(session.SessionId))
+    prjstr=appsession.References[0].Href
+    trigger_project=api.getProjectById(prjstr.replace(basespace.settings.version+"/projects/",""))
+    appResults = trigger_project.createAppResult(api,myjob.jobtitle,appSessionId=session.SessionId)
+    tasklist=list()
+    #upload peak calling result
+    for localfile in glob.glob(outdir+"/peakcalling_result/*.bed"):
+        tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
+    for localfile in glob.glob(outdir+"/peakcalling_result/*.xls"):
+        tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
+    for localfile in glob.glob(outdir+"/peakcalling_result/*.pdf"):
+        tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
+    for localfile in glob.glob(outdir+"/peakcalling_result/*.png"):
+        tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
+    upG=group(tasklist)()
+    upG.get(timeout=1000*60*60)
     
 @task
 def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid):
@@ -355,6 +385,8 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     #peak calling
     #PeakCalling_task(outdir,jobid)
     
+    #upload peak
+    create_upload_AppResult.delay(outdir,session_id,jobid)
     #processing
     myjob=Job.objects.get(pk=jobid)
     outdir2=outdir+"/pipeline_result"
