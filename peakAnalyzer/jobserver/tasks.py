@@ -206,7 +206,7 @@ def getMostOccCellName(lines):
         fname=os.path.basename(comps[0])
         for cell in cell_count.keys():
             if cell in fname:
-                cell_count[cell]+=cell_count[cell]
+                cell_count[cell]+=1
                 break
     
     sorted_x = sorted(cell_count.iteritems(), key=operator.itemgetter(1))
