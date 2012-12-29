@@ -363,7 +363,7 @@ def create_upload_AppResult(outdir,session_id,jobid):
     appsession=api.getAppSessionById(str(session.SessionId))
     prjstr=appsession.References[0].Href
     trigger_project=api.getProjectById(prjstr.replace(basespace.settings.version+"/projects/",""))
-    appResults = trigger_project.createAppResult(api,myjob.jobtitle,appSessionId=session.SessionId)
+    appResults = trigger_project.createAppResult(api,"PeakAnalyzer",myjob.jobtitle,appSessionId=session.SessionId)
     tasklist=list()
     #upload peak calling result
     for localfile in glob.glob(outdir+"/peakcalling_result/*.bed"):
