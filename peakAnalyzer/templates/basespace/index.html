@@ -68,12 +68,12 @@ function test()
  $("*[name*='cb__']").each(function(i) {
                 if ($(this).val() =="Control") {
                         line = $(this).attr("name");
-                        ctrl_ids += line + ',';
+                        ctrl_ids += line.split("__")[1] + ',';
                 }
                 else if($(this).val() =="Sample") 
                 {
                 	 line = $(this).attr("name");
-                        sample_ids += line + ',';
+                        sample_ids += line.split("__")[1] + ',';
                 }
         });
 postdata+='ctrl_ids='+ctrl_ids;
@@ -93,12 +93,12 @@ function submit_job()
  $("*[name*='cb__']").each(function(i) {
                 if ($(this).val() =="Control") {
                         line = $(this).attr("name");
-                        ctrl_ids += line + ',';
+                        ctrl_ids += line.split("__")[1] + ',';
                 }
                 else if($(this).val() =="Sample") 
                 {
                 	 line = $(this).attr("name");
-                        sample_ids += line + ',';
+                        sample_ids += line.split("__")[1] + ',';
                 }
         });
 postdata+='ctrl_ids='+ctrl_ids;
