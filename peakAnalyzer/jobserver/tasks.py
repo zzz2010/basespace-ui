@@ -330,7 +330,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
 toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver').replace('\\','/')
 
 @task
-def PeakCalling_task(jobid,outdir):
+def PeakCalling_task(outdir,jobid):
     #make configure file
     myjob=Job.objects.get(pk=jobid)
     myjob.status="PeakCalling"
