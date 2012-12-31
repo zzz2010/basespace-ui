@@ -356,7 +356,8 @@ def upload_file(appResults,localfile,dirname,api):
     appResults.uploadFile(api, localfile , os.path.basename(localfile),'/'+dirname+'/', filetype)
     
 @task
-def create_upload_AppResult(outdir,session_id,jobid):    
+def create_upload_AppResult(outdir,session_id,jobid):   
+    session_id=5 #debug 
     session=Session.objects.get(pk=session_id)
     myjob=Job.objects.get(pk=jobid)
     api=session.getBSapi()
@@ -367,6 +368,8 @@ def create_upload_AppResult(outdir,session_id,jobid):
     tasklist=list()
     #upload peak calling result
     for localfile in glob.glob(outdir+"/peakcalling_result/*.bed"):
+        tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
+    for localfile in glob.glob(outdir+"/peakcalling_result/*.bam"):
         tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
     for localfile in glob.glob(outdir+"/peakcalling_result/*.xls"):
         tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
