@@ -378,7 +378,10 @@ def create_upload_AppResult(outdir,session_id,jobid):
     for localfile in glob.glob(outdir+"/peakcalling_result/*.png"):
         tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
     upG=group(tasklist)()
-    upG.get(timeout=1000*60*60)
+    try:
+        upG.get(timeout=1000*60*60)
+    except:
+        pass
     
 @task
 def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid):
