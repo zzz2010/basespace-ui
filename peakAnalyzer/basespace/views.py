@@ -17,7 +17,7 @@ from jobserver.tasks import *
 
 
 
-FileTypes={'Extensions':'bam,vcf,fastq,gz'}
+FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 
 
 
