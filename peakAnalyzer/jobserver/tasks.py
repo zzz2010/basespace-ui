@@ -382,10 +382,11 @@ def create_upload_AppResult(outdir,session_id,jobid):
     
 @task
 def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid):
-    outdir=outdir+"/"+str(jobid)
+    
     #download first
     basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid)
     
+    outdir=outdir+"/"+str(jobid) #later files have to be in the jobid folder
     #peak calling
     PeakCalling_task(outdir,jobid)
     
