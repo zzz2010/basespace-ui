@@ -353,7 +353,10 @@ def upload_file(appResults,localfile,dirname,api):
     filetype="image/png"
     if localfile.endswith('.txt') or localfile.endswith('.bed') or localfile.endswith('.html'):
         filetype='text/plain'
-    appResults.uploadFile(api, localfile , os.path.basename(localfile),'/'+dirname+'/', filetype)
+    try:
+        appResults.uploadFile(api, localfile , os.path.basename(localfile),'/'+dirname+'/', filetype)
+    except:
+        pass
     
 @task
 def create_upload_AppResult(outdir,session_id,jobid):   
@@ -378,10 +381,7 @@ def create_upload_AppResult(outdir,session_id,jobid):
     for localfile in glob.glob(outdir+"/peakcalling_result/*.png"):
         tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
     upG=group(tasklist)()
-    try:
-        upG.get(timeout=1000*60*60)
-    except:
-        pass
+    upG.get(timeout=1000*60*60)
     
 @task
 def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid):
