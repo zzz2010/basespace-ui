@@ -382,6 +382,24 @@ def create_upload_AppResult(outdir,session_id,jobid):
         tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
     upG=group(tasklist)()
     upG.get(timeout=1000*60*60)
+    return appResults
+
+
+def get_immediate_subdirectories(dir1):
+    return [name for name in os.listdir(dir1)
+            if os.path.isdir(os.path.join(dir1, name))]
+@task
+def upload_AppResult(outdir,session_id,appResults):  
+    session_id=5 #debug 
+    session=Session.objects.get(pk=session_id)
+    api=session.getBSapi()
+    tasklist=list()
+    dirlist=get_immediate_subdirectories(outdir)
+    for dir1 in dirlist:
+        for localfile in glob.glob(str(outdir)+"/"+dir1+"/*.png"):
+            tasklist.append(upload_file.s(appResults,localfile,dir1,api))
+    upG=group(tasklist)()
+    upG.get(timeout=1000*60*60)
     
 @task
 def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid):
@@ -394,7 +412,7 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     PeakCalling_task(outdir,jobid)
     
     #upload peak
-    create_upload_AppResult.delay(outdir,session_id,jobid)
+    appresult_handle=create_upload_AppResult.delay(outdir,session_id,jobid)
     #processing
     myjob=Job.objects.get(pk=jobid)
     outdir2=outdir+"/pipeline_result"
@@ -409,5 +427,5 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     configwrite.write("outputDIR="+outdir2+"\n")
     configwrite.close()
     Pipeline_Processing_task(taskconfigfile,jobid)
-    
+    upload_AppResult.delay(outdir2,session_id,appresult_handle.get()) 
     
