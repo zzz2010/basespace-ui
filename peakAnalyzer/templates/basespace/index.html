@@ -142,7 +142,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
         <hr>Samples</hr>
 	{% for sample in project.sample_set.all %}
                 <li><a class="accordion-toggle" data-toggle="collapse" data-target="#sa__{{ sample.SampleId }}" href="#sa__{{ sample.SampleId }}" onclick=load_safiles("#sa__{{ sample.SampleId }}") ><i class="icon-plus"></i>{{ sample.Name }}({{sample.Detail}})</a></li>
-         <div id="sa__{{ sample.SampleId }}" class="collapse" > Loading...Hello</div>
+         <div id="sa__{{ sample.SampleId }}" class="collapse" > Loading...</div>
     {% endfor %}
 {% endfor %}
             </ul>
