@@ -50,6 +50,7 @@ def listAppResultFiles(request,session_id,ar_id):
     myar=AppResult.objects.get(AppResultId=ar_id)
     myar.Detail=ar.Description
     myar.save()
+    genome_name="-"
     if hasattr(ar, 'HrefGenome'):
         genome_id=ar.HrefGenome.replace(basespace.settings.version+"/genomes/","")
         genome_name=myAPI.getGenomeById(genome_id).Build
@@ -68,6 +69,7 @@ def listSampleFiles(request,session_id,sa_id):
     mysa=Sample.objects.get(SampleId=sa_id)
     mysa.Detail=sa.ExperimentName+","+str(sa.Read1)+"-"+str(sa.Read2)
     mysa.save()
+    genome_name="-"
     if hasattr(sa, 'HrefGenome'):
         genome_id=sa.HrefGenome.replace(basespace.settings.version+"/genomes/","")
         genome_name=myAPI.getGenomeById(genome_id).Build
