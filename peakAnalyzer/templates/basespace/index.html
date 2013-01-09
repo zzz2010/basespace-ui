@@ -173,38 +173,39 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 				Local Files
 				</hr>
 				<div id="localfile_list"></div>
-				 <label class="fileinput-button">
-                <span>Add files...</span>
-                <input type="file" name="files[]" multiple>
-            </label>
-			<!-- <form action="/foo/" method="POST" enctype="multipart/form-data"> -->
+				
+			 <form action="/foo/" method="POST" enctype="multipart/form-data">
+			 <label class="fileinput-button"> <span>Add files...</span> <input
+					type="file" name="files[]" multiple>
+				</label>
+				</form>
 				<!-- 	<span class="btn btn-success fileinput-button">  -->
-		<!-- 		<i class="icon-plus icon-white"></i> <span>Add files...</span> <input
+				<!-- 		<i class="icon-plus icon-white"></i> <span>Add files...</span> <input
 						type="file" name="files[]" multiple>  -->
 
-			<!-- 		</span> -->
-					<hr>
-					AppResults
-					</hr>
-					{% for appresult in project.appresult_set.all %}
-					<li><a class="accordion-toggle" data-toggle="collapse"
-						data-target="#ar__{{ appresult.AppResultId }}"
-						href="#ar__{{ appresult.AppResultId }}" onclick=load_arfiles("#ar__{{ appresult.AppResultId }}") ><i
-							class="icon-list"></i>{{ appresult.Name }}({{appresult.Detail}})</a></li>
-					<div id="ar__{{ appresult.AppResultId }}" class="collapse">
-						Loading...</div>
-					{% endfor %}
-					<hr>
-					Samples
-					</hr>
-					{% for sample in project.sample_set.all %}
-					<li><a class="accordion-toggle" data-toggle="collapse"
-						data-target="#sa__{{ sample.SampleId }}"
-						href="#sa__{{ sample.SampleId }}" onclick=load_safiles("#sa__{{ sample.SampleId }}") ><i
-							class="icon-plus"></i>{{ sample.Name }}({{sample.Detail}})</a></li>
-					<div id="sa__{{ sample.SampleId }}" class="collapse">
-						Loading...</div>
-					{% endfor %} {% endfor %}
+				<!-- 		</span> -->
+				<hr>
+				AppResults
+				</hr>
+				{% for appresult in project.appresult_set.all %}
+				<li><a class="accordion-toggle" data-toggle="collapse"
+					data-target="#ar__{{ appresult.AppResultId }}"
+					href="#ar__{{ appresult.AppResultId }}" onclick=load_arfiles("#ar__{{ appresult.AppResultId }}") ><i
+						class="icon-list"></i>{{ appresult.Name }}({{appresult.Detail}})</a></li>
+				<div id="ar__{{ appresult.AppResultId }}" class="collapse">
+					Loading...</div>
+				{% endfor %}
+				<hr>
+				Samples
+				</hr>
+				{% for sample in project.sample_set.all %}
+				<li><a class="accordion-toggle" data-toggle="collapse"
+					data-target="#sa__{{ sample.SampleId }}"
+					href="#sa__{{ sample.SampleId }}" onclick=load_safiles("#sa__{{ sample.SampleId }}") ><i
+						class="icon-plus"></i>{{ sample.Name }}({{sample.Detail}})</a></li>
+				<div id="sa__{{ sample.SampleId }}" class="collapse">
+					Loading...</div>
+				{% endfor %} {% endfor %}
 			</ul>
 		</div>
 		<!--/.well -->
