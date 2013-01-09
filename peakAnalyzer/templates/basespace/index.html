@@ -38,6 +38,17 @@ function load_safiles(trigger) {
 	})
 }
 
+function load_upfiles(trigger){
+$.ajax({   
+        type: "GET",
+        url: "/peakAnalyzer/basespace/{{session_id}}/"+trigger.split("__")[1]+"/listUploadedFiles",    
+        dataType:'text',   
+        success: function(data, textStatus){
+        		$(trigger).html(data);
+		}
+	})
+}
+
 
  addedFiles={};
 function add_list(trigger_obj)
@@ -156,7 +167,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	    <span class="btn btn-success fileinput-button">
                     <i class="icon-plus icon-white"></i>
                     <span>Add files...</span>
-                    <input type="file" name="files[]" multiple>
+                    <<form action="{% url multi %}" method="POST" enctype="multipart/form-data">>
                 </span>
 	  <hr>AppResults</hr>
 	{% for appresult in project.appresult_set.all %}
