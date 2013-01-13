@@ -137,11 +137,11 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 <head>
 
 <!-- Generic page styles -->
-<link rel="stylesheet" href="../../../static/css/style.css">
+<link rel="stylesheet" href="../../../static/fileUpload/css/style.css">
 <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-<link rel="stylesheet" href="../../../static/css/jquery.fileupload-ui.css">
+<link rel="stylesheet" href="../../../static/fileUpload/css/jquery.fileupload-ui.css">
 <!-- CSS adjustments for browsers with JavaScript disabled -->
-<noscript><link rel="stylesheet" href="../../../static/css/jquery.fileupload-ui-noscript.css"></noscript>
+<noscript><link rel="stylesheet" href="../../../static/fileUpload/css/jquery.fileupload-ui-noscript.css"></noscript>
 
 </head>
 
@@ -163,6 +163,30 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
                     <span>Add files...</span>
                    <input type="file" name="files[]" multiple> 
                    
+                   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="../../../static/fileUpload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../../../static/fileUpload/js/jquery.iframe-transport.js"></script>
+<script src="../../../static/fileUpload/js/jquery.fileupload.js"></script>
+<script>
+$(function () {
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        add: function (e, data) {
+            data.context = $('<button/>').text('Upload')
+                .appendTo(document.body)
+                .click(function () {
+                    $(this).replaceWith($('<p/>').text('Uploading...'));
+                    data.submit();
+                });
+        },
+         done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
+    });
+});
+     </script>              
                 </span>
                 </form>
 	  <hr>AppResults</hr>
