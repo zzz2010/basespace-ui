@@ -26,18 +26,7 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script>
 <script type="text/javascript" src="../../../static/bootstrap/js/bootstrap.min.js"></script>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		current_page = getVar("menu");
-		$("#" + current_page).addClass("active");
-		$("input").addClass("input-xlarge");
-		$("textarea").addClass("input-xlarge");
-	});
-	
-	 $(function() {
-            $("[rel=popover]").popover();
-        })();
-</script>
+
 
 {% block header %}{% endblock %}
 </head>
