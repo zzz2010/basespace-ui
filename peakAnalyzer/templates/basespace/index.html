@@ -158,7 +158,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
 	 <hr>Local Files</hr>
 	 <div id="localfile_list">
-	 <p> </p>
+	
 	 <!-- <form action="{{ url_up }} " method="POST" enctype="multipart/form-data">-->
 	    <span class="btn btn-success fileinput-button">
                     <i class="icon-plus icon-white"></i>
@@ -167,7 +167,6 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 
                 </span>
 
-                <p> </p>
                 </div>
 	  <hr>AppResults</hr>
 	{% for appresult in project.appresult_set.all %}
