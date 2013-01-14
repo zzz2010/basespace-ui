@@ -171,26 +171,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 <script src="../../../static/fileUpload/js/vendor/jquery.ui.widget.js"></script>
 <script src="../../../static/fileUpload/js/jquery.iframe-transport.js"></script>
 <script src="../../../static/fileUpload/js/jquery.fileupload.js"></script>
-<script>
-$(function () {
-    $('#fileupload').fileupload({
-        dataType: 'json',
-        add: function (e, data) {
-            data.context = $('<button/>').text('Upload')
-                .appendTo(document.body)
-                .click(function () {
-                    $(this).replaceWith($('<p/>').text('Uploading...'));
-                    data.submit();
-                });
-        },
-         done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            });
-        }
-    });
-});
-</script>
+
                 <p> </p>
                 </div>
 	  <hr>AppResults</hr>
