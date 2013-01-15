@@ -3,7 +3,8 @@ import datetime, os, sys,  time
 from django.utils import simplejson
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from django.http import HttpResponse
+from django.http import  *
+from django.core.files.uploadedfile import UploadedFile
 from BaseSpacePy.api.BaseSpaceAPI import BaseSpaceAPI
 from django.http import Http404
 from django.shortcuts import redirect
@@ -14,12 +15,14 @@ import basespace.settings
 import peakAnalyzer.settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from jobserver.tasks import *
-
-
+from basespace.UploadFileHandler import handle_uploaded_file
+from django import forms
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 
-
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file  = forms.FileField()
 
 
 # Create your views here.
@@ -75,6 +78,26 @@ def listSampleFiles(request,session_id,sa_id):
         genome_name=myAPI.getGenomeById(genome_id).Build
     files=sa.getFiles(myAPI,myQp=FileTypes)
     return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':files,'session_id':session_id})
+
+def listUploadedFiles(request, session_id):
+    try:
+          session=basespace.models.Session.objects.get(pk=session_id)
+          myAPI=session.getBSapi()
+    except basespace.models.Session.DoesNotExist:
+            raise Http404
+    
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = UploadFileForm()
+    return render_to_response('upload.html', {'form': form})
+    genome_name=""
+
+    return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':file,'session_id':session_id})
+
         
 def listProject(request,session_id):
     outstr=""
@@ -177,10 +200,6 @@ def listFiles(request,session_id):
                 outstr+="<p>"+str(f)
             
     return HttpResponse(outstr)
-
-
-
-
 
 
     
