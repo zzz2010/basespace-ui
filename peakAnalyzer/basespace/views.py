@@ -79,7 +79,7 @@ def listSampleFiles(request,session_id,sa_id):
     files=sa.getFiles(myAPI,myQp=FileTypes)
     return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':files,'session_id':session_id})
 
-def listUploadedFiles(session_id, request):
+def listUploadedFiles(request, session_id):
     try:
         session=basespace.models.Session.objects.get(pk=session_id)
         myAPI=session.getBSapi()
