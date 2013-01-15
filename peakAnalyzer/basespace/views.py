@@ -80,14 +80,12 @@ def listSampleFiles(request,session_id,sa_id):
     return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':files,'session_id':session_id})
 
 def listUploadedFiles(request, session_id):
-    #===========================================================================
-    # try:
-    #      session=basespace.models.Session.objects.get(pk=session_id)
-    #      myAPI=session.getBSapi()
-    # except basespace.models.Session.DoesNotExist:
-    #        raise Http404
-    # 
-    #===========================================================================
+    try:
+        session=basespace.models.Session.objects.get(pk=session_id)
+        myAPI=session.getBSapi()
+    except basespace.models.Session.DoesNotExist:
+            raise Http404
+        
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -98,7 +96,7 @@ def listUploadedFiles(request, session_id):
     return render_to_response('upload.html', {'form': form})
     genome_name=""
 
-   # return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':file,'session_id':session_id})
+    return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':file,'session_id':session_id})
 
         
 def listProject(request,session_id):
