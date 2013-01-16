@@ -159,7 +159,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	 <hr>Local Files</hr>
 	 <div id="localfile_list">
 	
-	  <form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
+	  <form action="." method="POST" enctype="multipart/form-data">
 	   
                    <input type="file" name="files[]"  multiple>  
 						<type= "submit" value="Upload">             
