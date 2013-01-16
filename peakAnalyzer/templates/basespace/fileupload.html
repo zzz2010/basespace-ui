@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block body  %}
+     <h1>Upload a file</h1>
+     <form action="." method="post" enctype="multipart/form-data">
+         {{ form }}
+         <type="submit" value="Upload" />
+     </form>
+{% endblock %}
