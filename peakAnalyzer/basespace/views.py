@@ -24,6 +24,8 @@ class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
     file  = forms.FileField()
 
+class SimpleFileForm(forms.Form):
+    file = forms.Field(widget=forms.FileInput, required=False)
 
 # Create your views here.
 def createSession(request):
@@ -92,8 +94,8 @@ def listUploadedFiles(request, session_id):
             handle_uploaded_file(request.FILES['file'], session_id)
             return HttpResponseRedirect('/success/url/')
     else:
-        form = UploadFileForm()
-    return render_to_response('upload.html', {'form': form})
+        form = SimpleFileForm()
+    return render_to_response('basespace/index.html', {'form': form})
     genome_name=""
 
     return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':file,'session_id':session_id})
