@@ -17,6 +17,7 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from jobserver.tasks import *
 from basespace.UploadFileHandler import handle_uploaded_file
 from django import forms
+from peakAnalyzer.settings import MEDIA_ROOT
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 
@@ -88,18 +89,36 @@ def listUploadedFiles(request, session_id):
         myAPI=session.getBSapi()
     except basespace.models.Session.DoesNotExist:
             raise Http404
-        
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.FILES['file'], session_id)
-            return HttpResponseRedirect('/success/url/')
-    else:
-        form = SimpleFileForm()
-    return render_to_response('basespace/fileupload.html', {'form': form})
-    genome_name=""
+    if request['method'] == 'POST':
+        if 'file' in request.FILES:
+            file = request.FILES['file']
 
-    return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':file,'session_id':session_id})
+            # Other data on the request.FILES dictionary:
+            #   filesize = len(file['content'])
+            #   filetype = file['content-type']
+
+            filename = file['filename']
+
+            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+            fd.write(file['content'])
+            fd.close()
+
+            return HttpResponseRedirect(' upload_success.html')
+    else:
+        # display the form
+        form = SimpleFileForm()
+        return render_to_response('basespace/fileupload.html', { 'form': form })   
+#    if request.method == 'POST':
+#        form = UploadFileForm(request.POST, request.FILES)
+#        if form.is_valid():
+#            handle_uploaded_file(request.FILES['file'], session_id)
+#            return HttpResponseRedirect('/success/url/')
+#    else:
+#        form = SimpleFileForm()
+#    return render_to_response('basespace/fileupload.html', {'form': form})
+#    genome_name=""
+#
+#    return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':file,'session_id':session_id})
 
         
 def listProject(request,session_id):
