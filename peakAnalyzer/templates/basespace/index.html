@@ -160,11 +160,11 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	 <div id="localfile_list">
 	
 	  <form action="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/" method="POST" enctype="multipart/form-data">
-	   				<span class="btn btn-success fileinput-button"> </span>
+	   				<span class="btn btn-success fileinput-button">
                    	<input type="file" name="files[]"  multiple>  
 					<input type= "submit" value="Upload">             
 			
-             
+             </span>>
 		</form>
 		<script src="../../../static/fileUpload/js/vendor/jquery.ui.widget.js"></script>
 <script src="../../../static/fileUpload/js/jquery.iframe-transport.js"></script>
