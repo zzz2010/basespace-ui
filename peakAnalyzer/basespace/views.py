@@ -94,39 +94,13 @@ def listUploadedFiles(request, session_id):
     user        = myAPI.getUserById('current')
     myuser=User.objects.filter(UserId=user.Id)[0]
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
- 
-#    if request.method== 'POST':
-#        if 'file' in request.FILES:
-#            file = request.FILES['file']
-#
-#            # Other data on the request.FILES dictionary:
-#            #   filesize = len(file['content'])
-#            #   filetype = file['content-type']
-#
-#            filename = file['filename']
-#
-#            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
-#            fd.write(file['content'])
-#            fd.close()
-#
-#            return HttpResponseRedirect(' upload_success.html')
-#    else:
-#        # display the form
-#        form = SimpleFileForm()
-#        return render_to_response('basespace/fileupload.html', { 'form': form })
- 
+
     
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         values = form.errors
         if form.is_valid():
-            #filenames=handle_uploaded_file(request.FILES['file'], session_id)
-            
-#            values.sort()
-#            html = []
-#            for k, v in values:
-#                html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
-#            return HttpResponse('<table>%s</table>' % '\n'.join(html))
+            filenames=handle_uploaded_file(request.FILES['file'], outdir)
             return HttpResponse("file uploaded!")
         else:
             return HttpResponse(outdir)
