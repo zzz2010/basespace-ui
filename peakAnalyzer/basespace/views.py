@@ -22,12 +22,9 @@ from peakAnalyzer.settings import MEDIA_ROOT
 FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 
 class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
+   # title = forms.CharField(max_length=50)
     file  = forms.FileField()
-   # file = forms.Field(widget=forms.FileInput, required=True)
-
-class SimpleFileForm(forms.Form):
-    file = forms.Field(widget=forms.FileInput, required=False)
+   # file = forms.Field(widget=forms.FileInput, required=False)
 
 # Create your views here.
 def createSession(request):
@@ -103,7 +100,7 @@ def listUploadedFiles(request, session_id):
             filenames=handle_uploaded_file(request.FILES['file'], outdir)
             return HttpResponse("file uploaded!")
         else:
-            return HttpResponse(outdir)
+            return HttpResponse(values)
     else:
         form = UploadFileForm()
     return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
