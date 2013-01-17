@@ -99,11 +99,11 @@ def listUploadedFiles(request, session_id):
         if form.is_valid():
             filenames=handle_uploaded_file(request.FILES['file'], outdir)
             return HttpResponse("file uploaded!")
-        else:
-            return HttpResponse(values)
+       # else:
+        #    return HttpResponse(values)
     else:
         form = UploadFileForm()
-    return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
+    return render_to_response('basespace/index.html', {'session_id':session_id,'form': form})
     #return HttpResponse("uploaded")
    #return render_to_response('basespace/index.html', {'session_id':session_id})
         
