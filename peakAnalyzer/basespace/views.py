@@ -89,7 +89,7 @@ def listUploadedFiles(request, session_id):
         myAPI=session.getBSapi()
     except basespace.models.Session.DoesNotExist:
             raise Http404
-    file=File()
+   # file=File()
     if request.method== 'POST':
         if 'file' in request.FILES:
             file = request.FILES['file']
@@ -111,7 +111,7 @@ def listUploadedFiles(request, session_id):
         return render_to_response('basespace/fileupload.html', { 'form': form })
     
     genome_name=""
-    return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':file,'session_id':session_id})
+   # return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':file,'session_id':session_id})
 #    if request.method == 'POST':
 #        form = UploadFileForm(request.POST, request.FILES)
 #        if form.is_valid():
