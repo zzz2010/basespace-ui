@@ -1,5 +1,5 @@
 {% extends "basespace/index.html" %}
-{% block upload  %}
+{% block local_filelist  %}
      <h1>Upload a file</h1>
      <form action="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/" method="post" enctype="multipart/form-data">
          {{ form }}
