@@ -115,7 +115,7 @@ def listUploadedFiles(request, session_id):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             filenames=handle_uploaded_file(request.FILES['file'], session_id)
-#            values = request.META.items()
+            values = request.META.items()
 #            values.sort()
 #            html = []
 #            for k, v in values:
@@ -123,7 +123,7 @@ def listUploadedFiles(request, session_id):
 #            return HttpResponse('<table>%s</table>' % '\n'.join(html))
             return HttpResponse("file uploaded!")
         else:
-            return HttpResponse("form not valid")
+            return HttpResponse(values)
     else:
         form = UploadFileForm()
     return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
