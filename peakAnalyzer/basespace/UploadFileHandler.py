@@ -1,6 +1,4 @@
-from basespace.models import User, Session
-import peakAnalyzer.settings
-import basespace
+
 from django.core.files.uploadedfile import UploadedFile
 
 def handle_uploaded_file(f, outdir):

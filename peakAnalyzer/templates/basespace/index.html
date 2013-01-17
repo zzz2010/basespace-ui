@@ -184,7 +184,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
 	 <hr>Local Files</hr>
 	 <div id="localfile_list">
-	
+	{ % block upload % }
 	  <form action="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/" method="post" enctype="multipart/form-data">
 	   				
                    <input type="file" name="files[]"  multiple> 
@@ -194,7 +194,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 			
              
 		</form>
-	
+	{% endblock %}
      <script src="../../../static/fileUpload/js/jquery.iframe-transport.js"></script>
 <script src="../../../static/fileUpload/js/jquery.fileupload.js"></script> 
 <script src="../../../static/fileUpload/js/vendor/jquery.ui.widget.js"></script> 
