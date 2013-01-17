@@ -121,11 +121,11 @@ def listUploadedFiles(request, session_id):
 #            for k, v in values:
 #                html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
 #            return HttpResponse('<table>%s</table>' % '\n'.join(html))
-            return HttpResponseRedirect('/success/url/')
+            return HttpResponse("file uploaded!")
         else:
             return HttpResponse("form not valid")
     else:
-        form = SimpleFileForm()
+        form = UploadFileForm()
     return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
     #return HttpResponse("uploaded")
    #return render_to_response('basespace/index.html', {'session_id':session_id})
