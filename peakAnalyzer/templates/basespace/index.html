@@ -186,7 +186,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	 <div id="localfile_list">
 	
 	  <form action="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/" method="post" enctype="multipart/form-data">
-	   				
+	   				{{ form }}
                    	<input type="file" name="files[]"  multiple>  
 					
 					<br /><br />
