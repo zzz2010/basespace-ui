@@ -112,23 +112,23 @@ def listUploadedFiles(request, session_id):
  
     
     if request.method == 'POST':
-#        form = UploadFileForm(request.POST, request.FILES)
+            form = UploadFileForm(request.POST, request.FILES)
 #        if form.is_valid():
             #filenames=handle_uploaded_file(request.FILES['file'], session_id)
-            values = request.META.items()
-            values.sort()
-            html = []
-            for k, v in values:
-                html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
-            return HttpResponse('<table>%s</table>' % '\n'.join(html))
+#            values = request.META.items()
+#            values.sort()
+#            html = []
+#            for k, v in values:
+#                html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
+#            return HttpResponse('<table>%s</table>' % '\n'.join(html))
  
-#            file = request.FILES['file']
-#            filename = file['filename']
-#
-#            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
-#            fd.write(file['content'])
-#            fd.close()
-#            return HttpResponseRedirect('/success/url/')
+            file = request.FILES['file']
+            filename = file['filename']
+
+            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+            fd.write(file['content'])
+            fd.close()
+            return HttpResponseRedirect('/success/url/')
     else:
         form = SimpleFileForm()
     return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
