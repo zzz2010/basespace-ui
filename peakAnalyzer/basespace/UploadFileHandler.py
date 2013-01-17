@@ -20,3 +20,5 @@ def handle_uploaded_file(f, session_id):
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
+    
+    return filename
