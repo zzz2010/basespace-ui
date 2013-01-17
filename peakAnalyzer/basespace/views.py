@@ -22,7 +22,7 @@ from peakAnalyzer.settings import MEDIA_ROOT
 FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 
 class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
+   # title = forms.CharField(max_length=50)
     file  = forms.FileField()
 
 class SimpleFileForm(forms.Form):
