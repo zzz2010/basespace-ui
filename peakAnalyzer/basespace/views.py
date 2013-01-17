@@ -96,7 +96,7 @@ def listUploadedFiles(request, session_id):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         errors = form.errors
-        bf = form.boundfield
+       # bf = form.boundfield
         m = form.is_multipart()
         if form.is_valid():
             filenames=handle_uploaded_file(request.FILES['file'], outdir)
