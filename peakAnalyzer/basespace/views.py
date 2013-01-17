@@ -90,40 +90,40 @@ def listUploadedFiles(request, session_id):
     except basespace.models.Session.DoesNotExist:
             raise Http404
    # file=File()
-    if request.method== 'POST':
-        if 'file' in request.FILES:
-            file = request.FILES['file']
-
-            # Other data on the request.FILES dictionary:
-            #   filesize = len(file['content'])
-            #   filetype = file['content-type']
-
-            filename = file['filename']
-
-            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
-            fd.write(file['content'])
-            fd.close()
-
-            return HttpResponseRedirect(' upload_success.html')
-    else:
-        # display the form
-        form = SimpleFileForm()
-        return render_to_response('basespace/fileupload.html', { 'form': form })
+#    if request.method== 'POST':
+#        if 'file' in request.FILES:
+#            file = request.FILES['file']
+#
+#            # Other data on the request.FILES dictionary:
+#            #   filesize = len(file['content'])
+#            #   filetype = file['content-type']
+#
+#            filename = file['filename']
+#
+#            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+#            fd.write(file['content'])
+#            fd.close()
+#
+#            return HttpResponseRedirect(' upload_success.html')
+#    else:
+#        # display the form
+#        form = SimpleFileForm()
+#        return render_to_response('basespace/fileupload.html', { 'form': form })
     
 
-    return render_to_response('basespace/index.html', {'session_id':session_id})
-#    if request.method == 'POST':
-#        form = UploadFileForm(request.POST, request.FILES)
-#        if form.is_valid():
-#            handle_uploaded_file(request.FILES['file'], session_id)
-#            return HttpResponseRedirect('/success/url/')
-#    else:
-#        form = SimpleFileForm()
-#    return render_to_response('basespace/fileupload.html', {'form': form})
+    
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'], session_id)
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = SimpleFileForm()
+    return render_to_response('basespace/fileupload.html', {'form': form})
 #    genome_name=""
 #
 #    return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':file,'session_id':session_id})
-
+    #return render_to_response('basespace/index.html', {'session_id':session_id})
         
 def listProject(request,session_id):
     outstr=""
