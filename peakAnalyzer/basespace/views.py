@@ -119,8 +119,8 @@ def listUploadedFiles(request, session_id):
             return HttpResponseRedirect('/success/url/')
     else:
         form = SimpleFileForm()
-  #  return render_to_response('basespace/fileupload.html', {'form': form})
-    return HttpResponse("uploaded")
+    return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
+    #return HttpResponse("uploaded")
 #    genome_name=""
 #
 #    return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':file,'session_id':session_id})
