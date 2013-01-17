@@ -122,7 +122,7 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 
 
 
-function uploadfile()
+function uploadfile2()
 {
  
 $(function () {
@@ -143,6 +143,20 @@ $(function () {
         }
     });
 });
+}
+
+function uploadfile()
+{
+	$.ajax({   
+        type: "POST",
+        url: "/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/", 
+        data: postdata,     
+        contentType:'multipart/form-data',
+        success: function(data, textStatus){
+        		window.alert(data);
+        		
+		}
+	})
 }
 </script>
 
@@ -178,7 +192,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
                    	<input type="file" name="files[]"  multiple>  
 					</span>
 					<br /><br />
-					<input type= "submit" value="Upload">             
+					<input type= "submit" value="Upload" onclick=uploadfile()>             
 			
              
 		</form>
