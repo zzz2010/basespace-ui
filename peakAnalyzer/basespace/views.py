@@ -97,11 +97,12 @@ def listUploadedFiles(request, session_id):
         form = UploadFileForm(request.POST, request.FILES)
         errors = form.errors
         bf = form.boundfield
+        m = form.is_multipart()
         if form.is_valid():
             filenames=handle_uploaded_file(request.FILES['file'], outdir)
             return HttpResponse("file uploaded!")
         else:
-            return HttpResponse(bf)
+            return HttpResponse(m)
     else:
         form = UploadFileForm()
     return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
