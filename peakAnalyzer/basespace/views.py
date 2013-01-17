@@ -103,7 +103,7 @@ def listUploadedFiles(request, session_id):
         #    return HttpResponse(values)
     else:
         form = UploadFileForm()
-    return render_to_response('basespace/index.html', {'session_id':session_id,'form': form})
+    return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
     #return HttpResponse("uploaded")
    #return render_to_response('basespace/index.html', {'session_id':session_id})
         
