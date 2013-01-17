@@ -115,7 +115,14 @@ def listUploadedFiles(request, session_id):
     if request.method == 'POST':
 #        form = UploadFileForm(request.POST, request.FILES)
 #        if form.is_valid():
-            filenames=handle_uploaded_file(request.FILES['file'], session_id)
+            #filenames=handle_uploaded_file(request.FILES['file'], session_id)
+           if 'file' in request.FILES: 
+            file = request.FILES['file']
+            filename = file['filename']
+
+            fd = open('%s/%s' % (MEDIA_ROOT, filename), 'wb')
+            fd.write(file['content'])
+            fd.close()
             return HttpResponseRedirect('/success/url/')
     else:
         form = SimpleFileForm()
