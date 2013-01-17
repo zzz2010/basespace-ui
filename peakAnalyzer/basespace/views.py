@@ -116,7 +116,7 @@ def listUploadedFiles(request, session_id):
 #        form = UploadFileForm(request.POST, request.FILES)
 #        if form.is_valid():
             #filenames=handle_uploaded_file(request.FILES['file'], session_id)
-           if 'file' in request.FILES: 
+           
             file = request.FILES['file']
             filename = file['filename']
 
