@@ -113,7 +113,7 @@ def listUploadedFiles(request, session_id):
     
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
-        values = request.META.items()
+        values = request.FILES
         if form.is_valid():
             filenames=handle_uploaded_file(request.FILES['file'], session_id)
             
