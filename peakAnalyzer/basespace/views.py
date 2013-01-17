@@ -90,6 +90,10 @@ def listUploadedFiles(request, session_id):
         myAPI=session.getBSapi()
     except basespace.models.Session.DoesNotExist:
             raise Http404
+    
+    user        = myAPI.getUserById('current')
+    myuser=User.objects.filter(UserId=user.Id)[0]
+    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
  
 #    if request.method== 'POST':
 #        if 'file' in request.FILES:
@@ -125,7 +129,7 @@ def listUploadedFiles(request, session_id):
 #            return HttpResponse('<table>%s</table>' % '\n'.join(html))
             return HttpResponse("file uploaded!")
         else:
-            return HttpResponse(values)
+            return HttpResponse(outdir)
     else:
         form = UploadFileForm()
     return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
