@@ -24,7 +24,7 @@ FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 class UploadFileForm(forms.Form):
    # title = forms.CharField(max_length=50)
     #file  = forms.FileField()
-    file = forms.Field(widget=forms.FileInput, required=False)
+    file = forms.Field(widget=forms.FileInput, required=True)
 
 class SimpleFileForm(forms.Form):
     file = forms.Field(widget=forms.FileInput, required=False)
