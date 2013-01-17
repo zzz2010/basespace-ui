@@ -89,7 +89,7 @@ def listUploadedFiles(request, session_id):
         myAPI=session.getBSapi()
     except basespace.models.Session.DoesNotExist:
             raise Http404
-    file=null
+    file=File()
     if request.method== 'POST':
         if 'file' in request.FILES:
             file = request.FILES['file']
