@@ -102,7 +102,7 @@ def listUploadedFiles(request, session_id):
             filenames=handle_uploaded_file(request.FILES['file'], outdir)
             return HttpResponse("file uploaded!")
         else:
-            return HttpResponse(vars(request))
+            return HttpResponse(vars(form.is_valid()+vars(request.FILES['file'])))
         
     else:
         form = UploadFileForm()
