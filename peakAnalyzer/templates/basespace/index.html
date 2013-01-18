@@ -159,7 +159,31 @@ function uploadfile()
 	})
 }
 </script>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="../../../static/fileUpload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../../../static/fileUpload/js/jquery.iframe-transport.js"></script>
+<script src="../../../static/fileUpload/js/jquery.fileupload.js"></script>
+        
+ <script>
+$(function () {
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        add: function (e, data) {
+            data.context = $('<button/>').text('Upload')
+                .appendTo(document.body)
+                .click(function () {
+                    $(this).replaceWith($('<p/>').text('Uploading...'));
+                    data.submit();
+                });
+        },
+         done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
+    });
+});
+     </script> 
 <head>
 
 <!-- Generic page styles -->
@@ -197,31 +221,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
                     <i class="icon-plus icon-white"></i>
                     <span>Add files...</span>
 <input id="fileupload" type="file" name="files[]" data-url="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/" multiple>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="../../../static/fileUpload/js/vendor/jquery.ui.widget.js"></script>
-<script src="../../../static/fileUpload/js/jquery.iframe-transport.js"></script>
-<script src="../../../static/fileUpload/js/jquery.fileupload.js"></script>
-        
- <script>
-$(function () {
-    $('#fileupload').fileupload({
-        dataType: 'json',
-        add: function (e, data) {
-            data.context = $('<button/>').text('Upload')
-                .appendTo(document.body)
-                .click(function () {
-                    $(this).replaceWith($('<p/>').text('Uploading...'));
-                    data.submit();
-                });
-        },
-         done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            });
-        }
-    });
-});
-     </script> 
+</span>
 
                 </div>
 	  <hr>AppResults</hr>
