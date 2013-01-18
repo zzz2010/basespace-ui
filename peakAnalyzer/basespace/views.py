@@ -94,15 +94,15 @@ def listUploadedFiles(request, session_id):
 
     
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        errors = form.errors
-       # bf = form.boundfield
-        m = form.is_multipart()
-        if form.is_valid():
-            filenames=handle_uploaded_file(request.FILES['file'], outdir)
+#        form = UploadFileForm(request.POST, request.FILES)
+#        errors = form.errors
+#       # bf = form.boundfield
+#        m = form.is_multipart()
+#        if form.is_valid():
+            filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
             return HttpResponse("file uploaded!")
-        else:
-            return HttpResponse(str(form.is_valid())+str(request.FILES['files[]']))
+#        else:
+#            return HttpResponse(str(form.is_valid())+str(request.FILES['files[]']))
         
     else:
         form = UploadFileForm()
