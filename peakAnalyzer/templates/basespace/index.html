@@ -170,7 +170,7 @@ $(function () {
         dataType: 'json',
         add: function (e, data) {
             data.context = $('<button/>').text('Upload')
-                .appendTo(document.body)
+                .appendTo($("#localfile_list"))
                 .click(function () {
                     $(this).replaceWith($('<p/>').text('Uploading...'));
                     data.submit();
@@ -178,7 +178,7 @@ $(function () {
         },
          done: function (e, data) {
             $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
+                $('<p/>').text(file.name).appendTo($("#localfile_list"));
             });
         }
     });
