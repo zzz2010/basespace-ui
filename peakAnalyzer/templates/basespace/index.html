@@ -185,15 +185,12 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	 <hr>Local Files</hr>
 	 <div id="localfile_list">
 <!-- {% block localfile_list %} -->
-	  <form action="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/" method="post" enctype="multipart/form-data">
-	   				
-                   <input type="file" name="files[]"  multiple> 
-					
-					<br /><br />
-					<input type= "submit" value="Upload">             
-			
-             
-		</form>
+
+		
+		     <form action="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/" method="post" enctype="multipart/form-data">
+         {{ form }}
+         <type="submit" value="Upload" />
+     </form>
 <!--  	{% endblock %}-->
 
                 </div>
