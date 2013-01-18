@@ -196,7 +196,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 <span class="btn btn-success fileinput-button">
                     <i class="icon-plus icon-white"></i>
                     <span>Add files...</span>
-
+<input id="fileupload" type="file" name="files[]" data-url="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/" multiple>
 
 <script src="../../../static/fileUpload/js/vendor/jquery.ui.widget.js"></script>
 <script src="../../../static/fileUpload/js/jquery.iframe-transport.js"></script>
