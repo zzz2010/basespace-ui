@@ -100,7 +100,7 @@ def listUploadedFiles(request, session_id):
 #        m = form.is_multipart()
 #        if form.is_valid():
             filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
-            return HttpResponse("file uploaded!")
+            return HttpResponse(filenames)
 #        else:
 #            return HttpResponse(str(form.is_valid())+str(request.FILES['files[]']))
         
@@ -152,9 +152,9 @@ def listProject(request,session_id):
             if len(my_sa)==0:
                 myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name,Detail=sa.Id)
         
-        form = UploadFileForm()
+      
         
-    return render_to_response('basespace/index.html', {'user': myuser,'projects_list':projects_list,'session_id':str(session_id), 'form':form})
+    return render_to_response('basespace/index.html', {'user': myuser,'projects_list':projects_list,'session_id':str(session_id)})
 
 def listFiles(request,session_id):
     outstr=""
