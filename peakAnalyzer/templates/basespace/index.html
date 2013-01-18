@@ -193,17 +193,16 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
      </form> -->
 <!--  	{% endblock %}-->
 
- <span class="btn btn-success fileinput-button">
- <i class="icon-plus icon-white"></i>
+<span class="btn btn-success fileinput-button">
+                    <i class="icon-plus icon-white"></i>
                     <span>Add files...</span>
-<input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple>
-</span>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="js/vendor/jquery.ui.widget.js"></script>
-<script src="js/jquery.iframe-transport.js"></script>
-<script src="js/jquery.fileupload.js"></script>
-<script>
+
+<script src="../../../static/fileUpload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../../../static/fileUpload/js/jquery.iframe-transport.js"></script>
+<script src="../../../static/fileUpload/js/jquery.fileupload.js"></script>
+        
+ <script>
 $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
@@ -222,8 +221,7 @@ $(function () {
         }
     });
 });
-</script>
-
+     </script> 
 
                 </div>
 	  <hr>AppResults</hr>
