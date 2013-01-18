@@ -186,12 +186,44 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 	 <div id="localfile_list">
 <!-- {% block localfile_list %} -->
 
-		
+		<!-- 
 		     <form action="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/" method="post" enctype="multipart/form-data">
          {{ form }}
          <input type="submit" value="Upload" />
-     </form>
+     </form> -->
 <!--  	{% endblock %}-->
+
+ <span class="btn btn-success fileinput-button">
+ <i class="icon-plus icon-white"></i>
+                    <span>Add files...</span>
+<input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple>
+</span>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/vendor/jquery.ui.widget.js"></script>
+<script src="js/jquery.iframe-transport.js"></script>
+<script src="js/jquery.fileupload.js"></script>
+<script>
+$(function () {
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        add: function (e, data) {
+            data.context = $('<button/>').text('Upload')
+                .appendTo(document.body)
+                .click(function () {
+                    $(this).replaceWith($('<p/>').text('Uploading...'));
+                    data.submit();
+                });
+        },
+         done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
+    });
+});
+</script>
+
 
                 </div>
 	  <hr>AppResults</hr>
