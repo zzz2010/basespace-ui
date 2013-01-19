@@ -185,9 +185,9 @@ $(function () {
     });
 });
 
-$('#localfile_list p').click(function()
+$('#localfile_list p').live.("click",function()
 {
-alert("clicked");
+alert($(this).text());
 });
      </script> 
 <head>
