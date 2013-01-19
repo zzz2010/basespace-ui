@@ -103,7 +103,7 @@ def listUploadedFiles(request, session_id):
             filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
             files={}
             files.update({'name': filenames})
-            return HttpResponse(json.dumps(files))
+            return HttpResponse(json.dumps(files), content_type="application/json")
 #        else:
 #            return HttpResponse(str(form.is_valid())+str(request.FILES['files[]']))
         
