@@ -18,6 +18,7 @@ from jobserver.tasks import *
 from basespace.UploadFileHandler import handle_uploaded_file
 from django import forms
 from peakAnalyzer.settings import MEDIA_ROOT
+import json
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 
@@ -100,7 +101,7 @@ def listUploadedFiles(request, session_id):
 #        m = form.is_multipart()
 #        if form.is_valid():
             filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
-            return HttpResponse(filenames)
+            return HttpResponse(json.dumps(request.FILES))
 #        else:
 #            return HttpResponse(str(form.is_valid())+str(request.FILES['files[]']))
         
