@@ -180,6 +180,9 @@ $(function () {
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo($("#localfile_list"));
             });
+        },
+        stop: function(e){
+        alert("uploaded")
         }
     });
 });
