@@ -188,7 +188,8 @@ $(function () {
 $('#localfile_list p').live("click",function()
 {
 alert($(this).text());
-add_list($(this).text())
+var trigger = "up__" + $(this).text() 
+add_list(trigger)
 });
      </script> 
 <head>
