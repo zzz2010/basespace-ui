@@ -97,16 +97,10 @@ def listUploadedFiles(request, session_id):
     
     if request.method == 'POST':
        filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
-#            files={}
-#            files.update({'name': filenames})
-#            return HttpResponse(json.dumps(files), content_type="application/json")
-    
-    #else:
        err=""
-
        prop = [{'name':filenames, 'type':"", 'error': err}]
        response_dict={"files":prop}
-       return HttpResponse(json.dumps(response_dict), content_type='application/javascript')    
+       return HttpResponse(json.dumps(response_dict), content_type='application/json')    
     #return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
          
 def listProject(request,session_id):
