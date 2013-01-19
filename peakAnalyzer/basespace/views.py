@@ -123,9 +123,9 @@ def listUploadedFiles(request, session_id):
             response_dict['errors'].update({'total': 'This field is required'})
         elif int(total) != 10:
             response_dict['errors'].update({'total': 'Incorrect total'})
-    if xhr:
-        return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')    
-    return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
+   # if xhr:
+    return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')    
+    #return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
          
 def listProject(request,session_id):
     outstr=""
