@@ -101,7 +101,8 @@ def listUploadedFiles(request, session_id):
 #        m = form.is_multipart()
 #        if form.is_valid():
             filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
-            return HttpResponse(json.dumps(request.FILES))
+            json_data = json.loads(request.body)
+            return HttpResponse(json_data)
 #        else:
 #            return HttpResponse(str(form.is_valid())+str(request.FILES['files[]']))
         
