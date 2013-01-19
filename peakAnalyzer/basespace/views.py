@@ -123,9 +123,9 @@ def listUploadedFiles(request, session_id):
         if xhr:
             return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')
 
-  
+    else:
         
-    return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
+        return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
          
 def listProject(request,session_id):
     outstr=""

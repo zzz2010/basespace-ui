@@ -176,7 +176,7 @@ $(function () {
             .complete(function (result, textStatus, jqXHR) {/* ... */});
     
         },
-         always: function (e, data) {
+         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo($("#localfile_list"));
             });
