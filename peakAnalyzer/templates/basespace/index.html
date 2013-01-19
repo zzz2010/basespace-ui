@@ -189,7 +189,7 @@ $('#localfile_list p').live("click",function()
 {
 
 var filename = "#up__" + $(this).text(); 
-var trigger = "<p id=" + filename + "> </p>"
+var trigger = "<p id='" + filename + "'> </p>"
 alert(trigger);
 add_list(document.createElement(trigger))
 });
