@@ -103,9 +103,10 @@ def listUploadedFiles(request, session_id):
     
     #else:
    
-       response_dict={}
+       
        prop =[]
        prop.append({'name':filenames})
+       response_dict={prop}
        return HttpResponse(simplejson.dumps(response_dict), content_type='application/javascript')    
     #return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
          
