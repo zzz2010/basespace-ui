@@ -95,18 +95,33 @@ def listUploadedFiles(request, session_id):
 
     
     if request.method == 'POST':
-#        form = UploadFileForm(request.POST, request.FILES)
-#        errors = form.errors
-#       # bf = form.boundfield
-#        m = form.is_multipart()
-#        if form.is_valid():
-            filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
-            files={}
-            files.update({'name': filenames})
-            return HttpResponse(json.dumps(files), content_type="application/json")
-#        else:
-#            return HttpResponse(str(form.is_valid())+str(request.FILES['files[]']))
-        
+#            filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
+#            files={}
+#            files.update({'name': filenames})
+#            return HttpResponse(json.dumps(files), content_type="application/json")
+        xhr = request.GET.has_key('xhr')
+        response_dict = {}
+        name = request.POST.get('name', False)
+        total = request.POST.get('total', False)
+        response_dict.update({'name': name, 'total': total})
+        if total:
+            try:
+                total = int(total)
+            except:
+                total = False
+        if name and total and int(total) == 10:
+            response_dict.update({'success': True})
+        else:
+            response_dict.update({'errors': {}})
+            if not name:
+                response_dict['errors'].update({'name': 'This field is required'})
+            if not total and total is not False:
+                response_dict['errors'].update({'total': 'This field is required'})
+            elif int(total) != 10:
+                response_dict['errors'].update({'total': 'Incorrect total'})
+        if xhr:
+            return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')
+
     else:
         form = UploadFileForm()
     return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
