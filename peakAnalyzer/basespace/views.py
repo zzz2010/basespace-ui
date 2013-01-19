@@ -121,7 +121,7 @@ def listUploadedFiles(request, session_id):
             elif int(total) != 10:
                 response_dict['errors'].update({'total': 'Incorrect total'})
         if xhr:
-            return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')
+            return HttpResponse(simplejson.dumps(response_dict),content_type='application/javascript')
 
     else:
         
