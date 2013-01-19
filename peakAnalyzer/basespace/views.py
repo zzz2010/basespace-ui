@@ -102,12 +102,11 @@ def listUploadedFiles(request, session_id):
 #            return HttpResponse(json.dumps(files), content_type="application/json")
     
     #else:
-   
-       
-       prop =[]
-       prop.append({'name':filenames})
-       response_dict={prop}
-       return HttpResponse(simplejson.dumps(response_dict), content_type='application/javascript')    
+       err=""
+
+       prop = [{'name':filenames, 'type':"", 'error': err}]
+       response_dict={"files":prop}
+       return HttpResponse(json.dumps(response_dict), content_type='application/javascript')    
     #return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
          
 def listProject(request,session_id):
