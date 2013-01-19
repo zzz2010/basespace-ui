@@ -92,7 +92,8 @@ def listUploadedFiles(request, session_id):
     user        = myAPI.getUserById('current')
     myuser=User.objects.filter(UserId=user.Id)[0]
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
-
+    
+    form = UploadFileForm()
     
     if request.method == 'POST':
 #            filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
@@ -122,8 +123,8 @@ def listUploadedFiles(request, session_id):
         if xhr:
             return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')
 
-    else:
-        form = UploadFileForm()
+  
+        
     return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
          
 def listProject(request,session_id):
