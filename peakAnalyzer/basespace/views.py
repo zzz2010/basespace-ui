@@ -19,6 +19,7 @@ from basespace.UploadFileHandler import handle_uploaded_file
 from django import forms
 from peakAnalyzer.settings import MEDIA_ROOT
 import json
+from django.utils import simplejson
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 
@@ -95,37 +96,36 @@ def listUploadedFiles(request, session_id):
     
     form = UploadFileForm()
     
-    if request.method == 'POST':
+    #if request.method == 'POST':
 #            filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
 #            files={}
 #            files.update({'name': filenames})
 #            return HttpResponse(json.dumps(files), content_type="application/json")
-        xhr = request.GET.has_key('xhr')
-        response_dict = {}
-        name = request.POST.get('name', False)
-        total = request.POST.get('total', False)
-        response_dict.update({'name': name, 'total': total})
-        if total:
-            try:
-                total = int(total)
-            except:
-                total = False
-        if name and total and int(total) == 10:
-            response_dict.update({'success': True})
-        else:
-            response_dict.update({'errors': {}})
-            if not name:
-                response_dict['errors'].update({'name': 'This field is required'})
-            if not total and total is not False:
-                response_dict['errors'].update({'total': 'This field is required'})
-            elif int(total) != 10:
-                response_dict['errors'].update({'total': 'Incorrect total'})
-        if xhr:
-            return HttpResponse(simplejson.dumps(response_dict),content_type='application/javascript')
-
+    
+    #else:
+    xhr = request.GET.has_key('xhr')
+    response_dict = {}
+    name = request.POST.get('name', False)
+    total = request.POST.get('total', False)
+    response_dict.update({'name': name, 'total': total})
+    if total:
+        try:
+            total = int(total)
+        except:
+            total = False
+    if name and total and int(total) == 10:
+        response_dict.update({'success': True})
     else:
-        
-        return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
+        response_dict.update({'errors': {}})
+        if not name:
+            response_dict['errors'].update({'name': 'This field is required'})
+        if not total and total is not False:
+            response_dict['errors'].update({'total': 'This field is required'})
+        elif int(total) != 10:
+            response_dict['errors'].update({'total': 'Incorrect total'})
+    if xhr:
+        return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')    
+    return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
          
 def listProject(request,session_id):
     outstr=""
