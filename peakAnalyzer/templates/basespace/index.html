@@ -168,13 +168,13 @@ function uploadfile()
 $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
-        add: function (e, data) {
-            data.context = $('<button/>').text('Upload')
-                .appendTo($("#localfile_list"))
-                .click(function () {
-                    $(this).replaceWith($('<p/>').text('Uploading...'));
-                    data.submit();
-                });
+       add: function (e, data) {
+              
+        var jqXHR = data.submit()
+            .success(function (result, textStatus, jqXHR) {/* ... */})
+            .error(function (jqXHR, textStatus, errorThrown) {/* ... */})
+            .complete(function (result, textStatus, jqXHR) {/* ... */});
+    
         },
          done: function (e, data) {
             $.each(data.result.files, function (index, file) {
