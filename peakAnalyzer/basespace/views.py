@@ -93,12 +93,14 @@ def listUploadedFiles(request, session_id):
     user        = myAPI.getUserById('current')
     myuser=User.objects.filter(UserId=user.Id)[0]
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
-    
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
     
     if request.method == 'POST':
-       filenames=handle_uploaded_file(request.FILES['files[]'], outdir)
+       filename=handle_uploaded_file(request.FILES['files[]'], outdir)
        err=""
-       prop = [{'name':filenames, 'type':"", 'error': err}]
+       path=outdir+filename
+       prop = [{'name':filename, 'type':"", 'error': err, 'path': path}]
        response_dict={"files":prop}
        return HttpResponse(json.dumps(response_dict), content_type='application/json')    
     #return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
