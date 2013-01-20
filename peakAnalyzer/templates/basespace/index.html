@@ -46,6 +46,7 @@ var name=trigger_obj.innerHTML
 if(!addedFiles.hasOwnProperty(name))
 {
 var fid=trigger_obj.id.split("__")[1]
+if (fid !=""){
 var html="<tr><td>\
 <select id=cb__"+fid+" name=cb__"+fid+"> \
   <option>Sample</option> \
@@ -53,6 +54,15 @@ var html="<tr><td>\
   <option>Delete</option>\
  </select>\
  </td><td>"+name+"</td></tr>";
+ }else{
+ var html="<tr><td>\
+<select id=up__"+name+" name=up__"+name+"> \
+  <option>Sample</option> \
+  <option>Control</option>\
+  <option>Delete</option>\
+ </select>\
+ </td><td>"+name+"</td></tr>";
+ }
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
      addedFiles[name]=true;
@@ -191,7 +201,6 @@ $('#localfile_list p').live("click",function()
 var filename = $(this).text(); 
 var trigger = document.createElement("div")
 trigger.innerHTML = filename
-alert(trigger);
 add_list(trigger)
 });
      </script> 
