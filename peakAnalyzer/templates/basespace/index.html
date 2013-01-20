@@ -101,7 +101,7 @@ function submit_job()
  var postdata = "";
  var ctrl_ids="";
  var sample_ids="";
- $("*[name*='cb__']").each(function(i) {
+ $("*[name*='cb__'],*[name*='up__'] ").each(function(i) {
                 if ($(this).val() =="Control") {
                         line = $(this).attr("name");
                         ctrl_ids += line.split("__")[1] + ',';
@@ -132,29 +132,6 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 }
 
 
-
-function uploadfile2()
-{
- 
-$(function () {
-    $('#fileupload').fileupload({
-        dataType: 'json',
-        add: function (e, data) {
-            data.context = $('<button/>').text('Upload')
-                .appendTo(document.body)
-                .click(function () {
-                    $(this).replaceWith($('<p/>').text('Uploading...'));
-                    data.submit();
-                });
-        },
-         done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            });
-        }
-    });
-});
-}
 
 function uploadfile()
 {
