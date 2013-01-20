@@ -46,7 +46,8 @@ var name=trigger_obj.innerHTML
 if(!addedFiles.hasOwnProperty(name))
 {
 var fid=trigger_obj.id.split("__")[1]
-if (fid !=""){
+
+if (typeof fid == 'number'){
 var html="<tr><td>\
 <select id=cb__"+fid+" name=cb__"+fid+"> \
   <option>Sample</option> \
