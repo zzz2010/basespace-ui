@@ -27,6 +27,7 @@ def downloadFile(fid,session_id,outFileName):
     api.fileDownload(fid,os.path.dirname(outFileName),os.path.basename(outFileName))
     
 @task
+##change
 def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
     session=Session.objects.get(pk=session_id)
     api=session.getBSapi()
@@ -36,18 +37,26 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
     logger = basespace_Download_PeakCalling_Processing.get_logger(logfile='tasks.log')
     
     for fid in sfidlist:
-        f = api.getFileById(fid)
-        outfile=outdir+str(fid)+"__"+f.Name
-        s_outfiles.append(outfile)
-        logger.info("Adding %s" % (outfile))
-        downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
-       # downloadGroup.
+        if(str(fid).isdigit()):
+            f = api.getFileById(fid)
+            outfile=outdir+str(fid)+"__"+f.Name
+            s_outfiles.append(outfile)
+            logger.info("Adding %s" % (outfile))
+            downloadtaks_list.append(downloadFile.s(fid,session_id,outfile)) #skip this step for uploaded file
+        else:
+            outfile2=outdir+str(fid)
+            s_outfiles.append(outfile2)
+           # downloadGroup.
     for fid in cfidlist:
-        f = api.getFileById(fid)
-        outfile=outdir+str(fid)+"__"+f.Name
-        c_outfiles.append(outfile)
-        logger.info("Adding %s" % (outfile))
-        downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
+        if(str(fid).isdigit()):
+            f = api.getFileById(fid)
+            outfile=outdir+str(fid)+"__"+f.Name
+            c_outfiles.append(outfile)
+            logger.info("Adding %s" % (outfile))
+            downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
+        else:
+            outfile2=outdir+str(fid)
+            s_outfiles.append(outfile2)
     #do download parallel
     downG=group(downloadtaks_list)()
     downG.get(timeout=1000*60*60)
@@ -329,6 +338,9 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
 
 toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver').replace('\\','/')
 
+def isRawFile(inputFile):
+    return "fastq" in inputFile or ".bed" not in inputFile
+
 @task
 def PeakCalling_task(outdir,jobid):
     #make configure file
@@ -338,11 +350,22 @@ def PeakCalling_task(outdir,jobid):
     outdir2=outdir+"/peakcalling_result"
     mkpath(outdir2)
     cfgFile=open(outdir2+"/pk.cfg",'w')
+    
+    #copy bed files to outdir2 and rename to *summits.bed 
+    moveCmd = "cp {0} " + outdir2 + "{1}"
     for sfl in myjob.sampleFiles.split(','):
+        if isRawFile:
             cfgFile.write(sfl+"\n")
+        else:
+            sfl_summits = sfl.replace(".bed", ".summits.bed")
+            os.system(moveCmd.format(sfl, sfl_summits))
     cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
+        if isRawFile:
             cfgFile.write(cfl+"\n")
+        else:
+            cfl_summits = cfl.replace(".bed", ".summits.bed")
+            os.system(moveCmd.format(cfl, cfl_summits))
     cfgFile.close()
     cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
     print(cmd)
@@ -408,9 +431,12 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid)
     
     outdir=outdir+"/"+str(jobid) #later files have to be in the jobid folder
-    #peak calling
-    PeakCalling_task(outdir,jobid)
     
+    #peak calling
+    #raw uploaded files subject to peak calling 
+    #else mv to dataDIR and renamed to match *summits.bed
+    PeakCalling_task(outdir,jobid)
+        
     #upload peak
     appresult_handle=create_upload_AppResult.delay(outdir,session_id,jobid)
     #processing
