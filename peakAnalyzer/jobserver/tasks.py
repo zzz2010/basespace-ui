@@ -359,7 +359,7 @@ def PeakCalling_task(outdir,jobid):
     #copy bed files to outdir2 and rename to *summits.bed 
     moveCmd = "cp " + outdir + "{0} " + outdir2 + "{1}"
     print outdir2
-    print moveCmd
+   # print moveCmd
     
     for sfl in myjob.sampleFiles.split(','):
         print sfl
