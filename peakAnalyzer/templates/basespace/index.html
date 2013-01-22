@@ -1,5 +1,4 @@
-{% extends 'common/base.html' %} {% block header %} {% endblock %} {%
-block content %}
+{% extends 'common/base.html' %} {% block header %} {% endblock %} {% block content %}
 
 <script type="text/javascript">
 
@@ -152,40 +151,18 @@ function uploadfile()
 <script src="../../../static/fileUpload/js/vendor/jquery.ui.widget.js"></script>
 <script src="../../../static/fileUpload/js/jquery.iframe-transport.js"></script>
 <script src="../../../static/fileUpload/js/jquery.fileupload.js"></script>
-
-<script>
+        
+ <script>
 $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
-        add: function (e, data) {
-         $.each(data.files, function (index, file) {
-
-                var row =$('<tr class="template-download fade in"/>');
-                 $('<td class="name"/>').text(file.name).appendTo(row);
-
-                var progbar=$('<td id="progress" class="progress progress-sucess progress striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"> </td>');
-                progbar.appendTo(row)
-                $('<td class="bar" style="width : 0%;"/>').appendTo(progbar);
-                row.appendTo($("#localfile_list table"))
-
-				var button=$('<td class="cancel"> <button type="reset" id="button.cancel" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i><span> Cancel </span></button></td>');
-                button.appendTo(row);
-		});
-
- 		var jqXHR = data.submit()
+       add: function (e, data) {
+              
+        var jqXHR = data.submit()
             .success(function (result, textStatus, jqXHR) {/* ... */})
-            .error(function (jqXHR, textStatus, errorThrown) {
-		if (errorThrown === 'abort') {
-            alert('File Upload has been canceled');
-        }
-		})
+            .error(function (jqXHR, textStatus, errorThrown) {/* ... */})
             .complete(function (result, textStatus, jqXHR) {/* ... */});
-
-		$('button.cancel').click(function (e) {
-    		jqXHR.abort();
-
-		});
-
+    
         },
          done: function (e, data) {
             $.each(data.result.files, function (index, file) {
@@ -206,117 +183,77 @@ var trigger = document.createElement("div")
 trigger.innerHTML = filename
 add_list(trigger)
 });
-     </script>
+     </script> 
 <head>
 
 <!-- Generic page styles -->
 <link rel="stylesheet" href="../../../static/fileUpload/css/style.css">
 <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-<link rel="stylesheet"
-	href="../../../static/fileUpload/css/jquery.fileupload-ui.css">
+<link rel="stylesheet" href="../../../static/fileUpload/css/jquery.fileupload-ui.css">
 <!-- CSS adjustments for browsers with JavaScript disabled -->
-<noscript>
-	<link rel="stylesheet"
-		href="../../../static/fileUpload/css/jquery.fileupload-ui-noscript.css">
-</noscript>
-
-
+<noscript><link rel="stylesheet" href="../../../static/fileUpload/css/jquery.fileupload-ui-noscript.css"></noscript>
+               
+               
 </head>
 
 <div class="row-fluid">
 
-	<div class="span3">
-		<li class="nav-header"><a href="#"><i
-				class="icon-home icon-white"></i> <i class="icon-user"></i>{{
-				user.Name }}</a></li>
-		<div class="well sidebar-nav">
-			<ul class="nav nav-list">
-				{% for project in projects_list %}
-				<li class="nav-header"><i class="icon-book"></i>{{ project.Name
-					}}</li>
-				<hr>
-				Local Files
-				</hr>
-				<div id="localfile_list">
+<div class="span3">
+<li class="nav-header"><a href="#"><i
+class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
+</li>
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+{% for project in projects_list %}
+	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
+	 <hr>Local Files</hr>
+	 <div id="localfile_list">
 
-					<span class="btn btn-success fileinput-button"> <i
-						class="icon-plus icon-white"></i> <span>Add files...</span> <input
-						id="fileupload" type="file" name="files[]"
-						data-url="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/"
-						multiple>
-					</span>
+<span class="btn btn-success fileinput-button">
+                    <i class="icon-plus icon-white"></i>
+                    <span>Add files...</span>
+<input id="fileupload" type="file" name="files[]" data-url="/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/" multiple>
+</span>
 
-					<!-- <table id="tablefiles" role="presentation" class="table table-striped"></table>-->
-					<table></table>
-
-				</div>
-				<hr>
-				AppResults
-				</hr>
-				{% for appresult in project.appresult_set.all %}
-				<li><a class="accordion-toggle" data-toggle="collapse"
-					data-target="#ar__{{ appresult.AppResultId }}"
-					href="#ar__{{ appresult.AppResultId }}" onclick=load_arfiles("#ar__{{ appresult.AppResultId }}") ><i
-						class="icon-list"></i>{{ appresult.Name }}({{appresult.Detail}})</a></li>
-				<div id="ar__{{ appresult.AppResultId }}" class="collapse">
-					Loading...</div>
-				{% endfor %}
-				<hr>
-				Samples
-				</hr>
-				{% for sample in project.sample_set.all %}
-				<li><a class="accordion-toggle" data-toggle="collapse"
-					data-target="#sa__{{ sample.SampleId }}"
-					href="#sa__{{ sample.SampleId }}" onclick=load_safiles("#sa__{{ sample.SampleId }}") ><i
-						class="icon-plus"></i>{{ sample.Name }}({{sample.Detail}})</a></li>
-				<div id="sa__{{ sample.SampleId }}" class="collapse">
-					Loading...</div>
-				{% endfor %} {% endfor %}
-			</ul>
-		</div>
-		<!--/.well -->
-	</div>
-	<!--/span-->
-
-	<div class="span9">
-
-		<form class="form-horizontal" id="form_jobdata">
-			<table class="table table-bordered" id=datalists>
-				<tr>
-					<td><label class="control-label" for="inputTitle">Job
-							Title</label></td>
-					<td><input type="text" id="inputTitle" name="inputTitle"
-						placeholder="Job Title"></td>
-				</tr>
-				<tr>
-					<td><label class="control-label" for="inputGenome">Reference
-							Genome</label></td>
-					<td><input type="text" id="inputGenome" name="inputGenome"
-						placeholder="{{genome_names}}"></td>
-				</tr>
-				<tr>
-					<td><label class="control-label" for="inputCell">Cell
-							Type</label></td>
-					<td><input type="text" id="inputCell" name="inputCell"
-						placeholder="cell"></td>
-				</tr>
-
-				<tr>
-					<td>Data Type</td>
-					<td>File Name</td>
-				</tr>
-
-			</table>
-
-			<button class="btn btn-danger" type="button" onclick="submit_job()">Submit
-				Job</button>
-		</form>
+<!-- <table id="tablefiles" role="presentation" class="table table-striped"></table>-->
 
 
-	</div>
-	<!--/span-->
-
-	<div class="span9" id="joblist_container"></div>
-</div>
-<!--/row-->
+                </div>
+	  <hr>AppResults</hr>
+	{% for appresult in project.appresult_set.all %}
+		<li><a class="accordion-toggle" data-toggle="collapse" data-target="#ar__{{ appresult.AppResultId }}" href="#ar__{{ appresult.AppResultId }}" onclick=load_arfiles("#ar__{{ appresult.AppResultId }}") ><i class="icon-list"></i>{{ appresult.Name }}({{appresult.Detail}})</a></li>
+	  <div id="ar__{{ appresult.AppResultId }}" class="collapse" > Loading...</div>
+	{% endfor %}
+        <hr>Samples</hr>
+	{% for sample in project.sample_set.all %}
+                <li><a class="accordion-toggle" data-toggle="collapse" data-target="#sa__{{ sample.SampleId }}" href="#sa__{{ sample.SampleId }}" onclick=load_safiles("#sa__{{ sample.SampleId }}") ><i class="icon-plus"></i>{{ sample.Name }}({{sample.Detail}})</a></li>
+         <div id="sa__{{ sample.SampleId }}" class="collapse" > Loading...</div>
+    {% endfor %}
+{% endfor %}
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        
+ <div class="span9">
+         
+          <form class="form-horizontal" id="form_jobdata" >
+          <table  class="table table-bordered" id=datalists>
+          <tr><td> <label class="control-label" for="inputTitle">Job Title</label> </td> <td><input type="text" id="inputTitle" name="inputTitle" placeholder="Job Title"></td></tr>
+         <tr><td> <label class="control-label" for="inputGenome">Reference Genome</label> </td> <td><input type="text" id="inputGenome" name="inputGenome" placeholder="{{genome_names}}"></td></tr>
+         <tr><td> <label class="control-label" for="inputCell">Cell Type</label> </td> <td><input type="text" id="inputCell" name="inputCell" placeholder="cell"></td></tr>
+         
+         <tr><td>Data Type</td><td>File Name</td></tr>
+          
+          </table>
+        
+	   <button class="btn btn-danger" type="button" onclick="submit_job()">Submit Job</button>
+          </form>
+	  
+          
+  </div><!--/span-->
+  
+   <div class="span9" id="joblist_container">
+   
+   </div>
+ </div><!--/row-->
 {% endblock %}
