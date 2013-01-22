@@ -153,7 +153,7 @@ $(function () {
                 var progbar=$('<td id="progress" class="progress progress-sucess progress striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"> </td>');
                 progbar.appendTo(row);
                 
-                var button=$('<td class="cancel"> <button type="reset" id="button.cancel" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i><span> Cancel </span></button></td>');
+                var button=$('<td class="cancel"> <button type="reset" id="button.cancel" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i></button></td>');
                 button.appendTo(row);
                 
                 $('<td class="bar" style="width : 0%;"/>').appendTo(progbar);
@@ -180,7 +180,7 @@ $(function () {
          //   $.each(data.result.files, function (index, file) {
           //      $('<p/>').text(file.name).appendTo($("#localfile_list"));
           //  });
-            
+            $<".cancel">.hide();
             
         }
       
