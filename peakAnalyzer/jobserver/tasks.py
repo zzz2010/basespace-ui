@@ -35,7 +35,7 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
     c_outfiles=list()
     downloadtaks_list=list()
     logger = basespace_Download_PeakCalling_Processing.get_logger(logfile='tasks.log')
-    print(sfidlist)
+    
     for fid in sfidlist:
         if(str(fid).isdigit()):
             f = api.getFileById(fid)
@@ -389,6 +389,8 @@ def PeakCalling_task(outdir,jobid):
         cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
         print(cmd)
         os.system(cmd)
+    else:
+        print("Peak Calling skipped")
 
 @task 
 def upload_file(appResults,localfile,dirname,api):
@@ -451,13 +453,12 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     
     outdir=outdir+str(jobid)+"/" #later files have to be in the jobid folder    
 
-    
     #peak calling
     #raw uploaded files subject to peak calling 
     #else mv to dataDIR and renamed to match *summits.bed
     PeakCalling_task(outdir,jobid)
     
-        #upload peak
+    #upload peak
     appresult_handle=create_upload_AppResult.delay(outdir,session_id,jobid)
     #processing
     myjob=Job.objects.get(pk=jobid)
