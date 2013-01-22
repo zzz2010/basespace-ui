@@ -58,8 +58,9 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
             outfile2=outdir+str(fid)
             s_outfiles.append(outfile2)
     #do download parallel
-    downG=group(downloadtaks_list)()
-    downG.get(timeout=1000*60*60)
+    if downloadtaks_list:
+        downG=group(downloadtaks_list)()
+        downG.get(timeout=1000*60*60)
     #do the update database
     myjob=Job.objects.get(pk=jobid)
     myjob.sampleFiles=",".join(s_outfiles)
