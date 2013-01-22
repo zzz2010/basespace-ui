@@ -354,7 +354,8 @@ def PeakCalling_task(outdir,jobid):
     myjob.save()
     outdir2=outdir+ "peakcalling_result/"
     mkpath(outdir2)
-    cfgFile=open(outdir2+"/pk.cfg",'w')
+    cfgFileName=outdir2+"/pk.cfg"
+    cfgFile=open(cfgFileName,'w')
     
     #copy bed files to outdir2 and rename to *summits.bed 
     moveCmd = "cp {0} " + outdir2 + "{1}"
@@ -379,9 +380,13 @@ def PeakCalling_task(outdir,jobid):
             cfl_summits = basename.replace(".bed", ".summits.bed")
             os.system(moveCmd.format(cfl, cfl_summits))
     cfgFile.close()
-    cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
-    print(cmd)
-    os.system(cmd)
+    
+    #check if cfgfile is empty
+    tmpFile=open(cfgFileName, "r")
+    if tmpFile.read()!='===\n\n':   
+        cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
+        print(cmd)
+        os.system(cmd)
 
 @task 
 def upload_file(appResults,localfile,dirname,api):
