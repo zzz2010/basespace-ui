@@ -352,7 +352,7 @@ def PeakCalling_task(outdir,jobid):
     myjob=Job.objects.get(pk=jobid)
     myjob.status="PeakCalling"
     myjob.save()
-    outdir2=outdir+ + str(jobid) + "/peakcalling_result"
+    outdir2=outdir+ str(jobid) + "/peakcalling_result"
     mkpath(outdir2)
     cfgFile=open(outdir2+"/pk.cfg",'w')
     
