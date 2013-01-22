@@ -4,6 +4,12 @@ import djcelery
 #celery setting
 djcelery.setup_loader()
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+from kombu import Exchange, Queue
+
+CELERY_DEFAULT_QUEUE = 'peakAnalyzer'
+CELERY_QUEUES = (
+    Queue('peakAnalyzer', Exchange('peakAnalyzer'), routing_key='peakAnalyzer'),
+)
 # Django settings for peakAnalyzer project.
 
 DEBUG = True
