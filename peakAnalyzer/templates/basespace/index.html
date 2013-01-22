@@ -152,11 +152,12 @@ $(function () {
 
                 var progbar=$('<td id="progress" class="progress progress-sucess progress striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"> </td>');
                 progbar.appendTo(row);
+                
+                var button=$('<td class="cancel"> <button type="reset" id="button.cancel" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i><span> Cancel </span></button></td>');
+                button.appendTo(row);
+                
                 $('<td class="bar" style="width : 0%;"/>').appendTo(progbar);
                 row.appendTo($("#localfile_list table"));
-
-				var button=$('<td class="cancel"> <button type="reset" id="button.cancel" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i><span> Cancel </span></button></td>');
-                button.appendTo(row);
 		});
         
         var jqXHR = data.submit()
@@ -176,9 +177,9 @@ $(function () {
     
         },
          done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo($("#localfile_list"));
-            });
+         //   $.each(data.result.files, function (index, file) {
+          //      $('<p/>').text(file.name).appendTo($("#localfile_list"));
+          //  });
             
             
         }
@@ -186,7 +187,7 @@ $(function () {
     });
 });
 
-$('#localfile_list p').live("click",function()
+$('#localfile_list table tr').live("click",function()
 {
 
 var filename = $(this).text(); 
