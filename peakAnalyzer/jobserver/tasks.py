@@ -358,31 +358,30 @@ def PeakCalling_task(outdir,jobid):
     
     #copy bed files to outdir2 and rename to *summits.bed 
     moveCmd = "cp {0} " + outdir2 + "{1}"
-    print outdir2
-   # print moveCmd
     
     for sfl in myjob.sampleFiles.split(','):
-        print sfl
         if isRawFile(sfl):
             cfgFile.write(sfl+"\n")
         else:
             temp=sfl.split("/")
             basename=temp[len(temp)-1]
             sfl_summits = basename.replace(".bed", ".summits.bed")
-            cpCmd=moveCmd.format(sfl, sfl_summits)
-            print cpCmd
-            os.system(cpCmd)
+            #cpCmd=moveCmd.format(sfl, sfl_summits)
+            #print cpCmd
+            os.system(moveCmd.format(sfl, sfl_summits))
     cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
         if isRawFile(cfl):
             cfgFile.write(cfl+"\n")
         else:
-            cfl_summits = cfl.replace(".bed", ".summits.bed")
+            temp=sfl.split("/")
+            basename=temp[len(temp)-1]
+            cfl_summits = basename.replace(".bed", ".summits.bed")
             os.system(moveCmd.format(cfl, cfl_summits))
     cfgFile.close()
     cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
     print(cmd)
-   # os.system(cmd)
+    os.system(cmd)
 
 @task 
 def upload_file(appResults,localfile,dirname,api):
