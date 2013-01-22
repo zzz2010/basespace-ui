@@ -161,8 +161,18 @@ $(function () {
         
         var jqXHR = data.submit()
             .success(function (result, textStatus, jqXHR) {/* ... */})
-            .error(function (jqXHR, textStatus, errorThrown) {/* ... */})
+            .error(function (jqXHR, textStatus, errorThrown) {
+            if (errorThrown === 'abort') {
+            alert('File Upload has been canceled');
+        	}
+            })
             .complete(function (result, textStatus, jqXHR) {/* ... */});
+            
+       	$('button.cancel').click(function (e) {
+    	jqXHR.abort();
+
+		});
+            
     
         },
          done: function (e, data) {
