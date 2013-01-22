@@ -149,10 +149,7 @@ $(function () {
 
                 var row =$('<tr class="template-download fade in"/>');
                  $('<td class="name"/>').text(file.name).appendTo(row);
-
-                var progbar=$('<td id="progress" class="progress progress-sucess progress striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"> </td>');
-                progbar.appendTo(row);
-                
+ 
                 var button=$('<td class="cancel"> <button type="reset" id="button.cancel" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i></button></td>');
                 button.appendTo(row);
                 
