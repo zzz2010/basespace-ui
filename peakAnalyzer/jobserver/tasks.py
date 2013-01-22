@@ -124,6 +124,10 @@ def conservationPlot(peakfile,outdir2,genome):
     
 
 @task
+def helloworld():
+    print "hello world"
+
+@task
 def genomeProfile(peakfile,outdir2,genome):
     mkpath(outdir2)
     cmd="sh "+settings.toolpath+"./genomeProfile/profileGenome.sh "+peakfile+" "+genome+" "+outdir2
