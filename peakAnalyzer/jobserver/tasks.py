@@ -35,7 +35,7 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
     c_outfiles=list()
     downloadtaks_list=list()
     logger = basespace_Download_PeakCalling_Processing.get_logger(logfile='tasks.log')
-    
+    print(sfidlist)
     for fid in sfidlist:
         if(str(fid).isdigit()):
             f = api.getFileById(fid)
