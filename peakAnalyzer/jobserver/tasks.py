@@ -352,7 +352,7 @@ def PeakCalling_task(outdir,jobid):
     myjob=Job.objects.get(pk=jobid)
     myjob.status="PeakCalling"
     myjob.save()
-    outdir2=outdir+ "/peakcalling_result"
+    outdir2=outdir+ "peakcalling_result/"
     mkpath(outdir2)
     cfgFile=open(outdir2+"/pk.cfg",'w')
     
@@ -366,7 +366,9 @@ def PeakCalling_task(outdir,jobid):
         if isRawFile(sfl):
             cfgFile.write(sfl+"\n")
         else:
-            sfl_summits = sfl.replace(".bed", ".summits.bed")
+            temp=sfl.split("/")
+            basename=temp[len(temp)-1]
+            sfl_summits = basename.replace(".bed", ".summits.bed")
             cpCmd=moveCmd.format(sfl, sfl_summits)
             print cpCmd
             os.system(cpCmd)
@@ -441,7 +443,7 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     #download first
     basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid)
     
-    outdir=outdir+"/"+str(jobid) #later files have to be in the jobid folder    
+    outdir=outdir+str(jobid)+"/" #later files have to be in the jobid folder    
 
     
     #peak calling
