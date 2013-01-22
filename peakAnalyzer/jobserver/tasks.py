@@ -367,7 +367,9 @@ def PeakCalling_task(outdir,jobid):
             cfgFile.write(sfl+"\n")
         else:
             sfl_summits = sfl.replace(".bed", ".summits.bed")
-            os.system(moveCmd.format(sfl, sfl_summits))
+            cpCmd=moveCmd.format(sfl, sfl_summits)
+            print cpCmd
+            os.system(cpCmd)
     cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
         if isRawFile:
