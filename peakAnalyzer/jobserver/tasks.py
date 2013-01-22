@@ -373,7 +373,7 @@ def PeakCalling_task(outdir,jobid):
     cfgFile.close()
     cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
     print(cmd)
-    os.system(cmd)
+   # os.system(cmd)
 
 @task 
 def upload_file(appResults,localfile,dirname,api):
