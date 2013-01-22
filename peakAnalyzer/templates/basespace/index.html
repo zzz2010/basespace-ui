@@ -133,20 +133,6 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 }
 
 
-
-function uploadfile()
-{
-	$.ajax({   
-        type: "POST",
-        url: "/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles/", 
-        data: postdata,     
-        contentType:'multipart/form-data',
-        success: function(data, textStatus){
-        		window.alert(data);
-        		
-		}
-	})
-}
 </script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="../../../static/fileUpload/js/vendor/jquery.ui.widget.js"></script>
@@ -164,9 +150,9 @@ $(function () {
                  $('<td class="name"/>').text(file.name).appendTo(row);
 
                 var progbar=$('<td id="progress" class="progress progress-sucess progress striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"> </td>');
-                progbar.appendTo(row)
+                progbar.appendTo(row);
                 $('<td class="bar" style="width : 0%;"/>').appendTo(progbar);
-                row.appendTo($("#localfile_list table"))
+                row.appendTo($("#localfile_list table"));
 
 				var button=$('<td class="cancel"> <button type="reset" id="button.cancel" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i><span> Cancel </span></button></td>');
                 button.appendTo(row);
@@ -203,8 +189,8 @@ $('#localfile_list p').live("click",function()
 
 var filename = $(this).text(); 
 var trigger = document.createElement("div")
-trigger.innerHTML = filename
-add_list(trigger)
+trigger.innerHTML = filename;
+add_list(trigger);
 });
      </script>
 <head>
