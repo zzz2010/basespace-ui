@@ -228,6 +228,8 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 
 
                 </div>
+      <hr>Uploaded Files</hr>          
+                
 	  <hr>AppResults</hr>
 	{% for appresult in project.appresult_set.all %}
 		<li><a class="accordion-toggle" data-toggle="collapse" data-target="#ar__{{ appresult.AppResultId }}" href="#ar__{{ appresult.AppResultId }}" onclick=load_arfiles("#ar__{{ appresult.AppResultId }}") ><i class="icon-list"></i>{{ appresult.Name }}({{appresult.Detail}})</a></li>
