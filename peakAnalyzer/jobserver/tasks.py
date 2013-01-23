@@ -475,6 +475,7 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     outdir2=outdir+"/pipeline_result/"
     mkpath(outdir2)
     taskconfigfile=outdir2+"task.cfg"
+    print "config:", taskconfigfile
     configwrite=open(taskconfigfile,'w')
     configwrite.write("[task]\n")
     configwrite.write("dataDIR="+outdir+"/peakcalling_result/"+"\n")
