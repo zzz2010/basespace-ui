@@ -314,6 +314,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
                 known_match_cell=ENCODE_TF_chipseq(peakfile,outdir2,genome)
                 print known_match_cell
             else:
+                print "bypassing encode"
                 tasklist.append(ENCODE_TF_chipseq.s(peakfile,outdir2,genome))
         
         #encode_histone profile#
