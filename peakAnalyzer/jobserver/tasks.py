@@ -459,7 +459,7 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     #download first
     basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid)
     
-    outdir=outdir+str(jobid)+"/" #later files have to be in the jobid folder    
+    outdir=outdir+str(jobid)#later files have to be in the jobid folder    
 
     #peak calling
     #raw uploaded files subject to peak calling 
