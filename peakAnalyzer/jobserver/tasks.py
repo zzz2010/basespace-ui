@@ -210,7 +210,10 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
     return group(tasklist)()
 
 def checkCellName(testName, knownName):
-    return (testName in knownName) or (knownName in testName)
+    if testName:
+        return (testName in knownName) or (knownName in testName)
+    else:
+        return (False) 
 
 
 def getMostOccCellName(lines):
