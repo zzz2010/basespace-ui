@@ -310,7 +310,9 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
         if len(taskSet)==0 or "encode_chipseq" in taskSet :
             outdir2=outdir+"/encode_chipseq/"
             if known_match_cell=="":
+                print "need encode"
                 known_match_cell=ENCODE_TF_chipseq(peakfile,outdir2,genome)
+                print known_match_cell
             else:
                 tasklist.append(ENCODE_TF_chipseq.s(peakfile,outdir2,genome))
         
