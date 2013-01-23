@@ -239,6 +239,8 @@ def ENCODE_TF_chipseq(peakfile,outdir2,genome):
     
     print "peakfile:", peakfile
     print os.path.basename(peakfile)
+    filename=outdir2+os.path.basename(peakfile)+".peakset.overlap.top"
+    print "file",filename
     try:
         filename=outdir2+os.path.basename(peakfile)+".peakset.overlap.top"
         lines=open(filename).readlines()
