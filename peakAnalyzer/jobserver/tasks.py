@@ -470,7 +470,7 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     appresult_handle=create_upload_AppResult.delay(outdir,session_id,jobid)
     #processing
     myjob=Job.objects.get(pk=jobid)
-    outdir2=outdir+"/pipeline_result"
+    outdir2=outdir+"/pipeline_result/"
     mkpath(outdir2)
     taskconfigfile=outdir2+"/task.cfg"
     configwrite=open(taskconfigfile,'w')
