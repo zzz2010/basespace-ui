@@ -360,7 +360,7 @@ def PeakCalling_task(outdir,jobid):
     myjob=Job.objects.get(pk=jobid)
     myjob.status="PeakCalling"
     myjob.save()
-    outdir2=outdir+ "peakcalling_result/"
+    outdir2=outdir+ "/peakcalling_result/"
     mkpath(outdir2)
     cfgFileName=outdir2+"/pk.cfg"
     cfgFile=open(cfgFileName,'w')
