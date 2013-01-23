@@ -236,6 +236,9 @@ def ENCODE_TF_chipseq(peakfile,outdir2,genome):
     print cmd
     os.system(cmd)
     cell_line=""
+    
+    print "peakfile:", peakfile
+    print os.path.basename(peakfile)
     try:
         lines=open(outdir2+os.path.basename(peakfile)+".peakset.overlap.top").readlines()
         cell_line=getMostOccCellName(lines[0:5])
