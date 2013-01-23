@@ -240,7 +240,7 @@ def ENCODE_TF_chipseq(peakfile,outdir2,genome):
     print "peakfile:", peakfile
     print os.path.basename(peakfile)
     try:
-        lines=open(outdir2+os.path.basename(peakfile)+".peakset.overlap.top").readlines()
+        lines=open(outdir2+os.path.basename(peakfile)+"/.peakset.overlap.top").readlines()
         cell_line=getMostOccCellName(lines[0:5])
     except:
         cell_line=""
