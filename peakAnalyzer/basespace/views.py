@@ -116,7 +116,7 @@ def listUploadedFiles(request, session_id):
     myuser=User.objects.filter(UserId=user.Id)[0]
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
     tmp=outdir+"uploadedFiles.tmp.txt"
-    listCmd="find " + outdir + "-maxdepth 1 -type f  > " +tmp
+    listCmd="find " + outdir + " -maxdepth 1 -type f  > " +tmp
     os.system(listCmd)
     uploadedfiles= open(tmp, "r").readlines()
     #os.system("rm " + tmp )
