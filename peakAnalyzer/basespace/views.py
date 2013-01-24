@@ -95,7 +95,7 @@ def listUploadedFiles(request, session_id):
     tmp=outdir+"uploadedFiles.tmp.txt"
     listCmd="find " + outdir + " -maxdepth 1 -type f  > " +tmp
     os.system(listCmd)
-    tmplist= open(tmp, "r").readlines()
+    tmplist= open(tmp, "r")
     uploadedfiles=list()
     for line in tmplist:
         tmp=line.split("/")
