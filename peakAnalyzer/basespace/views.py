@@ -98,8 +98,8 @@ def listUploadedFiles(request, session_id):
     tmplist= open(tmp, "r")
     uploadedfiles=list()
     for line in tmplist:
-        tmp=line.split("/")
-        uploadedfiles.append(tmp[len(tmp)-1])
+        tmpline=line.split("/")
+        uploadedfiles.append(tmpline[len(tmpline)-1])
         
     os.system("rm " + tmp )
     genome_name=""
