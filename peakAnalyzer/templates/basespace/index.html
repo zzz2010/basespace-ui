@@ -46,7 +46,7 @@ $.ajax({
         dataType:'text',   
         success: function(data, textStatus){
         		//$(trigger).html(data);
-        		alert(data);
+        		$("#uploadedfile_list").append(data);
 		}
 	})
 }
@@ -241,8 +241,10 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 
 <hr></hr>
                 </div> 
-      <hr>Uploaded Files</hr>          
+      <hr>Uploaded Files</hr>   
+      <div id=uploadedfile_list>       
        <button id="listuploaded" onclick=listUploaded()>List uploaded</button>
+	  </div>
 	  <hr>AppResults</hr>
 	{% for appresult in project.appresult_set.all %}
 		<li><a class="accordion-toggle" data-toggle="collapse" data-target="#ar__{{ appresult.AppResultId }}" href="#ar__{{ appresult.AppResultId }}" onclick=load_arfiles("#ar__{{ appresult.AppResultId }}") ><i class="icon-list"></i>{{ appresult.Name }}({{appresult.Detail}})</a></li>
