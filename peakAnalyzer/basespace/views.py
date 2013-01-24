@@ -98,7 +98,7 @@ def listUploadedFiles(request, session_id):
     uploadedfiles= open(tmp, "r").readlines()
     os.system("rm " + tmp )
     genome_name=""
-    return render_to_response('basespace/filelist.html',{'genome_name':genome_name,'files_list':uploadedfiles,'session_id':session_id})
+    return render_to_response('basespace/uploadedlist.html',{'genome_name':genome_name,'files_list':uploadedfiles,'session_id':session_id})
     #return HttpResponse(uploadedfiles)
 @csrf_exempt
 def uploadFiles(request, session_id):
