@@ -106,7 +106,22 @@ def uploadFiles(request, session_id):
     #return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
 
 def listUploadedFiles(request, session_id):
-    return HttpResponse("uploaded")
+    try:
+        session=basespace.models.Session.objects.get(pk=session_id)
+        myAPI=session.getBSapi()
+    except basespace.models.Session.DoesNotExist:
+            raise Http404
+    
+    user        = myAPI.getUserById('current')
+    myuser=User.objects.filter(UserId=user.Id)[0]
+    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
+    tmp="uploadedFiles.tmp.txt"
+    listCmd="find " + outdir + "-maxdepth 1 -type f  > " +tmp
+    os.system(listCmd)
+    uploadedfiles= open(tmp, "r").readlines()
+    os.system("rm " + tmp )
+    
+    return HttpResponse(uploadedfiles)
          
 def listProject(request,session_id):
     outstr=""
