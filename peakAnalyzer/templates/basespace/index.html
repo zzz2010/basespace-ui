@@ -47,7 +47,9 @@ $.ajax({
         success: function(data, textStatus){
         		//$(trigger).html(data);
         		//$("#uploadedfile_list").append(data);
-        		alert(data.bed)
+        		var convert = jQuery.parseJSON(data)
+        		alert(textStatus)
+        		alert(convert.bed)
 		}
 	})
 }
