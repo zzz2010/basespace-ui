@@ -82,6 +82,24 @@ def listSampleFiles(request,session_id,sa_id):
     files=sa.getFiles(myAPI,myQp=FileTypes)
     return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':files,'session_id':session_id})
 
+def listUploadedFiles(request, session_id):
+    try:
+        session=basespace.models.Session.objects.get(pk=session_id)
+        myAPI=session.getBSapi()
+    except basespace.models.Session.DoesNotExist:
+            raise Http404
+    
+    user        = myAPI.getUserById('current')
+    myuser=User.objects.filter(UserId=user.Id)[0]
+    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
+    tmp=outdir+"uploadedFiles.tmp.txt"
+    listCmd="find " + outdir + " -maxdepth 1 -type f  > " +tmp
+    os.system(listCmd)
+    uploadedfiles= open(tmp, "r").readlines()
+    os.system("rm " + tmp )
+    genome_name=""
+    return render_to_response('basespace/filelist.html',{'genome_name':genome_name,'files_list':uploadedfiles,'session_id':session_id})
+    #return HttpResponse(uploadedfiles)
 @csrf_exempt
 def uploadFiles(request, session_id):
     try:
@@ -103,25 +121,8 @@ def uploadFiles(request, session_id):
        prop = [{'name':filename, 'type':"", 'error': err, 'path': path}]
        response_dict={"files":prop}
        return HttpResponse(json.dumps(response_dict), content_type='application/json')    
-    #return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
+    
 
-def listUploadedFiles(request, session_id):
-    try:
-        session=basespace.models.Session.objects.get(pk=session_id)
-        myAPI=session.getBSapi()
-    except basespace.models.Session.DoesNotExist:
-            raise Http404
-    
-    user        = myAPI.getUserById('current')
-    myuser=User.objects.filter(UserId=user.Id)[0]
-    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
-    tmp=outdir+"uploadedFiles.tmp.txt"
-    listCmd="find " + outdir + " -maxdepth 1 -type f  > " +tmp
-    os.system(listCmd)
-    uploadedfiles= open(tmp, "r").readlines()
-    #os.system("rm " + tmp )
-    
-    return HttpResponse(uploadedfiles)
          
 def listProject(request,session_id):
     outstr=""
