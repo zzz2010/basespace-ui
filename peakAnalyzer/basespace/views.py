@@ -119,7 +119,7 @@ def listUploadedFiles(request, session_id):
     listCmd="find " + outdir + "-maxdepth 1 -type f  > " +tmp
     os.system(listCmd)
     uploadedfiles= open(tmp, "r").readlines()
-    os.system("rm " + tmp )
+    #os.system("rm " + tmp )
     
     return HttpResponse(uploadedfiles)
          
