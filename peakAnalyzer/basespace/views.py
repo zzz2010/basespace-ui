@@ -95,7 +95,12 @@ def listUploadedFiles(request, session_id):
     tmp=outdir+"uploadedFiles.tmp.txt"
     listCmd="find " + outdir + " -maxdepth 1 -type f  > " +tmp
     os.system(listCmd)
-    uploadedfiles= open(tmp, "r").readlines()
+    tmplist= open(tmp, "r").readlines()
+    uploadedfiles=list()
+    for line in tmplist:
+        tmp=line.split("/")
+        uploadedfiles.append(tmp[len(tmp)-1])
+        
     os.system("rm " + tmp )
     genome_name=""
     return render_to_response('basespace/uploadedlist.html',{'genome_name':genome_name,'files_list':uploadedfiles,'session_id':session_id})
