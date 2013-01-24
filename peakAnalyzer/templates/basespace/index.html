@@ -244,6 +244,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
       <hr>Uploaded Files</hr>   
       <div id=uploadedfile_list>       
        <button id="listuploaded" onclick=listUploaded()>List uploaded</button>
+       <script> listUploaded() </script>
 	  </div>
 	  <hr>AppResults</hr>
 	{% for appresult in project.appresult_set.all %}
