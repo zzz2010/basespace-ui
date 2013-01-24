@@ -83,7 +83,7 @@ def listSampleFiles(request,session_id,sa_id):
     return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':files,'session_id':session_id})
 
 @csrf_exempt
-def listUploadedFiles(request, session_id):
+def uploadFiles(request, session_id):
     try:
         session=basespace.models.Session.objects.get(pk=session_id)
         myAPI=session.getBSapi()
@@ -104,6 +104,9 @@ def listUploadedFiles(request, session_id):
        response_dict={"files":prop}
        return HttpResponse(json.dumps(response_dict), content_type='application/json')    
     #return render_to_response('basespace/fileupload.html', {'session_id':session_id,'form': form})
+
+def listUploadedFiles(request, session_id):
+    return HttpResponse("uploaded")
          
 def listProject(request,session_id):
     outstr=""
