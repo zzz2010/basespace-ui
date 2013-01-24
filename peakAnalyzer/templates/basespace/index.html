@@ -38,6 +38,18 @@ function load_safiles(trigger) {
 	})
 }
 
+function listUploaded()
+{
+$.ajax({   
+        type: "GET",
+        url: "/peakAnalyzer/basespace/{{session_id}}/"listUploadedFiles",    
+        dataType:'text',   
+        success: function(data, textStatus){
+        		//$(trigger).html(data);
+		}
+	})
+}
+
 
  addedFiles={};
 function add_list(trigger_obj)
@@ -229,7 +241,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
 <hr></hr>
                 </div> 
       <hr>Uploaded Files</hr>          
-                
+       <button id="listuploaded" onclick=listUploaded()>List uploaded</button>
 	  <hr>AppResults</hr>
 	{% for appresult in project.appresult_set.all %}
 		<li><a class="accordion-toggle" data-toggle="collapse" data-target="#ar__{{ appresult.AppResultId }}" href="#ar__{{ appresult.AppResultId }}" onclick=load_arfiles("#ar__{{ appresult.AppResultId }}") ><i class="icon-list"></i>{{ appresult.Name }}({{appresult.Detail}})</a></li>
