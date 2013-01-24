@@ -42,7 +42,7 @@ function listUploaded()
 {
 $.ajax({   
         type: "GET",
-        url: "/peakAnalyzer/basespace/{{session_id}}/"listUploadedFiles",    
+        url: "/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles",    
         dataType:'text',   
         success: function(data, textStatus){
         		//$(trigger).html(data);
