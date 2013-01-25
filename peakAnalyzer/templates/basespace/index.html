@@ -45,7 +45,7 @@ $.ajax({
         url: "/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles",    
         dataType:'json',   
         success: function(data, textStatus){
-        alert(
+        alert(data.fastq==[]);
         		$(data.bed).each(function(index, item) {
     $('#uploadedfile_list').append(
         $(document.createElement('li id="item" onclick="add_list(this)"')).text(item)
@@ -250,7 +250,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
                 </div> 
       <hr>Uploaded Files</hr>   
       <div id=uploadedfile_list>
-      <li><a class="accordion-toggle" data-toggle="collapse" href="#uploaded" onclick=listUploaded() ><i class="icon-folder-close"></i>Click Me</a></li>       
+      <li><a class="accordion-toggle" data-toggle="collapse" href="#uploaded" onclick=listUploaded() ><i class="icon-folder-close"></i>BED</a></li>       
       <!--  <script> listUploaded() </script> -->
 	  </div>
 	  <hr>AppResults</hr>
