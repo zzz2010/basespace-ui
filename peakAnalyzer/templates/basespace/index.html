@@ -274,7 +274,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
       for(var i=0; i<filetypes.length; i++)
       {
       document.write('<li><a class="accordion-toggle" data-toggle="collapse" data-target="#' + filetypes[i] + '" href="#' + filetypes[i] + '" onclick=listUploaded("' +filetypes[i]+ '") ><i class="icon-folder-close"></i>' + filetypes[i] + '</a></li>');
-      document.write("<div id="+ filetypes[i]+ " class='collapse' > Loading...</div>");
+      document.write("<div id="+ filetypes[i]+ " class='collapse' ></div>");
       }
       
       </script>
