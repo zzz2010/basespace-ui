@@ -45,7 +45,6 @@ $.ajax({
         url: "/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles",    
         dataType:'json',   
         success: function(data, textStatus){
-        //alert(data.fastq==[]);
         	
         	$.each(data,function(index){
         		var newdiv = document.createElement('div');
@@ -57,22 +56,11 @@ $.ajax({
         		 var newli=document.createElement('li');
         		    newli.id=v;
         		    newli.appendChild(document.createTextNode(v));
+        		    newli.onClick=add_list(this);
         		    newdiv.appendChild(newli);
         	});
         	});
         	
-        	//	$(data.bed).each(function(index, item) {
-        	//	    var newli=document.createElement('li');
-        	//	    newli.id=item;
-        	//	    newli.appendChild(document.createTextNode(item));
-        	//	    newli.onclick=add_list(newli);
-        		   //	alert(newli);
-        	//		$('#uploadedfile_list').append(newli);
-    
-     //});
-        		
-        		
-        	//	$('#uploadedfile_list').html(data);
 	}})
 }
 
