@@ -47,8 +47,8 @@ $.ajax({
         success: function(data, textStatus){
         	
         		$(data.bed).each(function(index){
-        		 	var file='<li id='+ $(this) +' onclick="add_list(this)">' + index +'</li>';
-        		 	alert(data.bed[index]);
+        		 	var file='<li id='+ data.bed[index] +' onclick="add_list(this)">' + data.bed[index] +'</li>';
+        		 //	alert(data.bed[index]);
         		    $("#"+"bed").append(file);
         	});
         	
