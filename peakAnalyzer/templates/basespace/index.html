@@ -49,18 +49,20 @@ $.ajax({
         	
         	$.each(data,function(index){
         		$.each(this, function(k,v){
-        		
-        		alert(v);
+        		 var newli=document.createElement('li');
+        		    newli.id=v;
+        		    newli.appendChild(document.createTextNode(v));
+        		    $('#uploadedfile_list').append(newli);
         	});
         	});
         	
-        		$(data.bed).each(function(index, item) {
-        		    var newli=document.createElement('li');
-        		    newli.id=item;
-        		    newli.appendChild(document.createTextNode(item));
-        		    newli.onclick=add_list(newli);
+        	//	$(data.bed).each(function(index, item) {
+        	//	    var newli=document.createElement('li');
+        	//	    newli.id=item;
+        	//	    newli.appendChild(document.createTextNode(item));
+        	//	    newli.onclick=add_list(newli);
         		   //	alert(newli);
-        			$('#uploadedfile_list').append(newli);
+        	//		$('#uploadedfile_list').append(newli);
     
      });
         		
