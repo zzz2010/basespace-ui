@@ -49,8 +49,8 @@ $.ajax({
         		$(data[filetype]).each(function(index){
         			var fname=data[filetype][index];
         		 	var file='<li id='+ fname +' onclick="add_list(this)">' + fname +'</li> + \n';
-     				var filelist=filelist+file;
-     				alert(filelist);   		  
+     				filelist=filelist+file;
+     				//alert(filelist);   		  
         		    
         });
         		
