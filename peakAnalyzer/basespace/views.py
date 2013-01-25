@@ -124,9 +124,9 @@ def listUploadedFiles(request, session_id):
         if ".fastq" in f:
             fastq.append(f)
     
-    response_dict={'sam':sam, 'bam':bam, 'bed':bed, 'fasta': fasta,'fastq':fastq}
+    output={'sam':sam, 'bam':bam, 'bed':bed, 'fasta': fasta,'fastq':fastq}
     #response_dict={'files':arr}
-    return HttpResponse(json.dumps(response_dict), content_type='application/json')        
+    return HttpResponse(json.dumps(output), content_type='application/json')        
     #return render_to_response('basespace/uploadedlist.html',{'files_list':uploadedfiles,'session_id':session_id})
     #return HttpResponse(uploadedfiles)
 @csrf_exempt
