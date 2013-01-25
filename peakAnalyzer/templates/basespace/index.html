@@ -45,11 +45,15 @@ $.ajax({
         url: "/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles",    
         dataType:'json',   
         success: function(data, textStatus){
-        alert(data.fastq==[]);
+        //alert(data.fastq==[]);
+        	
+        	$(data).each(function(index,item){
+        	alert(item);
+        	});
+        	
         		$(data.bed).each(function(index, item) {
         		    var newli=document.createElement('li');
         		    newli.id=item;
-        		    //newli.innerHTML(item);
         		    newli.appendChild(document.createTextNode(item));
         		    newli.onclick=add_list(newli);
         		   //	alert(newli);
