@@ -47,8 +47,10 @@ $.ajax({
         success: function(data, textStatus){
         		$(data[filetype]).each(function(index){
         		 	var file='<li id='+ data[filetype][index] +' onclick="add_list(this)">' + data[filetype][index] +'</li>';
+        		    if($("#"+data[filetype][index]) > 0){
+        		    }else{
         		    $("#"+filetype).append(file);
-        		    
+        		    }
         	});
         	
 	}})
