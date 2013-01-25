@@ -49,6 +49,7 @@ $.ajax({
         		$(data.bed).each(function(index, item) {
         		    var newli=document.createElement('li');
         		    newli.id=item;
+        		    newli.text=item;
         		    newli.onclick=add_list(newli);
         		   	alert(newli);
         			$('#uploadedfile_list').append(newli);
