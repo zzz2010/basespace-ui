@@ -50,6 +50,12 @@ $.ajax({
     $('#uploadedfile_list').append(
         $(document.createElement('li')).text(item)
     );
+    
+     var ul = $('<ul>').appendTo('#uploadedfile_list');
+    var json = { items: ['item 1', 'item 2', 'item 3'] };
+    $(json.items).each(function(index, item) {
+        ul.append($(document.createElement('li')).text(item));
+    });
 });
         		
         		
