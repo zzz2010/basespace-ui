@@ -43,8 +43,7 @@ function listUploaded()
 $.ajax({   
         type: "GET",
         url: "/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles",    
-        data:{get_param:'value'},
-        dataType:'json',   
+        dataType:'text',   
         success: function(data, textStatus){
         		$(data.items).each(function(index, item) {
     $('#uploadedfile_list').append(
