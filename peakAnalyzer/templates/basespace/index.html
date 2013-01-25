@@ -48,10 +48,11 @@ $.ajax({
         		var filelist=""
         		$(data[filetype]).each(function(index){
         			var fname=data[filetype][index];
-        		 	var file='<li id='+ fname +' onclick="add_list(this)">' + fname +'</li>';
+        		 	var file='<li id='+ fname +' onclick="add_list(this)">' + fname +'</li> + \n';
      				var filelist=filelist+file;   		  
         		    
         });
+        		alert(filelist);
 				$("#"+filetype).html(filelist);        	
 	}})
 }
