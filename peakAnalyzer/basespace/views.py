@@ -101,6 +101,7 @@ def listUploadedFiles(request, session_id):
     tmplist= open(tmp, "r")
     uploadedfiles=list()
     for line in tmplist:
+        line.replace("\n", "")
         tmpline=line.split("/")
         uploadedfiles.append(tmpline[len(tmpline)-1])
     
