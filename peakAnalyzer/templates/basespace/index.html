@@ -46,8 +46,9 @@ $.ajax({
         dataType:'json',   
         success: function(data, textStatus){
         		$(data[filetype]).each(function(index){
-        		 	var file='<li id='+ data[filetype][index] +' onclick="add_list(this)">' + data[filetype][index] +'</li>';
-        		    if($("#"+data[filetype][index]) > 0){
+        			var fname=data[filetype][index];
+        		 	var file='<li id='+ fname +' onclick="add_list(this)">' + fname +'</li>';
+        		    if($("#"+fname) > 0){
         		    alert("exist");
         		    }else{
         		    $("#"+filetype).append(file);
