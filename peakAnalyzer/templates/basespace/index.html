@@ -53,12 +53,15 @@ $.ajax({
         		$('#uploadedfile_list').append(newdiv);
         		
         		$.each(this, function(k,v){
-        		 var newli=document.createElement('li');
-        		    newli.id=v;
-        		    newli.innerHTML=v;
-        		    newli.appendChild(document.createTextNode(v));
-        		    newli.onClick=add_list(this.html());
-        		    newdiv.appendChild(newli);
+        		 	var newli=$('<li id=v on click="add_list(this)"> v </li>');
+        		 	alert(newli);
+        		 
+        		 //var newli=document.createElement('li');
+        		//    newli.id=v;
+        		 //   newli.innerHTML=v;
+        		  //  newli.appendChild(document.createTextNode(v));
+        		   // newli.onClick=add_list(this.html());
+        		   // newdiv.appendChild(newli);
         	});
         	});
         	
