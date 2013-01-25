@@ -48,14 +48,9 @@ $.ajax({
         		$(data[filetype]).each(function(index){
         			var fname=data[filetype][index];
         		 	var file='<li id='+ fname +' onclick="add_list(this)">' + fname +'</li>';
-        		    $("#uploadfile_list").load("#"+filetype);
-        		   
-        		    if($("#"+fname) > 0){
-        		    alert("exist");
-        		    }else{
-        		    $("#"+filetype).append(file);
-        		    }
-        	});
+        		  
+        		    $("#"+filetype).html(file);
+        });
         	
 	}})
 }
