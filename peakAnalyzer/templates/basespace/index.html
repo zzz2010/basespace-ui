@@ -55,6 +55,7 @@ $.ajax({
         		$.each(this, function(k,v){
         		 var newli=document.createElement('li');
         		    newli.id=v;
+        		    newli.innerHTML=v;
         		    newli.appendChild(document.createTextNode(v));
         		    newli.onClick=add_list(this);
         		    newdiv.appendChild(newli);
