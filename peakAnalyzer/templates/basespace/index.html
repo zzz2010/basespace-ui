@@ -48,6 +48,8 @@ $.ajax({
         		$(data[filetype]).each(function(index){
         			var fname=data[filetype][index];
         		 	var file='<li id='+ fname +' onclick="add_list(this)">' + fname +'</li>';
+        		    $("#"+filetype).load("#uploadfile_list");
+        		   
         		    if($("#"+fname) > 0){
         		    alert("exist");
         		    }else{
