@@ -53,7 +53,7 @@ $.ajax({
         		$('#uploadedfile_list').append(newdiv);
         		
         		$.each(this, function(k,v){
-        		 	var newli=$('<li id=v on click="add_list(this)"> v </li>');
+        		 	var newli='<li id='+ v +' onclick="add_list(this)">' + v +'</li>';
         		 //	alert(newli);
         		 
         		 //var newli=document.createElement('li');
