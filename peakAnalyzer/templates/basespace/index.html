@@ -48,11 +48,16 @@ $.ajax({
         //alert(data.fastq==[]);
         	
         	$.each(data,function(index){
+        		var newdiv = document.createElement('div');
+        		newdiv.class="in collapse";
+        		newdiv.id=data[index];
+        		$('#uploadedfile_list').append(newdiv);
+        		
         		$.each(this, function(k,v){
         		 var newli=document.createElement('li');
         		    newli.id=v;
         		    newli.appendChild(document.createTextNode(v));
-        		    $('#uploadedfile_list').append(newli);
+        		    newdiv.append(newli);
         	});
         	});
         	
