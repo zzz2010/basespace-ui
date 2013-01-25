@@ -46,7 +46,7 @@ $.ajax({
         dataType:'json',   
         success: function(data, textStatus){
         	
-        	$.each(data,function(index){
+        	$(function(data,filetype){
         		var newdiv='<div id=' + index + ' class= "in collapse" style="height: auto;"></div>'
         		$('#uploadedfile_list').append(newdiv);
         		
@@ -274,11 +274,16 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
                 </div> 
       <hr>Uploaded Files</hr>   
       <div id=uploadedfile_list>
-      <li><a class="accordion-toggle" data-toggle="collapse" data-target="#bed" href="#bed" onclick=listUploaded() ><i class="icon-folder-close"></i>BED</a></li>
-      <li><a class="accordion-toggle" data-toggle="collapse" data-target="#sam" href="#sam" onclick=listUploaded() ><i class="icon-folder-close"></i>SAM</a></li>
-      <li><a class="accordion-toggle" data-toggle="collapse" data-target="#bam" href="#bam" onclick=listUploaded() ><i class="icon-folder-close"></i>BAM</a></li>
-      <li><a class="accordion-toggle" data-toggle="collapse" data-target="#fasta" href="#fasta" onclick=listUploaded() ><i class="icon-folder-close"></i>FASTA</a></li>
-      <li><a class="accordion-toggle" data-toggle="collapse" data-target="#fastq" href="#fastq" onclick=listUploaded() ><i class="icon-folder-close"></i>FASTQ</a></li>       
+      
+      <script>
+      filetypes=["bed","sam", "bam","fasta", "fastq];
+      for(var i=0; i<filetypes.length; i++)
+      {
+      document.write('<li><a class="accordion-toggle" data-toggle="collapse" data-target="#' + filetypes[i] + '" href="#' + filetypes[i] + '" onclick=listUploaded() ><i class="icon-folder-close"></i>' + filetypes[i] + '</a></li>');
+      document.write("<div id="+ filetypes[i]+ " class='collapse' > Loading...</div>");
+      }
+      
+      </script>
       <!--  <script> listUploaded() </script> -->
 	  </div>
 	  <hr>AppResults</hr>
