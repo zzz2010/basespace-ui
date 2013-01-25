@@ -47,9 +47,11 @@ $.ajax({
         success: function(data, textStatus){
         alert(data.fastq==[]);
         		$(data.bed).each(function(index, item) {
-    $('#uploadedfile_list').append(
-        $(document.createElement('li id="item" onclick="add_list(this)"')).text(item)
-    );
+        		    var newli=document.createElement('li');
+        		    newli.id=item;
+        		    newli.onclick=add_list(newli);
+        		   	alert(newli);
+        			$('#uploadedfile_list').append(newli);
     
      });
         		
