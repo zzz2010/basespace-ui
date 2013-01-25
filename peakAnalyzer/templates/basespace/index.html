@@ -46,7 +46,7 @@ $.ajax({
         dataType:'json',   
         success: function(data, textStatus){
         	
-        		$(data.filetype).each(function(index){
+        		$(data.bed).each(function(index){
         		 	var file='<li id='+ index +' onclick="add_list(this)">' + index +'</li>';
         		 	alert(index);
         		    $("#"+filetype).append(file);
