@@ -47,21 +47,12 @@ $.ajax({
         success: function(data, textStatus){
         	
         	$.each(data,function(index){
-        		var newdiv = document.createElement('div');
-        		newdiv.class="in collapse";
-        		newdiv.id=data[index];
+        		var newdiv='<div id=' + index + ' class= "in class"'
         		$('#uploadedfile_list').append(newdiv);
         		
         		$.each(this, function(k,v){
-        		 	var newli='<li id='+ v +' onclick="add_list(this)">' + v +'</li>';
-        		 //	alert(newli);
-        		 
-        		 //var newli=document.createElement('li');
-        		//    newli.id=v;
-        		 //   newli.innerHTML=v;
-        		  //  newli.appendChild(document.createTextNode(v));
-        		   // newli.onClick=add_list(this.html());
-        		    $('#uploadedfile_list').append(newli);
+        		 	var file='<li id='+ v +' onclick="add_list(this)">' + v +'</li>';
+        		     newdiv.append(file);
         	});
         	});
         	
