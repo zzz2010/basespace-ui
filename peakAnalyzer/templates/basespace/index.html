@@ -53,7 +53,7 @@ $.ajax({
         		$.each(this, function(k,v){
         		 	var file='<li id='+ v +' onclick="add_list(this)">' + v +'</li>';
         		 	//alert(index);
-        		     document.getElementById(index).append(file);
+        		    $("#"+index).append(file);
         	});
         	});
         	
