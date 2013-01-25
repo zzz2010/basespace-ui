@@ -38,7 +38,29 @@ function load_safiles(trigger) {
 	})
 }
 
-function listUploaded()
+function listUploaded(filetype)
+{
+$.ajax({   
+        type: "GET",
+        url: "/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles",    
+        dataType:'json',   
+        success: function(data, textStatus){
+        	
+        	$.each(data,function(index){
+        		var newdiv='<div id=' + index + ' class= "in collapse" style="height: auto;"></div>'
+        		$('#uploadedfile_list').append(newdiv);
+        		
+        		$.each(this, function(k,v){
+        		 	var file='<li id='+ v +' onclick="add_list(this)">' + v +'</li>';
+        		 	//alert(index);
+        		    $("#"+index).append(file);
+        	});
+        	});
+        	
+	}})
+}
+
+function listUploaded2()
 {
 $.ajax({   
         type: "GET",
@@ -252,7 +274,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
                 </div> 
       <hr>Uploaded Files</hr>   
       <div id=uploadedfile_list>
-      <li><a class="accordion-toggle" data-toggle="collapse" href="#uploaded" onclick=listUploaded() ><i class="icon-folder-close"></i>BED</a></li>       
+      <li><a class="accordion-toggle" data-toggle="collapse" data-target="#bed" href="#bed" onclick=listUploaded() ><i class="icon-folder-close"></i>BED</a></li>       
       <!--  <script> listUploaded() </script> -->
 	  </div>
 	  <hr>AppResults</hr>
