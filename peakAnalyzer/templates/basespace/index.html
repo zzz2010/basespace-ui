@@ -48,7 +48,10 @@ $.ajax({
         //alert(data.fastq==[]);
         	
         	$.each(data,function(index){
-        	alert(data);
+        		$.each(this, function(k,v){
+        		
+        		alert(v);
+        	});
         	});
         	
         		$(data.bed).each(function(index, item) {
