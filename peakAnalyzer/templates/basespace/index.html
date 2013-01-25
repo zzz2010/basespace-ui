@@ -46,15 +46,10 @@ $.ajax({
         dataType:'json',   
         success: function(data, textStatus){
         	
-        	$(function(data,filetype){
-        		var newdiv='<div id=' + index + ' class= "in collapse" style="height: auto;"></div>'
-        		$('#uploadedfile_list').append(newdiv);
-        		
-        		$.each(this, function(k,v){
-        		 	var file='<li id='+ v +' onclick="add_list(this)">' + v +'</li>';
-        		 	//alert(index);
-        		    $("#"+index).append(file);
-        	});
+        		$(data.filetype).each(function(index){
+        		 	var file='<li id='+ index +' onclick="add_list(this)">' + index +'</li>';
+        		 	alert(index);
+        		    $("#"+filetype).append(file);
         	});
         	
 	}})
@@ -276,15 +271,15 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
       <div id=uploadedfile_list>
       
       <script>
-      filetypes=["bed","sam", "bam","fasta", "fastq"];
+      filetypes=["bed","bam", "sam","fasta", "fastq"];
       for(var i=0; i<filetypes.length; i++)
       {
-      document.write('<li><a class="accordion-toggle" data-toggle="collapse" data-target="#' + filetypes[i] + '" href="#' + filetypes[i] + '" onclick=listUploaded() ><i class="icon-folder-close"></i>' + filetypes[i] + '</a></li>');
+      document.write('<li><a class="accordion-toggle" data-toggle="collapse" data-target="#' + filetypes[i] + '" href="#' + filetypes[i] + '" onclick=listUploaded(' +filetypes[i]+ ') ><i class="icon-folder-close"></i>' + filetypes[i] + '</a></li>');
       document.write("<div id="+ filetypes[i]+ " class='collapse' > Loading...</div>");
       }
       
       </script>
-      <!--  <script> listUploaded() </script> -->
+     
 	  </div>
 	  <hr>AppResults</hr>
 	{% for appresult in project.appresult_set.all %}
