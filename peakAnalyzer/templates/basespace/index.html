@@ -46,7 +46,7 @@ $.ajax({
         dataType:'text',   
         success: function(data, textStatus){
         alert(data);
-        		$(data.[0].bed).each(function(index, item) {
+        		$(data[0].bed).each(function(index, item) {
     $('#uploadedfile_list').append(
         $(document.createElement('li')).text(item)
     );
