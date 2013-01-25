@@ -47,7 +47,7 @@ $.ajax({
         success: function(data, textStatus){
         	
         	$.each(data,function(index){
-        		var newdiv='<div id=' + index + ' class= "in class"></div>'
+        		var newdiv='<div id=' + index + ' class= "in collapse" style="height: auto;"></div>'
         		$('#uploadedfile_list').append(newdiv);
         		
         		$.each(this, function(k,v){
