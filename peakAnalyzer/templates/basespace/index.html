@@ -230,8 +230,8 @@ $(function () {
            $.each(data.result.files, function (index, file) {
          //       $('<p/>').text(file.name).appendTo($("#localfile_list"));
          	 alert(file.name);
-         	 var test= document.getElememtById("tr_" + file.name);
-         	 alert(test.innerHTML);
+         	 var test= document.getElementById("tr_" + file.name);
+         	 alert(test);
          	 $('#tr_' + file.name).hide();
             });
            
