@@ -202,7 +202,7 @@ $(function () {
         $.each(data.files, function (index, file) {
 
                 var row =$('<tr class="template-download fade in"/>');
-                 $('<td width="150" id="td_' + file.name+ '" class="name"/>').text(file.name).appendTo(row);
+                 $('<td style="width:150%" id="td_' + file.name+ '" class="name"/>').text(file.name).appendTo(row);
  
                 var button=$('<td class="cancel"> <button type="reset" id="button.cancel_'+ file.name+'" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i></button></td>');
                 button.appendTo(row);
