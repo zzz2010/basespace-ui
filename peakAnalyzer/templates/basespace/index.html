@@ -40,7 +40,7 @@ function load_safiles(trigger) {
 
 function listUploaded(filetype)
 {
-$("#closedfolder").toggle(
+$("i #closedfolder").toggle(
 function(){
 	$(this).class="icon-folder-open"
 },
@@ -216,7 +216,7 @@ $(function () {
             .complete(function (result, textStatus, jqXHR) {/* ... */});
             
        	$('button.cancel').click(function (e) {
-    	jqXHR.abort();
+    		jqXHR.abort();
 
 		});
             
