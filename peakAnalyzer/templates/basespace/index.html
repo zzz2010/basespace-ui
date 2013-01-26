@@ -40,18 +40,6 @@ function load_safiles(trigger) {
 
 function listUploaded(filetype)
 {
-$(this).click(function(){
-alert($(this));
-$("i #closedfolder").toggle(
-function(){
-	$(this).class="icon-folder-open";
-},
-function(){
-	$(this).class="icon-folder-close";
-}
-);
-});
-
 $.ajax({   
         type: "GET",
         url: "/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles",    
@@ -67,6 +55,20 @@ $.ajax({
         		
 				$("#"+filetype).html(filelist);        	
 	}})
+}
+
+function changeIcon()
+{
+
+$("i #closedfolder").toggle(
+function(){
+	$(this).class="icon-folder-open";
+},
+function(){
+	$(this).class="icon-folder-close";
+}
+);
+
 }
 
 function listUploaded2()
@@ -287,7 +289,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
       filetypes=["bed","bam", "sam","fasta", "fastq"];
       for(var i=0; i<filetypes.length; i++)
       {
-      document.write('<li><a class="accordion-toggle" data-toggle="collapse" data-target="#' + filetypes[i] + '" href="#' + filetypes[i] + '" onclick=listUploaded("' +filetypes[i]+ '") ><i id="closedfolder" class="icon-folder-close"></i>' + filetypes[i] + '</a></li>');
+      document.write('<li><a class="accordion-toggle" data-toggle="collapse" data-target="#' + filetypes[i] + '" href="#' + filetypes[i] + '" onclick=changeIcon();listUploaded("' +filetypes[i]+ '") ><i id="closedfolder" class="icon-folder-close"></i>' + filetypes[i] + '</a></li>');
       document.write("<div id="+ filetypes[i]+ " class='collapse' > Loading..</div>");
       }
       
