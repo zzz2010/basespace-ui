@@ -112,7 +112,7 @@ def listUploadedFiles(request, session_id):
     fasta=list()
     fastq=list()    
     
-    for f in uploadedfiles:
+    for f in sorted(uploadedfiles):
         if ".sam" in f:
             sam.append(f)
         if ".bam" in f:
