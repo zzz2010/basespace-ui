@@ -41,12 +41,13 @@ function load_safiles(trigger) {
 function listUploaded(filetype)
 {
 $(this).click(function(){
+alert($(this));
 $("i #closedfolder").toggle(
 function(){
-	$(this).class="icon-folder-open"
+	$(this).class="icon-folder-open";
 },
 function(){
-	$(this).class="icon-folder-close"
+	$(this).class="icon-folder-close";
 }
 );
 });
