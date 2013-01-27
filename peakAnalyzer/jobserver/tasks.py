@@ -426,7 +426,7 @@ def upload_file(appResults,localfile,dirname,api):
     
 @task
 def create_upload_AppResult(outdir,session_id,jobid):   
-    session_id=5 #debug 
+    session_id=4 #debug 
     session=Session.objects.get(pk=session_id)
     myjob=Job.objects.get(pk=jobid)
     api=session.getBSapi()
