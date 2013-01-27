@@ -375,7 +375,7 @@ def PeakCalling_task(outdir,jobid):
     cfgFileName=outdir2+"/pk.cfg"
     cfgFile=open(cfgFileName,'w')
     
-    #copy bed files to outdir2 and rename to *summits.bed 
+    #copy summits files to outdir2 and rename to *summits.bed 
     moveCmd = "cp {0} " + outdir2 + "{1}"
     
     for sfl in myjob.sampleFiles.split(','):
@@ -389,7 +389,7 @@ def PeakCalling_task(outdir,jobid):
             cpCmd=moveCmd.format(sfl, sfl_summits)
             print cpCmd
             os.system(cpCmd)
-    cfgFile.write("===\n")
+    #cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
         print "cfl:",cfl
         if isRawFile(cfl):
