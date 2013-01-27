@@ -389,7 +389,8 @@ def PeakCalling_task(outdir,jobid):
             cpCmd=moveCmd.format(sfl, sfl_summits)
             print cpCmd
             os.system(cpCmd)
-    #cfgFile.write("===\n")
+    if myjob.controlFiles:
+            cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
         print "cfl:",cfl
         if isRawFile(cfl):
