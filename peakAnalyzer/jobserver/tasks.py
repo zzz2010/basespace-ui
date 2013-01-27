@@ -357,7 +357,9 @@ def isRawFile(inputFile):
     try:
         with open(inputFile, 'r') as f:
             lines = len(list(filter(lambda x: x.strip(), f)))
-            isRaw=lines>10000000
+            isLarge=(lines>10000000)
+            isMapped=(".fastq" or ".fasta" or ".fq" or ".fa" ) in inputFile
+            isRaw= isLarge or isMapped 
     except:
         isRaw=False
     return isRaw
