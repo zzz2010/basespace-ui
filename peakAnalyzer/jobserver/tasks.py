@@ -374,6 +374,7 @@ def PeakCalling_task(outdir,jobid):
     moveCmd = "cp {0} " + outdir2 + "{1}"
     
     for sfl in myjob.sampleFiles.split(','):
+        print "sfl:",sfl;
         if isRawFile(sfl):
             cfgFile.write(sfl+"\n")
         else:
