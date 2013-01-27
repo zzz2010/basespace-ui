@@ -354,7 +354,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
 toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver').replace('\\','/')
 
 def isRawFile(inputFile):
-    with open (inputFile, 'r') as f:
+    with open(inputFile, 'r') as f:
         lines = len(list(filter(lambda x: x.strip(), f)))
         
     return lines>10000000
