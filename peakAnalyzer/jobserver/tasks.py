@@ -248,8 +248,6 @@ def ENCODE_TF_chipseq(peakfile,outdir2,genome):
         filename=outdir2+os.path.basename(peakfile)+".peakset.overlap.top"
         lines=open(filename).readlines()
         cell_line=getMostOccCellName(lines[0:5])
-        print filename
-        print "cellline:", cell_line
     except:
         cell_line=""
     return cell_line
@@ -313,11 +311,9 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
         if len(taskSet)==0 or "encode_chipseq" in taskSet :
             outdir2=outdir+"/encode_chipseq/"
             if known_match_cell=="":
-                print "need encode"
                 known_match_cell=ENCODE_TF_chipseq(peakfile,outdir2,genome)
                 print known_match_cell
             else:
-                print "bypassing encode"
                 tasklist.append(ENCODE_TF_chipseq.s(peakfile,outdir2,genome))
         
         #encode_histone profile#
@@ -358,7 +354,10 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
 toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver').replace('\\','/')
 
 def isRawFile(inputFile):
-    return "fastq" in inputFile or ".bed" not in inputFile
+    with open (inputFile, 'r') as f:
+        lines = len(list(filter(lambda x: x.strip(), f)))
+        
+    return lines>10000000
 
 @task
 def PeakCalling_task(outdir,jobid):
