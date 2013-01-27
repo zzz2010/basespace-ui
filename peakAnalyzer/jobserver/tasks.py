@@ -393,12 +393,13 @@ def PeakCalling_task(outdir,jobid):
         if isRawFile(cfl):
             cfgFile.write(cfl+"\n")
         else:
-            temp=sfl.split("/")
-            basename=temp[len(temp)-1]
-            cfl_summits = basename.replace(".bed", ".summits.bed")
-            cpCmd=moveCmd.format(cfl, cfl_summits)
-            print cpCmd
-            os.system(cpCmd)
+            if cfl.strip():
+                temp=sfl.split("/")
+                basename=temp[len(temp)-1]
+                cfl_summits = basename.replace(".bed", ".summits.bed")
+                cpCmd=moveCmd.format(cfl, cfl_summits)
+                print cpCmd
+                os.system(cpCmd)
     cfgFile.close()
     
     #check if cfgfile is empty
