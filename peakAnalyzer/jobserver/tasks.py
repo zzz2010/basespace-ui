@@ -59,7 +59,7 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
             downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
         else:
             outfile2=outdir+str(fid)
-            s_outfiles.append(outfile2)
+            c_outfiles.append(outfile2)
     #do download parallel
     if downloadtaks_list:
         downG=group(downloadtaks_list)()
@@ -386,7 +386,8 @@ def PeakCalling_task(outdir,jobid):
         if isRawFile(sfl):
             cfgFile.write(sfl+"\n")
         else:
-            if sfl.strip():
+            #check for sample files
+            if sfl.strip(): 
                 temp=sfl.split("/")
                 basename=temp[len(temp)-1]
                 sfl_summits = basename.replace(".bed", ".summits.bed")
@@ -400,6 +401,7 @@ def PeakCalling_task(outdir,jobid):
         if isRawFile(cfl):
             cfgFile.write(cfl+"\n")
         else:
+            #check for control files
             if cfl.strip():
                 temp=cfl.split("/")
                 basename=temp[len(temp)-1]
@@ -411,7 +413,7 @@ def PeakCalling_task(outdir,jobid):
     
     #check if cfgfile is empty
     tmpFile=open(cfgFileName, "r")
-    if tmpFile.read()!='===\n\n':   
+    if tmpFile.read().strip() != "":   
         cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
         print(cmd)
         os.system(cmd)
