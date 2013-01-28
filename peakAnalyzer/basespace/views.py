@@ -101,6 +101,7 @@ def listUploadedFiles(request, session_id):
     tmplist= open(tmp, "r")
     uploadedfiles=list()
     for line in tmplist:
+        line = line.strip()
         tmpline=line.split("/")
         uploadedfiles.append(tmpline[len(tmpline)-1])
     
@@ -272,7 +273,7 @@ def submitJob(request,session_id):
     jobtitle=""
     for postid,postv in request.POST.iteritems():
         if "ctrl" in postid:
-            for fid in postv.split(','):
+            for fid in postv.split(','):    #fid is int if from basespace
                 if fid=="":
                     continue
                 controlfids.append(fid)
