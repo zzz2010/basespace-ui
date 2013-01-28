@@ -52,7 +52,9 @@ $.ajax({
         			var splitOut = filename.split("__");
         			var fname=filename;
         			if(splitOut.length>1) {
-  						fname="file__" + splitOut[0];
+        				fid=splitOut[0]
+  						fname="file__" + fid;
+  						filename=fid+"_" + splitOut[1];
        				}
        
         		 	var file='<li id='+ fname +' onclick="add_list(this)">' + filename+'</li>';
