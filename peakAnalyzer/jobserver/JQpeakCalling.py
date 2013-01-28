@@ -207,6 +207,7 @@ def ConvertToBam():
     
     for tmpName in targetMappings_List:
         print tmpName
+        print genome_length_path
         if FileType(tmpName)==0:    #sam
             os.system('samtools view -bS -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
             os.system('rm '+tmpName)
