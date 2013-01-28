@@ -47,7 +47,14 @@ $.ajax({
         success: function(data, textStatus){
         		var filelist=""
         		$(data[filetype]).each(function(index){
-        			var fname=data[filetype][index];
+        			var filename=data[filetype][index];
+        			//check if uploaded file is from basespace
+        			var splitOut = filename.split("__");
+        			var fname=filename;
+        			if(splitOut.length>1) {
+  						fname="file__" + splitOut[0];
+       				}
+       
         		 	var file='<li id='+ fname +' onclick="add_list(this)">' + fname +'</li>';
      				filelist=filelist+file;
      				
@@ -69,31 +76,7 @@ function(){
 });
 
 
-
-function listUploaded2()
-{
-$.ajax({   
-        type: "GET",
-        url: "/peakAnalyzer/basespace/{{session_id}}/listUploadedFiles",    
-        dataType:'json',   
-        success: function(data, textStatus){
-        	
-        	$.each(data,function(index){
-        		var newdiv='<div id=' + index + ' class= "in collapse" style="height: auto;"></div>'
-        		$('#uploadedfile_list').append(newdiv);
-        		
-        		$.each(this, function(k,v){
-        		 	var file='<li id='+ v +' onclick="add_list(this)">' + v +'</li>';
-        		 	//alert(index);
-        		    $("#"+index).append(file);
-        	});
-        	});
-        	
-	}})
-}
-
-
- addedFiles={};
+addedFiles={};
 function add_list(trigger_obj)
 {
 var name=trigger_obj.innerHTML
