@@ -105,11 +105,8 @@ var html="<tr><td>\
  }
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
-     alert(name);
-     console.log(JSON.stringify(addedFiles));
-     alert(addedFiles["3631287_Mafk_S1_L001_R1_001.fastq.gz"]);
      addedFiles[name]=true;
-     alert(addedFiles["3631287_Mafk_S1_L001_R1_001.fastq.gz"]);
+     console.log(JSON.stringify(addedFiles));
 }
 }
 
