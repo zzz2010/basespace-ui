@@ -57,7 +57,7 @@ $.ajax({
   						filename=fid+"_" + splitOut[1];
        				}
        
-        		 	var file='<li id='+ fname +' genome="hg19" onclick="add_list(this)">' + filename+'</li>';
+        		 	var file='<li id='+ fname +' onclick="add_list(this)">' + filename+'</li>';
      				filelist=filelist+file;
      				
         });
@@ -106,9 +106,10 @@ var html="<tr><td>\
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
      alert(name);
-     alert(addedFiles[name]);
+     
+     alert(addedFiles["3631287_Mafk_S1_L001_R1_001.fastq.gz"]);
      addedFiles[name]=true;
-     alert(addedFiles[name]);
+     alert(addedFiles["3631287_Mafk_S1_L001_R1_001.fastq.gz"]);
 }
 }
 
