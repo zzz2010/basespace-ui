@@ -36,6 +36,9 @@ def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
     downloadtaks_list=list()
     logger = basespace_Download_PeakCalling_Processing.get_logger(logfile='tasks.log')
     
+    print "sfidlist", sfidlist
+    print "cfidlist", cfidlist
+    
     for fid in sfidlist:
         if(str(fid).isdigit()):
             f = api.getFileById(fid)
@@ -383,12 +386,13 @@ def PeakCalling_task(outdir,jobid):
         if isRawFile(sfl):
             cfgFile.write(sfl+"\n")
         else:
-            temp=sfl.split("/")
-            basename=temp[len(temp)-1]
-            sfl_summits = basename.replace(".bed", ".summits.bed")
-            cpCmd=moveCmd.format(sfl, sfl_summits)
-            print cpCmd
-            os.system(cpCmd)
+            if sfl.strip():
+                temp=sfl.split("/")
+                basename=temp[len(temp)-1]
+                sfl_summits = basename.replace(".bed", ".summits.bed")
+                cpCmd=moveCmd.format(sfl, sfl_summits)
+                print cpCmd
+                os.system(cpCmd)
     if myjob.controlFiles:
             cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
@@ -397,7 +401,7 @@ def PeakCalling_task(outdir,jobid):
             cfgFile.write(cfl+"\n")
         else:
             if cfl.strip():
-                temp=sfl.split("/")
+                temp=cfl.split("/")
                 basename=temp[len(temp)-1]
                 cfl_summits = basename.replace(".bed", ".summits.bed")
                 cpCmd=moveCmd.format(cfl, cfl_summits)
