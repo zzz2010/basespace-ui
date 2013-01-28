@@ -297,7 +297,7 @@ def submitJob(request,session_id):
     samplefiles=""
     controlfiles=""
     
-    return HttpResponse(controlfids)
+    return HttpResponse(controlfids + "\n" + samplefids)
  #   myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
     #downloadSCFiles(sfidlist, cfidlist,myAPI, outdir, myjob.id)
  #   basespace_Download_PeakCalling_Processing.delay(samplefids,controlfids,session_id,outdir,myjob.id)
