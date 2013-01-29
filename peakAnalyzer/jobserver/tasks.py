@@ -472,7 +472,7 @@ def get_immediate_subdirectories(dir1):
             if os.path.isdir(os.path.join(dir1, name))]
 @task
 def upload_AppResult(outdir,session_id,appResults):  
-    session_id=5 #debug 
+ #   session_id=5 #debug 
     session=Session.objects.get(pk=session_id)
     api=session.getBSapi()
     tasklist=list()
