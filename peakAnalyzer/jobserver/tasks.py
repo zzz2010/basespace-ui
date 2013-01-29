@@ -151,7 +151,7 @@ def GREAT(peakfile,outdir2,genome):
 @task
 def peakAnnotation(peakfile, outdir2, genome):
     mkpath(outdir2)
-    cmd="sh "+toolpath+"./peakAnnotation/peakAnnotation.UCSC.sh "+peakfile+" "+genome+" "+outdir2
+    cmd="sh "+settings.toolpath+"./peakAnnotation/peakAnnotation.UCSC.sh "+peakfile+" "+genome+" "+outdir2
     print cmd           
     os.system(cmd)
     
