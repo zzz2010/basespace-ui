@@ -148,7 +148,12 @@ def GREAT(peakfile,outdir2,genome):
     os.system(cmd)
 
 
-
+@task
+def peakAnnotation(peakfile, outdir2, genome):
+    mkpath(outdir2)
+    cmd="sh "+toolpath+"./peakAnnotation/peakAnnotation.UCSC.sh "+peakfile+" "+genome+" "+outdir2
+    print cmd           
+    os.system(cmd)
     
 
 @task
@@ -189,6 +194,11 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
         #if len(taskSet)==0 or "TagProfileAroundPeaks" in taskSet :
         #    outdir2=outdir+"/TagProfileAroundPeaks/"
         #    tasklist.append(TagProfileAroundPeaks.s(peakfile,outdir2,inputdir))
+        
+        ##peak annotation##
+        if len(taskSet)==0 or "peakAnnotation" in taskSet:
+            outdir2=outdir+"/peakAnnotation/"
+            tasklist.append(peakAnnotation.s(peakfile, outdir2, genome))
         
         ##repeat analysis###
         if len(taskSet)==0 or "repeatAnalysis" in taskSet :
