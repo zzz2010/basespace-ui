@@ -375,6 +375,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         print myjob.cell_line
     except Exception, e:
         traceback.print_exc()
+        print e
         myjob=Job.objects.get(pk=jobid)
         myjob.status="Error"
         myjob.save()
