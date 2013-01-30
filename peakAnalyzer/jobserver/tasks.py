@@ -338,6 +338,9 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
                 tasklist.append(histonePlot.s(peakfile,outdir2,genome,known_match_cell))
     print known_match_cell
     taskconfig.set("task", "cellline", known_match_cell)
+    
+    ##debug
+    #myjob=Job.objects.get(pk=jobid)
     return group(tasklist)()
             
 @task
@@ -352,8 +355,9 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         inputdir=taskconfig.get("task", "dataDIR")
         peaklist=glob.glob(inputdir+"/*summits.bed")
         print "running pipeline..."
-        grouptasks=group(Pipeline_Processing_task_cellline.s(peaklist,taskconfig),Pipeline_Processing_task_general.s(peaklist,taskconfig))()
-        grouptasks.get(timeout=1000*60*60)
+        grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig))()
+        time=1000*60*600
+        grouptasks.get(timeout=time)
         #do the update database
         
         print "change status"
