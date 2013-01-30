@@ -320,7 +320,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
         elif checkCellName(cellline2, known_cell):
             known_match_cell=known_cell
             break
-        
+        print len(taskSet)
         print taskSet
     for peakfile in peaklist:
         #encode_chipseq overlap#
