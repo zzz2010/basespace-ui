@@ -352,7 +352,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         inputdir=taskconfig.get("task", "dataDIR")
         peaklist=glob.glob(inputdir+"/*summits.bed")
         print "running pipeline..."
-        grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig))()
+        grouptasks=group(Pipeline_Processing_task_cellline.s(peaklist,taskconfig),Pipeline_Processing_task_general.s(peaklist,taskconfig))()
         grouptasks.get(timeout=1000*60*60)
         #do the update database
         
@@ -360,7 +360,9 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         myjob=Job.objects.get(pk=jobid)
         myjob.status="Completed"
         myjob.cell_line=taskconfig.get("task","cellline")
+        print myjob.cell_line
         myjob.save()
+        print myjob.cell_line
     except Exception, e:
         traceback.print_exc()
         myjob=Job.objects.get(pk=jobid)
