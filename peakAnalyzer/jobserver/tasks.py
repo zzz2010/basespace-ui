@@ -362,7 +362,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         peaklist=glob.glob(inputdir+"/*summits.bed")
         print "running pipeline..."
       #  grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig, jobid))()
-        grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig, jobid))()
+        grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig))()
         grouptasks.get(timeout=1000*60*60)
         #do the update database
         
