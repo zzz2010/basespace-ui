@@ -363,8 +363,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         print "running pipeline..."
       #  grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig, jobid))()
         grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig, jobid))()
-        time=1000*60*600
-        grouptasks.get(timeout=time)
+        grouptasks.get(timeout=1000*60*60)
         #do the update database
         
         print "change status"
