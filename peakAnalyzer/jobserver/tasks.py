@@ -220,8 +220,9 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
             outdir2=outdir+"/GREAT/"
             tasklist.append(GREAT.s(peakfile,outdir2,genome))
        
-    return group(tasklist)()
-
+    #return group(tasklist)()
+    return tasklist
+    
 def checkCellName(testName, knownName):
     if testName:
         return (testName in knownName) or (knownName in testName)
@@ -297,7 +298,7 @@ def histonePlot(peakfile,outdir2,genome,cellline_used):
     return cellline_used
 
 @task
-def Pipeline_Processing_task_cellline(peaklist,taskconfig, jobid):
+def Pipeline_Processing_task_cellline(peaklist,taskconfig):
     taskStr=""
     if taskconfig.has_option("task","task"):
             taskStr=taskconfig.get("task", "task")
@@ -340,12 +341,13 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig, jobid):
     taskconfig.set("task", "cellline", known_match_cell)
     
     ##debug
-    myjob=Job.objects.get(pk=jobid)
-    myjob.cell_line=taskconfig.get("task","cellline")
-    print myjob.cell_line
-    myjob.save()
+    #myjob=Job.objects.get(pk=jobid)
+    #myjob.cell_line=taskconfig.get("task","cellline")
+    #print myjob.cell_line
+    #myjob.save()
     
-    return group(tasklist)()
+    return tasklist
+    #return group(tasklist)()
             
 @task
 def Pipeline_Processing_task(taskconfigfile,jobid):
@@ -359,6 +361,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         inputdir=taskconfig.get("task", "dataDIR")
         peaklist=glob.glob(inputdir+"/*summits.bed")
         print "running pipeline..."
+      #  grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig, jobid))()
         grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig, jobid))()
         time=1000*60*600
         grouptasks.get(timeout=time)
