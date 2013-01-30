@@ -220,8 +220,7 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
             outdir2=outdir+"/GREAT/"
             tasklist.append(GREAT.s(peakfile,outdir2,genome))
        
-    #return group(tasklist)()
-    return tasklist
+    return group(tasklist)()
     
 def checkCellName(testName, knownName):
     if testName:
@@ -320,8 +319,8 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
         elif checkCellName(cellline2, known_cell):
             known_match_cell=known_cell
             break
-        print len(taskSet)
-        print taskSet
+    print len(taskSet)
+    print taskSet
     for peakfile in peaklist:
         #encode_chipseq overlap#
         if len(taskSet)==0 or "encode_chipseq" in taskSet :
@@ -332,6 +331,8 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
             else:
                 tasklist.append(ENCODE_TF_chipseq.s(peakfile,outdir2,genome))
         
+        print "length",len(taskSet)
+        print taskSet
         #encode_histone profile#
         if len(taskSet)==0 or "histonePlot" in taskSet :
             outdir2=outdir+"/histonePlot/"
@@ -347,9 +348,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
     #myjob.cell_line=taskconfig.get("task","cellline")
     #print myjob.cell_line
     #myjob.save()
-    
-    return tasklist
-    #return group(tasklist)()
+    return group(tasklist)()
             
 @task
 def Pipeline_Processing_task(taskconfigfile,jobid):
