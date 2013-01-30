@@ -319,8 +319,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
         elif checkCellName(cellline2, known_cell):
             known_match_cell=known_cell
             break
-    print len(taskSet)
-    print taskSet
+
     for peakfile in peaklist:
         #encode_chipseq overlap#
         if len(taskSet)==0 or "encode_chipseq" in taskSet :
@@ -330,10 +329,8 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
                 print known_match_cell
             else:
                 tasklist.append(ENCODE_TF_chipseq.s(peakfile,outdir2,genome))
-        
-        print "length",len(taskSet)
-        print taskSet
-        #encode_histone profile#
+   
+          #encode_histone profile#
         if len(taskSet)==0 or "histonePlot" in taskSet :
             outdir2=outdir+"/histonePlot/"
             if known_match_cell=="":
@@ -341,13 +338,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
             else:
                 tasklist.append(histonePlot.s(peakfile,outdir2,genome,known_match_cell))
     print known_match_cell
-    taskconfig.set("task", "cellline", known_match_cell)
-    
-    ##debug
-    #myjob=Job.objects.get(pk=jobid)
-    #myjob.cell_line=taskconfig.get("task","cellline")
-    #print myjob.cell_line
-    #myjob.save()
+
     return group(tasklist)()
             
 @task
