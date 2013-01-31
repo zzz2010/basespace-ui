@@ -399,7 +399,7 @@ def PeakCalling_task(outdir,jobid):
     
     #copy summits files to outdir2 and rename to *summits.bed 
     moveCmd = "cp {0} " + outdir2 + "{1}"
-    
+    cmdlist=list()
     for sfl in myjob.sampleFiles.split(','):
         print "sfl:",sfl;
         if isRawFile(sfl):
@@ -412,7 +412,8 @@ def PeakCalling_task(outdir,jobid):
                 sfl_summits = basename.replace(".bed", ".summits.bed")
                 cpCmd=moveCmd.format(sfl, sfl_summits)
                 print cpCmd
-                os.system(cpCmd)
+                #to be executed later after peak calling and sorting by score
+                cmdlist.append(cpCmd)  
     if myjob.controlFiles:
             cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
@@ -427,7 +428,8 @@ def PeakCalling_task(outdir,jobid):
                 cfl_summits = basename.replace(".bed", ".summits.bed")
                 cpCmd=moveCmd.format(cfl, cfl_summits)
                 print cpCmd
-                os.system(cpCmd)
+                #to be executed later after peak calling and sorting by score
+                cmdlist.append(cpCmd)
     cfgFile.close()
     
     #check if cfgfile is empty
@@ -436,9 +438,17 @@ def PeakCalling_task(outdir,jobid):
         cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
         print(cmd)
         os.system(cmd)
+        
     else:
         print("Peak Calling skipped")
-
+        
+    #sort summits bed by MACS score
+    sortCmd= "sh " + toolpath + "/sortPeaksByScore.sh " + outdir2
+    os.system(sortCmd)
+    #copy bed files that dont need peakcalling over
+    os.system(";".join(cmdlist))
+    
+    
 @task 
 def upload_file(appResults,localfile,dirname,api):
     filetype="image/png"
