@@ -401,8 +401,8 @@ def PeakCalling_task(outdir,jobid):
     moveCmd = "cp {0} " + outdir2 + "{1}"
     cmdlist=list()
     for sfl in myjob.sampleFiles.split(','):
-        print "sfl:",sfl;
         if isRawFile(sfl):
+            print "raw file"
             cfgFile.write(sfl+"\n")
         else:
             #check for sample files
@@ -417,7 +417,6 @@ def PeakCalling_task(outdir,jobid):
     if myjob.controlFiles:
             cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
-        print "cfl:",cfl
         if isRawFile(cfl):
             cfgFile.write(cfl+"\n")
         else:
@@ -446,7 +445,8 @@ def PeakCalling_task(outdir,jobid):
     sortCmd= "sh " + toolpath + "/sortPeaksByScore.sh " + outdir2
     os.system(sortCmd)
     #copy bed files that dont need peakcalling over
-    os.system(";".join(cmdlist))
+    if cmdlist:
+        os.system(";".join(cmdlist))
     
     
 @task 
