@@ -32,14 +32,14 @@ class Session(models.Model):
         f.close()
     def __unicode__(self):
 	return self.SessionId
-'''
+
 class User(models.Model):
     Email=models.EmailField()
     UserId=models.IntegerField()
     Name=models.CharField(max_length=200)
     def __unicode__(self):
                 return self.Name
-'''
+
 class Project(models.Model):
 	ProjectId=models.IntegerField()
 	Name=models.CharField(max_length=50)
