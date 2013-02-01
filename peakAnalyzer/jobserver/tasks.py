@@ -356,7 +356,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         print "running pipeline..."
       #  grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig, jobid))()
         grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig))()
-        grouptasks.get(timeout=1000*60*60)
+        grouptasks.get(timeout=1000*60*600)
         #do the update database
         
         print "change status"
@@ -368,7 +368,6 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         print myjob.cell_line
     except Exception, e:
         traceback.print_exc()
-        print e
         myjob=Job.objects.get(pk=jobid)
         myjob.status="Error"
         myjob.save()
