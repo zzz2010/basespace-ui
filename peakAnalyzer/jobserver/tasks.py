@@ -220,8 +220,10 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
             outdir2=outdir+"/GREAT/"
             tasklist.append(GREAT.s(peakfile,outdir2,genome))
        
-    return group(tasklist)()
-    
+    #return group(tasklist)()
+    g = group(tasklist)()
+    g.get(timeout=100*60*600)
+
 def checkCellName(testName, knownName):
     if testName:
         return (testName in knownName) or (knownName in testName)
@@ -340,7 +342,9 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
     print known_match_cell
     taskconfig.set("task", "cellline", known_match_cell)
    
-    return group(tasklist)()
+    g = group(tasklist)()
+    g.get(timeout=100*60*600)
+   # return group(tasklist)()
             
 @task
 def Pipeline_Processing_task(taskconfigfile,jobid):
