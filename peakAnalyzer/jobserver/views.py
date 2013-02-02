@@ -22,7 +22,7 @@ def listjob(request,user_id):
     css["Downloading"]=""
     css["Data_Ready"]="info"
     css["PeakCalling"]="info"
-    css["Analyzing"]="warning"
+    css["Processing"]="warning"
     css["Completed"]="success"
     css["Error"]="error"
     return render_to_response('jobserver/joblist.html', {'jobs_list':u.job_set.all(),'css':css})

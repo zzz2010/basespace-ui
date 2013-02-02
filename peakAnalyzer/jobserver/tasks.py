@@ -343,7 +343,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
     taskconfig.set("task", "cellline", known_match_cell)
    
     g = group(tasklist)()
-    g.get(timeout=100*60*600)
+    g.get(timeout=100*60*60)
    # return group(tasklist)()
             
 @task
