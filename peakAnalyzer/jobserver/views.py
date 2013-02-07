@@ -42,7 +42,15 @@ def CENTDIST_result(dir1):
     src='http://genome.ddns.comp.nus.edu.sg/~chipseq/webseqtools2/TASKS/Motif_Enrichment/viewresult_peakAnalyzer.php?rundir="""+dir1+"'></iframe></div>\n"
     
     return html_str
+
+def denovoMotif_result(dir1):
+    myTab=os.path.basename(dir1)
+    html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"""'><iframe id="iFrame1" name="iFrame1" 
+    width="100%" onload="this.height=iFrame1.document.body.scrollHeight" frameborder="0" 
+    src='http://genome.ddns.comp.nus.edu.sg/~chipseq/webseqtools2/TASKS/Motif_Enrichment/viewresult_peakAnalyzer.php?rundir="""+dir1+"'></iframe></div>\n"
     
+    return html_str
+
 def resultfolder_html(dir1):
     html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"'>"
     #show image first
@@ -66,6 +74,8 @@ def viewresult(request,job_id):
     for dir1 in result_list:
         if "CENTDIST" in dir1:
             content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
+        elif "denovoMotif" in dir1:
+            content_html+=denovoMotif_result(str(result_dir)+"/"+str(dir1))
         else:
             content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
     return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
