@@ -74,8 +74,8 @@ def viewresult(request,job_id):
     for dir1 in result_list:
         if "CENTDIST" in dir1:
             content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
-        elif "denovoMotif" in dir1:
-            content_html+=denovoMotif_result(str(result_dir)+"/"+str(dir1))
+        #elif "denovoMotif" in dir1:
+        #    content_html+=denovoMotif_result(str(result_dir)+"/"+str(dir1))
         else:
             content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
     return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
