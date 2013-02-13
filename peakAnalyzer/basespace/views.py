@@ -90,7 +90,7 @@ def listUploadedFiles(request, session_id):
             raise Http404
     
     user        = myAPI.getUserById('current')
-    myuser=User.objects.filter(UserId=user.Id)[0]
+    myuser=User.objects.filter(BaseSpaceId=user.Id)[0]
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
     
     tmpdir=outdir+"tmp/"
@@ -139,7 +139,7 @@ def uploadFiles(request, session_id):
             raise Http404
     
     user        = myAPI.getUserById('current')
-    myuser=User.objects.filter(UserId=user.Id)[0]
+    myuser=User.objects.filter(BaseSpaceId=user.Id)[0]
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
     if not os.path.exists(outdir):
         os.makedirs(outdir)
@@ -169,11 +169,11 @@ def listProject(request,session_id):
         raise Http404
     
     user        = myAPI.getUserById('current')
-    if len(User.objects.filter(UserId=user.Id))==0:
-        myuser=basespace.models.User(UserId=user.Id,Email=user.Email,Name=user.Name)
+    if len(User.objects.filter(BaseSpaceId=user.Id))==0:
+        myuser=basespace.models.User(BaseSpaceId=user.Id,Email=user.Email,Name=user.Name)
         myuser.save()
     else:
-        myuser=User.objects.filter(UserId=user.Id)[0]
+        myuser=User.objects.filter(BaseSpaceId=user.Id)[0]
     if len(myProjects)==0:
         myProjects   = myAPI.getProjectByUser('current')
     projects_list=list()
@@ -217,11 +217,11 @@ def listFiles(request,session_id):
         raise Http404
     
     user        = myAPI.getUserById('current')
-    if len(User.objects.filter(UserId=user.Id))==0:
-        myuser=basespace.models.User(UserId=user.Id,Email=user.Email,Name=user.Name)
+    if len(User.objects.filter(BaseSpaceId=user.Id))==0:
+        myuser=basespace.models.User(BaseSpaceId=user.Id,Email=user.Email,Name=user.Name)
         myuser.save()
     else:
-        myuser=User.objects.filter(UserId=user.Id)[0]
+        myuser=User.objects.filter(BaseSpaceId=user.Id)[0]
     if len(myProjects)==0:
         myProjects   = myAPI.getProjectByUser('current')
     for singleProject in myProjects:
@@ -289,7 +289,7 @@ def submitJob(request,session_id):
         elif "Cell" in postid:
             cell_line=postv
     user        = myAPI.getUserById('current')
-    myuser=User.objects.filter(UserId=user.Id)[0]
+    myuser=User.objects.filter(BaseSpaceId=user.Id)[0]
 
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
     if not os.path.exists(outdir):
