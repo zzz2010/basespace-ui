@@ -35,6 +35,7 @@ class Session(models.Model):
 
 class User(models.Model):
     Email=models.EmailField()
+    UserId=models.IntegerField()
     BaseSpaceId=models.IntegerField()
     Name=models.CharField(max_length=200)
     def __unicode__(self):
