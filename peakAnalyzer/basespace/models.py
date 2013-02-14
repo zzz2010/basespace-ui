@@ -34,6 +34,7 @@ class Session(models.Model):
 	return self.SessionId
 
 class User(models.Model):
+    user=models.OneToOneField(User)
     Email=models.EmailField()
     UserId=models.IntegerField()
     BaseSpaceId=models.IntegerField()
