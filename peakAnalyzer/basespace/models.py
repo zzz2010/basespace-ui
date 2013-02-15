@@ -34,10 +34,10 @@ class Session(models.Model):
 	return self.SessionId
 
 class User(models.Model):
-    user=models.OneToOneField(User)
+ #   user=models.OneToOneField(User)
     Email=models.EmailField()
     UserId=models.IntegerField()
-    BaseSpaceId=models.IntegerField()
+ #   BaseSpaceId=models.IntegerField()
     Name=models.CharField(max_length=200)
     def __unicode__(self):
                 return self.Name
