@@ -331,7 +331,7 @@ def login_user(request):
         else:
             state = "The username or password entered is incorrect."
 
-    return render_to_response('login.html',{'state':state})
+    return render_to_response('../templates/login.html',{'state':state})
 
 @csrf_exempt
 def logout_view(request):
