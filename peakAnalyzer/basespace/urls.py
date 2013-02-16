@@ -6,7 +6,7 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('basespace.views',
-	url(r'^login/$', 'auth.views.login_user'),
+	url(r'^login/$', 'login_user'),
 	url(r'^$', 'createSession'),
 	url(r'^(?P<session_id>\d+)/submitJob/$', 'submitJob'),
 	url(r'^(?P<session_id>\d+)/listFiles/$', 'listFiles'),
