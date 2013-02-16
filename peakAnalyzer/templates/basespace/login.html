@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Log in</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+<style type="text/css">
+/* Override some defaults */
+html,body {
+	background-color: #eee;
+}
+
+body {
+	padding-top: 40px;
+}
+
+.container {
+	width: 300px;
+}
+
+/* The white background content wrapper */
+.container>.content {
+	background-color: #fff;
+	padding: 20px;
+	margin: 0 -20px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	border-radius: 10px 10px 10px 10px;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+}
+
+.login-form {
+	margin-left: 65px;
+}
+
+.login-status {
+	color: red
+}
+
+legend {
+	margin-right: -50px;
+	font-weight: bold;
+	color: #404040;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="content">
+			<div class="row">
+				<div class="login-form">
+
+					<h2>PeakAnalyzer</h2>
+					<br>
+					<form action="/login/" method="post">
+						<fieldset>
+							{% if next %} <input type="hidden" name="next" value="{{ next }}" />
+							{% endif %}
+
+							<div class="clearfix">
+								<input type="text" placeholder="Username" name="username">
+							</div>
+							<div class="clearfix">
+								<input type="password" placeholder="Password" name="password"
+									value="">
+							</div>
+							<button class="btn primary" type="submit">Sign in</button>
+
+						</fieldset>
+					</form>
+
+					<p style="color: red" id=login-status>{{ state }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /container -->
+</body>
+</html>
+
+
