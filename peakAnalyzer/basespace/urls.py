@@ -6,6 +6,7 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('basespace.views',
+	url(r'^login/$', 'auth.views.login_user'),
 	url(r'^$', 'createSession'),
 	url(r'^(?P<session_id>\d+)/submitJob/$', 'submitJob'),
 	url(r'^(?P<session_id>\d+)/listFiles/$', 'listFiles'),
@@ -15,6 +16,7 @@ urlpatterns = patterns('basespace.views',
 	url(r'^(?P<session_id>\d+)/uploadFiles/$', 'uploadFiles'),
 	url(r'^(?P<session_id>\d+)/listProject/$', 'listProject'),
 	url(r'^(?P<user_id>\d+)/demo/$', 'demo'),
+	url	(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/login'}),
 #	url(r'^login/$', 'django.contrib.auth.views.login'),
 #	url(r'^logout/$', 'logout_page'),
 )

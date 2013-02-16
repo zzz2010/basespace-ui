@@ -1,13 +1,12 @@
 import basespace
 import datetime, os, sys,  time
 from django.utils import simplejson
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template.context import RequestContext
 from django.http import  *
 from django.core.files.uploadedfile import UploadedFile
 from BaseSpacePy.api.BaseSpaceAPI import BaseSpaceAPI
 from django.http import Http404
-from django.shortcuts import redirect
 from basespace.models import Project,User,AppResult,Sample,File
 from jobserver.models import Job
 from django.utils import timezone
@@ -20,13 +19,12 @@ from django import forms
 from peakAnalyzer.settings import MEDIA_ROOT
 import json
 from django.utils import simplejson
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login
+
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
-
-class UploadFileForm(forms.Form):
-   # title = forms.CharField(max_length=50)
-    file  = forms.FileField()
-   # file = forms.Field(widget=forms.FileInput, required=False)
 
 # Create your views here.
 def createSession(request):
@@ -44,7 +42,7 @@ def createSession(request):
     session.save()
     return redirect('basespace.views.listProject',session_id=session.id)
 
-
+@login_required
 def listAppResultFiles(request,session_id,ar_id):
     try:
         session=basespace.models.Session.objects.get(pk=session_id)
@@ -63,7 +61,8 @@ def listAppResultFiles(request,session_id,ar_id):
     files=ar.getFiles(myAPI,myQp=FileTypes)
     return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':files,'session_id':session_id})
         
-        
+
+@login_required    
 def listSampleFiles(request,session_id,sa_id):
     try:
         session=basespace.models.Session.objects.get(pk=session_id)
@@ -82,6 +81,8 @@ def listSampleFiles(request,session_id,sa_id):
     files=sa.getFiles(myAPI,myQp=FileTypes)
     return render_to_response('basespace/filelist.html', {'genome_name':genome_name,'files_list':files,'session_id':session_id})
 
+
+@login_required
 def listUploadedFiles(request, session_id):
     try:
         session=basespace.models.Session.objects.get(pk=session_id)
@@ -130,6 +131,8 @@ def listUploadedFiles(request, session_id):
     return HttpResponse(json.dumps(output), content_type='application/json')        
     #return render_to_response('basespace/uploadedlist.html',{'files_list':uploadedfiles,'session_id':session_id})
     #return HttpResponse(uploadedfiles)
+
+@login_required
 @csrf_exempt
 def uploadFiles(request, session_id):
     try:
@@ -153,7 +156,7 @@ def uploadFiles(request, session_id):
        return HttpResponse(json.dumps(response_dict), content_type='application/json')    
     
 
-         
+@login_required        
 def listProject(request,session_id):
     outstr=""
     myProjects=list()
@@ -202,6 +205,7 @@ def listProject(request,session_id):
         
     return render_to_response('basespace/index.html', {'user': myuser,'projects_list':projects_list,'session_id':str(session_id)})
 
+@login_required
 def listFiles(request,session_id):
     outstr=""
     myProjects=list()
@@ -257,7 +261,7 @@ def listFiles(request,session_id):
     return HttpResponse(outstr)
 
 
-    
+@login_required
 @csrf_exempt
 def submitJob(request,session_id):
  
@@ -308,6 +312,30 @@ def demo(request,user_id):
     u= get_object_or_404(User, pk=user_id)
     return render_to_response('basespace/demo.html', {'user': u})
 
+@csrf_exempt
+def login_user(request):
+    state = ""
+    username = password = ''
+    if request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                state="Logged in"
+                   #return redirect('/main')
+            else:
+                state = "Your account is not active, please contact the site admin."
+        else:
+            state = "The username or password entered is incorrect."
+
+    return render_to_response('login.html',{'state':state})
+
+@csrf_exempt
+def logout_view(request):
+    logout(request)
 
     
 
