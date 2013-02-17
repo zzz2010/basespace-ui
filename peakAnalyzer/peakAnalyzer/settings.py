@@ -136,4 +136,4 @@ INSTALLED_APPS = (
     'djcelery',
 )
 
-LOGIN_URL ="peakAnalyzer/basespace/login"
+LOGIN_URL ="http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/basespace/login"
