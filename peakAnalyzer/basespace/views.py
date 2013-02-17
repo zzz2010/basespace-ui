@@ -337,7 +337,7 @@ def loginUser(request):
 @csrf_exempt
 def logoutUser(request):
     logout(request)
-    return redirect('../login')
+    return redirect('/../login')
 
     
 
