@@ -135,3 +135,5 @@ INSTALLED_APPS = (
     'jobserver',
     'djcelery',
 )
+
+LOGIN_URL ="peakAnalyzer/basespace/login"
