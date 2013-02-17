@@ -18,7 +18,7 @@ urlpatterns = patterns('basespace.views',
 	url(r'^(?P<session_id>\d+)/uploadFiles/$', 'uploadFiles'),
 	url(r'^(?P<session_id>\d+)/listProject/$', 'listProject'),
 	url(r'^(?P<user_id>\d+)/demo/$', 'demo'),
-	(r'^logout/$', 'logout_view', {'next_page': '/login'}),
+	(r'^logout/$', 'logout_view'),
 #	url(r'^login/$', 'django.contrib.auth.views.login'),
 #	url(r'^logout/$', 'logout_page'),
 )
