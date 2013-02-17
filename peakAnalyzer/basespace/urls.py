@@ -8,7 +8,7 @@ from django.conf.urls import *
 # admin.autodiscover()
 
 urlpatterns = patterns('basespace.views',
-	(r'^login/$', 'loginUser'),
+	url(r'^login/$', 'loginUser'),
 	url(r'^$', 'createSession'),
 	url(r'^(?P<session_id>\d+)/submitJob/$', 'submitJob'),
 	url(r'^(?P<session_id>\d+)/listFiles/$', 'listFiles'),
@@ -18,7 +18,6 @@ urlpatterns = patterns('basespace.views',
 	url(r'^(?P<session_id>\d+)/uploadFiles/$', 'uploadFiles'),
 	url(r'^(?P<session_id>\d+)/listProject/$', 'listProject'),
 	url(r'^(?P<user_id>\d+)/demo/$', 'demo'),
-	(r'^logout/$', 'logoutUser'),
-#	url(r'^login/$', 'django.contrib.auth.views.login'),
-#	url(r'^logout/$', 'logout_page'),
+	url(r'^logout/$', 'logoutUser'),
+
 )
