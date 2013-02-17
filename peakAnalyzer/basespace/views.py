@@ -337,7 +337,7 @@ def loginUser(request):
 @csrf_exempt
 def logoutUser(request):
     logout(request)
-    return redirect('peakAnalyzer/basespace/login')
+    return redirect('/../peakAnalyzer/basespace/login')
 
     
 
