@@ -313,7 +313,7 @@ def demo(request,user_id):
     return render_to_response('basespace/demo.html', {'user': u})
 
 @csrf_exempt
-def login_user(request):
+def loginUser(request):
     state = ""
     username = password = ''
     if request.POST:
@@ -335,9 +335,9 @@ def login_user(request):
     return render_to_response('basespace/login.html',{'state':state})
 
 @csrf_exempt
-def logout_view(request):
+def logoutUser(request):
     logout(request)
-    return redirect('basespace/login')
+    return redirect('basespace.views.login')
 
     
 
