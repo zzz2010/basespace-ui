@@ -156,7 +156,7 @@ def uploadFiles(request, session_id):
        return HttpResponse(json.dumps(response_dict), content_type='application/json')    
     
 
-@login_required(login_url="../..//login")        
+@login_required(login_url="../../login")        
 def listProject(request,session_id):
     outstr=""
     myProjects=list()
@@ -326,7 +326,7 @@ def login_user(request):
                 login(request, user)
                 state="Logged in"
                 session_id=4
-                return redirect('/' + session_id + "/listProject/" )  #debug
+                return redirect('/' + str(session_id) + "/listProject/" )  #debug
             else:
                 state = "Your account is not active, please contact the site admin."
         else:
