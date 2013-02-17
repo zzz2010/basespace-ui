@@ -326,7 +326,7 @@ def loginUser(request):
                 login(request, user)
                 state="Logged in"
                 session_id=4
-                return redirect('/' + str(session_id) + "/listProject/" )  #debug
+                return redirect('/basespace/' + str(session_id) + "/listProject/" )  #debug
             else:
                 state = "Your account is not active, please contact the site admin."
         else:
