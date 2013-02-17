@@ -156,7 +156,7 @@ def uploadFiles(request, session_id):
        return HttpResponse(json.dumps(response_dict), content_type='application/json')    
     
 
-@login_required("basespace/login")        
+@login_required(login_url="basespace/login")        
 def listProject(request,session_id):
     outstr=""
     myProjects=list()
