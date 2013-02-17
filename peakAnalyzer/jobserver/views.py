@@ -14,6 +14,9 @@ import basespace.settings
 import peakAnalyzer.settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from jobserver.tasks import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def listjob(request,user_id):
@@ -67,7 +70,9 @@ def resultfolder_html(dir1):
     
     html_str+="</div>\n"
     return html_str
-    
+
+
+@login_required      
 def viewresult(request,job_id):
     job=get_object_or_404(Job, pk=job_id)
     result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.Email+"/"+str(job.id)+"/pipeline_result/"
