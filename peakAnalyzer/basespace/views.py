@@ -325,7 +325,8 @@ def login_user(request):
             if user.is_active:
                 login(request, user)
                 state="Logged in"
-                   #return redirect('/main')
+                session_id=4
+                return redirect('/' + session_id + "/listProject/" )  #debug
             else:
                 state = "Your account is not active, please contact the site admin."
         else:
@@ -336,7 +337,7 @@ def login_user(request):
 @csrf_exempt
 def logout_view(request):
     logout(request)
-    return redirect('/login')
+    return redirect('basespace/login')
 
     
 
