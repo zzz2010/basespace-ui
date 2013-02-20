@@ -13,7 +13,7 @@ from jobserver import settings
 import basespace.settings
 import peakAnalyzer
 import operator
-
+import time
 def mkpath(outdir):
         if not os.path.exists(outdir):
                 os.makedirs(outdir)
@@ -129,7 +129,14 @@ def conservationPlot(peakfile,outdir2,genome):
 
 @task
 def helloworld():
+    print "sleeping"
+    time.sleep(10)
     print "hello world"
+
+def testgroup():
+    g = group(helloworld.s())()
+    g.get(timeout=100*60*600)
+    print "test"
 
 @task
 def genomeProfile(peakfile,outdir2,genome):
