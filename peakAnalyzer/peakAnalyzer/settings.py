@@ -135,6 +135,8 @@ INSTALLED_APPS = (
     'jobserver',
     'djcelery',
     'regular',
+    'registration',
 )
+ACCOUNT_ACTIVATION_DAYS = 2
 
 LOGIN_URL ="http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/basespace/login"
