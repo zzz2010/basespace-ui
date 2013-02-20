@@ -134,7 +134,7 @@ def helloworld():
     print "hello world"
 
 def testgroup():
-    g = group(helloworld.s())()
+    g = group(helloworld.s())
     g.get(timeout=100*60*600)
     print "test"
 
