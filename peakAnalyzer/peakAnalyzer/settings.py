@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'basespace',
     'jobserver',
     'djcelery',
+    'regular',
 )
 
 LOGIN_URL ="http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/basespace/login"
