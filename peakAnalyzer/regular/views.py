@@ -110,7 +110,7 @@ def listProject(request):
             
     projects_list.append(proj)   
         
-    return render_to_response('basespace/index.html', {'user': user,'projects_list':projects_list})
+    return render_to_response('regular/index.html', {'user': user,'projects_list':projects_list})
 
 
 @login_required
