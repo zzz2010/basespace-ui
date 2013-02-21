@@ -14,29 +14,6 @@
 
 
 
-// Load and display the list of file
-function load_arfiles(trigger) {
-	$.ajax({   
-        type: "GET",
-        url: "/peakAnalyzer/basespace/{{session_id}}/"+trigger.split("__")[1]+"/listAppResultFiles",       
-        dataType:'text',   
-        success: function(data, textStatus){
-        		$(trigger).html(data);
-		}
-	})
-}
-
-
-function load_safiles(trigger) {
-	$.ajax({   
-        type: "GET",
-        url: "/peakAnalyzer/basespace/{{session_id}}/"+trigger.split("__")[1]+"/listSampleFiles",    
-        dataType:'text',   
-        success: function(data, textStatus){
-        		$(trigger).html(data);
-		}
-	})
-}
 
 function listUploaded(filetype)
 {
