@@ -6,14 +6,14 @@
 <body>
 <div class="container">
 <div class="row-fluid">
-    <div class="span3 offset2">
+    <div class="span4 offset2">
       <div class="well">
         <legend>Sign in</legend>
         <form method="POST" action="?next={{ next|default:"/regular/listProject" }}" accept-charset="UTF-8">{% csrf_token %}
             <div class="alert alert-error">
                 <a class="close" data-dismiss="alert" href="#">x</a>Incorrect Username or Password!
             </div>      
-            <input class="span3" placeholder="Username" type="text" name="username">
+            <input class="span3-fluid" placeholder="Username" type="text" name="username">
             <input class="span3" placeholder="Password" type="password" name="password"> 
             <label class="checkbox">
                 <input type="checkbox" name="remember" value="1"> Remember Me
@@ -24,7 +24,7 @@
     </div>
 
 
-<div class="span3">
+<div class="span4">
 <div class="well">
   	<legend>New to PeakAnalyzer? Sign up!</legend>
     <form accept-charset="UTF-8" action="" method="post">
