@@ -29,12 +29,3 @@ class PipelineJob(models.Model):
     jobtitle=models.CharField(max_length=200)
     def __unicode__(self):
                 return self.jobtitle
-            
-class DownloadJob(models.Model):
-    pipelineJob=models.ForeignKey(PipelineJob)
-    status=models.CharField(max_length=20)
-    submitDate=models.DateTimeField("date submitted")
-    sampleFids=models.IntegerField()
-    controlFids=models.IntegerField()
-    sessionId=models.CharField(max_length=20)
-    
