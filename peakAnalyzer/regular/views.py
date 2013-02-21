@@ -97,20 +97,18 @@ def uploadFiles(request, session_id):
        
 @login_required
 def listProject(request):
-    outstr=""
-    myProjects=list()
+    projects_list=list()
     name="sokemay" #debug
     user        = User.objects.filter(username=name)[0]
-    projectList = Project.objects.filter(owner=user)
-    if len(projectList)==0:
+    projects = Project.objects.filter(owner=user)
+    if len(projects)==0:
         projectTitle=user.username+"_project"
-        newProj=Project(ProjectId=user.id,Name=projectTitle,owner=user)
-        newProj.save()
+        proj=Project(ProjectId=user.id,Name=projectTitle,owner=user)
+        proj.save()
     else:
-        existingProject=projectList[0]
-    
-    projects_list=list()    
-    projects_list.append(existingProject)   
+        proj=projects[0]
+            
+    projects_list.append(proj)   
         
     return render_to_response('basespace/index.html', {'user': user,'projects_list':projects_list})
 
