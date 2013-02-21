@@ -139,6 +139,6 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 )
 ACCOUNT_ACTIVATION_DAYS = 2
-
+DEFAULT_FROM_EMAIL='PeakAnalyzer'
 
 LOGIN_URL ="http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/basespace/login"
