@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
     
-class Job(models.Model):
+class RegularJob(models.Model):
     user=models.ForeignKey(User)
     status=models.CharField(max_length=20)
     ref_genome=models.CharField(max_length=10)
@@ -14,7 +14,7 @@ class Job(models.Model):
     def __unicode__(self):
                 return self.jobtitle
     
-class PipelineJob(models.Model):
+class RegularPipelineJob(models.Model):
     user=models.ForeignKey(User)
     status=models.CharField(max_length=20)
     ref_genome=models.CharField(max_length=10)

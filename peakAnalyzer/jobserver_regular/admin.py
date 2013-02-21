@@ -8,4 +8,4 @@ class JobAdmin(admin.ModelAdmin):
     list_display = ('jobtitle', 'submitDate','status','user')
     
     
-admin.site.register(Job,JobAdmin)
+admin.site.register(RegularJob,JobAdmin)
