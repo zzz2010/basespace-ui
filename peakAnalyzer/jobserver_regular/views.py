@@ -78,7 +78,7 @@ def resultfolder_html(dir1):
 @login_required      
 def viewresult(request,job_id):
     job=get_object_or_404(RegularJob, pk=job_id)
-    result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.Email+"/"+str(job.id)+"/pipeline_result/"
+    result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.email+"/"+str(job.id)+"/pipeline_result/"
     result_list=get_immediate_subdirectories(result_dir)
     content_html=" "
     for dir1 in result_list:
