@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'regular',
     'registration',
     'django.contrib.humanize',
+    'jobserver_regular',
 )
 ACCOUNT_ACTIVATION_DAYS = 2
 DEFAULT_FROM_EMAIL='peakanalyzer-noreply@genome.com'
