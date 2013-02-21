@@ -17,26 +17,26 @@
     <form accept-charset="UTF-8" action="" method="post" class="wide">
     {% csrf_token %}
  
-		<input class="span3-fluid" name="username" placeholder="Username" type="text">
+		<input class="span3-fluid" name="username" placeholder="Username" type="text" for="id_username">
 		{% if form.username.errors %}
 		<div class="alert alert-block">
         <p class="errors">{{ form.username.errors.as_text }}</p>
         </div>
         {{ form.username }}
       {% endif %} 
-        <input class="span3-fluid" name="email" placeholder="Email" type="text">
+        <input class="span3-fluid" name="email" placeholder="Email" type="text" for="id_email">
          {% if form.email.errors %}
          <div class="alert alert-block">
         <p class="errors">{{ form.email.errors.as_text }}</p>
         </div>
       {% endif %}
-        <input class="span3-fluid" name="password" placeholder="Password" type="password">
+        <input class="span3-fluid" name="password" placeholder="Password" type="password" for="id_password1">
         {% if form.password1.errors %}
         <div class="alert alert-block">
         <p class="errors">{{ form.password1.errors.as_text }}</p>
         </div>
       {% endif %}
-        <input class="span3-fluid" name="confirmpassword" placeholder="Confirm Password" type="password"> 
+        <input class="span3-fluid" name="confirmpassword" placeholder="Confirm Password" type="password" for="id_password2"> 
          {% if form.password2.errors %}
          <div class="alert alert-block">
         <p class="errors">{{ form.password2.errors.as_text }}</p>
