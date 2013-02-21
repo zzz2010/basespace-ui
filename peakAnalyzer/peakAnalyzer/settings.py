@@ -139,10 +139,6 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 )
 ACCOUNT_ACTIVATION_DAYS = 2
-EMAIL_HOST = 'smtp.hotmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sokemay@hotmail.com'
-EMAIL_HOST_PASSWORD = 's9070028f321'
+
 
 LOGIN_URL ="http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/basespace/login"
