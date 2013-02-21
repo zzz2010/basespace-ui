@@ -14,7 +14,7 @@
 <div class="span5">
 <div class="well">
   	<legend>New to PeakAnalyzer? Sign up!</legend>
-    <form accept-charset="UTF-8" action="" method="post">
+    <form accept-charset="UTF-8" action="" method="post" class="wide">
     {% csrf_token %}
  
 		<input class="span3-fluid" name="username" placeholder="Username" type="text">
@@ -22,6 +22,7 @@
 		<div class="alert alert-block">
         <p class="errors">{{ form.username.errors.as_text }}</p>
         </div>
+        {{ form.username }}
       {% endif %} 
         <input class="span3-fluid" name="email" placeholder="Email" type="text">
          {% if form.email.errors %}
