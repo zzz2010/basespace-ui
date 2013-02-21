@@ -100,7 +100,7 @@ def listProject(request):
     projects_list=list()
     name=request.user.username
     user        = User.objects.get(username=name)
-    projects = Project.objects.filter(owner=user)
+    projects = UserProject.objects.filter(owner=user)
     if len(projects)==0:
         projectTitle=user.username+"_project"
         proj=UserProject(ProjectId=user.id,Name=projectTitle,owner=user)
