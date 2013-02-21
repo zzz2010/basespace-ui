@@ -57,8 +57,17 @@
         <p class="errors">{{ form.username.errors.as_text }}</p>
       {% endif %} 
         <input class="span3-fluid" name="email" placeholder="Email" type="text">
+         {% if form.email.errors %}
+        <p class="errors">{{ form.email.errors.as_text }}</p>
+      {% endif %}
         <input class="span3-fluid" name="password" placeholder="Password" type="password">
+        {% if form.password1.errors %}
+        <p class="errors">{{ form.password1.errors.as_text }}</p>
+      {% endif %}
         <input class="span3-fluid" name="confirmpassword" placeholder="Confirm Password" type="password"> 
+         {% if form.password2.errors %}
+        <p class="errors">{{ form.password2.errors.as_text }}</p>
+      {% endif %}
         <button class="btn btn-warning" type="submit" value="Register &rarr;">Register</button>
     </form>
 </div>
