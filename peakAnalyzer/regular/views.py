@@ -4,7 +4,6 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template.context import RequestContext
 from django.http import  *
 from django.core.files.uploadedfile import UploadedFile
-from BaseSpacePy.api.BaseSpaceAPI import BaseSpaceAPI
 from django.http import Http404
 from regular.models import Project
 from jobserver.models import Job
@@ -95,56 +94,25 @@ def uploadFiles(request, session_id):
        response_dict={"files":prop}
        return HttpResponse(json.dumps(response_dict), content_type='application/json')    
     
-
-#@login_required(login_url="../../login")        
+       
 @login_required
-def listProject(request,session_id):
+def listProject(request):
     outstr=""
     myProjects=list()
-    try:
-        session=basespace.models.Session.objects.get(pk=session_id)
-        myAPI=session.getBSapi()
-        appsession=myAPI.getAppSessionById(str(session.SessionId))
-        prjstr=appsession.References[0].Href
-        if "project" in prjstr:
-            trigger_project=myAPI.getProjectById(prjstr.replace(basespace.settings.version+"/projects/",""))
-            myProjects.append(trigger_project)
-    except basespace.models.Session.DoesNotExist:
-        raise Http404
-    
-    user        = myAPI.getUserById('current')
-    if len(User.objects.filter(UserId=user.Id))==0:
-        myuser=basespace.models.User(UserId=user.Id,Email=user.Email,Name=user.Name)
-        myuser.save()
+    name="sokemay" #debug
+    user        = User.objects.filter(username=name)[0]
+    projectList = Project.objects.filter(owner=user)
+    if len(projectList)==0:
+        projectTitle=user.username+"_project"
+        newProj=Project(ProjectId=user.id,Name=projectTitle,owner=user)
+        newProj.save()
     else:
-        myuser=User.objects.filter(UserId=user.Id)[0]
-    if len(myProjects)==0:
-        myProjects   = myAPI.getProjectByUser('current')
-    projects_list=list()
-    for singleProject in myProjects:
-        outstr+="<H>"+singleProject.Name+"</H>"
-        if len(Project.objects.filter(ProjectId=singleProject.Id))==0:
-            myproject=myuser.project_set.create(ProjectId=singleProject.Id,Name=singleProject.Name)
-        else:
-            myproject=Project.objects.filter(ProjectId=singleProject.Id)[0] 
-        projects_list.append(myproject)   
-        appResults=singleProject.getAppResults(myAPI)
-        for ar in appResults:
-            my_ar=AppResult.objects.filter(AppResultId=ar.Id)
-
-            if len(my_ar)==0:
-                myproject.appresult_set.create(AppResultId=ar.Id,Name=ar.Name,Detail=ar.Id)
-
-        samples = singleProject.getSamples(myAPI)
-        for sa in samples:
-            my_sa=Sample.objects.filter(SampleId=sa.Id)
-
-            if len(my_sa)==0:
-                myproject.sample_set.create(SampleId=sa.Id,Name=sa.Name,Detail=sa.Id)
+        existingProject=projectList[0]
+    
+    projects_list=list()    
+    projects_list.append(existingProject)   
         
-      
-        
-    return render_to_response('basespace/index.html', {'user': myuser,'projects_list':projects_list,'session_id':str(session_id)})
+    return render_to_response('basespace/index.html', {'user': user,'projects_list':projects_list})
 
 
 @login_required
