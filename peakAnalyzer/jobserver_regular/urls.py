@@ -9,7 +9,7 @@ from django.conf.urls import patterns, include, url
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('jobserver.views',
+urlpatterns = patterns('jobserver_regular.views',
     url(r'^(?P<user_id>\d+)/listjob/$', 'listjob'),
      url(r'^(?P<job_id>\d+)/viewresult/$', 'viewresult'),
 )
