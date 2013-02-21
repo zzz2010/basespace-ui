@@ -16,9 +16,9 @@ from peakAnalyzer.settings import MEDIA_ROOT
 import json
 from django.utils import simplejson
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout,authenticate, login
 from basespace.UploadFileHandler import handle_uploaded_file
+from django.contrib.auth.models import User
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 
