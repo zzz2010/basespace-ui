@@ -197,7 +197,7 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
             outdir2=outdir+"/GREAT/"
             tasklist.append(GREAT.s(peakfile,outdir2,genome))
        
-    #return group(tasklist)()
+ 
     g = group(tasklist)()
     g.get(timeout=100*60*600)
 
