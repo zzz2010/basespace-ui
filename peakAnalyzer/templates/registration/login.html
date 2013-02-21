@@ -47,7 +47,11 @@
   	<legend>New to PeakAnalyzer? Sign up!</legend>
     <form accept-charset="UTF-8" action="" method="post">
     {% csrf_token %}
-
+    {% if form.errors %}
+            <div class="alert alert-block">
+                <p>{{ form.non_field_errors }}</p>
+            </div>
+     {% endif %} 
 		<input class="span3-fluid" name="username" placeholder="Username" type="text">
 		{% if form.username.errors %}
 		<div class="alert alert-block">
