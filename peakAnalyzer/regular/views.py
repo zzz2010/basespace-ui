@@ -26,50 +26,48 @@ FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 def hello(request):
     return HttpResponse("hello")
     
-#@login_required
-#def listUploadedFiles(request, session_id):
-#    
-#    user        = myAPI.getUserById('current')
-#    myuser=User.objects.filter(UserId=user.Id)[0]
-#    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
-#    
-#    tmpdir=outdir+"tmp/"
-#    os.system("mkdir " + tmpdir)
-#    tmp=tmpdir+"uploadedFiles.tmp.txt"
-#    listCmd="find " + outdir + " -maxdepth 1 -type f  > " +tmp
-#    os.system(listCmd)
-#    tmplist= open(tmp, "r")
-#    uploadedfiles=list()
-#    for line in tmplist:
-#        line = line.strip()
-#        tmpline=line.split("/")
-#        uploadedfiles.append(tmpline[len(tmpline)-1])
-#    
-#    os.system("rm -r " + tmp )
-#    
-#    sam = list()
-#    bam=list()
-#    bed=list()
-#    fasta=list()
-#    fastq=list()    
-#    
-#    for f in sorted(uploadedfiles):
-#        if ".sam" in f:
-#            sam.append(f)
-#        if ".bam" in f:
-#            bam.append(f)
-#        if ".bed" in f:
-#            bed.append(f)
-#        if ".fasta" in f:
-#            fasta.append(f)
-#        if ".fastq" in f:
-#            fastq.append(f)
-#    
-#    output={'sam':sam, 'bam':bam, 'bed':bed, 'fasta': fasta,'fastq':fastq}
-#    #response_dict={'files':arr}
-#    return HttpResponse(json.dumps(output), content_type='application/json')        
-#    #return render_to_response('basespace/uploadedlist.html',{'files_list':uploadedfiles,'session_id':session_id})
-#    #return HttpResponse(uploadedfiles)
+@login_required
+def listUploadedFiles(request, session_id):
+    
+    user        = User.objects.get(username=request.user.username) 
+    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.email+"/"
+    
+    tmpdir=outdir+"tmp/"
+    os.system("mkdir " + tmpdir)
+    tmp=tmpdir+"uploadedFiles.tmp.txt"
+    listCmd="find " + outdir + " -maxdepth 1 -type f  > " +tmp
+    os.system(listCmd)
+    tmplist= open(tmp, "r")
+    uploadedfiles=list()
+    for line in tmplist:
+        line = line.strip()
+        tmpline=line.split("/")
+        uploadedfiles.append(tmpline[len(tmpline)-1])
+    
+    os.system("rm -r " + tmp )
+    
+    sam = list()
+    bam=list()
+    bed=list()
+    fasta=list()
+    fastq=list()    
+    
+    for f in sorted(uploadedfiles):
+        if ".sam" in f:
+            sam.append(f)
+        if ".bam" in f:
+            bam.append(f)
+        if ".bed" in f:
+            bed.append(f)
+        if ".fasta" in f:
+            fasta.append(f)
+        if ".fastq" in f:
+            fastq.append(f)
+    
+    output={'sam':sam, 'bam':bam, 'bed':bed, 'fasta': fasta,'fastq':fastq}
+    
+    return HttpResponse(json.dumps(output), content_type='application/json')        
+    
 
 @login_required
 @csrf_exempt
