@@ -139,39 +139,10 @@ def submitJob(request):
     controlfiles=""
     
     myjob=user.regularjob_set.create(status="Data_Ready",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
-    #myjob=user.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
     
     PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id)
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
 
-@csrf_exempt
-def loginUser(request):
-    state = ""
-    username = password = ''
-    if request.POST:
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                state="Logged in"
-                session_id=4
-                return redirect('/basespace/' + str(session_id) + "/listProject/" )  #debug
-            else:
-                state = "Your account is not active, please contact the site admin."
-        else:
-            state = "The username or password entered is incorrect."
-
-    return render_to_response('basespace/login.html',{'state':state})
-
-@csrf_exempt
-def logoutUser(request):
-    logout(request)
-    return redirect('/../peakAnalyzer/basespace/login')
-
-    
 
 

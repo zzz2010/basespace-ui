@@ -15,7 +15,7 @@ urlpatterns = patterns('',
      url(r'^basespace/', include('basespace.urls')),
      url(r'^jobserver/', include('jobserver.urls')),
      url(r'^regular/', include('regular.urls')),
-     url(r'^regularjobs/', include('jobserver_regular.urls')),
+     url(r'^jobserver-regular/', include('jobserver_regular.urls')),
      (r'^accounts/', include('registration.urls')),
 
     # Uncomment the next line to enable the admin:
