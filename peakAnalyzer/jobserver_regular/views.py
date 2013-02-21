@@ -25,7 +25,7 @@ def listjob(request,user_id):
     css["Processing"]="warning"
     css["Completed"]="success"
     css["Error"]="error"
-    return render_to_response('jobserver/joblist.html', {'jobs_list':u.regularjob_set.all(),'css':css})
+    return render_to_response('jobserver_regular/joblist.html', {'jobs_list':u.regularjob_set.all(),'css':css})
 
 def get_immediate_subdirectories(dir):
     return [name for name in os.listdir(dir)
