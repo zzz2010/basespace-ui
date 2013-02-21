@@ -1,16 +1,13 @@
 '''
-Created on 2012-12-21
+Created on 2012-2-21
 
-@author: zhangzhizhuo
 '''
 from celery import task
-from basespace.models import Project,User,AppResult,Sample,File,Session
 import os,glob,traceback
 import ConfigParser
-from jobserver.models import Job
+from jobserver_regular.models import RegularJob
 from celery import chord,group,chain
 from jobserver import settings
-import basespace.settings
 import peakAnalyzer
 import operator
 import time
@@ -18,54 +15,27 @@ def mkpath(outdir):
         if not os.path.exists(outdir):
                 os.makedirs(outdir)
 
-@task
-def downloadFile(fid,session_id,outFileName):
-    if os.path.exists(outFileName):
-        return
-    session=Session.objects.get(pk=session_id)
-    api=session.getBSapi()
-    api.fileDownload(fid,os.path.dirname(outFileName),os.path.basename(outFileName))
-    
+   
 @task
 ##change
-def basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid):
-    session=Session.objects.get(pk=session_id)
-    api=session.getBSapi()
+def update_task(sfidlist,cfidlist,outdir,jobid):
     s_outfiles=list()
     c_outfiles=list()
-    downloadtaks_list=list()
-    logger = basespace_Download_PeakCalling_Processing.get_logger(logfile='tasks.log')
+    logger = PeakCalling_Processing.get_logger(logfile='tasks.log')
     
     print "sfidlist", sfidlist
     print "cfidlist", cfidlist
     
     for fid in sfidlist:
-        if(str(fid).isdigit()):
-            f = api.getFileById(fid)
-            outfile=outdir+str(fid)+"__"+f.Name
-            s_outfiles.append(outfile)
-            logger.info("Adding %s" % (outfile))
-            downloadtaks_list.append(downloadFile.s(fid,session_id,outfile)) #skip this step for uploaded file
-        else:
-            outfile2=outdir+str(fid)
-            s_outfiles.append(outfile2)
-           # downloadGroup.
+        outfile2=outdir+str(fid)
+        s_outfiles.append(outfile2)
+
     for fid in cfidlist:
-        if(str(fid).isdigit()):
-            f = api.getFileById(fid)
-            outfile=outdir+str(fid)+"__"+f.Name
-            c_outfiles.append(outfile)
-            logger.info("Adding %s" % (outfile))
-            downloadtaks_list.append(downloadFile.s(fid,session_id,outfile))
-        else:
-            outfile2=outdir+str(fid)
-            c_outfiles.append(outfile2)
-    #do download parallel
-    if downloadtaks_list:
-        downG=group(downloadtaks_list)()
-        downG.get(timeout=1000*60*60)
+        outfile2=outdir+str(fid)
+        c_outfiles.append(outfile2)
+    
     #do the update database
-    myjob=Job.objects.get(pk=jobid)
+    myjob=RegularJob.objects.get(pk=jobid)
     myjob.sampleFiles=",".join(s_outfiles)
     myjob.controlFiles=",".join(c_outfiles)
     myjob.status="Data_Ready"
@@ -356,7 +326,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
 @task
 def Pipeline_Processing_task(taskconfigfile,jobid):
     #do the update database
-    myjob=Job.objects.get(pk=jobid)
+    myjob=RegularJob.objects.get(pk=jobid)
     myjob.status="Processing"
     myjob.save()
     try:
@@ -365,13 +335,12 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         inputdir=taskconfig.get("task", "dataDIR")
         peaklist=glob.glob(inputdir+"/*summits.bed")
         print "running pipeline..."
-      #  grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig, jobid))()
         grouptasks=group([Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig)])()
         grouptasks.get(timeout=1000*60*600)
         #do the update database
         
         print "change status"
-        myjob=Job.objects.get(pk=jobid)
+        myjob=RegularJob.objects.get(pk=jobid)
         myjob.status="Completed"
         myjob.cell_line=taskconfig.get("task","cellline")
         print myjob.cell_line
@@ -379,7 +348,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         print myjob.cell_line
     except Exception, e:
         traceback.print_exc()
-        myjob=Job.objects.get(pk=jobid)
+        myjob=RegularJob.objects.get(pk=jobid)
         myjob.status="Error"
         myjob.save()
 
@@ -399,7 +368,7 @@ def isRawFile(inputFile):
 @task
 def PeakCalling_task(outdir,jobid):
     #make configure file
-    myjob=Job.objects.get(pk=jobid)
+    myjob=RegularJob.objects.get(pk=jobid)
     myjob.status="PeakCalling"
     myjob.save()
     outdir2=outdir+ "/peakcalling_result/"
@@ -469,54 +438,17 @@ def upload_file(appResults,localfile,dirname,api):
     except:
         pass
     
-@task
-def create_upload_AppResult(outdir,session_id,jobid):   
-    session_id=4 #debug 
-    session=Session.objects.get(pk=session_id)
-    myjob=Job.objects.get(pk=jobid)
-    api=session.getBSapi()
-    appsession=api.getAppSessionById(str(session.SessionId))
-    prjstr=appsession.References[0].Href
-    trigger_project=api.getProjectById(prjstr.replace(basespace.settings.version+"/projects/",""))
-    appResults = trigger_project.createAppResult(api,str(jobid),myjob.jobtitle,appSessionId='')
-    tasklist=list()
-    #upload peak calling result
-    for localfile in glob.glob(outdir+"/peakcalling_result/*.bed"):
-        tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
-    for localfile in glob.glob(outdir+"/peakcalling_result/*.bam"):
-        tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
-    for localfile in glob.glob(outdir+"/peakcalling_result/*.xls"):
-        tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
-    for localfile in glob.glob(outdir+"/peakcalling_result/*.pdf"):
-        tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
-    for localfile in glob.glob(outdir+"/peakcalling_result/*.png"):
-        tasklist.append(upload_file.s(appResults,localfile,'peakcalling_result',api))
-    upG=group(tasklist)()
-    upG.get(timeout=1000*60*60)
-    return appResults
 
 
 def get_immediate_subdirectories(dir1):
     return [name for name in os.listdir(dir1)
             if os.path.isdir(os.path.join(dir1, name))]
+
 @task
-def upload_AppResult(outdir,session_id,appResults):  
- #   session_id=5 #debug 
-    session=Session.objects.get(pk=session_id)
-    api=session.getBSapi()
-    tasklist=list()
-    dirlist=get_immediate_subdirectories(outdir)
-    for dir1 in dirlist:
-        for localfile in glob.glob(str(outdir)+"/"+dir1+"/*.png"):
-            tasklist.append(upload_file.s(appResults,localfile,dir1,api))
-    upG=group(tasklist)()
-    upG.get(timeout=1000*60*60)
+def PeakCalling_Processing(sfidlist,cfidlist,outdir,jobid):
     
-@task
-def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid):
-    
-    #download first
-    basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid)
+    #update database
+    update_task(sfidlist,cfidlist,outdir,jobid)
     
     outdir=outdir+str(jobid)#later files have to be in the jobid folder    
 
@@ -525,10 +457,8 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     #else mv to dataDIR and renamed to match *summits.bed
     PeakCalling_task(outdir,jobid)
     
-    #upload peak
-    appresult_handle=create_upload_AppResult.delay(outdir,session_id,jobid)
     #processing
-    myjob=Job.objects.get(pk=jobid)
+    myjob=RegularJob.objects.get(pk=jobid)
     outdir2=outdir+"/pipeline_result/"
     mkpath(outdir2)
     taskconfigfile=outdir2+"task.cfg"
@@ -542,5 +472,4 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     configwrite.write("outputDIR="+outdir2+"\n")
     configwrite.close()
     Pipeline_Processing_task(taskconfigfile,jobid)
-    upload_AppResult.delay(outdir2,session_id,appresult_handle.get()) 
     

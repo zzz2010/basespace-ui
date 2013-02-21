@@ -3,19 +3,17 @@ from django.utils import simplejson
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from django.http import HttpResponse
-from BaseSpacePy.api.BaseSpaceAPI import BaseSpaceAPI
 from django.http import Http404
 from django.shortcuts import redirect
-from basespace.models import Project,User,AppResult,Sample,File
-from jobserver.models import Job
+from jobserver_regular.models import RegularJob
 from django.utils import timezone
-import basespace.settings
 import peakAnalyzer.settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from jobserver.tasks import *
+from jobserver_regular.tasks import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 
 # Create your views here.
 def listjob(request,user_id):
@@ -79,7 +77,7 @@ def resultfolder_html(dir1):
 
 @login_required      
 def viewresult(request,job_id):
-    job=get_object_or_404(Job, pk=job_id)
+    job=get_object_or_404(RegularJob, pk=job_id)
     result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.Email+"/"+str(job.id)+"/pipeline_result/"
     result_list=get_immediate_subdirectories(result_dir)
     content_html=" "
