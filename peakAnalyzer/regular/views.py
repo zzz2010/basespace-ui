@@ -99,10 +99,11 @@ def uploadFiles(request, session_id):
 def listProject(request):
     projects_list=list()
     name="sokemay" #debug
-    user        = User.objects.filter(username=name)
+    user        = User.objects.filter(username=name)[0]
+    projects = Project.objects.filter(Name=name+"_project")
     projects = Project.objects.filter(owner=user)
     if len(projects)==0:
-        return HttpResponse("no projects")
+        #return HttpResponse("no projects")
         projectTitle=user.username+"_project"
         proj=Project(ProjectId=user.id,Name=projectTitle,owner=user)
         proj.save()
