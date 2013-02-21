@@ -1,4 +1,4 @@
-from jobserver.models import *
+from jobserver_regular.models import *
 from django.contrib import admin
 
 
