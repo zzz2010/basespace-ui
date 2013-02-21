@@ -1,0 +1,17 @@
+{% load job_extras %}
+<table class="table table-bordered">
+<tr><td>Select</td><td>JobId</td><td>Title</td><td>Submit Date</td><td>Status</td><td></td></tr>
+{% for job in jobs_list %}
+
+<tr id=job__{{ job.id }} class={{css|lookup:job.status}} ><td><input type="checkbox" id=cj__{{job.id}} ></td><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td>{{job.status}}</td> 
+
+<td>
+{% ifequal job.status "Completed" %}
+    <a href="../../jobserver-regular/{{job.id}}/viewresult/" target="blank">View Result</a>
+{% endifequal %}
+
+</td>
+</tr>
+
+{% endfor %}
+</table>
