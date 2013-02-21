@@ -103,7 +103,7 @@ def listProject(request):
     projects = Project.objects.filter(owner=user)
     if len(projects)==0:
         projectTitle=user.username+"_project"
-        proj=Project(ProjectId=user.id,Name=projectTitle,owner=user[0])
+        proj=Project(ProjectId=user.id,Name=projectTitle,owner=user)
         proj.save()
     else:
         proj=projects[0]
