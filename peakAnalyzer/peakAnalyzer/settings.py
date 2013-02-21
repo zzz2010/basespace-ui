@@ -139,6 +139,9 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 )
 ACCOUNT_ACTIVATION_DAYS = 2
-
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'testing@example.com'
 
 LOGIN_URL ="http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/basespace/login"
