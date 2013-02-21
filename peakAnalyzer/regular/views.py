@@ -27,7 +27,7 @@ def hello(request):
     return HttpResponse("hello")
     
 @login_required
-def listUploadedFiles(request, session_id):
+def listUploadedFiles(request):
     
     user        = User.objects.get(username=request.user.username) 
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.email+"/"
