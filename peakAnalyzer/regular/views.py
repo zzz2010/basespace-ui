@@ -6,11 +6,11 @@ from django.http import  *
 from django.core.files.uploadedfile import UploadedFile
 from django.http import Http404
 from regular.models import *
-from jobserver.models import Job
+from jobserver_regular.models import RegularJob
 from django.utils import timezone
 import peakAnalyzer.settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from jobserver.tasks import *
+from jobserver_regular.tasks import *
 from django import forms
 from peakAnalyzer.settings import MEDIA_ROOT
 import json
@@ -107,13 +107,9 @@ def listProject(request):
 
 @login_required
 @csrf_exempt
-def submitJob(request,session_id):
+def submitJob(request):
  
-    try:
-        session=basespace.models.Session.objects.get(pk=session_id)
-        myAPI=session.getBSapi()
-    except basespace.models.Session.DoesNotExist:
-        raise Http404
+    user        = User.objects.get(username=request.user.username)
     samplefids=list()
     controlfids=list()
     cell_line=""
@@ -136,20 +132,16 @@ def submitJob(request,session_id):
             ref_genome=postv
         elif "Cell" in postid:
             cell_line=postv
-    user        = myAPI.getUserById('current')
-    myuser=User.objects.filter(UserId=user.Id)[0]
-
-    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
+    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.email+"/"
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     samplefiles=""
     controlfiles=""
     
-
-    myjob=myuser.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
-    #downloadSCFiles(sfidlist, cfidlist,myAPI, outdir, myjob.id)
-    basespace_Download_PeakCalling_Processing.delay(samplefids,controlfids,session_id,outdir,myjob.id)
-#    return HttpResponse(simplejson.dumps(request.POST))
+    myjob=user.regularjob_set.create(status="Data Ready",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
+    #myjob=user.job_set.create(status="Downloading",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
+    
+    PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id)
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
 
