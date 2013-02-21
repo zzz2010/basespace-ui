@@ -1,27 +1,30 @@
-{% extends "registration/base.html" %}
+<body>
+<div class="row">
+    <div class="span4 offset4">
+      <div class="well">
+        <legend>Sign in</legend>
+        <form method="POST" action="?next={{ next|default:"/regular/listProject" }}" accept-charset="UTF-8">{% csrf_token %}
+            <div class="alert alert-error">
+                <a class="close" data-dismiss="alert" href="#">x</a>Incorrect Username or Password!
+            </div>      
+            <input class="span3" placeholder="Username" type="text" name="username">
+            <input class="span3" placeholder="Password" type="password" name="password"> 
+            <label class="checkbox">
+                <input type="checkbox" name="remember" value="1"> Remember Me
+            </label>
+            <button class="btn-info btn" type="submit">Login</button>      
+        </form>    
+      </div>
+    </div>
+</div>
 
-{% block title %}Log in{% endblock %}
-
-{% block content %}
-
-<h1>Log in</h1>
-
-{% if form.errors %}
-<p class="error">Please correct the errors below:</p>
-{% endif %}
-
-<form method="post" action="?next={{ next|default:"/regular/listProject" }}">{% csrf_token %}
-<dl>
-<dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
-<dd>{{ form.username }}</dd>
-<dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
-<dd>{{ form.password }}</dd>
-<dt><input type="submit" value="Log in" /></dt>
-</dl>
-</form>
-{% endblock %}
-
-{% block content-related %}
-<p>If you don't have an account, you can <a href="peakAnalyzer/accounts/register/">sign
-up</a> for one.
-{% endblock %}
+<div class="span3 well">
+  	<legend>New to PeakAnalyzer? Sign up!</legend>
+    <form accept-charset="UTF-8" action="" method="post">
+		<input class="span3" name="name" placeholder="Full Name" type="text"> 
+        <input class="span3" name="username" placeholder="Username" type="text">
+        <input class="span3" name="password" placeholder="Password" type="password"> 
+        <button class="btn btn-warning" type="submit">Sign up for WebApp</button>
+    </form>
+</div>
+</body>
