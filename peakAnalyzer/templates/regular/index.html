@@ -138,12 +138,12 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 
 		$.ajax({   
         type: "POST",
-        url: "/peakAnalyzer/basespace/{{session_id}}/submitJob/", 
+        url: "/peakAnalyzer/regular/submitJob/", 
         data: postdata,      
         dataType:'text',   
         success: function(data, textStatus){
         		window.alert(data);
-        		$("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
+        		$("#joblist_container").load("/peakAnalyzer/regularjobs/{{ user.id }}/listjob");
 		}
 	})
 }
