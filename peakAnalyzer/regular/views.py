@@ -73,16 +73,10 @@ def hello(request):
 
 @login_required
 @csrf_exempt
-def uploadFiles(request, session_id):
-    try:
-        session=basespace.models.Session.objects.get(pk=session_id)
-        myAPI=session.getBSapi()
-    except basespace.models.Session.DoesNotExist:
-            raise Http404
-    
-    user        = myAPI.getUserById('current')
-    myuser=User.objects.filter(UserId=user.Id)[0]
-    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.Email+"/"
+def uploadFiles(request):
+       
+    user        = User.objects.get(username=request.user.username)
+    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.email+"/"
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     
