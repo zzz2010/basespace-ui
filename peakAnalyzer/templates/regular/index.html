@@ -5,9 +5,9 @@
 //refresh job list
 
  $(document).ready(function() {
- 	 $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
+ 	 $("#joblist_container").load("/peakAnalyzer/regularjobs/{{ user.id }}/listjob");
    var refreshId = setInterval(function() {
-      $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
+      $("#joblist_container").load("/peakAnalyzer/regularjobs/{{ user.id }}/listjob");
    }, 5000);
    $.ajaxSetup({ cache: false });
 });
