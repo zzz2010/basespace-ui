@@ -14,3 +14,10 @@ class Project(models.Model):
     owner=models.ForeignKey(User)
     def __unicode__(self):
         return self.Name
+
+class UserProject(models.Model):
+    ProjectId=models.IntegerField()
+    Name=models.CharField(max_length=50)
+    owner=models.OneToOneField(User)
+    def __unicode__(self):
+        return self.Name

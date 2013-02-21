@@ -5,7 +5,7 @@ from django.template.context import RequestContext
 from django.http import  *
 from django.core.files.uploadedfile import UploadedFile
 from django.http import Http404
-from regular.models import Project
+from regular.models import *
 from jobserver.models import Job
 from django.utils import timezone
 import peakAnalyzer.settings
@@ -103,7 +103,7 @@ def listProject(request):
     projects = Project.objects.filter(owner=user)
     if len(projects)==0:
         projectTitle=user.username+"_project"
-        proj=Project(ProjectId=user.id,Name=projectTitle,owner=user)
+        proj=UserProject(ProjectId=user.id,Name=projectTitle,owner=user)
         proj.save()
     else:
         proj=projects[0]
