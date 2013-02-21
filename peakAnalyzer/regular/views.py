@@ -103,7 +103,7 @@ def listProject(request):
     projects = Project.objects.filter(Name=name+"_project")
     projects = Project.objects.filter(owner=user)
     if len(projects)==0:
-        return HttpResponse(request.user)
+        return HttpResponse(request.user.username)
         projectTitle=user.username+"_project"
         proj=Project(ProjectId=user.id,Name=projectTitle,owner=user)
         proj.save()
