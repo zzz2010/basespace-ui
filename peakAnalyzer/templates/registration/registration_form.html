@@ -16,7 +16,7 @@
   	<legend>New to PeakAnalyzer? Sign up!</legend>
     <form accept-charset="UTF-8" action="" method="post">
     {% csrf_token %}
-} 
+ 
 		<input class="span3-fluid" name="username" placeholder="Username" type="text">
 		{% if form.username.errors %}
 		<div class="alert alert-block">
