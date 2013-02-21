@@ -48,12 +48,15 @@
     <form accept-charset="UTF-8" action="" method="post">
     {% csrf_token %}
     {% if form.errors %}
-            <div class="alert alert-error">
+            <div class="alert alert-block">
                 <p>{{ form.non_field_errors }}</p>
             </div>
      {% endif %} 
-		<input class="span3-fluid" name="name" placeholder="Username" type="text"> 
-        <input class="span3-fluid" name="username" placeholder="Email" type="text">
+		<input class="span3-fluid" name="username" placeholder="Username" type="text">
+		{% if form.username.errors %}
+        <p class="errors">{{ form.username.errors.as_text }}</p>
+      {% endif %} 
+        <input class="span3-fluid" name="email" placeholder="Email" type="text">
         <input class="span3-fluid" name="password" placeholder="Password" type="password">
         <input class="span3-fluid" name="confirmpassword" placeholder="Confirm Password" type="password"> 
         <button class="btn btn-warning" type="submit" value="Register &rarr;">Register</button>
