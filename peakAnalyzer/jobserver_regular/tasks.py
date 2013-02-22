@@ -11,6 +11,8 @@ from jobserver import settings
 import peakAnalyzer
 import operator
 import time
+from django.core.mail import EmailMessage
+
 def mkpath(outdir):
         if not os.path.exists(outdir):
                 os.makedirs(outdir)
@@ -428,24 +430,13 @@ def PeakCalling_task(outdir,jobid):
         os.system(";".join(cmdlist))
     
     
-@task 
-def upload_file(appResults,localfile,dirname,api):
-    filetype="image/png"
-    if localfile.endswith('.txt') or localfile.endswith('.bed') or localfile.endswith('.html'):
-        filetype='text/plain'
-    try:
-        appResults.uploadFile(api, localfile , os.path.basename(localfile),'/'+dirname+'/', filetype)
-    except:
-        pass
-    
-
 
 def get_immediate_subdirectories(dir1):
     return [name for name in os.listdir(dir1)
             if os.path.isdir(os.path.join(dir1, name))]
 
 @task
-def PeakCalling_Processing(sfidlist,cfidlist,outdir,jobid):
+def PeakCalling_Processing(sfidlist,cfidlist,outdir,jobid, useremail):
     
     #update database
     update_task(sfidlist,cfidlist,outdir,jobid)
@@ -472,4 +463,9 @@ def PeakCalling_Processing(sfidlist,cfidlist,outdir,jobid):
     configwrite.write("outputDIR="+outdir2+"\n")
     configwrite.close()
     Pipeline_Processing_task(taskconfigfile,jobid)
+    
+    #send email
+    message ="Hurray! Your job, " + myjob.jobtitle + ", has been completed! To view the results, please click on the following link: \n http://http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/jobserver-regular/"+ str(jobid) + "/viewresult/" + "\nThank you for using PeakAnalyzer!"
+    email = EmailMessage('PeakAnalyzer ChIP-seq Pipeline Complete', message, to=[useremail])
+    email.send()
     

@@ -20,6 +20,7 @@ from django.contrib.auth import logout,authenticate, login
 from basespace.UploadFileHandler import handle_uploaded_file
 from django.contrib.auth.models import User
 
+
 FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 
 @login_required
@@ -140,7 +141,7 @@ def submitJob(request):
     
     myjob=user.regularjob_set.create(status="Data_Ready",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
     
-    PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id)
+    PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email)
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
 
