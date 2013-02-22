@@ -15,7 +15,7 @@
   <form method="post" action="" class="wide">
 	{% csrf_token %}
     <p>
-      <label for="id_username" placeholder="Username">Username:</label>
+      <label for="id_username" class="span3-fluid" placeholder="Username">Username:</label>
       {% if form.username.errors %}
         <p class="errors">{{ form.username.errors.as_text }}</p>
       {% endif %}
