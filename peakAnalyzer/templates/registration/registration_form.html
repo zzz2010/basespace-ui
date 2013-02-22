@@ -3,7 +3,8 @@
 {% block title %}Sign up{% endblock %}
 
 {% block content %}
-
+<div="container">
+<div="well">
   {% if form.errors %}
   <p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
   {% endif %}
@@ -42,7 +43,8 @@
     </p>
     <p class="submit"><input type="submit" value="Register &rarr;"></p>
   </form>
-  
+  </div>
+  </div>
 {% endblock %}
 
 {% block content-related %}
