@@ -14,6 +14,8 @@ import basespace.settings
 import peakAnalyzer
 import operator
 import time
+from django.core.mail import EmailMessage
+
 def mkpath(outdir):
         if not os.path.exists(outdir):
                 os.makedirs(outdir)
@@ -513,7 +515,7 @@ def upload_AppResult(outdir,session_id,appResults):
     upG.get(timeout=1000*60*60)
     
 @task
-def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid):
+def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid,useremail):
     
     #download first
     basespace_download_update_task(sfidlist,cfidlist,session_id,outdir,jobid)
@@ -542,5 +544,10 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     configwrite.write("outputDIR="+outdir2+"\n")
     configwrite.close()
     Pipeline_Processing_task(taskconfigfile,jobid)
-    upload_AppResult.delay(outdir2,session_id,appresult_handle.get()) 
+    upload_AppResult.delay(outdir2,session_id,appresult_handle.get())
+    
+    #send email
+    message ="Hurray! Your job, " + myjob.jobtitle + ", has been completed!\n\nTo view the results, please click on the following link: \nhttp://http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/jobserver/"+ str(jobid) + "/viewresult/" + "\n\nThank you for using PeakAnalyzer!\n\nHave a nice day!"
+    email = EmailMessage('PeakAnalyzer ChIP-seq Pipeline Complete', message, to=[useremail])
+    email.send() 
     
