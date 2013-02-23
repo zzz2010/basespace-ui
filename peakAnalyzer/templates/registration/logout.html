@@ -3,6 +3,25 @@
 {% block title %}Logged out{% endblock %}
 
 {% block content %}
-<h1>You've been logged out.</h1>
-<p>Thanks for stopping by; when you come back, don't forget to <a href="/../peakAnalyzer/accounts/login/">log in</a> again.</p>
+<style>
+#start {
+    display: block;
+    width: 200px;
+    height:100px;
+    margin: 10px auto;
+    }
+</style>
+<div class="container">
+<div class="row-fluid">
+<div class="span8 offset2">
+<div class="well">
+<h1 align="center">You've been logged out successfully.</h1>
+<h5 align="center">Thanks for stopping by!</h5>
+</div>
+</div>
+</div>
+</div>
+<a id= "start" href="/peakAnalyzer/accounts/login/">
+<button   class="btn-action btn-large btn" type="submit">Back to Login <span class="icon-circle-arrow-right"></span></button>
+</a>
 {% endblock %}
