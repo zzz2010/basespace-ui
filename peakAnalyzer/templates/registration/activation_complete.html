@@ -3,6 +3,13 @@
 {% block title %}Activation complete{% endblock %}
 
 {% block content %}
+<style>
+#start {
+    display: block;
+    width: 100px;
+    margin: 10px auto;
+    }
+</style>
 <div class="container">
 <div class="row-fluid">
 <div class="span8 offset2">
@@ -15,7 +22,7 @@
 </div>
 </div>
 </div>
-<a align="center" href="/peakAnalyzer/accounts/login/">
-<button  class="btn-info btn" type="submit">Start PeakAnalyzer!</button>
+<a id= "start" href="/peakAnalyzer/accounts/login/">
+<button   class="btn-info btn" type="submit">Start PeakAnalyzer!</button>
 </a> 
 {% endblock %}
