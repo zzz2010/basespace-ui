@@ -28,8 +28,9 @@
 
 <body>
 <div class="navbar">
+{%block link%}
 		<div class="navbar-inner">
-		{%block link%}
+		
 			<div class="container">
 				<a class="btn btn-navbar" data-toggle="collapse"
 					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
@@ -46,8 +47,9 @@
 			
 				<!-- /.nav-collapse -->
 			</div>
-				{% endblock %}
+				
 		</div>
+		{% endblock %}
 		<!-- /navbar-inner -->
 	</div>
 	<!-- /navbar -->
