@@ -15,40 +15,40 @@
   <form method="post" action="" class="wide">
 	{% csrf_token %}
     <p>
-      <label for="id_username">Username</label>
+      <label for="id_username">Username</label>      
+      {{ form.username }}
       {% if form.username.errors %}
       <div class="alert alert-block">
         <p class="errors">{{ form.username.errors.as_text }}</p>
       </div>
       {% endif %}
-      {{ form.username }}
     </p>
     <p>
       <label for="id_email">Email address</label>
-      {% if form.email.errors %}
+         {{ form.email }}
+         {% if form.email.errors %}
         <div class="alert alert-block">
         <p class="errors">{{ form.email.errors.as_text }}</p>
       </div>
       {% endif %}
-      {{ form.email }}
     </p>
     <p>
       <label for="id_password1">Password</label>
-      {% if form.password1.errors %}
+          {{ form.password1 }}
+          {% if form.password1.errors %}
         <div class="alert alert-block">
         <p class="errors">{{ form.password1.errors.as_text }}</p>
         </div>
       {% endif %}
-      {{ form.password1 }}
     </p>
     <p>
       <label for="id_password2">Confirm Password</label>
-      {% if form.password2.errors %}
+         {{ form.password2 }}
+         {% if form.password2.errors %}
         <div class="alert alert-block">
         <p class="errors">{{ form.password2.errors.as_text }}</p>
         </div>
       {% endif %}
-      {{ form.password2 }}
     </p>
      <button class="btn btn-warning" type="submit">Register</button>
 
