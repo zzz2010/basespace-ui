@@ -49,7 +49,7 @@
     
       {% if form.errors.non_field_errors %}
       <div class="alert alert-block">
-  <p class="errors">{{ form.non_field_errors }}</p>
+  <p class="errors">{{ form.non_field_errors.as_text }}</p>
     </div>
     {% endif %}
     
