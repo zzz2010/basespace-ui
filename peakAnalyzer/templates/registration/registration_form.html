@@ -14,42 +14,44 @@
   
   <form method="post" action="" class="wide">
 	{% csrf_token %}
-    <p>
-      <label for="id_username">Username</label>      
-      {{ form.username }}
+    <table>
+    <tr>
+      <td for="id_username">Username</td>      
+      <td>{{ form.username }}</td>
       {% if form.username.errors %}
       <div class="alert alert-block">
-        <p class="errors">{{ form.username.errors.as_text }}</p>
+        <td class="errors">{{ form.username.errors.as_text }}</td>
       </div>
       {% endif %}
-    </p>
-    <p>
-      <label for="id_email">Email address</label>
-         {{ form.email }}
+    </tr>
+    <tr>
+      <td for="id_email">Email address</td>
+         <td> {{ form.email }}</td>
          {% if form.email.errors %}
         <div class="alert alert-block">
-        <p class="errors">{{ form.email.errors.as_text }}</p>
+        <td class="errors">{{ form.email.errors.as_text }}</td>
       </div>
       {% endif %}
-    </p>
-    <p>
-      <label for="id_password1">Password</label>
-          {{ form.password1 }}
+    </tr>
+    <tr>
+      <td for="id_password1">Password</td>
+          <td>{{ form.password1 }}</td>
           {% if form.password1.errors %}
         <div class="alert alert-block">
-        <p class="errors">{{ form.password1.errors.as_text }}</p>
+        <td class="errors">{{ form.password1.errors.as_text }}</td>
         </div>
       {% endif %}
-    </p>
-    <p>
-      <label for="id_password2">Confirm Password</label>
-         {{ form.password2 }}
+    </tr>
+    <tr>
+      <td for="id_password2">Confirm Password</td>
+         <td>{{ form.password2 }}</td>
          {% if form.password2.errors %}
         <div class="alert alert-block">
-        <p class="errors">{{ form.password2.errors.as_text }}</p>
+        <td class="errors">{{ form.password2.errors.as_text }}</td>
         </div>
       {% endif %}
-    </p>
+     </tr>
+    </table>
      <button class="btn btn-warning" type="submit">Register</button>
 
   </form>
