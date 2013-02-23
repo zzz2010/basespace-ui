@@ -34,13 +34,15 @@
 					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span> </a> <a
 					class="brand" href="/home">PeakAnalyzer</a>
+				{%block link%}
 				<div class="nav-collapse">
 					<ul class="nav pull-right">
 						
 						<li class="divider-vertical"></li>
-						{%block link%}<li><a href="#">Link</a></li>{% endblock %}
+						<li><a href="#">Link</a></li>
 					</ul>
 				</div>
+				{% endblock %}
 				<!-- /.nav-collapse -->
 			</div>
 		</div>
