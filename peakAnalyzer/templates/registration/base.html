@@ -27,8 +27,9 @@
 </head>
 
 <body>
+{%block navbar%}
 <div class="navbar">
-{%block link%}
+
 		<div class="navbar-inner">
 		
 			<div class="container">
@@ -43,15 +44,13 @@
 						<li class="divider-vertical"></li>
 						<li><a href="#">Link</a></li>
 					</ul>
-				</div>
-			
+				</div>			
 				<!-- /.nav-collapse -->
-			</div>
-				
-		</div>
-		{% endblock %}
+			</div>				
+		</div>		
 		<!-- /navbar-inner -->
 	</div>
+	{% endblock %}
 	<!-- /navbar -->
     <div id="sidebar">
         {% block sidebar %}{% endblock %}
