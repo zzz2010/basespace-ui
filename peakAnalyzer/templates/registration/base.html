@@ -28,7 +28,25 @@
 
 <body>
 <div class="navbar">
-{% block navbar %} {% endblock %}
+<div class="navbar-inner">
+<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> </a> <a
+					class="brand" href="/home">PeakAnalyzer</a>
+<div class="nav-collapse">
+					<ul class="nav pull-right">
+			
+						<li class="divider-vertical"></li>
+					{% block navbar %}{% endblock %}
+
+					</ul>
+				</div>
+				</div>
+				</div>
+			
+				
+
 </div>
     <div id="sidebar">
         {% block sidebar %}{% endblock %}
