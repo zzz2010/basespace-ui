@@ -23,7 +23,7 @@
 <h1 class="title" align="center">PeakAnalyzer</h1>
 <div class="container">
 <div class="row-fluid">
-   <!--  <div class="span5 offset4"> -->
+     <div class="span5 offset4"> 
       <div class="well">
         <legend>Sign in</legend>
         <form method="POST" action="?next={{ next|default:"/regular/listProject" }}" accept-charset="UTF-8">{% csrf_token %}
@@ -38,7 +38,8 @@
                 <input type="checkbox" name="remember" value="1"> Remember Me
             </label>
             <button class="btn-info btn" type="submit">Login</button>      
-        </form>    
+        </form>
+        </div>    
       </div>
     </div>
 </div>
