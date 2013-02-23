@@ -7,13 +7,8 @@
 <div class="container">
 <div class="well">
   {% if form.errors %}
-  <div class="alert alert-error">
-   {% if form_error_title %}<h4 class="alert-heading">{{ form_error_title }}</h4>{% endif %}
-        <ul>
-            {{ form.non_field_errors|unordered_list }}
-        </ul>
-  </div>
-  {% endif %}
+  <p class="errors">{{ form.non_field_errors }}</p>
+    {% endif %}
 
   
   
