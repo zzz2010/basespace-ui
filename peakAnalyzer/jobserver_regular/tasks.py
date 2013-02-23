@@ -465,7 +465,7 @@ def PeakCalling_Processing(sfidlist,cfidlist,outdir,jobid, useremail):
     Pipeline_Processing_task(taskconfigfile,jobid)
     
     #send email
-    message ="Hurray! Your job, " + myjob.jobtitle + ", has been completed!\n\nTo view the results, please click on the following link: \nhttp://http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/jobserver-regular/"+ str(jobid) + "/viewresult/" + "\n\nThank you for using PeakAnalyzer!\n\nHave a nice day!"
+    message ="Hurray! Your job, " + myjob.jobtitle+ ", has been completed!\n\nVisit the following link to view your results:\nhttp://genome.ddns.comp.nus.edu.sg/peakAnalyzer/jobserver-regular/"+ str(jobid) + "/viewresult/" + "\n\nThank you for using PeakAnalyzer!\n\nHave a nice day!"
     email = EmailMessage('PeakAnalyzer ChIP-seq Pipeline Complete', message, to=[useremail])
     email.send()
     
