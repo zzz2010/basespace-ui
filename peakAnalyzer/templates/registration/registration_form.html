@@ -7,7 +7,9 @@
 <div class="container">
 <div class="well">
   {% if form.errors %}
-  <p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
+  <div class="alert alert-error">
+  <p class="errors">{{ form.non_field_errors }}</p>
+  </div>
   {% endif %}
 
   
@@ -42,7 +44,8 @@
       {% endif %}
       {{ form.password2 }}
     </p>
-    <p class="submit"><input type="submit" value="Register &rarr;"></p>
+     <button class="btn btn-warning" type="submit">Register</button>
+
   </form>
   </div>
   </div>
