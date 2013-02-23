@@ -16,13 +16,15 @@
   {% load humanize %}
   {% if account %}
   <h1 align="center">Account activated!</h1>
-    <p>Thanks for signing up with PeakAnalyzer! Now you can <a href="/accounts/login/">log in</a>.</p>
+  <br>
+    <h5>Thanks for signing up with PeakAnalyzer! Now you can <a href="/accounts/login/">log in</a>.</h5>
   {% else %}
   <h1 align="center">Oops!</h1>
-    <p>Sorry, it didn't work. Either your activation link was incorrect, or
+    <br>
+    <h5>Sorry, it didn't work. Either your activation link was incorrect, or
     the activation key for your account has expired; activation keys are
     only valid for {{ expiration_days|apnumber }} days after
-    registration.</p>
+    registration.</h5>
   {% endif %}
   </div>
   </div>
