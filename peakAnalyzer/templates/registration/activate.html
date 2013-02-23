@@ -3,6 +3,10 @@
 {% block title %}Account activated{% endblock %}
 
 {% block content %}
+<div class="container">
+<div class="row-fluid">
+<div class="span8 offset2">
+<div class="well">
   <h1>Account activated.</h1>
   {% load humanize %}
   {% if account %}
@@ -13,4 +17,8 @@
     only valid for {{ expiration_days|apnumber }} days after
     registration.</p>
   {% endif %}
+  </div>
+  </div>
+  </div>
+  </div>
 {% endblock %}
