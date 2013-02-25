@@ -215,9 +215,10 @@ $(function () {
          done: function (e, data) {
            $.each(data.result.files, function (index, file) {
          //       $('<p/>').text(file.name).appendTo($("#localfile_list"));
-         	 alert(file.name);
+         //	 alert(file.name);
          	 var test= document.getElementById("tr_" + file.name);
-         	 alert(test.innerHTML);
+         //	 alert(test.innerHTML);
+         alert("File uploaded!")
          	 $('button #button.cancel_' + file.name).hide();
             });
            
