@@ -55,7 +55,7 @@ $(\'.table.table-striped.table-bordered\').dataTable({\
     filelist=os.listdir(dir1)
     for f in filelist:
         if 'html' in f:
-            table=open(f,'r').read()
+            table=open(dir1+f,'r').read()
        
     html_str=html_str+table
     return html_str
