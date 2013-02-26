@@ -122,10 +122,12 @@ def GREAT(peakfile,outdir2,genome):
     mkpath(outdir2)
     bed3peak=outdir2+os.path.basename(peakfile)
     os.system("cut -f 1-3 "+peakfile+" > "+bed3peak)
-    cmd="python "+settings.toolpath+"./GREAT/runGREAT.py "+bed3peak+" "+genome+" "+outdir2
-    print cmd
-    os.system(cmd)
-
+    cmd_great="python "+settings.toolpath+"./GREAT/great.py "+bed3peak+" "+genome+" "+outdir2
+    print cmd_great
+    os.system(cmd_great)
+    cmd_table="for f in " + outdir2 +"/*.great.out;do; python " + settings.toolpath+ "./generateHtmlTable.py $f > $f.html;done;"
+    print cmd_table
+    os.system(cmd_table)
 
 @task
 def peakAnnotation(peakfile, outdir2, genome):
