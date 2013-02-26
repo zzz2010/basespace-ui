@@ -57,7 +57,7 @@ $(\'.table.table-striped.table-bordered\').dataTable({\
         if 'html' in f:
             table=open(dir1 +"/"+f,'r').read()
        
-    html_str=html_str+table + '</div>/n'
+    html_str=html_str+table + '</div>\n'
     return html_str
 
 #def denovoMotif_result(dir1):
