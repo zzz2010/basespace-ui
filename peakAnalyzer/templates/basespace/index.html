@@ -20,7 +20,9 @@ function refresh_table(){
      $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
 }
 
-
+function hello(){
+alert("hello!")
+}
 // Load and display the list of file
 function load_arfiles(trigger) {
 	$.ajax({   
