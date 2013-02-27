@@ -1,8 +1,9 @@
 {% load job_extras %}
 
 
-<table class="table table-bordered">
-<tr><td>Select</td><td>JobId</td><td>Title</td><td>Submit Date</td><td>Status</td><td></td></tr>
+<table class="table table-bordered" id="table_joblist">
+<thead><tr><th>Select</th><th>JobId</th><th>Title</th><th>Submit Date</th><th>Status</th><th></th></tr></thead>
+<tbody>
 {% for job in jobs_list %}
 
 <tr id=job__{{ job.id }} class={{css|lookup:job.status}} ><td><input type="checkbox" id=cj__{{job.id}} ></td><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td>{{job.status}}</td> 
@@ -14,6 +15,15 @@
 
 </td>
 </tr>
-
+</tbody>
 {% endfor %}
 </table>
+
+<script>
+		$('#table_joblist').dataTable({
+			"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+			"sPaginationType": "bootstrap",
+			"aoColumns":[{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
+			});
+
+</script>
