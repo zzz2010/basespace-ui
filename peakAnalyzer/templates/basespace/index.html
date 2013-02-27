@@ -6,7 +6,7 @@
 
  $(document).ready(function() {
  	 $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
-   var secs=60000*5
+   var secs=60000*3
    var refreshId = setInterval(function() {
       $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
    }, secs);
