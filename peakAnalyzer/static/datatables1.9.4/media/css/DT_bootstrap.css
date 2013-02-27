@@ -2,12 +2,11 @@
 div.dataTables_length label {
 	float: left;
 	text-align: left;
-	padding-right:1cm;
 }
 
 div.dataTables_length select {
 	width: 75px;
-
+	padding-left:1cm;
 }
 
 div.dataTables_filter label {
