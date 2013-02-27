@@ -2,10 +2,12 @@
 div.dataTables_length label {
 	float: left;
 	text-align: left;
+	font-size:90%
 }
 
 div.dataTables_length select {
 	width: 75px;
+	font-size:90%
 	
 }
 
