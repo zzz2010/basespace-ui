@@ -177,7 +177,7 @@ postdata+='&inputCell='+$('#inputCell').val() ;
         dataType:'text',   
         success: function(data, textStatus){
         		window.alert(data);
-        		$("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
+        		$("#joblist_table").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
 		}
 	})
 }
@@ -331,7 +331,8 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
   </div><!--/span-->
   
    <div class="span9" id="joblist_container">
-   
+   <table class="table table-bordered" id="joblist_table">
+   </table>
    </div>
  </div><!--/row-->
 {% endblock %}
