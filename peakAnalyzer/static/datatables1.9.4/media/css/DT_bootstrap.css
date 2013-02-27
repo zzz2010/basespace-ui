@@ -21,6 +21,7 @@ div.dataTables_info {
 div.dataTables_paginate {
 	float: right;
 	margin: 0;
+	font-size:80%
 }
 
 table.table {
