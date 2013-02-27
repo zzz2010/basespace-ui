@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/../peakAnalyzer/static/datatables1.9.4/media/css/DT_bootstrap.css">
 
 
-<table class="table table-bordered">
+<table class="table table-bordered" id="table_job">
 <thead><tr><th>Select</th><th>JobId</th><th>Title</th><th>Submit Date</th><th>Status</th><th>Result</th></tr></thead>
 <tbody>
 {% for job in jobs_list %}
@@ -21,7 +21,7 @@
 </tbody>
 </table>
 <script>
-		$('.table.table-bordered').dataTable({
+		$('#table_job').dataTable({
 			"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
 			"sPaginationType": "bootstrap",
 			"aoColumns":[{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
