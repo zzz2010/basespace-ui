@@ -2,7 +2,8 @@
 div.dataTables_length label {
 	float: left;
 	text-align: left;
-	font-size:70%
+	font-size:70%;
+	padding-left:30px;
 }
 
 div.dataTables_length select {
@@ -15,8 +16,8 @@ div.dataTables_filter label {
 
 div.dataTables_info {
 	padding-top: 8px;
-	font-size:80%;	
-	padding-left:20px;
+	font-size:90%;	
+	padding-left:30px;
 }
 
 div.dataTables_paginate {
