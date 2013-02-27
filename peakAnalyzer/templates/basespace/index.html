@@ -1,4 +1,9 @@
 {% extends 'common/base.html' %} {% block header %} {% endblock %} {% block content %}
+<script type="text/javascript" charset="utf-8" src="/../peakAnalyzer/static/datatables1.9.4/media/js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="/../peakAnalyzer/static/datatables1.9.4/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8" language="javascript" src="/../peakAnalyzer/static/datatables1.9.4/media/js/DT_bootstrap.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/../peakAnalyzer/static/datatables1.9.4/media/css/DT_bootstrap.css">
 
 <script type="text/javascript">
 
@@ -10,10 +15,8 @@
       $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
    }, 5000);
    $.ajaxSetup({ cache: false });
-});
-
-$(document).ready( function () {
-		$('.table.table-bordered').dataTable({
+   
+   $('.table.table-bordered').dataTable({
 			"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
 			"sPaginationType": "bootstrap",
 			"aaSorting": [],
@@ -21,8 +24,8 @@ $(document).ready( function () {
 			});
 	
 
-} );
-
+}
+});
 
 // Load and display the list of file
 function load_arfiles(trigger) {
