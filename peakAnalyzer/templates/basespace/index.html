@@ -8,7 +8,7 @@
  	 $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
    var refreshId = setInterval(function() {
       $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
-   }, 5000);
+   }, 10000);
    $.ajaxSetup({ cache: false });
  
 
