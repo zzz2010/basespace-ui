@@ -46,16 +46,26 @@ def CENTDIST_result(dir1):
     
     return html_str
 
-#def GREAT_result(dir1):
-#    myTab=os.path.basename(dir1)
-##    html_str="<script type='text/javascript'>$('#tab__"+myTab+"').click(function () {"
-##    html_str+= "$(this).load('http://genome.ddns.comp.nus.edu.sg/~chipseq/webseqtools2/TASKS/Motif_Enrichment/viewresult.php?rundir="+dir1+"');"
-##    #html_str="<script type='text/javascript'>window.alert('hello');</script>"
-##    html_str+="});</script>\n"
-#    html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"""'><iframe id="iFrame1" name="iFrame1" 
-#    width="100%" onload="this.height=iFrame1.document.body.scrollHeight" frameborder="0" src=''></iframe></div>\n"
-#    
-#    return html_str
+def GREAT_result(dir1):
+    myTab=os.path.basename(dir1)
+    html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"'>"+'<script> $(document).ready( function () {\
+$(\'.table.table-striped.table-bordered.table-condensed\').dataTable({\
+            "sDom": "<\'row\'<\'span6\'l><\'span6\'f>r>t<\'row\'<\'span6\'i><\'span6\'p>>",\
+            "sPaginationType": "bootstrap",\
+            "aoColumns": [{ "sType": \'string\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'percent\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'percent\' },]\
+           }); } );</script>'
+    
+    filelist=os.listdir(dir1)
+    
+    table=''
+    for f in filelist:
+        if 'html' in f:
+            try:
+                table=open(dir1 +"/"+f,'r').read()
+            except:
+                print "file format error"
+    html_str=html_str+table + '</div>\n'
+    return html_str
 
 #def denovoMotif_result(dir1):
 #    myTab=os.path.basename(dir1)
@@ -87,8 +97,8 @@ def viewresult(request,job_id):
     for dir1 in result_list:
         if "CENTDIST" in dir1:
             content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
-      #  elif "denovoMotif" in dir1:
-       #     content_html+=denovoMotif_result(str(result_dir)+"/"+str(dir1))
+        elif "GREAT" in dir1:
+            content_html+=GREAT_result(str(result_dir)+"/"+str(dir1))
         else:
             content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
     return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})

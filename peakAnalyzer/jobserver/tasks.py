@@ -152,9 +152,12 @@ def GREAT(peakfile,outdir2,genome):
     mkpath(outdir2)
     bed3peak=outdir2+os.path.basename(peakfile)
     os.system("cut -f 1-3 "+peakfile+" > "+bed3peak)
-    cmd="python "+settings.toolpath+"./GREAT/runGREAT.py "+bed3peak+" "+genome+" "+outdir2
-    print cmd
-    os.system(cmd)
+    cmd_great="python "+settings.toolpath+"./GREAT/great.py "+bed3peak+" "+genome+" "+outdir2
+    print cmd_great
+    os.system(cmd_great)
+    cmd_table="for f in " + outdir2 +"*.great.out;do python " + settings.toolpath+ "./GREAT/generateHtmlTable.py $f > $f.html;done;"
+    print cmd_table
+    os.system(cmd_table)
 
 
 @task
@@ -547,7 +550,7 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     upload_AppResult.delay(outdir2,session_id,appresult_handle.get())
     
     #send email
-    message ="Hurray! Your job, " + myjob.jobtitle + ", has been completed!\n\nTo view the results, please click on the following link: \nhttp://http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/jobserver/"+ str(jobid) + "/viewresult/" + "\n\nThank you for using PeakAnalyzer!\n\nHave a nice day!"
+    message ="Hurray! Your job, " + myjob.jobtitle+ ", has been completed!\n\nVisit the following link to view your results:\nhttp://genome.ddns.comp.nus.edu.sg/peakAnalyzer/jobserver-regular/"+ str(jobid) + "/viewresult/" + "\n\nThank you for using PeakAnalyzer!\n\nHave a nice day!"
     email = EmailMessage('PeakAnalyzer ChIP-seq Pipeline Complete', message, to=[useremail])
     email.send() 
     
