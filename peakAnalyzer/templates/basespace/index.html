@@ -15,7 +15,7 @@
 
 });
 
-//Refresh table
+//Refresh table on click
 function refresh_table(){
      $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
 }
@@ -325,6 +325,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
   
         
   </div><!--/span-->
+  <div class="divider"></div>
 <div style="padding-bottom:10px" class="span9">
   <button class="btn btn-info" type="button" onclick="refresh_table()">Refresh <span class='icon-refresh icon-white'></span></button>
 </div>  
