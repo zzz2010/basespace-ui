@@ -15,7 +15,12 @@
       $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
    }, 5000);
    $.ajaxSetup({ cache: false });
-   
+   			$('.table.table-bordered').dataTable({
+			"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+			"sPaginationType": "bootstrap",
+			"aoColumns":[{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
+			});
+	
 
 });
 
