@@ -53,10 +53,14 @@ $(\'.table.table-striped.table-bordered.table-condensed\').dataTable({\
            }); } );</script>'
     
     filelist=os.listdir(dir1)
+    
+    table=''
     for f in filelist:
         if 'html' in f:
-            table=open(dir1 +"/"+f,'r').read()
-       
+            try:
+                table=open(dir1 +"/"+f,'r').read()
+            except:
+                print "file format error"
     html_str=html_str+table + '</div>\n'
     return html_str
 
