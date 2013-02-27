@@ -1,4 +1,10 @@
 {% load job_extras %}
+<script type="text/javascript" charset="utf-8" src="/../peakAnalyzer/static/datatables1.9.4/media/js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="/../peakAnalyzer/static/datatables1.9.4/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8" language="javascript" src="/../peakAnalyzer/static/datatables1.9.4/media/js/DT_bootstrap.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/../peakAnalyzer/static/datatables1.9.4/media/css/DT_bootstrap.css">
+
 <script>
 $(document).ready( function () {
 		$('.table.table-bordered').dataTable({
@@ -10,6 +16,7 @@ $(document).ready( function () {
 
 } );
 </script>
+
 <table class="table table-bordered">
 <tr><td>Select</td><td>JobId</td><td>Title</td><td>Submit Date</td><td>Status</td><td></td></tr>
 {% for job in jobs_list %}
