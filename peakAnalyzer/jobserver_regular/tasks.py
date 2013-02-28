@@ -50,7 +50,7 @@ def add(x, y):
 @task
 def Denovo_Motif(peakfile,outdir2,genome):
     mkpath(outdir2)
-    cmd="sh "+settings.toolpath+"/DenovoMotif/runMetaNovo.sh "+peakfile+" "+settings.GenomeDIR+"/"+genome+"/ "+settings.WebseqtoolDIR+" "+outdir2+" > "+outdir2+"/log.txt 2>&1"
+    cmd="python "+settings.toolpath+"/SEME/run.py "+peakfile+" "+settings.GenomeDIR+"/"+genome+"/ " +outdir2+" > "+outdir2+"/log.txt 2>&1"
     print cmd
     os.system(cmd)
     return outdir2
