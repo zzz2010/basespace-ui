@@ -53,7 +53,7 @@ def Denovo_Motif(peakfile,outdir2,genome):
     cmd="python "+settings.toolpath+"/SEME/run.py "+peakfile+" "+settings.GenomeDIR+"/"+genome+"/ " +outdir2+" > "+outdir2+"/log.txt 2>&1"
     print cmd
     os.system(cmd)
-    cmd_genhtml="python "+settings.toolpath+"/SEME/generateHtml.py > " +outdir2+"/seme_table.html"
+    cmd_genhtml="python "+settings.toolpath+"/SEME/generateHtml.py "+ outdir2+" > " +outdir2+"/seme_table.html"
     print cmd_genhtml
     os.system(cmd_genhtml)
     return outdir2
