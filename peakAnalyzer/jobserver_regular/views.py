@@ -78,7 +78,7 @@ def denovoMotif_result(dir1):
     pwm_result=dir1.replace("/home/chipseq/basespace/peakAnalyzer/peakAnalyzer/../", "/peakAnalyzer/") + "SEME_clust.pwm"
     html_button='<a id="download" href="'+pwm_result +'"><button class="button button-primary type="submit">Download PWM Result</button></a>'
     
-    html_str=html_str+table+'</div>\n'
+    html_str=html_str+table+html_button+'</div>\n'
     
     return html_str
 
