@@ -75,6 +75,8 @@ def denovoMotif_result(dir1):
                 table=open(dir1 +"/"+f,'r').read()
             except:
                 print "file format error"
+    pwm_result=dir1.replace("/home/chipseq/basespace/peakAnalyzer/peakAnalyzer/../", "/peakAnalyzer/") + "SEME_clust.pwm"
+    html_button='<a id="download" href="'+pwm_result +'"><button class="button button-primary type="submit">Download PWM Result</button></a>'
     
     html_str=html_str+table+'</div>\n'
     
