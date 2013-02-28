@@ -76,7 +76,7 @@ def denovoMotif_result(dir1):
             except:
                 print "file format error"
     pwm_result=dir1.replace("/home/chipseq/basespace/peakAnalyzer/peakAnalyzer/../", "/peakAnalyzer/") + "/SEME_clust.pwm"
-    html_button='<a style="padding-left:50px" id="download" href="'+pwm_result +'"><button class="btn btn-primary" type="submit">Download PWM Result</button></a>'
+    html_button='<a style="padding-left:100px;padding-top:20px" id="download" href="'+pwm_result +'"><button class="btn btn-primary" type="submit">Download PWM Result</button></a>'
     
     html_str=html_str+table+html_button+'</div>\n'
     
