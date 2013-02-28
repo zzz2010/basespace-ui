@@ -65,7 +65,7 @@ $(\'.table.table-striped.table-bordered.table-condensed\').dataTable({\
 
 def denovoMotif_result(dir1):
     myTab=os.path.basename(dir1)
-    html_str='<div class="tab-pane" id="'+os.path.basename(dir1)+'"><div>'
+    html_str='<div class="tab-pane" id="'+os.path.basename(dir1)+'">'
      
     filelist=os.listdir(dir1)
     table=''
@@ -76,7 +76,7 @@ def denovoMotif_result(dir1):
             except:
                 print "file format error"
     
-    html_str=html_str+table+'</div></div>\n'
+    html_str=html_str+table+'</div>\n'
     
     return html_str
 
