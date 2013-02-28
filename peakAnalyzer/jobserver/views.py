@@ -67,10 +67,24 @@ $(\'.table.table-striped.table-bordered.table-condensed\').dataTable({\
     html_str=html_str+table + '</div>\n'
     return html_str
 
-#def denovoMotif_result(dir1):
-#    myTab=os.path.basename(dir1)
-#    
-#    return html_str
+def denovoMotif_result(dir1):
+    myTab=os.path.basename(dir1)
+    html_str='<div class="tab-pane" id="'+os.path.basename(dir1)+'">'
+     
+    filelist=os.listdir(dir1)
+    table=''
+    for f in filelist:
+        if 'html' in f:
+            try:
+                table=open(dir1 +"/"+f,'r').read()
+            except:
+                print "file format error"
+    pwm_result=dir1.replace("/home/chipseq/basespace/peakAnalyzer/peakAnalyzer/../", "/peakAnalyzer/") + "/SEME_clust.pwm"
+    html_button='<a target="_blank" style="padding-bottom:150px" id="download" href="'+pwm_result +'"><button class="btn btn-primary" type="submit">Download PWM Result <span class="icon-download icon-white"></span></button></a>'
+    
+    html_str=html_str+html_button+ table+'</div>\n'
+    
+    return html_str
 
 def resultfolder_html(dir1):
     html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"'>"
@@ -97,6 +111,9 @@ def viewresult(request,job_id):
     for dir1 in result_list:
         if "CENTDIST" in dir1:
             content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
+        elif "denovo" in dir1:
+            content_html+=denovoMotif_result(str(result_dir)+"/"+str(dir1))
+
         elif "GREAT" in dir1:
             content_html+=GREAT_result(str(result_dir)+"/"+str(dir1))
         else:
