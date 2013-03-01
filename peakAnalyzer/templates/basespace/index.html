@@ -181,23 +181,6 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 	})
 }
 
-function manage_jobs()
-{
-document.$_GET = [];
-var urlHalves = String(document.location).split('?');
-alert(urlHalves)
-var postdata="rerun;" + "job=4"
-$.ajax({   
-        type: "POST",
-        url: "/peakAnalyzer/basespace/{{session_id}}/jobManagement/",
-        data: postdata,    
-        dataType:'text',   
-        success: function(data, textStatus){
-        		alert("manage job");
-        }
-        })
-        
-}
 
 
 
