@@ -309,6 +309,9 @@ def submitJob(request,session_id):
 #    return HttpResponse(simplejson.dumps(request.POST))
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
+def jobManagement(request):
+    return HttpResponse("Hello world!")
+
 def demo(request,user_id):
     u= get_object_or_404(User, pk=user_id)
     return render_to_response('basespace/demo.html', {'user': u})

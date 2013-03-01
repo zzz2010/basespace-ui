@@ -20,6 +20,7 @@ from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def listjob(request,user_id):
+    session_id =4 #debug
     u=get_object_or_404(User, pk=user_id)
     css=dict()
     css["Downloading"]=""
@@ -28,7 +29,7 @@ def listjob(request,user_id):
     css["Processing"]="warning"
     css["Completed"]="success"
     css["Error"]="error"
-    return render_to_response('jobserver/joblist.html', {'jobs_list':u.job_set.all(),'css':css})
+    return render_to_response('jobserver/joblist.html', {'jobs_list':u.job_set.all(),'css':css, 'session_id':session_id})
 
 def get_immediate_subdirectories(dir):
     return [name for name in os.listdir(dir)

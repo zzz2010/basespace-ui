@@ -17,6 +17,7 @@ urlpatterns = patterns('basespace.views',
 	url(r'^(?P<session_id>\d+)/listUploadedFiles/$', 'listUploadedFiles'),
 	url(r'^(?P<session_id>\d+)/uploadFiles/$', 'uploadFiles'),
 	url(r'^(?P<session_id>\d+)/listProject/$', 'listProject'),
+	url(r'^(?P<session_id>\d+)/listProject/$', 'jobManagement'),
 	url(r'^(?P<user_id>\d+)/demo/$', 'demo'),
 	url(r'^logout/$', 'logoutUser'),
 
