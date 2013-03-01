@@ -310,13 +310,18 @@ def submitJob(request,session_id):
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
 def rerunJobs(jobs):
-    print "yo"
+    if jobs:
+        for jid in jobs:
+            myjob=Job.objects.get(pk=jid)
+            myjob.status("Data_Ready")
+            myjob.save()
+            
 def deleteJobs(jobs):
-    print "yo"
-    for jid in jobs:
-        myjob=Job.objects.get(pk=jid)
-        print myjob
-        myjob.delete()
+    if jobs:
+        for jid in jobs:
+            myjob=Job.objects.get(pk=jid)
+            print "deleting:",myjob
+            myjob.delete()
 
 @csrf_exempt
 def jobManagement(request,session_id):
