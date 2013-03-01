@@ -10,7 +10,7 @@
 <thead><tr><th>Select</th><th>JobId</th><th>Title</th><th>Submit Date</th><th>Status</th><th></th></tr></thead>
 <tbody>
 {% for job in jobs_list %}
-<tr id=job__{{ job.id }} class={{css|lookup:job.status}} ><td><input type="checkbox" name="job" value={{job.id}}  id=cj__{{job.id}} ></td><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td id="td_status">{{job.status}}</td> 
+<tr id=job__{{ job.id }} class={{css|lookup:job.status}} ><td><input class="selectjob" type="checkbox" name="job" value={{job.id}}  id=cj__{{job.id}} ></td><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td id="td_status">{{job.status}}</td> 
 <td>
 {% ifequal job.status "Completed" %}
     <a href="../../../jobserver/{{job.id}}/viewresult/" target="blank">View Result</a>
@@ -37,7 +37,7 @@
 		$(function(){
 $("#button_rerunjob").click(function(){
 alert("rerun clicked")
-var jobs=$(".job").val();
+var jobs=$(".selectjob").val();
 alert(jobs)
 });
 });
