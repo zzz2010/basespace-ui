@@ -144,14 +144,14 @@ def submitJob(request):
     PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email)
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
-def rerunJobs(jobs, session_id, outdir, useremail):
+def rerunJobs(jobs, outdir, useremail):
     if jobs:
         for jid in jobs:
             myjob=RegularJob.objects.get(pk=jid)
             myjob.status="Data_Ready"
             myjob.save()
             
-            PeakCalling_Processing.delay(myjob.sampleFiles,myjob.controlFiles,session_id,outdir,myjob.id, useremail)
+            PeakCalling_Processing.delay(myjob.sampleFiles,myjob.controlFiles,outdir,myjob.id, useremail)
     
                         
 def deleteJobs(jobs):
