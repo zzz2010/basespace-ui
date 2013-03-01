@@ -310,29 +310,16 @@ def submitJob(request,session_id):
 #    return HttpResponse(simplejson.dumps(request.POST))
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
-def rerunJobs(jobs, session_id, outdir, useremail):
+def rerunJobs(jobs, session_id, outdir):
     if jobs:
         for jid in jobs:
             myjob=Job.objects.get(pk=jid)
             myjob.status="Data_Ready"
             myjob.save()
             
-            outdir=outdir+str(jid)
-            PeakCalling_task(outdir,jid)
+            basespace_Download_PeakCalling_Processing.delay(myjob.samplefids,myjob.controlfids,session_id,outdir,myjob.id, "sokemay@gmail.com")
     
-            #upload peak
-            appresult_handle=create_upload_AppResult.delay(outdir,session_id,jid)
-            
-            outdir2=outdir+"/pipeline_result/"
-            taskconfigfile=outdir2+"task.cfg"
-            Pipeline_Processing_task(taskconfigfile,jid)
-            upload_AppResult.delay(outdir2,session_id,appresult_handle.get())
-    
-            #send email
-            message ="Hurray! The re-processing of your job, " + myjob.jobtitle+ ", has been completed!\n\nVisit the following link to view your results:\nhttp://genome.ddns.comp.nus.edu.sg/peakAnalyzer/jobserver-regular/"+ str(jid) + "/viewresult/" + "\n\nThank you for using PeakAnalyzer!\n\nHave a nice day!"
-            email = EmailMessage('PeakAnalyzer ChIP-seq Pipeline Complete', message, to=[useremail])
-            email.send() 
-            
+                        
 def deleteJobs(jobs):
     if jobs:
         for jid in jobs:
@@ -357,7 +344,7 @@ def jobManagement(request,session_id):
         deleteJobs(jobs_selected)
         return HttpResponse("delete")
     elif 'rerun' in request.POST:
-        rerunJobs(jobs_selected, session_id, outdir, user.Email)
+        rerunJobs(jobs_selected, session_id, outdir)
         return HttpResponse("rerun")
 
 def demo(request,user_id):
