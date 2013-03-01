@@ -309,14 +309,31 @@ def submitJob(request,session_id):
 #    return HttpResponse(simplejson.dumps(request.POST))
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
+def rerunJobs(jobs):
+    print "yo"
+def deleteJobs(jobs):
+    print "yo"
+    for jid in jobs:
+        myjob=Job.objects.get(pk=jid)
+        print myjob
+        #myjob.delete()
+
 @csrf_exempt
 def jobManagement(request,session_id):
+    try:
+        session=basespace.models.Session.objects.get(pk=session_id)
+        myAPI=session.getBSapi()
+    except basespace.models.Session.DoesNotExist:
+        raise Http404
+    
     jobs_selected=request.POST.getlist('job')
     
     if 'delete' in request.POST:
+        deleteJobs(jobs_selected)
         return HttpResponse("delete")
     elif 'rerun' in request.POST:
-        return HttpResponse("rerun" + ",".join(jobs_selected))
+        rerunJobs(jobs_selected)
+        return HttpResponse("rerun")
 
 def demo(request,user_id):
     u= get_object_or_404(User, pk=user_id)
