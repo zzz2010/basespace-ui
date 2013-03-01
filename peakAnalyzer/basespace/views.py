@@ -311,7 +311,7 @@ def submitJob(request,session_id):
 
 @csrf_exempt
 def jobManagement(request,session_id):
-    jobs_selected=request.POST.get('job')
+    jobs_selected=request.POST.getlist('job')
     
     if 'delete' in request.POST:
         return HttpResponse("delete")
