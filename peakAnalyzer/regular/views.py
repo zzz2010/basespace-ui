@@ -170,9 +170,9 @@ def jobManagement(request):
     
     if 'delete' in request.POST:
         deleteJobs(jobs_selected)
-        return HttpResponse("delete")
+        return HttpResponse("Successfully Deleted!")
     elif 'rerun' in request.POST:
         rerunJobs(jobs_selected, outdir, user.email)
-        return HttpResponse("rerun")
+        return HttpResponse("Reprocessing job...")
 
 
