@@ -28,7 +28,7 @@
 <div id="buttons">
   <button class="btn btn-info" type="button" onclick="refresh_table()">Refresh <span class='icon-refresh icon-white'></span></button>
  <button class="btn btn-inverse" name="delete" type="submit" id="button_deletejob" onclick="return confirm('Proceed to delete?');" >Delete <span class='icon-trash icon-white'></span></button>
- <button class="btn btn-warning" name="rerun" type="submit" id="button_rerunjob" >Re-run <span class='icon-repeat icon-white'></span></button>
+ <button class="btn btn-warning" name="rerun" type="submit" id="button_rerunjob" onclick="checkCheckbox()">Re-run <span class='icon-repeat icon-white'></span></button>
 </div>
 </form>
 <script>
@@ -37,13 +37,26 @@
 			"sPaginationType": "bootstrap",
 			"aoColumns":[{ "bSortable": false },{ "bSortable": "numeric" },{ "bSortable": "string" },{ "bSortable": false },{ "bSortable": "string" },{ "bSortable": false }]
 			});
-
+			
+		 var options={
+		 	success:
+		 }
 		 $('#job_management_form').ajaxForm(function() { 
             	alert("Submitted!"); 
             }); 
 </script>
 
 <script>
+function checkCheckbox(){
+  if ($("[name=job]:checked").length > 0){
+  document.getElementById("job_management_form").submit();
+  }
+  else{
+  alert("Please select at least one file")
+  }
+	return false
+}
+
 function confirmSubmit() {
   if (confirm("Proceed to delete?")) {
     document.getElementById("job_management_form").submit();
