@@ -556,5 +556,37 @@ def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdi
     #send email
     message ="Hurray! Your job, " + myjob.jobtitle+ ", has been completed!\n\nVisit the following link to view your results:\nhttp://genome.ddns.comp.nus.edu.sg/peakAnalyzer/jobserver-regular/"+ str(jobid) + "/viewresult/" + "\n\nThank you for using PeakAnalyzer!\n\nHave a nice day!"
     email = EmailMessage('PeakAnalyzer ChIP-seq Pipeline Complete', message, to=[useremail])
-    email.send() 
+    email.send()
+    
+def resubmitJob(outdir,session_id,jobid,useremail):
+    outdir=outdir+str(jobid)#later files have to be in the jobid folder    
+
+    #peak calling
+    #raw uploaded files subject to peak calling 
+    #else mv to dataDIR and renamed to match *summits.bed
+    PeakCalling_task(outdir,jobid)
+    
+    #upload peak
+    appresult_handle=create_upload_AppResult.delay(outdir,session_id,jobid)
+    #processing
+    myjob=Job.objects.get(pk=jobid)
+    outdir2=outdir+"/pipeline_result/"
+    mkpath(outdir2)
+    taskconfigfile=outdir2+"task.cfg"
+    print "config:", taskconfigfile
+    configwrite=open(taskconfigfile,'w')
+    configwrite.write("[task]\n")
+    configwrite.write("dataDIR="+outdir+"/peakcalling_result/"+"\n")
+    configwrite.write("cellline="+myjob.cell_line+"\n")
+    configwrite.write("alternative_cellline="+myjob.cell_line+"\n")
+    configwrite.write("genome="+myjob.ref_genome+"\n")
+    configwrite.write("outputDIR="+outdir2+"\n")
+    configwrite.close()
+    Pipeline_Processing_task(taskconfigfile,jobid)
+    upload_AppResult.delay(outdir2,session_id,appresult_handle.get())
+    
+    #send email
+    message ="Hurray! Your job, " + myjob.jobtitle+ ", has been completed!\n\nVisit the following link to view your results:\nhttp://genome.ddns.comp.nus.edu.sg/peakAnalyzer/jobserver-regular/"+ str(jobid) + "/viewresult/" + "\n\nThank you for using PeakAnalyzer!\n\nHave a nice day!"
+    email = EmailMessage('PeakAnalyzer ChIP-seq Pipeline Complete', message, to=[useremail])
+    email.send()
     
