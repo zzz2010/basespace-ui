@@ -12,7 +12,7 @@
 <tbody>
 {% for job in jobs_list %}
 
-<tr id=job__{{ job.id }} class={{css|lookup:job.status}} ><td><input name="job" value={{job.id}} type="checkbox" id=cj__{{job.id}} ></td><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td>{{job.status}}</td> 
+<tr id=job__{{ job.id }} class={{css|lookup:job.status}} ><td><input name="job" class="checkbox_job" value={{job.id}} type="checkbox" id=cj__{{job.id}} ></td><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td>{{job.status}}</td> 
 
 <td>
 {% ifequal job.status "Completed" %}
@@ -50,5 +50,6 @@ function confirmSubmit() {
   }
   return false;
 }
+
 </script>
 </div>
