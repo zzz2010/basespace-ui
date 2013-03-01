@@ -316,7 +316,7 @@ def jobManagement(request,session_id):
     if 'delete' in request.POST:
         return HttpResponse("delete")
     elif 'rerun' in request.POST:
-        return HttpResponse("rerun" + jobs_selected)
+        return HttpResponse("rerun" + ",".join(jobs_selected))
 
 def demo(request,user_id):
     u= get_object_or_404(User, pk=user_id)
