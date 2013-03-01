@@ -519,6 +519,7 @@ def upload_AppResult(outdir,session_id,appResults):
             tasklist.append(upload_file.s(appResults,localfile,dir1,api))
     upG=group(tasklist)()
     upG.get(timeout=1000*60*60)
+
     
 @task
 def basespace_Download_PeakCalling_Processing(sfidlist,cfidlist,session_id,outdir,jobid,useremail):
