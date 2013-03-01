@@ -317,7 +317,7 @@ def rerunJobs(jobs, session_id, outdir):
             myjob.status="Data_Ready"
             myjob.save()
             
-            basespace_Download_PeakCalling_Processing.delay(myjob.samplefids,myjob.controlfids,session_id,outdir,myjob.id, "sokemay@gmail.com")
+            basespace_Download_PeakCalling_Processing.delay(myjob.sampleFiles,myjob.controlFiles,session_id,outdir,myjob.id, "sokemay@gmail.com")
     
                         
 def deleteJobs(jobs):
