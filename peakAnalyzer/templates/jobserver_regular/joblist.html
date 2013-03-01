@@ -6,7 +6,7 @@
 <script type="text/javascript" charset="utf-8" language="javascript" src="/../peakAnalyzer/static/js/jquery.form.js"></script>
 
 <div>
-<form action="/peakAnalyzer/regular/jobManagement/" id="job_management_form" method="post">
+<form action="/peakAnalyzer/regular/jobManagement/" id="job_management_form" method="post" onsubmit="return checkCheckBoxes(this)">
 <table class="table table-bordered" id="table_joblist">
 <thead><tr><th>Select</th><th>JobId</th><th>Title</th><th>Submit Date</th><th>Status</th><th></th></tr></thead>
 <tbody>
@@ -28,7 +28,7 @@
 <div id="buttons">
   <button class="btn btn-info" type="button" onclick="refresh_table()">Refresh <span class='icon-refresh icon-white'></span></button>
  <button class="btn btn-inverse" name="delete" type="submit" id="button_deletejob" onclick="return confirm('Proceed to delete?');" >Delete <span class='icon-trash icon-white'></span></button>
- <button class="btn btn-warning" name="rerun" type="submit" id="button_rerunjob" onclick="checkCheckbox()">Re-run <span class='icon-repeat icon-white'></span></button>
+ <button class="btn btn-warning" name="rerun" type="submit" id="button_rerunjob" >Re-run <span class='icon-repeat icon-white'></span></button>
 </div>
 </form>
 <script>
@@ -47,14 +47,20 @@
 </script>
 
 <script>
-function checkCheckbox(){
-  if ($(".checkbox_box:checked").length > 0){
-  document.getElementById("job_management_form").submit();
-  }
-  else{
-  alert("Please select at least one file")
-  }
-	return false
+function checkCheckboxes(){
+ var checkboxes=document.getElementByClass("checkbox_job");
+ var count=0;
+ for(i=0; i<checkboxes.length;i++){
+ 	if(checkboxes[i].checked==true){
+ 		count++;
+ 	}
+ }
+ if(count=0){
+	alert("Please select at least one file!");
+	return false;	 
+ }else{
+ 	return true;
+ }
 }
 
 function confirmSubmit() {
