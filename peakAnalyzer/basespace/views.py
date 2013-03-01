@@ -313,7 +313,7 @@ def rerunJobs(jobs):
     if jobs:
         for jid in jobs:
             myjob=Job.objects.get(pk=jid)
-            myjob.status("Data_Ready")
+            myjob.status="Data_Ready"
             myjob.save()
             
 def deleteJobs(jobs):
