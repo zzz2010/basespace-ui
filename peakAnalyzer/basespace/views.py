@@ -311,10 +311,12 @@ def submitJob(request,session_id):
 
 @csrf_exempt
 def jobManagement(request,session_id):
+    jobs_selected=request.POST.get('job')
+    
     if 'delete' in request.POST:
         return HttpResponse("delete")
     elif 'rerun' in request.POST:
-        return HttpResponse("rerun")
+        return HttpResponse("rerun" + jobs_selected)
 
 def demo(request,user_id):
     u= get_object_or_404(User, pk=user_id)
