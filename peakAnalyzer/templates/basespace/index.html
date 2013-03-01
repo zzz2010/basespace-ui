@@ -183,7 +183,7 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 
 function manage_jobs()
 {
-var postdata="rerun" + "job"
+var postdata="rerun;" + "job"
 $.ajax({   
         type: "POST",
         url: "/peakAnalyzer/basespace/{{session_id}}/jobManagement/",
