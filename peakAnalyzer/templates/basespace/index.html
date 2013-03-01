@@ -183,7 +183,9 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 
 function manage_jobs()
 {
-alert(document.location.search)
+document.$_GET = [];
+var urlHalves = String(document.location).split('?');
+alert(urlHalves)
 var postdata="rerun;" + "job=4"
 $.ajax({   
         type: "POST",
