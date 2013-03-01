@@ -6,12 +6,17 @@
 
  $(document).ready(function() {
  	 $("#joblist_container").load("/peakAnalyzer/jobserver-regular/{{ user.id }}/listjob");
+   var secs=60000*3
    var refreshId = setInterval(function() {
       $("#joblist_container").load("/peakAnalyzer/jobserver-regular/{{ user.id }}/listjob");
-   }, 5000);
+   }, secs);
    $.ajaxSetup({ cache: false });
 });
 
+//Refresh table on click
+function refresh_table(){
+     $("#joblist_container").load("/peakAnalyzer/jobserver/{{ user.id }}/listjob");
+}
 
 
 
