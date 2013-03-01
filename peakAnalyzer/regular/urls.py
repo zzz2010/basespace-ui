@@ -10,5 +10,6 @@ urlpatterns = patterns('regular.views',
     url(r'^listUploadedFiles/$', 'listUploadedFiles'),
     url(r'^uploadFiles/$', 'uploadFiles'),
     url(r'^listProject/$', 'listProject'),
+    url(r'^jobManagement/$', 'jobManagement'),
     url(r'^hello', 'hello'),
 )

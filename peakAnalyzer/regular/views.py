@@ -144,6 +144,35 @@ def submitJob(request):
     PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email)
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
+def rerunJobs(jobs, session_id, outdir, useremail):
+    if jobs:
+        for jid in jobs:
+            myjob=RegularJob.objects.get(pk=jid)
+            myjob.status="Data_Ready"
+            myjob.save()
+            
+            PeakCalling_Processing.delay(myjob.sampleFiles,myjob.controlFiles,session_id,outdir,myjob.id, useremail)
+    
+                        
+def deleteJobs(jobs):
+    if jobs:
+        for jid in jobs:
+            myjob=RegularJob.objects.get(pk=jid)
+            print "deleting:",myjob
+            myjob.delete()
 
+@csrf_exempt
+def jobManagement(request):
+    user        = User.objects.get(username=request.user.username)
+    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.email+"/"
+    
+    jobs_selected=request.POST.getlist('job')
+    
+    if 'delete' in request.POST:
+        deleteJobs(jobs_selected)
+        return HttpResponse("delete")
+    elif 'rerun' in request.POST:
+        rerunJobs(jobs_selected, outdir, user.Email)
+        return HttpResponse("rerun")
 
 
