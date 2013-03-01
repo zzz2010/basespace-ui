@@ -316,7 +316,7 @@ def deleteJobs(jobs):
     for jid in jobs:
         myjob=Job.objects.get(pk=jid)
         print myjob
-        #myjob.delete()
+        myjob.delete()
 
 @csrf_exempt
 def jobManagement(request,session_id):
