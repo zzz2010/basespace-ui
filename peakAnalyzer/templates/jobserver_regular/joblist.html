@@ -12,7 +12,7 @@
 <tbody>
 {% for job in jobs_list %}
 
-<tr id=job__{{ job.id }} class={{css|lookup:job.status}} ><td><input name="job" value={{job.id}} type="checkbox" id=cj__{{job.id}} ></td><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td>{{job.status}}</td> 
+<tr id=job__{{ job.id }} class={{css|lookup:job.status}} ><td><input class="checkbox_job" name="job" value={{job.id}} type="checkbox" id=cj__{{job.id}} ></td><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td>{{job.status}}</td> 
 
 <td>
 {% ifequal job.status "Completed" %}
@@ -48,7 +48,7 @@
 
 <script>
 function checkCheckbox(){
-  if ($("[name=job]:checked").length > 0){
+  if ($(".checkbox_check:checked").length > 0){
   document.getElementById("job_management_form").submit();
   }
   else{
