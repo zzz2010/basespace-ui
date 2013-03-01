@@ -4,7 +4,7 @@
 <script type="text/javascript" charset="utf-8" language="javascript" src="/../peakAnalyzer/static/datatables1.9.4/media/js/DT_bootstrap.js"></script> 
 <link rel="stylesheet" type="text/css" href="/../peakAnalyzer/static/datatables1.9.4/media/css/DT_bootstrap.css">
 
-
+<form >
 <table class="table table-bordered" id="table_joblist">
 <thead><tr><th>Select</th><th>JobId</th><th>Title</th><th>Submit Date</th><th>Status</th><th></th></tr></thead>
 <tbody>
@@ -20,6 +20,10 @@
 {% endfor %}
 </tbody>
 </table>
+  <button class="btn btn-info" type="button" onclick="refresh_table()">Refresh <span class='icon-refresh icon-white'></span></button>
+ <button class="btn btn-inverse" type="button" id="button_deletejob" >Delete <span class='icon-trash icon-white'></span></button>
+
+</form>
 <script>
 		$('#table_joblist').dataTable({
 			"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
