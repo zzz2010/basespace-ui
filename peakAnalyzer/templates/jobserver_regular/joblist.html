@@ -12,7 +12,7 @@
 <tbody>
 {% for job in jobs_list %}
 
-<tr id=job__{{ job.id }} class={{css|lookup:job.status}} ><td><input class="checkbox_job" name="job" value={{job.id}} type="checkbox" id=cj__{{job.id}} ></td><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td>{{job.status}}</td> 
+<tr id=job__{{ job.id }} class={{css|lookup:job.status}} ><td><input name="job" value={{job.id}} type="checkbox" id=cj__{{job.id}} ></td><td>{{job.id}} </td><td>{{job.jobtitle}}</td><td>{{job.submitDate}}</td><td>{{job.status}}</td> 
 
 <td>
 {% ifequal job.status "Completed" %}
@@ -37,16 +37,25 @@
 			"sPaginationType": "bootstrap",
 			"aoColumns":[{ "bSortable": false },{ "bSortable": "numeric" },{ "bSortable": "string" },{ "bSortable": false },{ "bSortable": "string" },{ "bSortable": false }]
 			});
-	
+			
+		 var options={
+		 	success:
+		 }
 		 $('#job_management_form').ajaxForm(function() { 
             	alert("Submitted!"); 
             }); 
-
-	
 </script>
 
 <script>
-
+function checkCheckbox(){
+  if ($("[name=job]:checked").length > 0){
+  document.getElementById("job_management_form").submit();
+  }
+  else{
+  alert("No files selected!")
+  }
+	return false
+}
 
 function confirmSubmit() {
   if (confirm("Proceed to delete?")) {
