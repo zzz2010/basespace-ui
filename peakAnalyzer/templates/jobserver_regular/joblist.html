@@ -6,7 +6,7 @@
 <script type="text/javascript" charset="utf-8" language="javascript" src="/../peakAnalyzer/static/js/jquery.form.js"></script>
 
 <div>
-<form action="/peakAnalyzer/regular/jobManagement/" id="job_management_form" method="post">
+<form action="/peakAnalyzer/regular/jobManagement/" id="job_management_form" method="post" onsubmit="return checkCheckboxes()">
 <table class="table table-bordered" id="table_joblist">
 <thead><tr><th>Select</th><th>JobId</th><th>Title</th><th>Submit Date</th><th>Status</th><th></th></tr></thead>
 <tbody>
@@ -51,5 +51,20 @@ function confirmSubmit() {
   return false;
 }
 
+function checkCheckboxes(){
+ var checkboxes=document.getElementByClass("checkbox_job");
+ var count=0;
+ for(i=0; i<checkboxes.length;i++){
+ 	if(checkboxes[i].checked==true){
+ 		count++;
+ 	}
+ }
+ if(count=0){
+	alert("Please select at least one file!");
+	return false;	 
+ }else{
+ 	return true;
+ }
+}
 </script>
 </div>
