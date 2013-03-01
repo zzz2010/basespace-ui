@@ -310,15 +310,14 @@ def submitJob(request,session_id):
 #    return HttpResponse(simplejson.dumps(request.POST))
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
-def rerunJobs(jobs, session_id, outdir):
+def rerunJobs(jobs, session_id, outdir, useremail):
     if jobs:
         for jid in jobs:
             myjob=Job.objects.get(pk=jid)
             myjob.status="Data_Ready"
             myjob.save()
             
-            basespace_Download_PeakCalling_Processing.delay(myjob.sampleFiles,myjob.controlFiles,session_id,outdir,myjob.id, "sokemay@gmail.com")
-    
+            resubmitJob(outdir,session_id,jid,useremail)
                         
 def deleteJobs(jobs):
     if jobs:
@@ -344,7 +343,7 @@ def jobManagement(request,session_id):
         deleteJobs(jobs_selected)
         return HttpResponse("delete")
     elif 'rerun' in request.POST:
-        rerunJobs(jobs_selected, session_id, outdir)
+        rerunJobs(jobs_selected, session_id, outdir, user.Email)
         return HttpResponse("rerun")
 
 def demo(request,user_id):
