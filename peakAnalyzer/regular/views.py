@@ -172,7 +172,7 @@ def jobManagement(request):
         deleteJobs(jobs_selected)
         return HttpResponse("delete")
     elif 'rerun' in request.POST:
-        rerunJobs(jobs_selected, outdir, user.Email)
+        rerunJobs(jobs_selected, outdir, user.email)
         return HttpResponse("rerun")
 
 
