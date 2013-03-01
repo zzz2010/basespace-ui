@@ -185,7 +185,7 @@ function manage_jobs()
 {
 $.ajax({   
         type: "POST",
-        url: "/peakAnalyzer/basespace/{{session_id}}/jobManagement",    
+        url: "/peakAnalyzer/basespace/{{session_id}}/jobManagement/",    
         dataType:'text',   
         success: function(data, textStatus){
         		alert("manage job");
