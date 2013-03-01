@@ -24,7 +24,7 @@
 </table>
 <div id="buttons">
   <button class="btn btn-info" type="button" onclick="refresh_table()">Refresh <span class='icon-refresh icon-white'></span></button>
- <button class="btn btn-inverse" name="delete" type="submit" id="button_deletejob" >Delete <span class='icon-trash icon-white'></span></button>
+ <button class="btn btn-inverse" name="delete" type="submit" id="button_deletejob" onclick="return confirm('Proceed to delete?');" >Delete <span class='icon-trash icon-white'></span></button>
  <button class="btn btn-warning" name="rerun" type="submit" id="button_rerunjob" >Re-run <span class='icon-repeat icon-white'></span></button>
 </div>
 </form>
@@ -36,9 +36,17 @@
 			});
 			
 		 $('#job_management_form').ajaxForm(function() { 
-                alert("SUbmitted!"); 
+                alert("Submitted!"); 
             }); 
 
-
+		
+</script>
+<script>
+function confirmSubmit() {
+  if (confirm("Proceed to delete?")) {
+    document.getElementById("job_management_form").submit();
+  }
+  return false;
+}
 </script>
 </div>
