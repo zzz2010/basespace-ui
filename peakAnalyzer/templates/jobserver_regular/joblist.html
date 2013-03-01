@@ -42,4 +42,13 @@
             	alert("Submitted!"); 
             }); 
 </script>
+
+<script>
+function confirmSubmit() {
+  if (confirm("Proceed to delete?")) {
+    document.getElementById("job_management_form").submit();
+  }
+  return false;
+}
+</script>
 </div>
