@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/../peakAnalyzer/static/datatables1.9.4/media/css/DT_bootstrap.css">
 
 <div>
-<form action="" name="jobform">
+<form action="/peakAnalyzer/basespace/{{session_id}}/jobManagement/" id="job_management_form">
 <table class="table table-bordered" id="table_joblist">
 <thead><tr><th>Select</th><th>JobId</th><th>Title</th><th>Submit Date</th><th>Status</th><th></th></tr></thead>
 <tbody>
@@ -34,12 +34,9 @@
 			"aoColumns":[{ "bSortable": false },{ "bSortable": "numeric" },{ "bSortable": "string" },{ "bSortable": false },{ "bSortable": "string" },{ "bSortable": false }]
 			});
 			
-		$(function(){
-$("#button_rerunjob").click(function(){
-alert("rerun clicked")
-var jobs=$(".selectjob").val();
-alert(jobs)
-});
+		 $('#job_management_form').ajaxForm(function() { 
+                alert("SUbmitted!"); 
+            }); 
 });
 		
 
