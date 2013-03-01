@@ -309,6 +309,7 @@ def submitJob(request,session_id):
 #    return HttpResponse(simplejson.dumps(request.POST))
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
+@csrf_exempt
 def jobManagement(request,session_id):
     return HttpResponse("Hello world!")
 
