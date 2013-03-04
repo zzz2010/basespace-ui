@@ -98,7 +98,7 @@ var fid=trigger_obj.id.split("__")[1]
 
 if (fid){
 var html="<tr id='datalist_row'><td>\
-<select id=cb__"+fid+" name=cb__"+fid+"> \
+<select id=cb__"+fid+" name=cb__"+fid+" onchange="checkFileOption()"> \
   <option>Sample</option> \
   <option>Control</option>\
   <option>Delete</option>\
@@ -120,7 +120,12 @@ var html="<tr id='datalist_row'><td>\
 }
 }
 
-
+function checkFileOption(){
+alert("hello");
+// if ($(this).val() =="Delete") {
+  //                     $("#datalist_row").hide();
+    //            }
+}
 function test()
 {
  var postdata = "";
