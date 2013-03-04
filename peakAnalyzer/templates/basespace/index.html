@@ -97,7 +97,7 @@ if(!addedFiles.hasOwnProperty(name))
 var fid=trigger_obj.id.split("__")[1]
 
 if (fid){
-var html="<tr><td>\
+var html="<tr id="datalist_row"><td>\
 <select id=cb__"+fid+" name=cb__"+fid+"> \
   <option>Sample</option> \
   <option>Control</option>\
@@ -191,6 +191,7 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 <script src="../../../static/fileUpload/js/jquery.fileupload.js"></script>
         
  <script>
+ //file upload 
 $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
@@ -249,6 +250,16 @@ trigger.innerHTML = filename;
 add_list(trigger);
 });
 */
+     </script>
+     
+     <script>
+     //hide deleted elements
+      $("*[name*='cb__'],*[name*='up__'] ").each(function(i) {
+                if ($(this).val() =="Delete") {
+                       $("#datalist_row").hide();
+                }
+               
+        });
      </script> 
 <head>
 
