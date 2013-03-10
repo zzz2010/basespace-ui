@@ -71,6 +71,11 @@ $("*[name*='cb__'],*[name*='up__'] ").each(function(i) {
                
         });
  }
+ 
+ function deleteFromJobTable(element){
+ 	element.hide();
+ 	element.parent().hide();
+ }
 addedFiles={};
 function add_list(trigger_obj)
 {
@@ -92,10 +97,10 @@ var html="<tr><td>\
 <select id=up__"+name+" name=up__"+name+" onchange='checkDelete()'> \
   <option>Sample</option> \
   <option>Control</option>\
-  <option>Delete</option>\
+//  <option>Delete</option>\
  </select>\
  </td><td>"+name+"</td>\
- <td><i class='icon-remove'></i></td></tr>";
+ <td><i class='icon-remove' onclick='deleteFromJobTable()'></i></td></tr>";
  }
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
