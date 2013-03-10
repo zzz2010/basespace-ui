@@ -64,6 +64,8 @@ $("*[name*='cb__'],*[name*='up__'] ").each(function(i) {
                 if ($(this).val() =="Delete") {
                         line = $(this).attr("name");
                        	alert("delete")
+                       	$(this).hide();
+                       	$(this).siblings().hide();
                        	$(this).parent().hide();
                 }
                
