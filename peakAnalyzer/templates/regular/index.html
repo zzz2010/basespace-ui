@@ -153,7 +153,7 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 	})
 }
 
-$("*[name*='cb__'],*[name*='up__'] ").each(function(i) {
+$("*[name*='cb__'],*[name*='up__'] ").live.each(function(i) {
                 if ($(this).val() =="Delete") {
                         line = $(this).attr("name");
                        	alert("delete")
