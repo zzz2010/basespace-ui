@@ -103,10 +103,7 @@ def viewresult(request,job_id):
     user        = User.objects.get(username=request.user.username) 
     job=get_object_or_404(RegularJob, pk=job_id)
     
-    if job.user!=user:
-        return HttpResponse("You are not authorized to view this page")
-    
-    else:    
+    if job.user==user:
         result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.email+"/"+str(job.id)+"/pipeline_result/"
         result_list=get_immediate_subdirectories(result_dir)
         content_html=" "
@@ -121,3 +118,7 @@ def viewresult(request,job_id):
             else:
                 content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
                 return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
+            
+    else:
+        return render_to_response('jobserver/view_result_not_authorized.html')
+   
