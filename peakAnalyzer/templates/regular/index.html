@@ -99,7 +99,7 @@ var html="<tr><td>\
   <option>Control</option>\
  </select>\
  </td><td>"+name+"</td>\
- <td><i class='icon-remove' onclick='deleteFromJobTable()'></i></td></tr>";
+ <td><i class='icon-remove' onclick='this.style.visibility=\"hidden\"'></i></td></tr>";
  }
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
