@@ -59,19 +59,7 @@ function(){
 );
 });
 
-function checkDelete(){
-$("*[name*='cb__'],*[name*='up__'] ").each(function(i) {
-                if ($(this).val() =="Delete") {
-                        line = $(this).attr("name");
-                       	alert("delete")
-                       	$(this).siblings().hide();
-                       	$(this).hide();                       	
-                       //	$(this).parent().hide();
-                }
-               
-        });
- }
- 
+
 
 addedFiles={};
 function add_list(trigger_obj)
@@ -91,7 +79,7 @@ var html="<tr><td>\
  </td><td>"+name+"</td></tr>";
  }else{
  var html="<tr id="+"row_"+name+"><td>\
-<select id=up__"+name+" name=up__"+name+" onchange='checkDelete()'> \
+<select id=up__"+name+" name=up__"+name+"> \
   <option>Sample</option> \
   <option>Control</option>\
  </select>\

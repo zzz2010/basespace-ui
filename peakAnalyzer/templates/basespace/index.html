@@ -103,7 +103,8 @@ var html="<tr id='datalist_row'><td>\
   <option>Control</option>\
   <option>Delete</option>\
  </select>\
- </td><td>"+name+"</td></tr>";
+ </td><td>"+name+"</td>
+ <td style='border-left:0px;text-align:right;'><i id='del_"+name+"' class='icon-remove' onclick='deleteFromJobTable(this)'></i></td></tr>";
  }else{
  var html="<tr id='datalist_row'><td>\
 <select id=up__"+name+" name=up__"+name+"> \
@@ -111,7 +112,8 @@ var html="<tr id='datalist_row'><td>\
   <option>Control</option>\
   <option>Delete</option>\
  </select>\
- </td><td>"+name+"</td></tr>";
+ </td><td>"+name+"</td>\
+ <td style='border-left:0px;text-align:right;'><i id='del_"+name+"' class='icon-remove' onclick='deleteFromJobTable(this)'></i></td></tr>";
  }
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
@@ -120,12 +122,14 @@ var html="<tr id='datalist_row'><td>\
 }
 }
 
-function checkFileOption(){
-alert("hello");
-// if ($(this).val() =="Delete") {
-  //                     $("#datalist_row").hide();
-    //            }
-}
+ function deleteFromJobTable(element){
+ 	var name=element.id.split("del_")[1];
+  	var row=document.getElementById("row_"+name);
+ 	row.parentNode.removeChild(row);
+ 	delete addedFiles[name]; 	
+ }
+
+
 function test()
 {
  var postdata = "";
@@ -334,11 +338,11 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
          
           <form class="form-horizontal" id="form_jobdata" >
           <table  class="table table-bordered" id=datalists>
-          <tr><td> <label class="control-label" for="inputTitle">Job Title</label> </td> <td><input type="text" id="inputTitle" name="inputTitle" placeholder="Job Title"></td></tr>
-         <tr><td> <label class="control-label" for="inputGenome">Reference Genome</label> </td> <td><input type="text" id="inputGenome" name="inputGenome" placeholder="{{genome_names}}"></td></tr>
-         <tr><td> <label class="control-label" for="inputCell">Cell Type</label> </td> <td><input type="text" id="inputCell" name="inputCell" placeholder="cell"></td></tr>
+          <tr><td> <label class="control-label" for="inputTitle">Job Title</label> </td> <td colspan="2"><input type="text" id="inputTitle" name="inputTitle" placeholder="Job Title"></td></tr>
+         <tr><td> <label class="control-label" for="inputGenome">Reference Genome</label> </td> <td colspan="2"><input type="text" id="inputGenome" name="inputGenome" placeholder="{{genome_names}}"></td></tr>
+         <tr><td> <label class="control-label" for="inputCell">Cell Type</label> </td> <td colspan="2"><input type="text" id="inputCell" name="inputCell" placeholder="cell"></td></tr>
          
-         <tr><td>Data Type</td><td>File Name</td></tr>
+         <tr><td>Data Type</td><td colspan="2">File Name</td></tr>
           
           </table>
         
