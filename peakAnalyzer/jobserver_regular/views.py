@@ -117,7 +117,7 @@ def viewresult(request,job_id):
         
             else:
                 content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
-                return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
+        return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
             
     else:
         return render_to_response('jobserver/view_result_not_authorized.html')
