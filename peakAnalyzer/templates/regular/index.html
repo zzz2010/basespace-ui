@@ -109,10 +109,9 @@ var html="<tr><td>\
  	var name=element.id.split("del_")[1];
   	var row=document.getElementById("row_"+name);
  	row.parentNode.removeChild(row);
- 	alert(addedFiles[name]);
- 	delete addedFiles[name];
- 	
+ 	delete addedFiles[name]; 	
  }
+ 
 function test()
 {
  var postdata = "";
