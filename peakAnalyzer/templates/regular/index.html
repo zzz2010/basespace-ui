@@ -73,7 +73,7 @@ $("*[name*='cb__'],*[name*='up__'] ").each(function(i) {
  }
  
  function deleteFromJobTable(element){
- 	alert(element.innerHTML);
+ 	alert(element.id);
  	//element.hide();
  	//element.parent().hide();
  }
@@ -100,7 +100,7 @@ var html="<tr><td>\
   <option>Control</option>\
  </select>\
  </td><td>"+name+"</td>\
- <td><i class='icon-remove' onclick='deleteFromJobTable(this)'></i></td></tr>";
+ <td><i id='del_'"+name+"' class='icon-remove' onclick='deleteFromJobTable(this)'></i></td></tr>";
  }
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
