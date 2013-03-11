@@ -97,7 +97,7 @@ if(!addedFiles.hasOwnProperty(name))
 var fid=trigger_obj.id.split("__")[1]
 
 if (fid){
-var html="<tr id='datalist_row'><td>\
+var html="<tr id="+"row_"+name+"><td>\
 <select id=cb__"+fid+" name=cb__"+fid+" > \
   <option>Sample</option> \
   <option>Control</option>\
@@ -106,7 +106,7 @@ var html="<tr id='datalist_row'><td>\
  </td><td>"+name+"</td>\
  <td style='border-left:0px;text-align:right;'><i id='del_"+name+"' class='icon-remove' onclick='deleteFromJobTable(this)'></i></td></tr>";
  }else{
- var html="<tr id='datalist_row'><td>\
+ var html="<tr id="+"row_"+name+"><td>\
 <select id=up__"+name+" name=up__"+name+"> \
   <option>Sample</option> \
   <option>Control</option>\
