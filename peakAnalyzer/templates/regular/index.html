@@ -76,8 +76,9 @@ $("*[name*='cb__'],*[name*='up__'] ").each(function(i) {
  	var name=element.id.split("del_")[1];
  	rowid="row_"+name
  	alert(rowid);
- 	$("#"+rowid).hide();
+ 	$("# "+rowid).hide();
  	addedFiles[name]=false;
+ 	alert(addedFiles[name]);
  	//element.hide();
  	//element.parent().hide();
  }
