@@ -95,8 +95,8 @@ var html="<tr><td>\
   <option>Sample</option> \
   <option>Control</option>\
  </select>\
- </td><td>"+name+"</td>\
- <td style='border-left:0px;text-align:right;'><i id='del_"+name+"' class='icon-remove' onclick='deleteFromJobTable(this)'></i></td></tr>";
+ </td><td>"+name+"<i align="right" id='del_"+name+"' class='icon-remove' onclick='deleteFromJobTable(this)'></i></td>\
+// <td style='border-left:0px;text-align:center;'><i id='del_"+name+"' class='icon-remove' onclick='deleteFromJobTable(this)'></i></td></tr>";
  }
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
