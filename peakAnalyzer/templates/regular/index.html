@@ -100,7 +100,7 @@ var html="<tr><td>\
   <option>Control</option>\
  </select>\
  </td><td>"+name+"</td>\
- <td><i id='del_'"+name+"' class='icon-remove' onclick='deleteFromJobTable(this)'></i></td></tr>";
+ <td><i id='del_"+name+"' class='icon-remove' onclick='deleteFromJobTable(this)'></i></td></tr>";
  }
      $("#datalists").append(html);
      $("#inputGenome").attr("placeholder",trigger_obj.getAttribute('genome'));
