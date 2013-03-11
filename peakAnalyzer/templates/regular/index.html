@@ -75,6 +75,8 @@ $("*[name*='cb__'],*[name*='up__'] ").each(function(i) {
  function deleteFromJobTable(element){
  	var name=element.id.split("del_")[1];
  	alert(name);
+ 	$("row_"+name).hide();
+ 	addedFiles[name]=false;
  	//element.hide();
  	//element.parent().hide();
  }
