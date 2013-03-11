@@ -73,7 +73,8 @@ $("*[name*='cb__'],*[name*='up__'] ").each(function(i) {
  }
  
  function deleteFromJobTable(element){
- 	alert(element.id);
+ 	var name=element.id.split("del_")[1];
+ 	alert(name);
  	//element.hide();
  	//element.parent().hide();
  }
@@ -94,7 +95,7 @@ var html="<tr><td>\
  </select>\
  </td><td>"+name+"</td></tr>";
  }else{
- var html="<tr id="+name+"><td>\
+ var html="<tr id="+"row_"+name+"><td>\
 <select id=up__"+name+" name=up__"+name+" onchange='checkDelete()'> \
   <option>Sample</option> \
   <option>Control</option>\
