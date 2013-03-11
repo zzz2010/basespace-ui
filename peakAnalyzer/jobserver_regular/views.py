@@ -105,18 +105,19 @@ def viewresult(request,job_id):
     
     if job.user!=user:
         return HttpResponse("You are not authorized to view this page")
+    
+    else:    
+        result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.email+"/"+str(job.id)+"/pipeline_result/"
+        result_list=get_immediate_subdirectories(result_dir)
+        content_html=" "
+        for dir1 in result_list:
+            if "CENTDIST" in dir1:
+                content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
+            elif "denovo" in dir1:
+                content_html+=denovoMotif_result(str(result_dir)+"/"+str(dir1))
+            elif "GREAT" in dir1:
+                content_html+=GREAT_result(str(result_dir)+"/"+str(dir1))
         
-    result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.email+"/"+str(job.id)+"/pipeline_result/"
-    result_list=get_immediate_subdirectories(result_dir)
-    content_html=" "
-    for dir1 in result_list:
-        if "CENTDIST" in dir1:
-            content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
-        elif "denovo" in dir1:
-            content_html+=denovoMotif_result(str(result_dir)+"/"+str(dir1))
-        elif "GREAT" in dir1:
-            content_html+=GREAT_result(str(result_dir)+"/"+str(dir1))
-        
-        else:
-            content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
-    return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
+            else:
+                content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
+                return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
