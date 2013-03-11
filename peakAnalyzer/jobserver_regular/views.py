@@ -100,7 +100,12 @@ def resultfolder_html(dir1):
 
 @login_required      
 def viewresult(request,job_id):
+    user        = User.objects.get(username=request.user.username) 
     job=get_object_or_404(RegularJob, pk=job_id)
+    
+    if job.user!=user:
+        return HttpResponse("You are not authorized to view this page")
+        
     result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.email+"/"+str(job.id)+"/pipeline_result/"
     result_list=get_immediate_subdirectories(result_dir)
     content_html=" "
