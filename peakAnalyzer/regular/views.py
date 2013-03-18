@@ -19,7 +19,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout,authenticate, login
 from basespace.UploadFileHandler import handle_uploaded_file
 from django.contrib.auth.models import User
-
+from jobserver_regular.tasks import mkpath
+from jobserver import settings
 
 FileTypes={'Extensions':'bam,vcf,fastq,gz,bed,peak'}
 
@@ -161,6 +162,28 @@ def deleteJobs(jobs):
             print "deleting:",myjob
             myjob.delete()
 
+def peaksetOverlap(jobs, outdir):
+    files_grabbed = []
+    for jid in jobs:
+        dirname=outdir+str(jid) +"/peakcalling_result"
+        files_grabbed.extend(glob.glob(str(dirname)+"/"+'*.summits.bed'))
+
+    outdir2=outdir+ "_".join(jobs) +"/"
+    mkpath(outdir2)        
+    cmd="" + " ".join(files_grabbed) +" > " + outdir2
+    os.system(cmd)
+    img_grabbed=[]    
+    types = ('*.jpg', '*.png','*.bmp') 
+    for files in types:
+        img_grabbed.extend(glob.glob(str(outdir2)+files))
+    
+    imglist=[]
+    for i in img_grabbed:
+        weburl=i.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
+        imglist.append(weburl)
+        
+    return render_to_response('regular/peaksetOverlap.html', {'imglist':imglist})
+    
 @csrf_exempt
 def jobManagement(request):
     user        = User.objects.get(username=request.user.username)
@@ -174,5 +197,8 @@ def jobManagement(request):
     elif 'rerun' in request.POST:
         rerunJobs(jobs_selected, outdir, user.email)
         return HttpResponse("Reprocessing job...")
+    elif 'peaksetoverlap' in request.POST:
+        peaksetOverlap(jobs_selected, outdir)
+
 
 
