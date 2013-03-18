@@ -25,22 +25,10 @@ from django.views.generic import TemplateView
 from registration.views import activate
 from registration.views import register
 
-class DirectTemplateView(TemplateView):
-    extra_context = None
-    def get_context_data(self, **kwargs):
-        context = super(self.__class__, self).get_context_data(**kwargs)
-        if self.extra_context is not None:
-            for key, value in self.extra_context.items():
-                if callable(value):
-                    context[key] = value()
-                else:
-                    context[key] = value
-        return context
-
 
 urlpatterns = patterns('',
                        url(r'^activate/complete/$',
-                          DirectTemplateView.as_view(template_name='registration/activation_complete.html'),
+                         TemplateView.as_view(template_name='registration/activation_complete.html'),
                            name='registration_activation_complete'),
                        # Activation keys get matched by \w+ instead of the more specific
                        # [a-fA-F0-9]{40} because a bad activation key should still get to the view;
@@ -55,11 +43,11 @@ urlpatterns = patterns('',
                            {'backend': 'registration.backends.default.DefaultBackend'},
                            name='registration_register'),
                        url(r'^register/complete/$',
-                           DirectTemplateView.as_view(template_name='registration/registration_complete.html'),
+                         TemplateView.as_view(template_name='registration/registration_complete.html'),
                           
                            name='registration_complete'),
                        url(r'^register/closed/$',
-                           DirectTemplateView.as_view(template_name='registration/registration_closed.html'),
+                         TemplateView.as_view(template_name='registration/registration_closed.html'),
                            name='registration_disallowed'),
                        (r'', include('registration.auth_urls')),
                        )
