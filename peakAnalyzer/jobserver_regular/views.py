@@ -75,7 +75,7 @@ def denovoMotif_result(dir1):
                 table=open(dir1 +"/"+f,'r').read()
             except:
                 print "file format error"
-    pwm_result=dir1.replace("/home/sokemay/basespace/basespace-ui/basespace-ui/peakAnalyzer", "peakAnalyzer") + "/SEME_clust.pwm"
+    pwm_result=dir1.replace("/home/sokemay/basespace/basespace-ui/basespace-ui/peakAnalyzer/../", "/peakAnalyzer/") + "/SEME_clust.pwm"
     html_button='<a target="_blank" style="padding-bottom:150px" id="download" href="'+pwm_result +'"><button class="btn btn-primary" type="submit">Download PWM Result <span class="icon-download icon-white"></span></button></a>'
     
     html_str=html_str+html_button+ table+'</div>\n'
