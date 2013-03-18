@@ -248,16 +248,16 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.username }}</
 	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
 	 <hr>Local Files</hr>
 	 <div id="localfile_list">
-
+<!-- 
 <span class="btn btn-success fileinput-button">
                     <i class="icon-plus icon-white"></i>
                     <span>Add files...</span>
 <input id="fileupload" type="file" name="files[]" data-url="/peakAnalyzer/regular/uploadFiles/" multiple>
 </span>
 <br>
-<!-- <table id="tablefiles" role="presentation" class="table table-striped"></table>-->
-<table></table>
-
+-->
+{% block fileupload %} {% endblock %}
+  
                 </div> 
       <hr>Uploaded Files</hr>   
       <div id=uploadedfile_list>
