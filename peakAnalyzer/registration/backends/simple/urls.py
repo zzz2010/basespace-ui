@@ -19,11 +19,23 @@ up your own URL patterns for these views instead.
 
 
 from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
+#from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 
 from registration.views import activate
 from registration.views import register
 
+class DirectTemplateView(TemplateView):
+    extra_context = None
+    def get_context_data(self, **kwargs):
+        context = super(self.__class__, self).get_context_data(**kwargs)
+        if self.extra_context is not None:
+            for key, value in self.extra_context.items():
+                if callable(value):
+                    context[key] = value()
+                else:
+                    context[key] = value
+        return context
 
 urlpatterns = patterns('',
                        url(r'^register/$',
@@ -31,8 +43,8 @@ urlpatterns = patterns('',
                            {'backend': 'registration.backends.simple.SimpleBackend'},
                            name='registration_register'),
                        url(r'^register/closed/$',
-                           direct_to_template,
-                           {'template': 'registration/registration_closed.html'},
+                           DirectTemplateView.as_view(template_name='registration/registration_closed.html'),
+              #             {'template': 'registration/registration_closed.html'},
                            name='registration_disallowed'),
                        (r'', include('registration.auth_urls')),
                        )
