@@ -20,6 +20,6 @@ known_cells=['Gm10847', 'Gm12878', 'Gm12891', 'Gm12892', 'Gm15510', 'Gm18505', '
 
 bowtie2_path='/home/Ken/jingquan/bowtie2-2.0.0-beta7/bowtie2'
 bowtie2_index = '/home/Ken/index/hg19bowtie2/'
-genome_length_path= '/home/chipseq/ChIPseqPipeline/LGL/genome_length_'
+genome_length_path= '/home/sokemay/ChIPseqPipeline/LGL/genome_length_'
 
 
