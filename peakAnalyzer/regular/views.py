@@ -182,7 +182,7 @@ def peaksetOverlap(jobs, outdir):
         weburl=i.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
         imglist.append(weburl)
         
-    return render_to_response('regular/peaksetOverlap.html', {'imglist':imglist})
+    return imglist
     
 @csrf_exempt
 def jobManagement(request):
@@ -198,7 +198,7 @@ def jobManagement(request):
         rerunJobs(jobs_selected, outdir, user.email)
         return HttpResponse("Reprocessing job...")
     elif 'peaksetoverlap' in request.POST:
-        peaksetOverlap(jobs_selected, outdir)
-
+        imglist=peaksetOverlap(jobs_selected, outdir)
+        return render_to_response('regular/peaksetOverlap.html', {'imglist':imglist})
 
 
