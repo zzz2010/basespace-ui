@@ -283,11 +283,8 @@ def histonePlot(peakfile,outdir2,genome,cellline_used):
     return cellline_used
 
 @task
-def Pipeline_Processing_task_cellline(peaklist,taskconfigfile):
+def Pipeline_Processing_task_cellline(peaklist,taskconfig):
     taskStr=""
-    taskconfig=ConfigParser.ConfigParser()
-    fp=open(taskconfigfile,"a" )
-    taskconfig.readfp(fp)
     if taskconfig.has_option("task","task"):
             taskStr=taskconfig.get("task", "task")
     taskSet=set(taskStr.split(","))
@@ -330,10 +327,9 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfigfile):
     taskconfig.set("task", "cellline", known_match_cell)
     print "cell line set"
     
-    taskconfig.add_section("task")
-    taskconfig.set("task","final_cellline", known_match_cell)
-    taskconfig.write(taskconfigfile)
-    taskconfigfile.close()
+    clFile=open(outdir+"/detected_cl.txt","w")
+    clFile.write(known_match_cell)
+    clFile.close()
     
     g = group(tasklist)()
     g.get(timeout=100*60*60)
@@ -348,22 +344,20 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
     try:
         taskconfig=ConfigParser.ConfigParser()
         fp=open(taskconfigfile)
-        taskconfig.readfp(fp)
+        taskconfig.readfp()
         inputdir=taskconfig.get("task", "dataDIR")
         peaklist=glob.glob(inputdir+"/*summits.bed")
-        fp.close()
         print "running pipeline..."
-        grouptasks=group([Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfigfile)])()
+        grouptasks=group([Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig)])()
         grouptasks.get(timeout=1000*60*600)
         #do the update database
         
         print "change status"
         myjob=RegularJob.objects.get(pk=jobid)
         myjob.status="Completed"
-        fp2=open(taskconfigfile)
-        taskconfig.readfp(fp2)
-        print taskconfig.get("task", "final_cellline")
-        myjob.cell_line=taskconfig.get("task","final_cellline")
+        taskconfig.readfp(open(taskconfigfile))
+        print taskconfig.get("task", "cellline")
+        myjob.cell_line=taskconfig.get("task","cellline")
         print myjob.cell_line
         myjob.save()
         print myjob.cell_line
