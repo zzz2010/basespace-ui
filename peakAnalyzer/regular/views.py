@@ -164,8 +164,8 @@ def deleteJobs(jobs):
 
 def peaksetOverlap(jobs, outdir):
     outdir2=outdir+ "_".join(jobs) +"/"
-    if not os.path.exists(outdir):
-        os.makedirs(outdir)       
+    if not os.path.exists(outdir2):
+        os.makedirs(outdir2)       
     
     files_grabbed = []
 
