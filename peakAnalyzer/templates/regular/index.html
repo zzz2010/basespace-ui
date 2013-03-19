@@ -55,8 +55,8 @@ $.ajax({
         dataType:'json',   
         success: function(data, textStatus){
         		var filelist=""
-        		$(data[filetype]).each(function(index){
-        			var filename=data[filetype][index];
+        		$(data).each(function(index){
+        			var filename=data[index];
         			alert(filename)
        				}
        
