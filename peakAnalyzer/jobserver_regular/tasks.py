@@ -338,9 +338,11 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
     myjob.save()
     try:
         taskconfig=ConfigParser.ConfigParser()
-        taskconfig.readfp(open(taskconfigfile))
+        fp=open(taskconfigfile)
+        taskconfig.readfp(fp)
         inputdir=taskconfig.get("task", "dataDIR")
         peaklist=glob.glob(inputdir+"/*summits.bed")
+        fp.close()
         print "running pipeline..."
         grouptasks=group([Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig)])()
         grouptasks.get(timeout=1000*60*600)
@@ -349,7 +351,8 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         print "change status"
         myjob=RegularJob.objects.get(pk=jobid)
         myjob.status="Completed"
-        taskconfig.readfp(open(taskconfigfile))
+        fp2=open(taskconfigfile)
+        taskconfig.readfp(fp2)
         print taskconfig.get("task", "cellline")
         myjob.cell_line=taskconfig.get("task","cellline")
         print myjob.cell_line
