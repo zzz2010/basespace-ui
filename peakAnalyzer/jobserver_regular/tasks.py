@@ -346,6 +346,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         fp=open(taskconfigfile)
         taskconfig.readfp()
         inputdir=taskconfig.get("task", "dataDIR")
+        outdir=taskconfig.get("task", "outputDIR")
         peaklist=glob.glob(inputdir+"/*summits.bed")
         print "running pipeline..."
         grouptasks=group([Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig)])()
@@ -356,9 +357,16 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         myjob=RegularJob.objects.get(pk=jobid)
         myjob.status="Completed"
         taskconfig.readfp(open(taskconfigfile))
-        print taskconfig.get("task", "cellline")
-        myjob.cell_line=taskconfig.get("task","cellline")
-        print myjob.cell_line
+        
+        try:
+            detected_cl=open(outdir+"/detected_cl.txt").readline()
+        except:
+            detected_cl=taskconfig.get("task","cellline")
+        print detected_cl
+        myjob.cell_line=detected_cl
+        
+        #myjob.cell_line=taskconfig.get("task","cellline")
+        
         myjob.save()
         print myjob.cell_line
     except Exception, e:
