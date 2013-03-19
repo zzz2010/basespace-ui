@@ -97,6 +97,9 @@ def resultfolder_html(dir1):
     html_str+="</div>\n"
     return html_str
 
+def jobinfo_html(job):
+    html_str="<div class='tab-pane' id='jobinfo'>" + "<h2>" +job.jobtitle+ "</h2><br>"+ "<h2>" +job.ref_genome+ "</h2>"
+    return html_str
 
 @login_required      
 def viewresult(request,job_id):
@@ -107,6 +110,10 @@ def viewresult(request,job_id):
         result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.email+"/"+str(job.id)+"/pipeline_result/"
         result_list=get_immediate_subdirectories(result_dir)
         content_html=" "
+        
+        jobinfo=jobinfo_html(job)
+        
+        content_html+=jobinfo
         for dir1 in result_list:
             if "CENTDIST" in dir1:
                 content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
