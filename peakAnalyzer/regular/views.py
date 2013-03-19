@@ -209,9 +209,7 @@ def jobManagement(request):
         return HttpResponse("Reprocessing job...")
     elif 'peaksetoverlap' in request.POST:
         imglist=peaksetOverlap(jobs_selected, outdir)
-        
         output={'imglist':imglist}
-    
         return HttpResponse(json.dumps(output), content_type='application/json') 
    #     return render_to_response('regular/peaksetOverlap.html', {'imglist':imglist})
 
