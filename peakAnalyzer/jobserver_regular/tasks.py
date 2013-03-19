@@ -362,8 +362,8 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         myjob.status="Completed"
         fp2=open(taskconfigfile)
         taskconfig.readfp(fp2)
-        print taskconfig.get("task", "cellline")
-        myjob.cell_line=taskconfig.get("task","cellline")
+        print taskconfig.get("task", "final_cellline")
+        myjob.cell_line=taskconfig.get("task","final_cellline")
         print myjob.cell_line
         myjob.save()
         print myjob.cell_line
