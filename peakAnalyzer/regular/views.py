@@ -171,7 +171,7 @@ def peaksetOverlap(jobs, outdir):
 
     for jid in jobs:
         dirname=outdir+str(jid) +"/peakcalling_result"
-        files_grabbed.extend(glob.glob(str(dirname)+"/"+'*.summits.bed'))
+        files_grabbed.extend(glob.glob(str(dirname)+"/"+'*summits.bed'))
     
     for f in files_grabbed:
         print f
