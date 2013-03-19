@@ -177,7 +177,7 @@ def peaksetOverlap(jobs, outdir):
         cmd="cp " + f + " " + outdir2
         os.system(cmd)
         
-    overlapcmd="sh "+ settings.toolpath+"./peaksetOverlap/peaksetOverlap.sh " + outdir2+"*.bed " + outdir2
+    overlapcmd='sh '+ settings.toolpath+'./peaksetOverlap/peaksetOverlap.sh "' + outdir2+'*.summits.bed" ' + outdir2
     os.system(overlapcmd)
     #cmd="cp " + " ".join(files_grabbed) +" > " + outdir2
  #   os.system(cmd)
