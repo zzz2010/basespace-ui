@@ -48,6 +48,26 @@ $.ajax({
 	}})
 }
 
+function getImgList(){
+$.ajax({   
+        type: "GET",
+        url: "/peakAnalyzer/regular/jobManagement",    
+        dataType:'json',   
+        success: function(data, textStatus){
+        		var filelist=""
+        		$(data[filetype]).each(function(index){
+        			var filename=data[filetype][index];
+        			alert(filename)
+       				}
+       
+        		 	//var file='<li id='+ fname +' onclick="add_list(this)">' + filename+'</li>';
+     				//filelist=filelist+file;
+     				
+        });
+        		
+				//$("#"+filetype).html(filelist);        	
+	}})
+}
 $("#icon-toggle").click(function(){
 $("i #closedfolder").toggle(
 function(){
