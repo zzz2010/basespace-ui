@@ -174,6 +174,7 @@ def peaksetOverlap(jobs, outdir):
         files_grabbed.extend(glob.glob(str(dirname)+"/"+'*.summits.bed'))
     
     for f in files_grabbed:
+        print f
         cmd="cp " + f + " " + outdir2
         os.system(cmd)
         
