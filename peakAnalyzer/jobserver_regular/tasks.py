@@ -429,7 +429,7 @@ def PeakCalling_task(outdir,jobid):
         
     #sort summits bed by MACS score
     sortCmd= "sh " + toolpath + "/sortPeaksByScore.sh " + outdir2
-    os.system(sortCmd)
+   # os.system(sortCmd)
     #copy bed files that dont need peakcalling over
     if cmdlist:
         os.system(";".join(cmdlist))
