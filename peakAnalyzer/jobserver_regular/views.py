@@ -98,7 +98,7 @@ def resultfolder_html(dir1):
     return html_str
 
 def jobinfo_html(job):
-    html_str="<div class='tab-pane' id='job_info'>" + "<h2>" +job.jobtitle+ "</h2><br>"+ "<h2>" +job.ref_genome+ "</h2></div>"
+    html_str="<div class='tab-pane' id='job_info'>" + "<h3>" +job.jobtitle+ "</h3>"+ "<h3>" +job.ref_genome+ "</h3></div>"
     return html_str
 
 @login_required      
