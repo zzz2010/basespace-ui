@@ -349,6 +349,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         print "change status"
         myjob=RegularJob.objects.get(pk=jobid)
         myjob.status="Completed"
+        print taskconfig.get("task", "cellline")
         myjob.cell_line=taskconfig.get("task","cellline")
         print myjob.cell_line
         myjob.save()
