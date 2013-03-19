@@ -344,7 +344,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
     try:
         taskconfig=ConfigParser.ConfigParser()
         fp=open(taskconfigfile)
-        taskconfig.readfp()
+        taskconfig.readfp(fp)
         inputdir=taskconfig.get("task", "dataDIR")
         outdir=taskconfig.get("task", "outputDIR")
         peaklist=glob.glob(inputdir+"/*summits.bed")
@@ -356,7 +356,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         print "change status"
         myjob=RegularJob.objects.get(pk=jobid)
         myjob.status="Completed"
-        taskconfig.readfp(open(taskconfigfile))
+      
         
         try:
             detected_cl=open(outdir+"/detected_cl.txt").readline()
