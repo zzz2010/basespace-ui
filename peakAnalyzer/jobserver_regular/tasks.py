@@ -332,7 +332,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
     clFile.close()
     
     g = group(tasklist)()
-    g.get(timeout=100*60*60)
+    g.get(timeout=1000*600*60)
  #  # return group(tasklist)()
             
 @task
