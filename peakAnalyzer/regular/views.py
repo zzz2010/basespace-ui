@@ -163,15 +163,21 @@ def deleteJobs(jobs):
             myjob.delete()
 
 def peaksetOverlap(jobs, outdir):
+    outdir2=outdir+ "_".join(jobs) +"/"
+    mkpath(outdir2)        
     files_grabbed = []
+
     for jid in jobs:
         dirname=outdir+str(jid) +"/peakcalling_result"
         files_grabbed.extend(glob.glob(str(dirname)+"/"+'*.summits.bed'))
-
-    outdir2=outdir+ "_".join(jobs) +"/"
-    mkpath(outdir2)        
-    cmd="" + " ".join(files_grabbed) +" > " + outdir2
-    os.system(cmd)
+    
+    for f in files_grabbed:
+        cmd="cp " + f + " " + outdir2
+        os.system(cmd)
+        
+    overlapcmd="sh "+ settings.toolpath+"./peaksetOverlap/peaksetOverlap.sh " + outdir2+"*.bed " + outdir2
+    #cmd="cp " + " ".join(files_grabbed) +" > " + outdir2
+ #   os.system(cmd)
     img_grabbed=[]    
     types = ('*.jpg', '*.png','*.bmp') 
     for files in types:
