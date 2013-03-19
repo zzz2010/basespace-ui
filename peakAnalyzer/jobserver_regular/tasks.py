@@ -325,7 +325,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
                 tasklist.append(histonePlot.s(peakfile,outdir2,genome,known_match_cell))
     print known_match_cell
     taskconfig.set("task", "cellline", known_match_cell)
-   
+    print "cell line set"
     g = group(tasklist)()
     g.get(timeout=100*60*60)
  #  # return group(tasklist)()
