@@ -1,5 +1,6 @@
 from jobserver.tasks import mkpath
-import peakAnalyzer
+
+import peakAnalyzer.settings
 import os
 
 #create tmp dir
