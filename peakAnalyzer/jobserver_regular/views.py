@@ -103,7 +103,10 @@ def jobinfo_html(job, result_dir):
     cmd="python "+toolpath+"/generateJobInfoHtml.py '" + job.jobtitle + "' '" + job.ref_genome+ "' '" + job.cell_line + "' '" + job.sampleFiles+ "' '" + job.controlFiles + "' "+ job_desc_out
     print cmd
     os.system(cmd)
-    job_desc=open(job_desc_out).read()
+    try:
+        job_desc=open(job_desc_out).read()
+    except:
+        job_desc=''
     html_str="<div class='tab-pane' id='job_info'>" +job_desc+ "</div>"
     
     
