@@ -210,7 +210,7 @@ def ConvertToBam():
         print genome_length_path
         if FileType(tmpName)==0:    #sam
             os.system('samtools view -bS -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
-            os.system('rm '+tmpName)
+      #   #   os.system('rm '+tmpName)
         elif FileType(tmpName)==1:    #bam
             os.system('samtools view -b -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
         elif FileType(tmpName)==2:    #bed
@@ -225,7 +225,7 @@ def ConvertToBam():
         PrintTagsUnique(tmpName+'_rmdup.bam')
         
         # cleanup
-        os.system('rm '+ tmpName+'.bam; rm '+tmpName+'_sorted.bam;')
+     ##   os.system('rm '+ tmpName+'.bam; rm '+tmpName+'_sorted.bam;')
         delayDelete.append(tmpName+'_rmdup.bam ')
         
     for tmpName in controlMappings_List:
