@@ -161,7 +161,7 @@ function submit_job()
 postdata+='ctrl_ids='+ctrl_ids;
 postdata+='&sample_ids='+sample_ids;
 postdata+='&inputTitle='+$('#inputTitle').val() ;
-postdata+='&inputGenome='+$('#inputGenome').val() ;    
+postdata+='&inputGenome='+$('#select_inputGenome').val() ;    
 postdata+='&inputCell='+$('#inputCell').val() ;   
 
 
@@ -301,9 +301,9 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.username }}</
           <tr><td> <label class="control-label" for="inputTitle">Job Title</label> </td> <td colspan="2"><input type="text" id="inputTitle" name="inputTitle" placeholder="Job Title"></td></tr>
         <!-- <tr><td> <label class="control-label" for="inputGenome">Reference Genome</label> </td> <td colspan="2"> <input type="text" id="inputGenome" name="inputGenome" placeholder="{{genome_names}}"></td></tr>-->
           <tr><td> <label class="control-label" for="inputGenome">Reference Genome</label> </td> <td colspan="2"> 
-          <select id= assembly> 
-  			<option>Human:GRCh37 (hg19)</option> 
-  			<option>Human:NCBI build 36.1 (hg18)</option>
+          <select id= select_inputGenome> 
+  			<option value="hg19">Human:GRCh37 (hg19)</option> 
+  			<option value="hg18">Human:NCBI build 36.1 (hg18)</option>
  			</select></td></tr>
          <tr><td> <label class="control-label" for="inputCell">Cell Type</label> </td> <td colspan="2"><input type="text" id="inputCell" name="inputCell" placeholder="cell"></td></tr>
          
@@ -316,7 +316,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.username }}</
 	  
           
   </div><!--/span-->
-  
+  <script>alert($('#select_inputGenome').val());</script>
    <div class="span9" id="joblist_container">
    
    </div>
