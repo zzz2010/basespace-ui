@@ -25,7 +25,7 @@ samplelist=samples.split(",")
 for f in samplelist:
     bname=os.path.basename(f)
     fsize=os.path.getsize(f)
-    table_samples+='<tr><td>'+bname +'</td><td>'+fsize+'</td></tr>'
+    table_samples+='<tr><td>'+bname +'</td><td>'+str(fsize)+'</td></tr>'
 table_samples+='</table>'
 
 html_jobdesc=html+style_table+table_general+table_samples+'</div>'
