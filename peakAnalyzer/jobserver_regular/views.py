@@ -104,7 +104,7 @@ def jobinfo_html(job, result_dir):
     print cmd
     os.system(cmd)
     job_desc=open(job_desc_out).read()
-    html_str="<div class='tab-pane' id='job_info'>" +job_desc+ "</h3></div>"
+    html_str="<div class='tab-pane' id='job_info'>" +job_desc+ "</div>"
     
     
     return html_str
