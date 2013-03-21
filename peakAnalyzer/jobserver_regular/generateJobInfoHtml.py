@@ -35,7 +35,7 @@ samplelist=samples.split(",")
 numsamples=len(samplelist)
 #generate general job desc table
 html='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
-style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}</style>'
+style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{}#table_samples td{width:50%;}</style>'
 table_general='<table  class="table table-bordered table-condensed" id="table_general">\
 <tr class="info"><td><strong>Job Title</strong></td><td><strong>Assembly</strong></td><td><strong>Detected Cell-line</strong></td>\
 <td ><strong>Sample files</strong></td><td><strong>File Size</strong></td> <td><strong>Control files</strong></td><td><strong>File Size</strong></td></tr>\
