@@ -23,7 +23,7 @@ def GetHumanReadable(size,precision=2):
 #samples=sys.argv[4]
 #controls=sys.argv[5]
 #jobdesc_outfile=sys.argv[6]
-jobid=sys.argv[1]
+jobid=int(sys.argv[1])
 jobdesc_outfile=sys.argv[2]
 
 job=get_object_or_404(RegularJob, pk=jobid)
