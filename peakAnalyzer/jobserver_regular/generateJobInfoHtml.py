@@ -6,14 +6,14 @@ Created on Mar 21, 2013
 import os
 import sys
 
-def GetHumanReadable(size,precision=2):
+def GetHumanReadable(size,precision=3):
     suffixes=['B','KB','MB','GB','TB']
     suffixIndex = 0
     while size > 1024:
         suffixIndex += 1 #increment the index of the suffix
         size = size/1024.0 #apply the division
         rounded=round(size,precision)
-    return rounded+" "+suffixes[suffixIndex]
+    return str(rounded)+" "+suffixes[suffixIndex]
 
 title=sys.argv[1]
 genome=sys.argv[2]
