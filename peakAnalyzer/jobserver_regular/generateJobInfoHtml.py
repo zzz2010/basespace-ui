@@ -31,16 +31,18 @@ jobdesc_outfile=sys.argv[7]
 #samples=str(job.sampleFiles)
 #controls=str(job.controlFiles)
 
+samplelist=samples.split(",")
+numsamples=len(samplelist)
 #generate general job desc table
 html='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
 style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}</style>'
 table_general='<table  class="table table-bordered table-condensed" id="table_general">\
 <tr class="info"><td><strong>Job Title</strong></td><td><strong>Assembly</strong></td><td><strong>Detected Cell-line</strong></td></tr>\
-<tr><td>' +title+'</td><td><a target="_blank" href="http://genome.ucsc.edu/cgi-bin/hgGateway?db='+genome+'">'+genome+'</a></td><td>'+cellline+'</td></tr></table>'
+<tr><td rowspan="'+str(numsamples)+'">' +title+'</td><td rowspan="'+str(numsamples)+'"><a target="_blank" href="http://genome.ucsc.edu/cgi-bin/hgGateway?db='+genome+'">'+genome+'</a></td><td rowspan="'+str(numsamples)+'">'+cellline+'</td></tr></table>'
 
 table_samples='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Sample files</strong></td><td><strong>File Size</strong></td><tr>'    
 
-samplelist=samples.split(",")
+
 for f in samplelist:
     bname=os.path.basename(f)
     fsize=os.path.getsize(f)
