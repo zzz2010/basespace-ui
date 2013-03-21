@@ -100,12 +100,12 @@ def resultfolder_html(dir1):
 
 def jobinfo_html(job, result_dir):
     toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver_regular').replace('\\','/')
-    outdir=result_dir+'../job_info/'
+    outdir=result_dir+'/job_info/'
     mkpath(outdir)
     job_desc_out=outdir+"jobdescription.html"
     
     cmd="python "+toolpath+"/generateJobInfoHtml.py '" + job.jobtitle + "' '" + job.ref_genome+ "' '" + job.cell_line + "' '" + job.sampleFiles+ "' '" + job.controlFiles + "' "+ job_desc_out
-    cmd="python "+toolpath+"/generateJobInfoHtml.py " + str(job.id) +" "+ job_desc_out
+    cmd="python "+toolpath+"/generateJobInfoHtml.py " + str(job.id) +" "+result_dir+ " " +job_desc_out
     print cmd
     os.system(cmd)
     try:
@@ -127,7 +127,7 @@ def viewresult(request,job_id):
         result_list=get_immediate_subdirectories(result_dir)
 
         #generate job info html
-        job_info_html=jobinfo_html(job, str(result_dir))
+        job_info_html=jobinfo_html(job, str(result_dir)+"../")
 
         content_html=" "                                      
         for dir1 in result_list:

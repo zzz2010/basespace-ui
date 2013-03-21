@@ -17,14 +17,9 @@ def GetHumanReadable(size,precision=2):
         rounded=round(size,precision)
     return str(rounded)+" "+suffixes[suffixIndex]
 
-#title=sys.argv[1]
-#genome=sys.argv[2]
-#cellline=sys.argv[3]
-#samples=sys.argv[4]
-#controls=sys.argv[5]
-#jobdesc_outfile=sys.argv[6]
 jobid=int(sys.argv[1])
-jobdesc_outfile=sys.argv[2]
+result_dir=sys.argv[2]
+jobdesc_outfile=sys.argv[3]
 
 job=get_object_or_404(RegularJob, pk=jobid)
 title=str(job.jobtitle)
@@ -32,6 +27,8 @@ genome=str(job.ref_genome)
 cellline=str(job.cell_line)
 samples=str(job.sampleFiles)
 controls=str(job.controlFiles)
+pkCalling_dir=result_dir+"/peakcalling_result/"
+
 
 html='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
 style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}</style>'
