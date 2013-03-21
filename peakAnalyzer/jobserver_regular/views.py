@@ -135,9 +135,7 @@ def viewresult(request,job_id):
                 content_html+=denovoMotif_result(str(result_dir)+"/"+str(dir1))
             elif "GREAT" in dir1:
                 content_html+=GREAT_result(str(result_dir)+"/"+str(dir1))
-            elif "job_info" in dir1:
-                content_html=jobinfo_html(job, str(result_dir))
-        
+          
             else:
                 content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
         return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html, 'job_info':job_info_html})
