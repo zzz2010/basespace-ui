@@ -72,6 +72,10 @@ pkconfigcontent=open(pkconfig).read()
 pkcall_html=''
 if pkconfigcontent.strip():
     map_html='<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
+    map_table='<table class="table table-bordered table-condensed">\
+                <thead><tr><th><Non-Mapped></th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th>'
+    
+    map_table+="</table>"
     pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_html= map_html+pkcallstats_html
 
