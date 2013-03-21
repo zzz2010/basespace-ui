@@ -145,7 +145,7 @@ def MapFiles():
         if isMapped(extension) == 0:
             #print extension
            ## cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + " -S " + targetfileName_List[cnt]+".sam "
-            cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x "+ bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + "-S " + targetfileName_List[cnt]+".sam 2>"+targetfileName_List[cnt]+".maplog.txt"
+            cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x "+ bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + " -S " + targetfileName_List[cnt]+".sam 2>"+targetfileName_List[cnt]+".maplog.txt"
             
             #cmd=batmis_dir+'batman -g '+batmis_index_dir+' -q '+ targetfileName_List[cnt]+extension + ' -o ' + targetfileName_List[cnt]+'.bin ' + ' -n 2 -U;'
             #cmd+=batmis_dir+'batdecode -g '+batmis_index_dir+' -i '+ targetfileName_List[cnt]+'.bin -o ' + targetfileName_List[cnt]+'.sam '
