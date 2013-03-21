@@ -144,7 +144,9 @@ def MapFiles():
     for extension in targetfileExtension_List:        
         if isMapped(extension) == 0:
             #print extension
-            cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + " -S " + targetfileName_List[cnt]+".sam "
+           ## cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + " -S " + targetfileName_List[cnt]+".sam "
+            cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x "+ bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + "-S " + targetfileName_List[cnt]+".sam 2>"+targetfileName_List[cnt]+".maplog.txt"
+            
             #cmd=batmis_dir+'batman -g '+batmis_index_dir+' -q '+ targetfileName_List[cnt]+extension + ' -o ' + targetfileName_List[cnt]+'.bin ' + ' -n 2 -U;'
             #cmd+=batmis_dir+'batdecode -g '+batmis_index_dir+' -i '+ targetfileName_List[cnt]+'.bin -o ' + targetfileName_List[cnt]+'.sam '
             print 'CMD: '+ cmd 
@@ -231,7 +233,7 @@ def ConvertToBam():
     for tmpName in controlMappings_List:
         if FileType(tmpName)==0: #sam
             os.system('samtools view -bS -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
-            os.system('rm '+tmpName)
+       #     os.system('rm '+tmpName)
         elif FileType(tmpName)==1: #bam
             os.system('samtools view -b -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
         elif FileType(tmpName)==2:    #bed
@@ -245,7 +247,7 @@ def ConvertToBam():
         PrintTagsUnique(tmpName+'_rmdup.bam')
         
         # cleanup
-        os.system('rm '+ tmpName+'.bam; rm '+tmpName+'_sorted.bam;')
+     #   os.system('rm '+ tmpName+'.bam; rm '+tmpName+'_sorted.bam;')
         delayDelete.append(tmpName+'_rmdup.bam ')
     
     #this line will merge the files!
@@ -273,8 +275,8 @@ def ConvertToBam():
         os.system('mv ' + controlfileName_List[0]+ '_COMBINED.bam ' + output_dir)
     
     #after merge then we delete the intermediate files!
-    for removeTmp in delayDelete:
-        os.system('rm '+removeTmp)
+#    for removeTmp in delayDelete:
+#        os.system('rm '+removeTmp)
 
 def PeakCall():
 
