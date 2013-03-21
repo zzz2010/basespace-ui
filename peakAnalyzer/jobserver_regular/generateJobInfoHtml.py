@@ -12,7 +12,8 @@ def GetHumanReadable(size,precision=2):
     while size > 1024:
         suffixIndex += 1 #increment the index of the suffix
         size = size/1024.0 #apply the division
-    return "%.*f %d"%(precision,size,suffixes[suffixIndex])
+        rounded=round(size,precision)
+    return rounded+" "+suffixes[suffixIndex]
 
 title=sys.argv[1]
 genome=sys.argv[2]
