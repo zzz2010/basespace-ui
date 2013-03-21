@@ -38,8 +38,9 @@ table_general='<table  class="table table-bordered table-condensed" id="table_ge
 <tr class="info"><td><strong>Job Title</strong></td><td><strong>Assembly</strong></td><td><strong>Detected Cell-line</strong></td></tr>\
 <tr><td>' +title+'</td><td><a target="_blank" href="http://genome.ucsc.edu/cgi-bin/hgGateway?db='+genome+'">'+genome+'</a></td><td>'+cellline+'</td></tr></table>'
 
-table_samples='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Sample files</strong></td><td><strong>File Size</strong></td><tr>'    
 
+#sample list table
+table_samples='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Sample files</strong></td><td><strong>File Size</strong></td><tr>' 
 samplelist=samples.split(",")
 for f in samplelist:
     bname=os.path.basename(f)
@@ -47,6 +48,18 @@ for f in samplelist:
     fsize_str=GetHumanReadable(fsize)
     table_samples+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
 table_samples+='</table>'
+
+#controllist table
+table_controls='' 
+controllist=controls.split(",")
+if controllist:
+    table_controls+='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Control files</strong></td><td><strong>File Size</strong></td><tr>'
+    for f in controllist:
+        bname=os.path.basename(f)
+        fsize=os.path.getsize(f)
+        fsize_str=GetHumanReadable(fsize)
+        table_controls+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
+    table_controls+='</table>'
 
 #generate read mapping and peak calling stats
 pkCalling_dir=result_dir+"/peakcalling_result/"
@@ -59,7 +72,7 @@ if pkconfigcontent.strip():
     pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_html= map_html+pkcallstats_html
 
-html_jobdesc=html+style_table+table_general+table_samples+ pkcall_html+'</div>'
+html_jobdesc=html+style_table+table_general+table_samples+table_controls+ pkcall_html+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
 jobdesc_out.write(html_jobdesc)
 jobdesc_out.close()
