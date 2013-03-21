@@ -98,11 +98,13 @@ def resultfolder_html(dir1):
     html_str+="</div>\n"
     return html_str
 
-def jobinfo_html(job, outdir):
+def jobinfo_html(job, result_dir):
     toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver_regular').replace('\\','/')
-
+    outdir=result_dir+'/job_info/'
+    os.system("rm -r " + outdir)
+    mkpath(outdir)
     job_desc_out=outdir+"jobdescription.html"
-    os.system("rm " + job_desc_out)
+    
     cmd="python "+toolpath+"/generateJobInfoHtml.py '" + job.jobtitle + "' '" + job.ref_genome+ "' '" + job.cell_line + "' '" + job.sampleFiles+ "' '" + job.controlFiles + "' "+ job_desc_out
     print cmd
     os.system(cmd)
@@ -122,12 +124,12 @@ def viewresult(request,job_id):
         
     if job.user==user:
         result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.email+"/"+str(job.id)+"/pipeline_result/"
-        jobinfo_outdir=result_dir+'/job_info/'
-        mkpath(jobinfo_outdir)
-        job_info_html=jobinfo_html(job, str(result_dir))
         result_list=get_immediate_subdirectories(result_dir)
-        content_html=" "
-                                      
+
+        #generate job info html
+        job_info_html=jobinfo_html(job, str(result_dir))
+
+        content_html=" "                                      
         for dir1 in result_list:
             if "CENTDIST" in dir1:
                 content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
