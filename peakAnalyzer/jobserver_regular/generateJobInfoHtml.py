@@ -49,11 +49,11 @@ for f in samplelist:
     table_samples+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
 table_samples+='</table>'
 
-#controllist table
+#control list table
 table_controls='' 
 controllist=controls.split(",")
 if controllist:
-    table_controls+='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Control files</strong></td><td><strong>File Size</strong></td><tr>'
+    table_controls+='<table class="table table-bordered table-condensed" id="table_controls"><tr class="info"><td ><strong>Control files</strong></td><td><strong>File Size</strong></td><tr>'
     for f in controllist:
         bname=os.path.basename(f)
         fsize=os.path.getsize(f)
@@ -72,7 +72,7 @@ if pkconfigcontent.strip():
     pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_html= map_html+pkcallstats_html
 
-html_jobdesc=html+style_table+table_general+table_samples+table_controls+ pkcall_html+'</div>'
+html_jobdesc=html+style_table+table_general+table_samples+table_controls+"<br/>"+ pkcall_html+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
 jobdesc_out.write(html_jobdesc)
 jobdesc_out.close()
