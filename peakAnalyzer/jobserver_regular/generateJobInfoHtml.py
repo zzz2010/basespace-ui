@@ -6,7 +6,7 @@ Created on Mar 21, 2013
 import os
 import sys
 
-def GetHumanReadable(size,precision=3):
+def GetHumanReadable(size,precision=2):
     suffixes=['B','KB','MB','GB','TB']
     suffixIndex = 0
     while size > 1024:
