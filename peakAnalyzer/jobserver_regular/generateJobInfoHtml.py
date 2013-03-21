@@ -52,7 +52,11 @@ for i in xrange(numsamples):
         tbody_general+='<td>'+bname +'</td><td>'+fsize_str+'</td>'
     else:
         tbody_general+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
-  
+
+if ctrllist:
+    tbody_general+=''
+else:
+    tbody_general+='<td rowspan="'+str(numsamples)+'">None</td><td rowspan="'+str(numsamples)+'">Nil</td>'    
 table_general+=tbody_general + "</tr></table>"
 #table_samples='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Sample files</strong></td><td><strong>File Size</strong></td><tr>'    
 #
