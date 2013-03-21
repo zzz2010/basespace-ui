@@ -61,7 +61,7 @@ if controllist:
             fsize_str=GetHumanReadable(fsize)
             table_controls+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
         else:
-            table_controls+='<tr><td>None</td><td>Nil</td></tr>'
+            table_controls+='<tr><td>None</td><td>-</td></tr>'
     table_controls+='</table>'
 
 #generate read mapping and peak calling stats
