@@ -22,7 +22,7 @@ cellline=sys.argv[3]
 samples=sys.argv[4]
 controls=sys.argv[5]
 result_dir=sys.argv[6]
-jobdesc_outfile=sys.argv[6]
+jobdesc_outfile=sys.argv[7]
 
 #job=get_object_or_404(RegularJob, pk=jobid)
 #title=str(job.jobtitle)
