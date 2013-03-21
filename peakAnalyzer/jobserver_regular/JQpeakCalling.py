@@ -163,7 +163,8 @@ def MapFiles():
         if isControl==0:
             break
         if isMapped(extension) == 0:
-            cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + controlfileName_List[cnt]+extension + " -S " + controlfileName_List[cnt]+".sam "
+          ##  cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + controlfileName_List[cnt]+extension + " -S " + controlfileName_List[cnt]+".sam "
+            cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x "+ bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + "-S " + targetfileName_List[cnt]+".sam 2>"+targetfileName_List[cnt]+".maplog.txt"
             #cmd=batmis_dir+'batman -g '+batmis_index_dir+' -q '+ controlfileName_List[cnt]+extension + ' -o ' + controlfileName_List[cnt]+'.bin ' + ' -n 2 -U;'
             #cmd+=batmis_dir+'batdecode -g '+batmis_index_dir+' -i '+ controlfileName_List[cnt]+'.bin -o ' + controlfileName_List[cnt]+'.sam '
             print 'CMD: '+ cmd
