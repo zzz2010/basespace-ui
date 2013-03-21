@@ -26,7 +26,7 @@ html='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
 style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}</style>'
 table_general='<table  class="table table-bordered table-condensed" id="table_general">\
 <tr class="info"><td><strong>Job Title</strong></td><td><strong>Assembly</strong></td><td><strong>Detected Cell-line</strong></td></tr>\
-<tr><td>' +title+'</td><td>'+genome+'</td><td>'+cellline+'</td></tr></table>'
+<tr><td>' +title+'</td><td><a href="http://genome.ucsc.edu/cgi-bin/hgGateway?db='+genome+'">'+genome+'</a></td><td>'+cellline+'</td></tr></table>'
 
 table_samples='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Sample files</strong></td><td><strong>File Size</strong></td><tr>'    
 
