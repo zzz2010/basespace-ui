@@ -172,7 +172,7 @@ function submit_job()
 postdata+='ctrl_ids='+ctrl_ids;
 postdata+='&sample_ids='+sample_ids;
 postdata+='&inputTitle='+$('#inputTitle').val() ;
-postdata+='&inputGenome='+$('#inputGenome').val() ;    
+postdata+='&inputGenome='+$('#select_inputGenome').val() ;    
 postdata+='&inputCell='+$('#inputCell').val() ;   
 
 
@@ -337,7 +337,11 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.Name }}</a>
           <form class="form-horizontal" id="form_jobdata" >
           <table  class="table table-bordered" id=datalists>
           <tr><td> <label class="control-label" for="inputTitle">Job Title</label> </td> <td colspan="2"><input type="text" id="inputTitle" name="inputTitle" placeholder="Job Title"></td></tr>
-         <tr><td> <label class="control-label" for="inputGenome">Reference Genome</label> </td> <td colspan="2"><input type="text" id="inputGenome" name="inputGenome" placeholder="{{genome_names}}"></td></tr>
+         <tr><td> <label class="control-label" for="inputGenome">Reference Genome</label> </td> <td colspan="2">
+               <select id= select_inputGenome> 
+  			<option value="hg19">Human: GRCh37 (hg19)</option> 
+  			<option value="hg18">Human: NCBI build 36.1 (hg18)</option>
+ 			</select></td></tr>
          <tr><td> <label class="control-label" for="inputCell">Cell Type</label> </td> <td colspan="2"><input type="text" id="inputCell" name="inputCell" placeholder="cell"></td></tr>
          
          <tr><td>Data Type</td><td colspan="2">File Name</td></tr>
