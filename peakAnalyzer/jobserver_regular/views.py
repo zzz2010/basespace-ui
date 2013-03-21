@@ -100,7 +100,7 @@ def resultfolder_html(dir1):
 
 def jobinfo_html(job, result_dir):
     toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver_regular').replace('\\','/')
-    outdir=result_dir+'/job_info/'
+    outdir=result_dir+'/../job_info/'
     os.system("rm -r " + outdir)
     mkpath(outdir)
     job_desc_out=outdir+"jobdescription.html"
