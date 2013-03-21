@@ -32,26 +32,37 @@ jobdesc_outfile=sys.argv[7]
 #controls=str(job.controlFiles)
 
 samplelist=samples.split(",")
+ctrllist=controls.split(",")
+
 numsamples=len(samplelist)
 #generate general job desc table
 html='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
 style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{}#table_samples td{width:50%;}</style>'
 table_general='<table  class="table table-bordered table-condensed" id="table_general">\
 <tr class="info"><td><strong>Job Title</strong></td><td><strong>Assembly</strong></td><td><strong>Detected Cell-line</strong></td>\
-<td ><strong>Sample files</strong></td><td><strong>File Size</strong></td> <td><strong>Control files</strong></td><td><strong>File Size</strong></td></tr>\
-<tr><td rowspan="'+str(numsamples)+'">' +title+'</td><td rowspan="'+str(numsamples)+'"><a target="_blank" href="http://genome.ucsc.edu/cgi-bin/hgGateway?db='+genome+'">'+genome+'</a></td><td rowspan="'+str(numsamples)+'">'+cellline+'</td>\
+<td ><strong>Sample files</strong></td><td><strong>File Size</strong></td> <td><strong>Control files</strong></td><td><strong>File Size</strong></td></tr>'
+
+tbody_general='<tr><td rowspan="'+str(numsamples)+'">' +title+'</td><td rowspan="'+str(numsamples)+'"><a target="_blank" href="http://genome.ucsc.edu/cgi-bin/hgGateway?db='+genome+'">'+genome+'</a></td><td rowspan="'+str(numsamples)+'">'+cellline+'</td>\
 </tr>'
 
-table_general+="</table>"
-table_samples='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Sample files</strong></td><td><strong>File Size</strong></td><tr>'    
-
-
-for f in samplelist:
-    bname=os.path.basename(f)
-    fsize=os.path.getsize(f)
+for i in xrange(numsamples):
+    bname=os.path.basename(samplelist[i])
+    fsize=os.path.getsize(samplelist[i])
     fsize_str=GetHumanReadable(fsize)
-    table_samples+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
-table_samples+='</table>'
+    if i==0:
+        tbody_general+='<td>'+bname +'</td><td>'+fsize_str+'</td>'
+    else:
+        tbody_general+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
+  
+table_general+=tbody_general + "</table>"
+#table_samples='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Sample files</strong></td><td><strong>File Size</strong></td><tr>'    
+#
+#for f in samplelist:
+#    bname=os.path.basename(f)
+#    fsize=os.path.getsize(f)
+#    fsize_str=GetHumanReadable(fsize)
+#    table_samples+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
+#table_samples+='</table>'
 
 #generate read mapping and peak calling stats
 pkCalling_dir=result_dir+"/peakcalling_result/"
@@ -64,7 +75,7 @@ if pkconfigcontent.strip():
     pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_html= map_html+pkcallstats_html
 
-html_jobdesc=html+style_table+table_general+table_samples+ pkcall_html+'</div>'
+html_jobdesc=html+style_table+table_general+ pkcall_html+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
 jobdesc_out.write(html_jobdesc)
 jobdesc_out.close()
