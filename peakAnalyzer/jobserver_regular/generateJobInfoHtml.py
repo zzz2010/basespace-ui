@@ -55,7 +55,9 @@ pkconfigcontent=open(pkconfig).read()
 
 pkcall_html=''
 if pkconfigcontent.strip():
-    pkcall_html= '<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
+    map_html='<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
+    pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
+    pkcall_html= map_html+pkcallstats_html
 
 html_jobdesc=html+style_table+table_general+table_samples+ pkcall_html+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
