@@ -99,7 +99,10 @@ def resultfolder_html(dir1):
 
 def jobinfo_html(job, result_dir):
     toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver_regular').replace('\\','/')
-    job_desc_out=result_dir+"jobdescription.html"
+    outdir=toolpath+'/job_info'
+    mkpath(outdir)
+    job_desc_out=outdir+"jobdescription.html"
+    os.system("rm " + job_desc_out)
     cmd="python "+toolpath+"/generateJobInfoHtml.py '" + job.jobtitle + "' '" + job.ref_genome+ "' '" + job.cell_line + "' '" + job.sampleFiles+ "' '" + job.controlFiles + "' "+ job_desc_out
     print cmd
     os.system(cmd)

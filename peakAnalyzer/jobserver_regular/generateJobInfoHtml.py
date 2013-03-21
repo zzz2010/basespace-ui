@@ -19,7 +19,7 @@ table_general='<table  class="table table-bordered table-condensed" id="table_ge
 <tr class="info"><td><strong>Job Title</strong></td><td><strong>Assembly</strong></td><td><strong>Detected Cell-line</strong></td></tr>\
 <tr><td>' +title+'</td><td>'+genome+'</td><td>'+cellline+'</td></tr></table>'
 
-table_samples='<table class="table table-bordered table-condensed"><tr class="info"><td ><strong>Sample files</strong></td><td><strong>File Size</strong></td><tr>'    
+table_samples='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Sample files</strong></td><td><strong>File Size</strong></td><tr>'    
 
 samplelist=samples.split(",")
 for f in samplelist:
