@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from jobserver_regular.tasks import mkpath
 
 # Create your views here.
 def listjob(request,user_id):
@@ -99,7 +100,7 @@ def resultfolder_html(dir1):
 
 def jobinfo_html(job, result_dir):
     toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver_regular').replace('\\','/')
-    outdir=toolpath+'/job_info/'
+    outdir=result_dir+'/job_info/'
     mkpath(outdir)
     job_desc_out=outdir+"jobdescription.html"
     os.system("rm " + job_desc_out)
