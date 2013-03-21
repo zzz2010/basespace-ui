@@ -28,7 +28,7 @@ for f in samplelist:
     table_samples+='<tr><td>'+bname +'</td><td>'+str(fsize)+'</td></tr>'
 table_samples+='</table>'
 
-html_jobdesc=html+style_table+table_general+table_samples+'</div></div>'
+html_jobdesc=html+style_table+table_general+table_samples+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
 jobdesc_out.write(html_jobdesc)
 jobdesc_out.close()
