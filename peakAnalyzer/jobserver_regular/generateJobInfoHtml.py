@@ -73,7 +73,7 @@ pkcall_html=''
 if pkconfigcontent.strip():
     map_html='<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
     map_table='<table class="table table-bordered table-condensed">\
-                <thead><tr><th><Non-Mapped></th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th></tr></thead>'
+                <thead><tr><th>Non-Mapped</th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th><th>Total</th></tr></thead>'
     
     map_table+="</table>"
     map_html+=map_table
