@@ -42,8 +42,7 @@ table_general='<table  class="table table-bordered table-condensed" id="table_ge
 <tr class="info"><td><strong>Job Title</strong></td><td><strong>Assembly</strong></td><td><strong>Detected Cell-line</strong></td>\
 <td ><strong>Sample files</strong></td><td><strong>File Size</strong></td> <td><strong>Control files</strong></td><td><strong>File Size</strong></td></tr>'
 
-tbody_general='<tr><td rowspan="'+str(numsamples)+'">' +title+'</td><td rowspan="'+str(numsamples)+'"><a target="_blank" href="http://genome.ucsc.edu/cgi-bin/hgGateway?db='+genome+'">'+genome+'</a></td><td rowspan="'+str(numsamples)+'">'+cellline+'</td>\
-</tr>'
+tbody_general='<tr><td rowspan="'+str(numsamples)+'">' +title+'</td><td rowspan="'+str(numsamples)+'"><a target="_blank" href="http://genome.ucsc.edu/cgi-bin/hgGateway?db='+genome+'">'+genome+'</a></td><td rowspan="'+str(numsamples)+'">'+cellline+'</td>'
 
 for i in xrange(numsamples):
     bname=os.path.basename(samplelist[i])
@@ -54,7 +53,7 @@ for i in xrange(numsamples):
     else:
         tbody_general+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
   
-table_general+=tbody_general + "</table>"
+table_general+=tbody_general + "</tr></table>"
 #table_samples='<table class="table table-bordered table-condensed" id="table_samples"><tr class="info"><td ><strong>Sample files</strong></td><td><strong>File Size</strong></td><tr>'    
 #
 #for f in samplelist:
