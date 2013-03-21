@@ -33,7 +33,7 @@ jobdesc_outfile=sys.argv[7]
 
 #generate general job desc table
 html_desc='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
-style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}</style>'
+style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}#table_controls td{width:50%;}</style>'
 table_general='<table  class="table table-bordered table-condensed" id="table_general">\
 <tr class="info"><td><strong>Job Title</strong></td><td><strong>Assembly</strong></td><td><strong>Detected Cell-line</strong></td></tr>\
 <tr><td>' +title+'</td><td><a target="_blank" href="http://genome.ucsc.edu/cgi-bin/hgGateway?db='+genome+'">'+genome+'</a></td><td>'+cellline+'</td></tr></table>'
@@ -60,6 +60,8 @@ if controllist:
             fsize=os.path.getsize(f)
             fsize_str=GetHumanReadable(fsize)
             table_controls+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
+        else:
+            table_controls+='<tr><td>None</td><td>Nil</td></tr>'
     table_controls+='</table>'
 
 #generate read mapping and peak calling stats
