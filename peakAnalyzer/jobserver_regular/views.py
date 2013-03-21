@@ -103,7 +103,7 @@ def jobinfo_html(job, result_dir):
     outdir=result_dir+'/job_info/'
     mkpath(outdir)
     job_desc_out=outdir+"jobdescription.html"
-    os.system("rm " + job_desc_out)
+   # os.system("rm " + job_desc_out)
     cmd="python "+toolpath+"/generateJobInfoHtml.py '" + job.jobtitle + "' '" + job.ref_genome+ "' '" + job.cell_line + "' '" + job.sampleFiles+ "' '" + job.controlFiles + "' " +result_dir+ " " + job_desc_out
 #    cmd="python "+toolpath+"/generateJobInfoHtml.py " + str(job.id) +" "+result_dir+ " " +job_desc_out
     print cmd
