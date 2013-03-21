@@ -6,6 +6,14 @@ Created on Mar 21, 2013
 import os
 import sys
 
+def GetHumanReadable(size,precision=2):
+    suffixes=['B','KB','MB','GB','TB']
+    suffixIndex = 0
+    while size > 1024:
+        suffixIndex += 1 #increment the index of the suffix
+        size = size/1024.0 #apply the division
+    return "%.*f %d"%(precision,size,suffixes[suffixIndex])
+
 title=sys.argv[1]
 genome=sys.argv[2]
 cellline=sys.argv[3]
@@ -25,7 +33,8 @@ samplelist=samples.split(",")
 for f in samplelist:
     bname=os.path.basename(f)
     fsize=os.path.getsize(f)
-    table_samples+='<tr><td>'+bname +'</td><td>'+str(fsize)+'</td></tr>'
+    fsize_str=GetHumanReadable(fsize)
+    table_samples+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
 table_samples+='</table>'
 
 html_jobdesc=html+style_table+table_general+table_samples+'</div>'
