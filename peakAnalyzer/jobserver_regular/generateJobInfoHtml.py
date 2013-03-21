@@ -5,7 +5,7 @@ Created on Mar 21, 2013
 '''
 import os
 import sys
-from jobserver_regular.models import RegularJob
+from models import RegularJob
 from django.shortcuts import render_to_response, get_object_or_404
 
 def GetHumanReadable(size,precision=2):
@@ -52,7 +52,7 @@ pkconfigcontent=open(pkconfig).read()
 
 pkcall_html=''
 if pkconfigcontent.strip():
-   pkcall_html= '<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
+    pkcall_html= '<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
 
 html_jobdesc=html+style_table+table_general+table_samples+ pkcall_html+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
