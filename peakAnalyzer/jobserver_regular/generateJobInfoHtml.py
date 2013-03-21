@@ -76,6 +76,7 @@ if pkconfigcontent.strip():
                 <thead><tr><th><Non-Mapped></th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th>'
     
     map_table+="</table>"
+    map_html+=map_table
     pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_html= map_html+pkcallstats_html
 
