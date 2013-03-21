@@ -124,6 +124,7 @@ def viewresult(request,job_id):
         result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.email+"/"+str(job.id)+"/pipeline_result/"
         jobinfo_outdir=result_dir+'/job_info/'
         mkpath(jobinfo_outdir)
+        job_info_html=jobinfo_html(job, str(result_dir))
         result_list=get_immediate_subdirectories(result_dir)
         content_html=" "
                                       
@@ -139,7 +140,7 @@ def viewresult(request,job_id):
         
             else:
                 content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
-        return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
+        return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html, 'job_info':job_info_html})
             
     else:
         return render_to_response('jobserver/view_result_not_authorized.html')
