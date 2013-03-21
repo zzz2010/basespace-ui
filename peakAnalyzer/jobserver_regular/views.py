@@ -105,6 +105,7 @@ def jobinfo_html(job, result_dir):
     job_desc_out=outdir+"jobdescription.html"
     
     cmd="python "+toolpath+"/generateJobInfoHtml.py '" + job.jobtitle + "' '" + job.ref_genome+ "' '" + job.cell_line + "' '" + job.sampleFiles+ "' '" + job.controlFiles + "' "+ job_desc_out
+    cmd="python "+toolpath+"/generateJobInfoHtml.py " + job.id +" "+ job_desc_out
     print cmd
     os.system(cmd)
     try:

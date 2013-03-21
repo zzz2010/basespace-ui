@@ -5,6 +5,8 @@ Created on Mar 21, 2013
 '''
 import os
 import sys
+from jobserver_regular.models import RegularJob
+from django.shortcuts import render_to_response, get_object_or_404
 
 def GetHumanReadable(size,precision=2):
     suffixes=['B','KB','MB','GB','TB']
@@ -15,12 +17,21 @@ def GetHumanReadable(size,precision=2):
         rounded=round(size,precision)
     return str(rounded)+" "+suffixes[suffixIndex]
 
-title=sys.argv[1]
-genome=sys.argv[2]
-cellline=sys.argv[3]
-samples=sys.argv[4]
-controls=sys.argv[5]
-jobdesc_outfile=sys.argv[6]
+#title=sys.argv[1]
+#genome=sys.argv[2]
+#cellline=sys.argv[3]
+#samples=sys.argv[4]
+#controls=sys.argv[5]
+#jobdesc_outfile=sys.argv[6]
+jobid=sys.argv[1]
+jobdesc_outfile=sys.argv[2]
+
+job=get_object_or_404(RegularJob, pk=jobid)
+title=job.jobtitle
+genome=job.ref_genome
+cellline=job.cell_line
+samples=job.sampleFiles
+controls=job.controlFiles
 
 html='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
 style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}</style>'
