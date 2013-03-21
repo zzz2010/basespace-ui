@@ -55,10 +55,11 @@ controllist=controls.split(",")
 if controllist:
     table_controls+='<table class="table table-bordered table-condensed" id="table_controls"><tr class="info"><td ><strong>Control files</strong></td><td><strong>File Size</strong></td><tr>'
     for f in controllist:
-        bname=os.path.basename(f)
-        fsize=os.path.getsize(f)
-        fsize_str=GetHumanReadable(fsize)
-        table_controls+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
+        if f:
+            bname=os.path.basename(f)
+            fsize=os.path.getsize(f)
+            fsize_str=GetHumanReadable(fsize)
+            table_controls+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
     table_controls+='</table>'
 
 #generate read mapping and peak calling stats
