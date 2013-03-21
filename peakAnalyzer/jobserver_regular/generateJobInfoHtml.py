@@ -27,9 +27,8 @@ genome=str(job.ref_genome)
 cellline=str(job.cell_line)
 samples=str(job.sampleFiles)
 controls=str(job.controlFiles)
-pkCalling_dir=result_dir+"/peakcalling_result/"
 
-
+#generate general job desc table
 html='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
 style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}</style>'
 table_general='<table  class="table table-bordered table-condensed" id="table_general">\
@@ -46,7 +45,16 @@ for f in samplelist:
     table_samples+='<tr><td>'+bname +'</td><td>'+fsize_str+'</td></tr>'
 table_samples+='</table>'
 
-html_jobdesc=html+style_table+table_general+table_samples+'</div>'
+#generate read mapping and peak calling stats
+pkCalling_dir=result_dir+"/peakcalling_result/"
+pkconfig=pkCalling_dir+"pk.cfg"
+pkconfigcontent=open(pkconfig).read()
+
+pkcall_html=''
+if pkconfigcontent.strip():
+   pkcall_html= '<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
+
+html_jobdesc=html+style_table+table_general+table_samples+ pkcall_html+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
 jobdesc_out.write(html_jobdesc)
 jobdesc_out.close()
