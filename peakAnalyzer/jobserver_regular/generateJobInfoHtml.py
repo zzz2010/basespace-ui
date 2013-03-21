@@ -32,7 +32,7 @@ jobdesc_outfile=sys.argv[7]
 #controls=str(job.controlFiles)
 
 #generate general job desc table
-html='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
+html_desc='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
 style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}</style>'
 table_general='<table  class="table table-bordered table-condensed" id="table_general">\
 <tr class="info"><td><strong>Job Title</strong></td><td><strong>Assembly</strong></td><td><strong>Detected Cell-line</strong></td></tr>\
@@ -72,9 +72,10 @@ if pkconfigcontent.strip():
     pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_html= map_html+pkcallstats_html
 
-html_jobdesc=html+style_table+table_general+table_samples+table_controls+ pkcall_html+'</div>'
+html_gen=html_desc+style_table+table_general+table_samples+table_controls
+html_out=html_gen+ pkcall_html+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
-jobdesc_out.write(html_jobdesc)
+jobdesc_out.write(html_out)
 jobdesc_out.close()
 
 
