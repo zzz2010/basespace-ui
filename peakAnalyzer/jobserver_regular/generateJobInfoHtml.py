@@ -27,11 +27,11 @@ jobid=int(sys.argv[1])
 jobdesc_outfile=sys.argv[2]
 
 job=get_object_or_404(RegularJob, pk=jobid)
-title=job.jobtitle
-genome=job.ref_genome
-cellline=job.cell_line
-samples=job.sampleFiles
-controls=job.controlFiles
+title=str(job.jobtitle)
+genome=str(job.ref_genome)
+cellline=str(job.cell_line)
+samples=str(job.sampleFiles)
+controls=str(job.controlFiles)
 
 html='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
 style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}</style>'
