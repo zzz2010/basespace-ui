@@ -125,10 +125,7 @@ def viewresult(request,job_id):
         result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.email+"/"+str(job.id)+"/pipeline_result/"
         result_list=get_immediate_subdirectories(result_dir)
         content_html=" "
-        
-        jobinfo=jobinfo_html(job, str(result_dir))
-        
-        content_html+=jobinfo
+                       
         for dir1 in result_list:
             if "CENTDIST" in dir1:
                 content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
@@ -136,6 +133,8 @@ def viewresult(request,job_id):
                 content_html+=denovoMotif_result(str(result_dir)+"/"+str(dir1))
             elif "GREAT" in dir1:
                 content_html+=GREAT_result(str(result_dir)+"/"+str(dir1))
+            elif "job_info" in dir1:
+                content_html=jobinfo_html(job, str(result_dir))
         
             else:
                 content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
