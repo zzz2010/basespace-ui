@@ -102,12 +102,30 @@ def resultfolder_html(dir1):
     html_str+="</div>\n"
     return html_str
 
-
+def jobinfo_html(job, result_dir):
+    toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver_regular').replace('\\','/')
+    outdir=result_dir+'/job_info/'
+    mkpath(outdir)
+    job_desc_out=outdir+"jobdescription.html"
+   # os.system("rm " + job_desc_out)
+    cmd="python "+toolpath+"/generateJobInfoHtml.py '" + job.jobtitle + "' '" + job.ref_genome+ "' '" + job.cell_line + "' '" + job.sampleFiles+ "' '" + job.controlFiles + "' " +result_dir+ " " + job_desc_out
+#    cmd="python "+toolpath+"/generateJobInfoHtml.py " + str(job.id) +" "+result_dir+ " " +job_desc_out
+    print cmd
+    os.system(cmd)
+    try:
+        job_desc=open(job_desc_out).read()
+    except:
+        job_desc=''
+    html_str="<div class='tab-pane' id='job_info'>" +job_desc+ "</div>"
+    
+    
+    return html_str
 @login_required      
 def viewresult(request,job_id):
     job=get_object_or_404(Job, pk=job_id)
     result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/"+job.user.Email+"/"+str(job.id)+"/pipeline_result/"
     result_list=get_immediate_subdirectories(result_dir)
+    job_info_html=jobinfo_html(job, str(result_dir)+"../")
     content_html=" "
     for dir1 in result_list:
         if "CENTDIST" in dir1:
@@ -119,4 +137,4 @@ def viewresult(request,job_id):
             content_html+=GREAT_result(str(result_dir)+"/"+str(dir1))
         else:
             content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
-    return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html})
+    return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html,'job_info':job_info_html})
