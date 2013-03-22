@@ -74,6 +74,10 @@ def generateMappingStats(result_dir):
         map_table+='</table>'    
     return map_table
 
+def generatePkCallingStats(result_dir):
+    pkcall_table='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
+    return pkcall_table
+
 #generate general job desc table
 html_desc='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
 style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}#table_controls td{width:50%;}.table.table-bordered.table-condensed th{text-align:center;}</style>'
@@ -121,7 +125,8 @@ if pkconfigcontent.strip():
     map_table=generateMappingStats(result_dir)
  
     map_html+=map_table
-    pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
+    pkcallstats_html=generatePkCallingStats(result_dir)
+ #   pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_html= map_html+pkcallstats_html
 
 #html_gen=html_desc+style_table+table_general+table_samples+table_controls
