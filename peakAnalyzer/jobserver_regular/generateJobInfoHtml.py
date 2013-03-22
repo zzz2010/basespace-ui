@@ -8,6 +8,7 @@ import sys
 import glob
 import commands
 import peakAnalyzer.settings
+
 title=sys.argv[1]
 genome=sys.argv[2]
 cellline=sys.argv[3]
