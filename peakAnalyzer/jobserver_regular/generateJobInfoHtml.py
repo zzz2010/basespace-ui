@@ -62,7 +62,7 @@ def generateMappingStats(result_dir):
         
         outputdir=result_dir+'/job_info/'
         cmd='R ' + outputdir+ ' '+ num_unmap +' '+num_mm+' ' + num_uniq + ' --no-save < '+toolpath+'/plotPie.R'
-        os.system(cmd)
+    #    os.system(cmd)
         
         map_table+='<tbody>'+num_reads_html+pct_reads_html+'</tbody></table>'
         
