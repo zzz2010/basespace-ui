@@ -7,7 +7,7 @@ import os
 import sys
 import glob
 import commands
-
+import peakAnalyzer.settings.ROOT_DIR
 title=sys.argv[1]
 genome=sys.argv[2]
 cellline=sys.argv[3]
@@ -15,7 +15,7 @@ samples=sys.argv[4]
 controls=sys.argv[5]
 result_dir=sys.argv[6]
 jobdesc_outfile=sys.argv[7]
-toolpath=sys.path[0]+"/"
+toolpath=toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver_regular').replace('\\','/')
 
 def GetHumanReadable(size,precision=2):
     suffixes=['B','KB','MB','GB','TB']
