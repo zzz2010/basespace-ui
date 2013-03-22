@@ -76,6 +76,7 @@ def generateMappingStats(result_dir):
 
 def generatePkCallingStats(result_dir):
     pkcall_table='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
+    pkcall_table+='<div class="job_desc_sec"><div>MACS Version:</div><div>1.4.2</div><div style="clear:both"></div></div>'
     return pkcall_table
 
 #generate general job desc table
