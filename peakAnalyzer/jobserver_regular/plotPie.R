@@ -6,7 +6,7 @@ uniq<-as.numeric(Args[5])
 
 png(paste(outdir,"reads_distribution.png",sep=""), width=600)
 slices<-c(unmap,uniq, multimap)
-lab<-c("Non-Mapped", "Unique","Multi-Map")
+lab<-c("Non-Map", "Unique","Multi-Map")
 pct <- round(slices/sum(slices)*100, digits=2)
 lab<-paste(lab,pct)
 lab <- paste(lab,"%",sep="")

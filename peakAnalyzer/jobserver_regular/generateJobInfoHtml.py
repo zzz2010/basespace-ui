@@ -37,7 +37,7 @@ def generateMappingStats(result_dir):
     pcrfilterfile=glob.glob(pkcall_outdir+"*.unique")[0]
 
     map_table='<table class="table table-bordered table-condensed">\
-                <thead><tr><th></th><th>Non-Mapped</th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th><th>Total</th></tr></thead>'
+                <thead><tr><th></th><th>Non-Map</th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th><th>Total</th></tr></thead>'
     
     try:
         maplog=open(maplogfile,'r').readlines()
