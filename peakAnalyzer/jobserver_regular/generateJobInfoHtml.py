@@ -23,7 +23,7 @@ def generateMappingStats(result_dir):
     pcrfilterfile=glob.glob(pkcall_outdir+"*.unique")[0]
 
     map_table='<table class="table table-bordered table-condensed">\
-                <thead><tr><th>Non-Mapped</th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th><th>Total</th></tr></thead>'
+                <thead><tr><th></th><th>Non-Mapped</th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th><th>Total</th></tr></thead>'
     
     try:
         maplog=open(maplogfile,'r').readlines()
@@ -43,7 +43,7 @@ def generateMappingStats(result_dir):
         num_uniq=numreads[2]
         num_mm=numreads[3]
         
-        map_table+='<tbody><tr><td>'+num_unmap+'</td><td>'+num_mm +'</td><td>'+num_uniq+'</td><td>'+num_pcr+'</td><td>'+num_total+'</td></tr></tbody></table>'
+        map_table+='<tbody><tr><td>#Reads</td><td>'+num_unmap+'</td><td>'+num_mm +'</td><td>'+num_uniq+'</td><td>'+num_pcr+'</td><td>'+num_total+'</td></tr></tbody></table>'
     except:
         map_table+='</table>'    
     return map_table
