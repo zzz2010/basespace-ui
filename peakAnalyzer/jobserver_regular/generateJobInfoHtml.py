@@ -64,6 +64,8 @@ if controllist:
             table_controls+='<tr><td>None</td><td>-</td></tr>'
     table_controls+='</table>'
 
+div_files='<div class="row><div class="span6">'+table_samples+'</div><div class="span6">'+table_controls+'</div></div>'
+
 #generate read mapping and peak calling stats
 pkCalling_dir=result_dir+"/peakcalling_result/"
 pkconfig=pkCalling_dir+"pk.cfg"
@@ -80,7 +82,8 @@ if pkconfigcontent.strip():
     pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_html= map_html+pkcallstats_html
 
-html_gen=html_desc+style_table+table_general+table_samples+table_controls
+#html_gen=html_desc+style_table+table_general+table_samples+table_controls
+html_gen=html_desc+style_table+table_general+div_files
 html_out=html_gen+ pkcall_html+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
 jobdesc_out.write(html_out)
