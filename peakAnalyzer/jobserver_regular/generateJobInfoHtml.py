@@ -56,7 +56,7 @@ def generateMappingStats(result_dir):
         num_uniq=numreads[2]
         num_mm=numreads[3]
         
-        num_reads_html='<tr><td>Number of Reads</td><td>'+num_unmap+'</td><td>'+num_mm +'</td><td><span class="label label-warning">'+num_uniq+'</span></td><td><span class="label label-important">'+num_pcr+'</span></td><td><span class="label label-inverse">'+num_total+'</span></td></tr>'
+        num_reads_html='<tr><td>Number of Reads</td><td>'+num_unmap+'</td><td>'+num_mm +'</td><td><span class="label label-info">'+num_uniq+'</span></td><td><span class="label label-important">'+num_pcr+'</span></td><td><span class="label label-inverse">'+num_total+'</span></td></tr>'
         
         pct_reads_html='<tr><td>% (of total) Reads</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td>'+getPercentageReads(num_total, num_total)+'</td></tr>'
         
@@ -65,9 +65,10 @@ def generateMappingStats(result_dir):
         cmd='R ' + outputdir+ ' '+ num_unmap +' '+num_mm+' ' + num_uniq + ' --no-save < '+toolpath+'/plotPie.R'
         os.system(cmd)
         
+        #DEBUG
         imgurl=str(outputdir+'/reads_distribution.png').replace("/home/sokemay/basespace/basespace-ui/basespace-ui","")
         plot_html='<tr><td colspan="6"><img src="'+ imgurl +'"></td></tr>'
-        map_table+='<tbody>'+num_reads_html+pct_reads_html+plot_html + '</tbody></table>'
+        map_table+='<tbody>'+num_reads_html+pct_reads_html+plot_html + '</tbody></table>' #end of mapping stats table
         
     except:
         map_table+='</table>'    
