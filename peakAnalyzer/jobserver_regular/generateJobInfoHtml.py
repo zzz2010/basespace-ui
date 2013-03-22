@@ -7,7 +7,7 @@ import os
 import sys
 import glob
 import commands
-import peakAnalyzer.settings.ROOT_DIR
+import peakAnalyzer.settings
 title=sys.argv[1]
 genome=sys.argv[2]
 cellline=sys.argv[3]
