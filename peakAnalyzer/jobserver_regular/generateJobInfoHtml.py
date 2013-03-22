@@ -43,7 +43,7 @@ def generateMappingStats(result_dir):
         num_uniq=numreads[2]
         num_mm=numreads[3]
         
-        map_table+='<tbody><tr><td>#Reads</td><td>'+num_unmap+'</td><td>'+num_mm +'</td><td>'+num_uniq+'</td><td>'+num_pcr+'</td><td>'+num_total+'</td></tr></tbody></table>'
+        map_table+='<tbody><tr><td>Number of Reads</td><td>'+num_unmap+'</td><td>'+num_mm +'</td><td>'+num_uniq+'</td><td>'+num_pcr+'</td><td>'+num_total+'</td></tr></tbody></table>'
     except:
         map_table+='</table>'    
     return map_table
