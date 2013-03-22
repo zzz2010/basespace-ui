@@ -144,7 +144,6 @@ def MapFiles():
     for extension in targetfileExtension_List:        
         if isMapped(extension) == 0:
             #print extension
-           ## cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + " -S " + targetfileName_List[cnt]+".sam "
             cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x "+ bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + " -S " + targetfileName_List[cnt]+".sam 2>"+targetfileName_List[cnt]+".maplog.txt"
             
             #cmd=batmis_dir+'batman -g '+batmis_index_dir+' -q '+ targetfileName_List[cnt]+extension + ' -o ' + targetfileName_List[cnt]+'.bin ' + ' -n 2 -U;'
@@ -152,6 +151,7 @@ def MapFiles():
             print 'CMD: '+ cmd 
             print '1.Mapping _target_ sequences...: '+targetfileName_List[cnt]+extension
             os.system(cmd)
+            os.system("mv " + targetfileName_List[cnt]+".maplog.txt" + " " + output_dir)
             #cmd = 'rm ' + targetfileName_List[cnt]+'.bin '
             #os.system(cmd)
             print '1.Mapping '+ targetfileName_List[cnt]+' Done.'
