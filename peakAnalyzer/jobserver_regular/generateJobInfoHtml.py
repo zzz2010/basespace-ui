@@ -17,6 +17,11 @@ def GetHumanReadable(size,precision=2):
         rounded=round(size,precision)
     return str(rounded)+" "+suffixes[suffixIndex]
 
+def getPercentageReads(noreads, totreads):
+    fractionreads=float(noreads)/float(totreads)
+    pctreads=round((fractionreads*100), 2)
+    return str(pctreads) + "%"
+
 def generateMappingStats(result_dir):
     pkcall_outdir=result_dir+"/peakcalling_result/"
     maplogfile= glob.glob(pkcall_outdir+"*.maplog.txt")[0]
@@ -34,7 +39,6 @@ def generateMappingStats(result_dir):
         for l in maplog:
             bracketIndex=l.find("(")
             numreads.append(l[0:bracketIndex].strip())
-            pctreads.append(l[(bracketIndex+1):l.find(")")].strip())
         
         status,output=commands.getstatusoutput("wc -l " + pcrfilterfile)
         num_pcr=output.split()[0]
@@ -43,7 +47,13 @@ def generateMappingStats(result_dir):
         num_uniq=numreads[2]
         num_mm=numreads[3]
         
-        map_table+='<tbody><tr><td>Number of Reads</td><td>'+num_unmap+'</td><td>'+num_mm +'</td><td>'+num_uniq+'</td><td>'+num_pcr+'</td><td>'+num_total+'</td></tr></tbody></table>'
+        num_reads_html='<tr><td>Number of Reads</td><td>'+num_unmap+'</td><td>'+num_mm +'</td><td>'+num_uniq+'</td><td>'+num_pcr+'</td><td>'+num_total+'</td></tr>'
+        
+        pct_reads_html='<tr><td>%(of total) Reads</td><td>'+getPercentageReads(num_unmap)+'</td><td>'+getPercentageReads(num_mm) +'</td><td>'+getPercentageReads(num_uniq)+'</td><td>'+getPercentageReads(num_pcr)+'</td><td>'+getPercentageReads(num_total)+'</td></tr>'
+    
+        
+        map_table+='<tbody>'+'</tbody></table>'
+        
     except:
         map_table+='</table>'    
     return map_table
