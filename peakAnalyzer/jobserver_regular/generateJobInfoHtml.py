@@ -70,15 +70,6 @@ def generateMappingStats(result_dir):
         map_table+='</table>'    
     return map_table
 
-
-
-#job=get_object_or_404(RegularJob, pk=jobid)
-#title=str(job.jobtitle)
-#genome=str(job.ref_genome)
-#cellline=str(job.cell_line)
-#samples=str(job.sampleFiles)
-#controls=str(job.controlFiles)
-
 #generate general job desc table
 html_desc='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
 style_table='<style> .table.table-bordered.table-condensed td{text-align:center;}#table_general td{width:33.33%;}#table_samples td{width:50%;}#table_controls td{width:50%;}.table.table-bordered.table-condensed th{text-align:center;}</style>'
