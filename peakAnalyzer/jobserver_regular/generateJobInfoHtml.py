@@ -66,7 +66,7 @@ def generateMappingStats(result_dir):
         os.system(cmd)
         
         imgurl=str(outputdir+'/reads_distribution.png').replace("/home/sokemay/basespace/basespace-ui/basespace-ui","")
-        plot_html='<tr><td colspan="6"><img src=">'+ imgurl +'"</td></tr>'
+        plot_html='<tr><td colspan="6"><img src="'+ imgurl +'"></td></tr>'
         map_table+='<tbody>'+num_reads_html+pct_reads_html+plot_html + '</tbody></table>'
         
     except:
