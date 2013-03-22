@@ -1,5 +1,5 @@
 Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
-outdir<-dirname(Args[2])
+outdir<-Args[2]
 unmap<-as.numeric(Args[3])
 multimap<-as.numeric(Args[4])
 uniq<-as.numeric(Args[5])
