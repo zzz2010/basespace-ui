@@ -5,6 +5,8 @@ Created on Mar 21, 2013
 '''
 import os
 import sys
+import glob
+import commands
 
 def GetHumanReadable(size,precision=2):
     suffixes=['B','KB','MB','GB','TB']
@@ -15,6 +17,36 @@ def GetHumanReadable(size,precision=2):
         rounded=round(size,precision)
     return str(rounded)+" "+suffixes[suffixIndex]
 
+def generateMappingStats(result_dir):
+    pkcall_outdir=result_dir+"/peakcalling_result/"
+    maplogfile= glob.glob(pkcall_outdir+"*.maplog.txt")[0]
+    pcrfilterfile=glob.glob(pkcall_outdir+"*.unique")[0]
+
+    map_table='<table class="table table-bordered table-condensed">\
+                <thead><tr><th>Non-Mapped</th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th><th>Total</th></tr></thead>'
+    
+    try:
+        maplog=open(maplogfile,'r').readlines()
+        maplog=maplog[1:4]
+        
+        numreads=list()
+        pctreads=list()
+        for l in maplog:
+            bracketIndex=l.find("(")
+            numreads.append(l[0:bracketIndex].strip())
+            pctreads.append(l[(bracketIndex+1):l.find(")")].strip())
+        
+        status,output=commands.getstatusoutput("wc -l " + pcrfilterfile)
+        num_pcr=output.split()[0]
+        num_total=numreads[0]
+        num_unmap=numreads[1]
+        num_uniq=numreads[2]
+        num_mm=numreads[3]
+        
+        map_table+='<tbody><tr><td>'+num_unmap+'</td><td>'+num_mm +'</td><td>'+num_uniq+'</td><td>'+num_pcr+'</td><td>'+num_total+'</td></tr></tbody></table>'
+    except:
+        maplog='</table>'    
+    return map_table
 
 title=sys.argv[1]
 genome=sys.argv[2]
@@ -74,9 +106,9 @@ pkconfigcontent=open(pkconfig).read()
 pkcall_html=''
 if pkconfigcontent.strip():
     map_html='<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
-    map_table='<table class="table table-bordered table-condensed">\
-                <thead><tr><th>Non-Mapped</th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th><th>Total</th></tr></thead>'
     
+    map_table=generateMappingStats()
+ 
     map_table+="</table>"
     map_html+=map_table
     pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
