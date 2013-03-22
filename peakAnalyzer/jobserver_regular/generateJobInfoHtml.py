@@ -61,7 +61,7 @@ def generateMappingStats(result_dir):
         pct_reads_html='<tr><td>% (of total) Reads</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td>'+getPercentageReads(num_total, num_total)+'</td></tr>'
         
         outputdir=result_dir+'/job_info/'
-        cmd='R ' + outputdir+ ' '+ num_unmap +' '+num_mm+' ' + num_uniq + ' --no-save < '+toolpath+'/plotPie.R'
+#        cmd='R ' + outputdir+ ' '+ num_unmap +' '+num_mm+' ' + num_uniq + ' --no-save < '+toolpath+'/plotPie.R'
     #    os.system(cmd)
         
         map_table+='<tbody>'+num_reads_html+pct_reads_html+'</tbody></table>'
