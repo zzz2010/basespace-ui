@@ -107,7 +107,7 @@ pkcall_html=''
 if pkconfigcontent.strip():
     map_html='<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
     
-    map_table=generateMappingStats()
+    map_table=generateMappingStats(result_dir)
  
     map_html+=map_table
     pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
