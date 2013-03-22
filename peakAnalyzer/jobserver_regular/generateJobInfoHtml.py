@@ -64,7 +64,7 @@ if controllist:
             table_controls+='<tr><td>None</td><td>-</td></tr>'
     table_controls+='</table>'
 
-div_files='<div class="row><div class="span6">'+table_samples+'</div><div class="span6">'+table_controls+'</div></div>'
+div_files='<div class="row"><div class="span6">'+table_samples+'</div><div class="span6">'+table_controls+'</div></div>'
 
 #generate read mapping and peak calling stats
 pkCalling_dir=result_dir+"/peakcalling_result/"
