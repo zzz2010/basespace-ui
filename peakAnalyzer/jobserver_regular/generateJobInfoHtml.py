@@ -52,7 +52,7 @@ def generateMappingStats(result_dir):
         pct_reads_html='<tr><td>%(of total) Reads</td><td>'+getPercentageReads(num_unmap)+'</td><td>'+getPercentageReads(num_mm) +'</td><td>'+getPercentageReads(num_uniq)+'</td><td>'+getPercentageReads(num_pcr)+'</td><td>'+getPercentageReads(num_total)+'</td></tr>'
     
         
-        map_table+='<tbody>'+'</tbody></table>'
+        map_table+='<tbody>'+num_reads_html+pct_reads_html+'</tbody></table>'
         
     except:
         map_table+='</table>'    
