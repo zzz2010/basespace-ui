@@ -7,7 +7,6 @@ import os
 import sys
 import glob
 import commands
-#import peakAnalyzer.settings
 
 title=sys.argv[1]
 genome=sys.argv[2]
@@ -16,7 +15,7 @@ samples=sys.argv[4]
 controls=sys.argv[5]
 result_dir=sys.argv[6]
 jobdesc_outfile=sys.argv[7]
-#toolpath=toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver_regular').replace('\\','/')
+toolpath=sys.argv[8]
 
 def GetHumanReadable(size,precision=2):
     suffixes=['B','KB','MB','GB','TB']
@@ -61,9 +60,9 @@ def generateMappingStats(result_dir):
         
         pct_reads_html='<tr><td>% (of total) Reads</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td>'+getPercentageReads(num_total, num_total)+'</td></tr>'
         
-#        outputdir=result_dir+'/job_info/'
-#        cmd='R ' + outputdir+ ' '+ num_unmap +' '+num_mm+' ' + num_uniq + ' --no-save < '+toolpath+'/plotPie.R'
-    #    os.system(cmd)
+        outputdir=result_dir+'/job_info/'
+        cmd='R ' + outputdir+ ' '+ num_unmap +' '+num_mm+' ' + num_uniq + ' --no-save < '+toolpath+'/plotPie.R'
+        os.system(cmd)
         
         map_table+='<tbody>'+num_reads_html+pct_reads_html+'</tbody></table>'
         
