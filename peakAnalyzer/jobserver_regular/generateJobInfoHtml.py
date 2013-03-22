@@ -27,7 +27,7 @@ def generateMappingStats(result_dir):
     
     try:
         maplog=open(maplogfile,'r').readlines()
-        maplog=maplog[1:4]
+        maplog=maplog[1:5]
         
         numreads=list()
         pctreads=list()
