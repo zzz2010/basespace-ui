@@ -58,7 +58,7 @@ def generateMappingStats(result_dir):
         
         num_reads_html='<tr><td>Number of Reads</td><td>'+num_unmap+'</td><td>'+num_mm +'</td><td><span class="label label-info">'+num_uniq+'</span></td><td><span class="label label-important">'+num_pcr+'</span></td><td><span class="label label-inverse">'+num_total+'</span></td></tr>'
         
-        pct_reads_html='<tr><td>% (of total) Reads</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td>'+getPercentageReads(num_total, num_total)+'</td></tr>'
+        pct_reads_html='<tr><td>% (of total) Reads</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td>-</td></tr>'
         
         #plot distribution of reads
         outputdir=result_dir+'/job_info/'
