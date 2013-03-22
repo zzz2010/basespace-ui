@@ -16,7 +16,7 @@ samples=sys.argv[4]
 controls=sys.argv[5]
 result_dir=sys.argv[6]
 jobdesc_outfile=sys.argv[7]
-toolpath=toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver_regular').replace('\\','/')
+#toolpath=toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver_regular').replace('\\','/')
 
 def GetHumanReadable(size,precision=2):
     suffixes=['B','KB','MB','GB','TB']
