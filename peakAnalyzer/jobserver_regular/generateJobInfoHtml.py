@@ -65,7 +65,8 @@ def generateMappingStats(result_dir):
         cmd='R ' + outputdir+ ' '+ num_unmap +' '+num_mm+' ' + num_uniq + ' --no-save < '+toolpath+'/plotPie.R'
         os.system(cmd)
         
-        plot_html='<tr><td colspan="6">hi</td></tr>'
+        imgurl=str(outputdir+'/reads_distribution.png').replace("/home/sokemay/basespace/basespace-ui/basespace-ui","")
+        plot_html='<tr><td colspan="6"><img src=">'+ imgurl +'"</td></tr>'
         map_table+='<tbody>'+num_reads_html+pct_reads_html+plot_html + '</tbody></table>'
         
     except:
