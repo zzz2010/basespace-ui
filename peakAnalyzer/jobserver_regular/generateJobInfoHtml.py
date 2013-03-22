@@ -8,6 +8,15 @@ import sys
 import glob
 import commands
 
+title=sys.argv[1]
+genome=sys.argv[2]
+cellline=sys.argv[3]
+samples=sys.argv[4]
+controls=sys.argv[5]
+result_dir=sys.argv[6]
+jobdesc_outfile=sys.argv[7]
+toolpath=sys.path[0]+"/"
+
 def GetHumanReadable(size,precision=2):
     suffixes=['B','KB','MB','GB','TB']
     suffixIndex = 0
@@ -61,14 +70,7 @@ def generateMappingStats(result_dir):
         map_table+='</table>'    
     return map_table
 
-title=sys.argv[1]
-genome=sys.argv[2]
-cellline=sys.argv[3]
-samples=sys.argv[4]
-controls=sys.argv[5]
-result_dir=sys.argv[6]
-jobdesc_outfile=sys.argv[7]
-toolpath=sys.path[0]+"/"
+
 
 #job=get_object_or_404(RegularJob, pk=jobid)
 #title=str(job.jobtitle)
