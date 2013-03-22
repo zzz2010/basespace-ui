@@ -45,7 +45,7 @@ def generateMappingStats(result_dir):
         
         map_table+='<tbody><tr><td>'+num_unmap+'</td><td>'+num_mm +'</td><td>'+num_uniq+'</td><td>'+num_pcr+'</td><td>'+num_total+'</td></tr></tbody></table>'
     except:
-        maplog='</table>'    
+        map_table+='</table>'    
     return map_table
 
 title=sys.argv[1]
