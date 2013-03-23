@@ -48,5 +48,5 @@ names(pthr)<-paste(">",pRange, sep='')
 #write result to tmp files
 write(npeaks,paste(outdir,'stats.tmp',sep=''))
 write.table(statsCols,paste(outdir,'stats.tmp',sep=''),sep='\t', col.names=F, append=T)
-write.table(t(as.matrix(fethr)),paste(outdir,'feStats.tmp',sep=''), sep="\t",col.names=T)
-write.table(t(as.matrix(pthr)),paste(outdir,'pvalStats.tmp',sep=''), sep="\t",col.names=T)
+write.table(t(as.matrix(fethr)),paste(outdir,'feStats.tmp',sep=''), sep="\t",col.names=T, row.names=F)
+write.table(t(as.matrix(pthr)),paste(outdir,'pvalStats.tmp',sep=''), sep="\t",col.names=T,row.names=F)
