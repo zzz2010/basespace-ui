@@ -75,9 +75,22 @@ def generateMappingStats(result_dir):
     return map_table
 
 def generatePkCallingStats(result_dir):
-    pkcall_table='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
-    pkcall_table+='<div class="job_desc_sec"><div>MACS Version:</div><div>1.4.2</div><div style="clear:both"></div></div>'
-    return pkcall_table
+    pkcall_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
+    macs_info='<div id="macs_info"><div>MACS Version: 1.4.2</div><div style="clear:both"></div></div>'
+    pkcall_outdir=result_dir+"/peakcalling_result/"
+    peakxls= glob.glob(pkcall_outdir+"*.xls")[0]
+    
+    #remove comments and blank spaces in combined.bam 
+    #tmpfile=pkcall_outdir + 'peak_tmp.xls'
+    #cmd="grep -vh '^[[:space:]]*\(#\|$\)' "+ peakxls + ' > ' + tmpfile
+    #os.system(cmd)
+    
+    #get pkcalling stats from R script
+    outputdir=result_dir+'/job_info/'
+    cmd='R ' + outputdir+ ' '+ peakxls+ ' --no-save < '+toolpath+'/getPeakCallStats.R'
+    
+    pkcall_html+=macs_info
+    return pkcall_html
 
 #generate general job desc table
 html_desc='<div><div class="breadcrumb"><h4>Job Description </h4></div>'
@@ -127,7 +140,6 @@ if pkconfigcontent.strip():
  
     map_html+=map_table
     pkcallstats_html=generatePkCallingStats(result_dir)
- #   pkcallstats_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_html= map_html+pkcallstats_html
 
 #html_gen=html_desc+style_table+table_general+table_samples+table_controls
