@@ -88,7 +88,7 @@ def generatePkCallingStats(result_dir):
     #get pkcalling stats from R script
     outputdir=result_dir+'/job_info/'
     cmd='R ' + outputdir+ ' '+ peakxls+ ' --no-save < '+toolpath+'/getPeakCallStats.R'
-    
+    os.system(cmd)
     pkcall_html+=macs_info
     return pkcall_html
 
