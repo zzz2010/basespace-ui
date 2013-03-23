@@ -141,11 +141,12 @@ def getRunInfo(npeaks,fname):
             break
     pos=i+5
     for j in xrange((i+1),len(f)):
-        if f[j].startswith("#") and j!=pos: #omit max dup tags at same pos info
+        if f[j].startswith("#"): #omit max dup tags at same pos info
             tmp=f[j]
             tmp=tmp.replace("#","").strip()
             runattr, runval =getRowContents(tmp)
-            runinfo+='<tr><td style="width:50%;">'+runattr+'</td><td>' + runval+'</td></tr>'
+            if j!=pos:
+                runinfo+='<tr><td style="width:50%;">'+runattr+'</td><td>' + runval+'</td></tr>'
         else:
             break
         
