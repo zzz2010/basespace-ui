@@ -75,23 +75,40 @@ def generateMappingStats(result_dir):
     return map_table
 
 def getStatsTable(fname):
-    f=open(fname).readlines()
-    numpeaks=f[0]
-    
     stats_table='<table class="table table-bordered table-condensed" id="stat_table"><thead><tr><th></th><th>Length</th><th>Tags</th><th>Fold Enrichment</th></tr></thead><tbody>'
-    for l in f[1:]:
-        l=l.replace('"','')
-        stats_table+='<tr>'
-        tmpsplit=l.split('\t')
+    
+    try:
+        f=open(fname).readlines()
+        numpeaks=f[0]
+        for l in f[1:]:
+            l=l.replace('"','')
+            stats_table+='<tr>'
+            tmpsplit=l.split('\t')
 
-        for content in tmpsplit:
-            stats_table+='<td>' + str(content) + '</td>'
+            for content in tmpsplit:
+                stats_table+='<td>' + str(content) + '</td>'
             
         stats_table+='</tr>'
+    except:
+        stats_table+='</tbody></table>'
+        
     stats_table+='</tbody></table>'
     return numpeaks,stats_table
 
 def getThrStatsTable(fname,statType):
+    table='<table class="table table-bordered table-condensed"><tr><td colspan="3">No. of Reads at different '+statType+' thresholds<tr>'
+    
+    f=open(fname).readlines()
+    for l in f:
+        l=l.replace('"','')
+        table+='<tr>'
+        tmpsplit=l.split('\t')
+        
+        for content in tmpsplit:
+            table+='<td>' + str(content) + '</td>'
+        table+='</tr>'
+        
+    table+='</table>'
     return ''
 
 def generatePkCallingStats(result_dir):
@@ -111,10 +128,10 @@ def generatePkCallingStats(result_dir):
     os.system(cmd)
     
     numpeaks,stats_html=getStatsTable(outputdir+"stats.tmp")
-    feStats=getThrStatsTable(outputdir+"feStats.tmp", "fe")
-    pvalStats=getThrStatsTable(outputdir+"pvalStats.tmp", "pval")
+    feStats=getThrStatsTable(outputdir+"feStats.tmp", "Fold Enrichment")
+    pvalStats=getThrStatsTable(outputdir+"pvalStats.tmp", "-10*log10(pvalue)")
     
-    pkcall_html+=macs_info + stats_html
+    pkcall_html+=macs_info + stats_html + feStats + pvalStats
     return pkcall_html
 
 #generate general job desc table
