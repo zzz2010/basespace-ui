@@ -96,7 +96,7 @@ def getStatsTable(fname):
     return numpeaks,stats_table
 
 def getThrStatsTable(fname,statType):
-    table='<table class="table table-bordered table-condensed"><tr><td colspan="3">No. of Reads at different '+statType+' thresholds<tr>'
+    table='<table class="table table-bordered table-condensed"><tr><td colspan="3">No. of Reads at different '+statType+' thresholds</td><tr>'
     
     f=open(fname).readlines()
     for l in f:
