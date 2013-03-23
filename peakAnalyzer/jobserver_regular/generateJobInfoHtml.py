@@ -80,9 +80,16 @@ def getStatsTable(fname):
     try:
         f=open(fname).readlines()
         numpeaks=f[0]
-        for l in f[1:]:
-            l=l.replace('"','')
-            stats_table+='<tr>'
+        stats=f[1:]
+        for i in xrange(len(stats)):
+            l=stats[i].replace('"','')
+            if i==0 or i==1:  #min and max
+                stats_table+='<tr>'
+            elif i==2:           #mean
+                stats_table+='<tr class="success">'
+            elif i==3:          #sd   
+                stats_table+='<tr class="info">'
+                
             tmpsplit=l.split('\t')
 
             for i in xrange(len(tmpsplit)):
@@ -107,7 +114,8 @@ def getThrStatsTable(fname,statType):
             l=l.replace('"','')
             table+='<tr>'
             tmpsplit=l.split('\t')
-        
+            
+            #table+='<td style="width:33.3%">' + str(tmpsplit[0]) + '</td>'
             for content in tmpsplit:
                 table+='<td style="width:33.3%">' + str(content) + '</td>'
             table+='</tr>'
