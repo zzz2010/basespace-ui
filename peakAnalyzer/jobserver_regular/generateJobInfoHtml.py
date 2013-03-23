@@ -81,9 +81,9 @@ def getStatsTable(fname):
     stats_table='<table class="table table-condensed" id="stat_table"><thead><tr><th></th><th>Length</th><th>Tags</th><th>Fold Enrichment</th></tr></thead><tbody>'
     for l in f[1:]:
         stats_table+='<tr>'
-        tmpsplit=l.split()
+        tmpsplit=l.split('\t')
 
-        for content in l:
+        for content in tmpsplit:
             stats_table+='<td>' + str(content) + '</td>'
             
         stats_table+='</tr>'
