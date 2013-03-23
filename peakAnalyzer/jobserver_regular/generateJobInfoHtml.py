@@ -134,6 +134,11 @@ def generatePkCallingStats(result_dir):
     pvalStats=getThrStatsTable(outputdir+"pvalStats.tmp", "-10*log10(pvalue)")
     bindTables='<div class="row-fluid"><div class="span6">'+stats_html+'</div><div class="span6">'+feStats+pvalStats+'</div></div>'
     
+    macs_version='1.4.2'
+    macs_info='<table class="table table-bordered table-condensed"><tr><td colspan="2"><strong>MACS Arguments</strong></td></tr>\
+    <tr><td>MACS Version</td><td>'+macs_version+'</td><tr><td>Effective Genome Size</td><td>2.70e+09</td></tr><tr><td>Band Width</td>\
+    <td>300</td></tr><tr><td>Model Fold</td><td>10,30</td></tr><tr><td>p-value Cutoff</td><td>1.00e-05</td></tr><tr><td>Range for calculating regional lambda</td><td>10000 bps</td></tr></table>'
+    
     pkcall_html+=macs_info + bindTables 
     return pkcall_html
 
