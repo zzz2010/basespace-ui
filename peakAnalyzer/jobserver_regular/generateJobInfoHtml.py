@@ -137,11 +137,11 @@ def getRunInfo(npeaks,fname):
     runinfo+='<tr><td style="width:50%;">No. of Peaks</td><td>'+str(npeaks)+'</td></tr>'
     f=open(fname).readlines()
     for i in xrange(len(f)):
-        if not f[i].startsWith("#"):
+        if not f[i].startswith("#"):
             break
     
     for j in xrange((i),len(f)):
-        if f[j].startsWith("#"):
+        if f[j].startswith("#"):
             tmp=f[j]
             tmp=tmp.replace("#","").strip()
             runattr, runval =getRowContents(tmp)
