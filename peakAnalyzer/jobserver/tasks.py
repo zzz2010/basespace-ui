@@ -479,7 +479,6 @@ def upload_file(appResults,localfile,dirname,api):
     
 @task
 def create_upload_AppResult(outdir,session_id,jobid):   
-    session_id=4 #debug 
     session=Session.objects.get(pk=session_id)
     myjob=Job.objects.get(pk=jobid)
     api=session.getBSapi()
@@ -588,5 +587,5 @@ def resubmitJob(outdir,session_id,jobid,useremail):
     #send email
     message ="Hurray! Your job, " + myjob.jobtitle+ ", has been completed!\n\nVisit the following link to view your results:\nhttp://genome.ddns.comp.nus.edu.sg/peakAnalyzer/jobserver-regular/"+ str(jobid) + "/viewresult/" + "\n\nThank you for using PeakAnalyzer!\n\nHave a nice day!"
     email = EmailMessage('PeakAnalyzer ChIP-seq Pipeline Complete', message, to=[useremail])
-    email.send()
+#    email.send()
     
