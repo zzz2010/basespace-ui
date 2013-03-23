@@ -146,7 +146,7 @@ def generatePkCallingStats(result_dir):
     run_info=getRunInfo(numpeaks, peakxls)
     
     bind_geninfo='<div class="row-fluid"><div class="span6">'+macs_info+'</div><div class="span6">' + run_info + '</div></div>'
-    pkcall_html+=macs_info + bindTables 
+    pkcall_html+=bind_geninfo + bindTables 
     return pkcall_html
 
 #generate general job desc table
