@@ -106,7 +106,7 @@ def getStatsTable(fname):
     return numpeaks,stats_table
 
 def getThrStatsTable(fname,statType):
-    table='<table class="table table-bordered table-condensed"><tr><td colspan="3"><strong>#Reads at Different '+statType+' Thresholds</strong></td></tr>'
+    table='<table class="table table-bordered table-condensed"><tr><td colspan="3"><strong>#Peaks at Different '+statType+' Thresholds</strong></td></tr>'
     
     try:
         f=open(fname).readlines()
