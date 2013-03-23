@@ -74,6 +74,25 @@ def generateMappingStats(result_dir):
         map_table+='</table>'    
     return map_table
 
+def getStatsTable(fname):
+    f=open(fname).readlines()
+    numpeaks=f[0]
+    
+    stats_table='<table id="stat_table"><thead><tr><th></th><th>Length</th><th>Tags</th><th>Fold Enrichment</th></tr></thead><tbody>'
+    for l in f[1:]:
+        stats_table+='<tr>'
+        tmpsplit=l.split("\t")
+
+        for content in l:
+            stats_table+='<td>' + str(content) + '</td>'
+            
+        stats_table+='</tr>'
+    stats_table+='</tbody></table>'
+    return numpeaks,stats_table
+
+def getThrStatsTable(fname,statType):
+    return ''
+
 def generatePkCallingStats(result_dir):
     pkcall_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     macs_info='<div id="macs_info"><div>MACS Version: 1.4.2</div><div style="clear:both"></div></div>'
@@ -89,7 +108,12 @@ def generatePkCallingStats(result_dir):
     outputdir=result_dir+'/job_info/'
     cmd='R ' + outputdir+ ' '+ peakxls+ ' --no-save < '+toolpath+'/getPeakCallStats.R'
     os.system(cmd)
-    pkcall_html+=macs_info
+    
+    numpeaks,stats_html=getStatsTable(outputdir+"stats.tmp")
+    feStats=getThrStatsTable(outputdir+"feStats.tmp", "fe")
+    pvalStats=getThrStatsTable(outputdir+"pvalStats.tmp", "pval")
+    
+    pkcall_html+=macs_info + stats_html
     return pkcall_html
 
 #generate general job desc table
