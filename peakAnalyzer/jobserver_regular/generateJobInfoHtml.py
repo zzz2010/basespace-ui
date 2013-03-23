@@ -85,11 +85,11 @@ def getStatsTable(fname):
             stats_table+='<tr>'
             tmpsplit=l.split('\t')
 
-            for i in xrange(tmpsplit):
-       #         if i==0:
-                stats_table+='<td style="width:25%"><strong>' + str(tmpsplit[i]) + '</strong></td>'
-        #        else:
-         #           stats_table+='<td style="width:25%">' + str(tmpsplit[i]) + '</td>'
+            for i in xrange(len(tmpsplit)):
+                if i==0:
+                    stats_table+='<td style="width:25%"><strong>' + str(tmpsplit[i]) + '</strong></td>'
+                else:
+                    stats_table+='<td style="width:25%">' + str(tmpsplit[i]) + '</td>'
             
         stats_table+='</tr>'
     except:
