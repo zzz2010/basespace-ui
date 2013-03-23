@@ -107,7 +107,7 @@ def getThrStatsTable(fname,statType):
         
             for content in tmpsplit:
                 table+='<td>' + str(content) + '</td>'
-                table+='</tr>'
+            table+='</tr>'
     except:
         table+='</table>'
     table+='</table>'
