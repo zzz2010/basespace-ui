@@ -245,7 +245,7 @@ if pkconfigcontent.strip():
     pkcall_html= map_html+pkcallstats_html
 
 #DEBUG URL
-pkfileurl=glob.glob(pkCalling_dir+"summits.bed")[0]
+pkfileurl=glob.glob(pkCalling_dir+"*summits.bed")[0]
 pkfileurl=pkfileurl.replace("/home/sokemay/basespace/basespace-ui/basespace-ui","")
 #pkfile download button
 download_btn='<div style="padding-top:20px;padding-bottom:30px;"><a target="_blank" href="'+pkfileurl+'"><button class="btn btn-primary btn-large" type="submit">Download Peak File <span class="icon-download icon-white"></span></button></a></div>'
