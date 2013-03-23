@@ -113,20 +113,42 @@ def getThrStatsTable(fname,statType):
     table+='</table>'
     return table
 
+def getRowContents(line):
+    runattr=''
+    runval=''
+    pat1="is determined as"
+    pat2=":"
+    pat3="="
+    
+    if pat1 in line:
+        runattr=line.split(pat1)[0]
+        runval=line.split(pat1)[1]
+    elif pat2 in line:
+        runattr=line.split(pat2)[0]
+        runval=line.split(pat2)[1]
+    elif pat3 in line:
+        runattr=line.split(pat3)[0]
+        runval=line.split(pat3)[1]
+        
+    return runattr.strip(), runval.strip()
+
 def getRunInfo(npeaks,fname):
     runinfo='<table class="table table-bordered table-condensed"><tr><td colspan="2"><strong>Run Info</strong></td></tr>'
     runinfo+='<tr><td style="width:50%;">No. of Peaks</td><td>'+str(npeaks)+'</td></tr>'
     f=open(fname).readlines()
-#    for i in xrange(len(f)):
-#        if not f[i].startsWith("#"):
-#            break
+    for i in xrange(len(f)):
+        if not f[i].startsWith("#"):
+            break
     
-#    for j in xrange(i,len(f)):
-#        if f[j].startsWith("#"):
-#            tmp=f[j]
-#        else:
-#            break
-#        
+    for j in xrange(i,len(f)):
+        if f[j].startsWith("#"):
+            tmp=f[j]
+            tmp=tmp.replace("#","").strip()
+            runattr, runval =getRowContents(tmp)
+            runinfo+='<tr><td style="width:50%;">'+runattr+'</td><td>' + runval+'</td></tr>'
+        else:
+            break
+        
     return runinfo+'</table>'
 
 def generatePkCallingStats(result_dir):
