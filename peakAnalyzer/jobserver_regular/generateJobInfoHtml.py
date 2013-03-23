@@ -33,13 +33,14 @@ def getPercentageReads(noreads, totreads):
 
 def generateMappingStats(result_dir):
     pkcall_outdir=result_dir+"/peakcalling_result/"
-    maplogfile= glob.glob(pkcall_outdir+"*.maplog.txt")[0]
+    
     pcrfilterfile=glob.glob(pkcall_outdir+"*.unique")[0]
 
     map_table='<table class="table table-bordered table-condensed">\
                 <thead><tr><th></th><th>Non-Map</th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th><th>Total</th></tr></thead>'
     
     try:
+        maplogfile= glob.glob(pkcall_outdir+"*.maplog.txt")[0]
         maplog=open(maplogfile,'r').readlines()
         maplog=maplog[1:5]
         
