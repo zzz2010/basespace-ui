@@ -132,7 +132,7 @@ def generatePkCallingStats(result_dir):
     numpeaks,stats_html=getStatsTable(outputdir+"stats.tmp")
     feStats=getThrStatsTable(outputdir+"feStats.tmp", "Fold Enrichment")
     pvalStats=getThrStatsTable(outputdir+"pvalStats.tmp", "-10*log10(pvalue)")
-    bindTables='<div class="row"><div class="span6 offset1">'+stats_html+'</div><div class="span6">'+feStats+pvalStats+'</div></div>'
+    bindTables='<div class="row"><div class="span5 offset1">'+stats_html+'</div><div class="span6">'+feStats+pvalStats+'</div></div>'
     
     pkcall_html+=macs_info + bindTables 
     return pkcall_html
