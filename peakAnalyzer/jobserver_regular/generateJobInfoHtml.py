@@ -137,7 +137,7 @@ def getRowContents(line):
 
 def getRunInfo(npeaks,fname):
     runinfo='<table class="table table-bordered table-condensed"><tr><td colspan="2"><strong>Run Info</strong></td></tr>'
-    runinfo+='<tr><td style="width:50%;"><strong>No. of Peaks</strong></td><td>'+str(npeaks)+'</td></tr>'
+    runinfo+='<tr><td style="width:50%;"><strong>No. of Peaks</strong></td><td><span class="label label-success">'+str(npeaks)+'</span></td></tr>'
     f=open(fname).readlines()
     for i in xrange(len(f)):
         if not f[i].startswith("#"):
