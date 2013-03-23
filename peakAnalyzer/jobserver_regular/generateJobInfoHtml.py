@@ -86,9 +86,9 @@ def getStatsTable(fname):
             if i==0 or i==1:  #min and max
                 stats_table+='<tr>'
             elif i==2:           #mean
-                stats_table+='<tr class="success">'
+                stats_table+='<tr class="error">'
             elif i==3:          #sd   
-                stats_table+='<tr class="info">'
+                stats_table+='<tr class="warning">'
                 
             tmpsplit=l.split('\t')
 
