@@ -109,7 +109,7 @@ def getThrStatsTable(fname,statType):
         table+='</tr>'
         
     table+='</table>'
-    return ''
+    return table
 
 def generatePkCallingStats(result_dir):
     pkcall_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
