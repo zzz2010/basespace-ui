@@ -113,6 +113,10 @@ def getThrStatsTable(fname,statType):
     table+='</table>'
     return table
 
+def getRunInfo(npeaks,fname):
+    runinfo=''
+    return runinfo
+
 def generatePkCallingStats(result_dir):
     pkcall_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     macs_info='<div id="macs_info"><div>MACS Version: 1.4.2</div><div style="clear:both"></div></div>'
@@ -139,6 +143,9 @@ def generatePkCallingStats(result_dir):
     <tr><td>MACS Version</td><td>'+macs_version+'</td><tr><td>Effective Genome Size</td><td>2.70e+09</td></tr><tr><td>Band Width</td>\
     <td>300</td></tr><tr><td>Model Fold</td><td>10,30</td></tr><tr><td>p-value Cutoff</td><td>1.00e-05</td></tr><tr><td>Range for calculating regional lambda</td><td>10000 bps</td></tr></table>'
     
+    run_info=getRunInfo(numpeaks, peakxls)
+    
+    bind_geninfo='<div class="row-fluid"><div class="span6">'+macs_info+'</div><div class="span6">' + run_info + '</div></div>'
     pkcall_html+=macs_info + bindTables 
     return pkcall_html
 
