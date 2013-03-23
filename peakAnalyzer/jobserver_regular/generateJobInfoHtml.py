@@ -65,7 +65,7 @@ def generateMappingStats(result_dir):
         cmd='R ' + outputdir+ ' '+ num_unmap +' '+num_mm+' ' + num_uniq + ' --no-save < '+toolpath+'/plotPie.R'
         os.system(cmd)
         
-        #DEBUG
+        #DEBUG URL
         imgurl=str(outputdir+'/reads_distribution.png').replace("/home/sokemay/basespace/basespace-ui/basespace-ui","")
         plot_html='<tr><td colspan="6"><img src="'+ imgurl +'"></td></tr>'
         map_table+='<tbody>'+num_reads_html+pct_reads_html+plot_html + '</tbody></table>' #end of mapping stats table
@@ -229,9 +229,6 @@ if controllist:
 
 div_files='<div class="row-fluid"><div class="span6">'+table_samples+'</div><div class="span6">'+table_controls+'</div></div>'
 
-pkfileurl=''
-download_btn='<div style="padding-top:20px;padding-bottom:30px;"><a target="_blank" href="'+pkfileurl+'"><button class="btn btn-primary btn-large" type="submit">Download Peak File <span class="icon-download icon-white"></span></button></a></div>'
-
 #generate read mapping and peak calling stats
 pkCalling_dir=result_dir+"/peakcalling_result/"
 pkconfig=pkCalling_dir+"pk.cfg"
@@ -247,7 +244,12 @@ if pkconfigcontent.strip():
     pkcallstats_html=generatePkCallingStats(result_dir)
     pkcall_html= map_html+pkcallstats_html
 
-#html_gen=html_desc+style_table+table_general+table_samples+table_controls
+#DEBUG URL
+pkfileurl=glob.glob(pkCalling_dir+"summits.bed")[0]
+pkfileurl=pkfileurl.replace("/home/sokemay/basespace/basespace-ui/basespace-ui","")
+#pkfile download button
+download_btn='<div style="padding-top:20px;padding-bottom:30px;"><a target="_blank" href="'+pkfileurl+'"><button class="btn btn-primary btn-large" type="submit">Download Peak File <span class="icon-download icon-white"></span></button></a></div>'
+
 html_gen=html_desc+style_table+table_general+div_files+download_btn
 html_out=html_gen+ pkcall_html+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
