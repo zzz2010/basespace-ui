@@ -149,7 +149,7 @@ def generatePkCallingStats(result_dir):
     <td>300</td></tr><tr><td>Model Fold</td><td>10,30</td></tr><tr><td>p-value Cutoff</td><td>1.00e-05</td></tr><tr><td>Range for calculating regional lambda</td><td>10000 bps</td></tr></table>'
     
     run_info=getRunInfo(numpeaks, peakxls)
-    
+    run_info=''
     bind_geninfo='<div class="row-fluid"><div class="span6">'+macs_info+'</div><div class="span6">' + run_info + '</div></div>'
     pkcall_html+=bind_geninfo + bindTables 
     return pkcall_html
