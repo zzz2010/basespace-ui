@@ -96,7 +96,7 @@ def getStatsTable(fname):
     return numpeaks,stats_table
 
 def getThrStatsTable(fname,statType):
-    table='<table class="table table-bordered table-condensed"><tr><td colspan="3"><strong>#Reads at Different '+statType+' Thresholds</strong></td><tr>'
+    table='<table class="table table-bordered table-condensed"><tr><td colspan="3"><strong>#Reads at Different '+statType+' Thresholds</strong></td></tr>'
     
     try:
         f=open(fname).readlines()
@@ -134,7 +134,7 @@ def generatePkCallingStats(result_dir):
     pvalStats=getThrStatsTable(outputdir+"pvalStats.tmp", "-10*log10(pvalue)")
     bindTables='<div class=row><div class=span6>'+stats_html+'</div><div class=span6>'+feStats+pvalStats+'</div></div>'
     
-    pkcall_html+=macs_info + bindTables + feStats
+    pkcall_html+=macs_info + bindTables 
     return pkcall_html
 
 #generate general job desc table
