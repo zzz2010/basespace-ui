@@ -139,9 +139,9 @@ def getRunInfo(npeaks,fname):
     for i in xrange(len(f)):
         if not f[i].startswith("#"):
             break
-    
+    pos=i+4
     for j in xrange((i+1),len(f)):
-        if f[j].startswith("#") and j!=(i+4): #omit max dup tags at same pos info
+        if f[j].startswith("#") and j!=pos: #omit max dup tags at same pos info
             tmp=f[j]
             tmp=tmp.replace("#","").strip()
             runattr, runval =getRowContents(tmp)
