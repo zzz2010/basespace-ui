@@ -151,21 +151,23 @@ def getRowContents(line):
 def getRunInfo(npeaks,fname):
     runinfo='<table class="table table-bordered table-condensed"><tr><td colspan="2"><strong>Run Info</strong></td></tr>'
     runinfo+='<tr><td style="width:50%;"><strong>No. of Peaks</strong></td><td><span class="label label-success">'+str(npeaks)+'</span></td></tr>'
-    f=open(fname).readlines()
-    for i in xrange(len(f)):
-        if not f[i].startswith("#"):
-            break
-    pos=i+4
-    for j in xrange((i+1),len(f)):
-        if f[j].startswith("#"): #omit max dup tags at same pos info
-            tmp=f[j]
-            tmp=tmp.replace("#","").strip()
-            runattr, runval =getRowContents(tmp)
-            if j!=pos:
-                runinfo+='<tr><td style="width:50%;"><strong>'+runattr+'</strong></td><td>' + runval+'</td></tr>'
-        else:
-            break
-        
+    try:
+        f=open(fname).readlines()
+        for i in xrange(len(f)):
+            if not f[i].startswith("#"):
+                break
+        pos=i+4
+        for j in xrange((i+1),len(f)):
+            if f[j].startswith("#"): #omit max dup tags at same pos info
+                tmp=f[j]
+                tmp=tmp.replace("#","").strip()
+                runattr, runval =getRowContents(tmp)
+                if j!=pos:
+                    runinfo+='<tr><td style="width:50%;"><strong>'+runattr+'</strong></td><td>' + runval+'</td></tr>'
+            else:
+                break
+    except:
+        runinfo+=''
     return runinfo+'</table>'
 
 def generatePkCallingStats(result_dir):
