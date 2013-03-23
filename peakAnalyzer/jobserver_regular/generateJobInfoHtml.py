@@ -106,7 +106,7 @@ def getThrStatsTable(fname,statType):
             tmpsplit=l.split('\t')
         
             for content in tmpsplit:
-                table+='<td>' + str(content) + '</td>'
+                table+='<td style="width:33.3%">' + str(content) + '</td>'
             table+='</tr>'
     except:
         table+='</table>'
