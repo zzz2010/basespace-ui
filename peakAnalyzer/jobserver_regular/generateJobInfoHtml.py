@@ -78,8 +78,9 @@ def getStatsTable(fname):
     f=open(fname).readlines()
     numpeaks=f[0]
     
-    stats_table='<table class="table table-condensed" id="stat_table"><thead><tr><th></th><th>Length</th><th>Tags</th><th>Fold Enrichment</th></tr></thead><tbody>'
+    stats_table='<table class="table table-bordered table-condensed" id="stat_table"><thead><tr><th></th><th>Length</th><th>Tags</th><th>Fold Enrichment</th></tr></thead><tbody>'
     for l in f[1:]:
+        l=l.replace('"','')
         stats_table+='<tr>'
         tmpsplit=l.split('\t')
 
