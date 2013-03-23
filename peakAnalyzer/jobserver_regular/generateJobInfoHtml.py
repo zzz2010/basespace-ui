@@ -75,7 +75,7 @@ def generateMappingStats(result_dir):
     return map_table
 
 def getStatsTable(fname):
-    stats_table='<table style="border-style:solid;" class="table table-bordered table-condensed" id="stat_table"><thead><tr><th></th><th>Length</th><th>Tags</th><th>Fold Enrichment</th></tr></thead><tbody>'
+    stats_table='<table style="border-style:solid; td{width:25%;};" class="table table-bordered table-condensed" id="stat_table"><thead><tr><th></th><th>Length</th><th>Tags</th><th>Fold Enrichment</th></tr></thead><tbody>'
     
     try:
         f=open(fname).readlines()
