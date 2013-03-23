@@ -248,7 +248,7 @@ if pkconfigcontent.strip():
     pkcall_html= map_html+pkcallstats_html
 
 #html_gen=html_desc+style_table+table_general+table_samples+table_controls
-html_gen=html_desc+style_table+table_general+div_files
+html_gen=html_desc+style_table+table_general+div_files+download_btn
 html_out=html_gen+ pkcall_html+'</div>'
 jobdesc_out=open(jobdesc_outfile, 'w')
 jobdesc_out.write(html_out)
