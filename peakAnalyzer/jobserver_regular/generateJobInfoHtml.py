@@ -116,11 +116,11 @@ def getThrStatsTable(fname,statType):
 def getRunInfo(npeaks,fname):
     runinfo='<table class="table table-bordered table-condensed"><tr><td colspan="2"><strong>Run Info</strong></td></tr>'
     runinfo+='<tr><td style="width:50%;">No. of Peaks</td><td>'+npeaks+'</td></tr>'
-#    f=open(fname).readlines()
-#    for i in xrange(len(f)):
-#        if not f[i].startsWith("#"):
-#            break
-#    
+    f=open(fname).readlines()
+    for i in xrange(len(f)):
+        if not f[i].startsWith("#"):
+            break
+    
 #    for j in xrange(i,len(f)):
 #        if f[j].startsWith("#"):
 #            tmp=f[j]
@@ -188,7 +188,7 @@ if controllist:
             table_controls+='<tr><td>None</td><td>-</td></tr>'
     table_controls+='</table>'
 
-div_files='<div class="row"><div class="span6">'+table_samples+'</div><div class="span6">'+table_controls+'</div></div>'
+div_files='<div class="row-fluid"><div class="span6">'+table_samples+'</div><div class="span6">'+table_controls+'</div></div>'
 
 #generate read mapping and peak calling stats
 pkCalling_dir=result_dir+"/peakcalling_result/"
