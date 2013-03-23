@@ -75,7 +75,7 @@ def generateMappingStats(result_dir):
     return map_table
 
 def getStatsTable(fname):
-    stats_table='<table style="border-style:solid;" class="table table-striped table-bordered table-condensed" id="stat_table"><thead><tr><th style="width:25%"></th><th>Length</th><th>Tags</th><th>Fold Enrichment</th></tr></thead><tbody>'
+    stats_table='<table style="border-style:solid;" class="table stats table-striped table-bordered table-condensed" id="stat_table"><thead><tr><th style="width:25%"></th><th>Length</th><th>Tags</th><th>Fold Enrichment</th></tr></thead><tbody>'
     
     try:
         f=open(fname).readlines()
@@ -96,7 +96,7 @@ def getStatsTable(fname):
     return numpeaks,stats_table
 
 def getThrStatsTable(fname,statType):
-    table='<table class="table table-bordered table-condensed table-striped"><tr><td colspan="3"><strong>#Reads at Different '+statType+' Thresholds</strong></td></tr>'
+    table='<table class="table table-bordered table-condensed"><tr><td colspan="3"><strong>#Reads at Different '+statType+' Thresholds</strong></td></tr>'
     
     try:
         f=open(fname).readlines()
