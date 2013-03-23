@@ -114,19 +114,24 @@ def getThrStatsTable(fname,statType):
     return table
 
 def getRunInfo(npeaks,fname):
-    runinfo=''
-    return runinfo
+    runinfo='<table class="table table-bordered table-condensed"><tr><td colspan="2"><strong>Run Info</strong></td></tr>'
+    f=open(fname).readlines()
+    for i in xrange(len(f)):
+        if not f[i].startsWith("#"):
+            break
+    
+    for j in xrange(i,len(f)):
+        if f[j].startsWith("#"):
+            tmp=f[j]
+        else:
+            break
+        
+    return runinfo+'</table>'
 
 def generatePkCallingStats(result_dir):
     pkcall_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
-    macs_info='<div id="macs_info"><div>MACS Version: 1.4.2</div><div style="clear:both"></div></div>'
     pkcall_outdir=result_dir+"/peakcalling_result/"
     peakxls= glob.glob(pkcall_outdir+"*.xls")[0]
-    
-    #remove comments and blank spaces in combined.bam 
-    #tmpfile=pkcall_outdir + 'peak_tmp.xls'
-    #cmd="grep -vh '^[[:space:]]*\(#\|$\)' "+ peakxls + ' > ' + tmpfile
-    #os.system(cmd)
     
     #get pkcalling stats from R script
     outputdir=result_dir+'/job_info/'
