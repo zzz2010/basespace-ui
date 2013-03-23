@@ -121,7 +121,7 @@ def getThrStatsTable(fname,statType):
                     table+='<td style="width:33.3%">' + str(content) + '</td>'
                 table+='</tr>'
             else:
-                table+='<td style="width:33.3%"><span class="label label-info">'+tmpsplit[0] +'</span></td>\
+                table+='<td style="width:33.3%"><span class="label">'+tmpsplit[0] +'</span></td>\
                 <td style="width:33.3%"><span class="label label-warning">'+ tmpsplit[1] + '</span></td>\
                 <td style="width:33.3%"><span class="label label-important">' +tmpsplit[1] + '</span></td>'
     except:
