@@ -163,7 +163,9 @@ def getRunInfo(npeaks,fname):
                 tmp=f[j]
                 tmp=tmp.replace("#","").strip()
                 runattr, runval =getRowContents(tmp)
-                runinfo+='<tr><td style="width:50%;"><strong>'+runattr+'</strong></td><td>' + runval+'</td></tr>'
+                
+                if not runattr.startswith("maximum duplicate tags"):
+                    runinfo+='<tr><td style="width:50%;"><strong>'+runattr+'</strong></td><td>' + runval+'</td></tr>'
             else:
                 break
     except:
