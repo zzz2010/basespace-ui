@@ -242,8 +242,8 @@ if pkconfigcontent.strip():
  
     map_html+=map_table
     pkcallstats_html=generatePkCallingStats(result_dir)
-#    pkcall_html= map_html+pkcallstats_html
-    pkcall_html= ''
+    pkcall_html= map_html+pkcallstats_html
+#    pkcall_html= ''
 
 #DEBUG URL
 pkfileurl=glob.glob(pkCalling_dir+"*summits.bed")[0]
