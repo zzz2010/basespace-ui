@@ -140,7 +140,7 @@ def getRunInfo(npeaks,fname):
         if not f[i].startsWith("#"):
             break
     
-    for j in xrange((i+1),len(f)):
+    for j in xrange((i),len(f)):
         if f[j].startsWith("#"):
             tmp=f[j]
             tmp=tmp.replace("#","").strip()
