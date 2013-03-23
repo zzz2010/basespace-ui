@@ -230,7 +230,7 @@ if controllist:
 div_files='<div class="row-fluid"><div class="span6">'+table_samples+'</div><div class="span6">'+table_controls+'</div></div>'
 
 pkfileurl=''
-download_btn='<a target="_blank" href="'+pkfileurl+'"><button class="btn btn-primary" type="submit">Download Peak File<span class="icon-download icon-white"></span></button></a>'
+download_btn='<a style="padding-bottom:20px;" target="_blank" href="'+pkfileurl+'"><button class="btn btn-primary" type="submit">Download Peak File <span class="icon-download icon-white"></span></button></a>'
 
 #generate read mapping and peak calling stats
 pkCalling_dir=result_dir+"/peakcalling_result/"
