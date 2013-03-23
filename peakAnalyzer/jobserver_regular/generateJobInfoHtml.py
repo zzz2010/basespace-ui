@@ -110,15 +110,20 @@ def getThrStatsTable(fname,statType):
     
     try:
         f=open(fname).readlines()
-        for l in f:
-            l=l.replace('"','')
+        for i in xrange(len(f)):
+            l=f[i].replace('"','')
             table+='<tr>'
             tmpsplit=l.split('\t')
             
             #table+='<td style="width:33.3%">' + str(tmpsplit[0]) + '</td>'
-            for content in tmpsplit:
-                table+='<td style="width:33.3%">' + str(content) + '</td>'
-            table+='</tr>'
+            if i>0:
+                for content in tmpsplit:
+                    table+='<td style="width:33.3%">' + str(content) + '</td>'
+                table+='</tr>'
+            else:
+                table+='<td style="width:33.3%"><span class="label label-info">'+tmpsplit[0] +'</span></td>\
+                <td style="width:33.3%"><span class="label label-warning">'+ tmpsplit[1] + '</span></td>\
+                <td style="width:33.3%"><span class="label label-error">' +tmpsplit[1] + '</span></td>'
     except:
         table+='</table>'
     table+='</table>'
@@ -184,7 +189,7 @@ def generatePkCallingStats(result_dir):
     <td>300</td></tr><tr><td>Model Fold</td><td>10,30</td></tr><tr><td>p-value Cutoff</td><td>1.00e-05</td></tr><tr><td>Range for calculating regional lambda</td><td>10000 bps</td></tr></table>'
     
     run_info=getRunInfo(numpeaks, peakxls)
-    #run_info=''
+
     bind_geninfo='<div class="row-fluid"><div class="span6">'+macs_info+'</div><div class="span6">' + run_info + '</div></div>'
     pkcall_html+=bind_geninfo + bindTables 
     return pkcall_html
