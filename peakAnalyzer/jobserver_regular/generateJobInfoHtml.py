@@ -117,9 +117,9 @@ def getRunInfo(npeaks,fname):
     runinfo='<table class="table table-bordered table-condensed"><tr><td colspan="2"><strong>Run Info</strong></td></tr>'
     runinfo+='<tr><td style="width:50%;">No. of Peaks</td><td>'+npeaks+'</td></tr>'
     f=open(fname).readlines()
-    for i in xrange(len(f)):
-        if not f[i].startsWith("#"):
-            break
+#    for i in xrange(len(f)):
+#        if not f[i].startsWith("#"):
+#            break
     
 #    for j in xrange(i,len(f)):
 #        if f[j].startsWith("#"):
