@@ -85,8 +85,11 @@ def getStatsTable(fname):
             stats_table+='<tr>'
             tmpsplit=l.split('\t')
 
-            for content in tmpsplit:
-                stats_table+='<td style="width:25%">' + str(content) + '</td>'
+            for i in xrange(tmpsplit):
+                if i==0:
+                    stats_table+='<td style="width:25%"><strong>' + str(tmpsplit[i]) + '</strong></td>'
+                else:
+                    stats_table+='<td style="width:25%">' + str(tmpsplit[i]) + '</td>'
             
         stats_table+='</tr>'
     except:
@@ -146,7 +149,7 @@ def getRunInfo(npeaks,fname):
             tmp=tmp.replace("#","").strip()
             runattr, runval =getRowContents(tmp)
             if j!=pos:
-                runinfo+='<tr><td style="width:50%;">'+runattr+'</td><td>' + runval+'</td></tr>'
+                runinfo+='<tr><td style="width:50%;"><strong>'+runattr+'</strong></td><td>' + runval+'</td></tr>'
         else:
             break
         
