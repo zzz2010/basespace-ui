@@ -98,16 +98,18 @@ def getStatsTable(fname):
 def getThrStatsTable(fname,statType):
     table='<table class="table table-bordered table-condensed"><tr><td colspan="3"><strong>#Reads at Different '+statType+' Thresholds</strong></td><tr>'
     
-    f=open(fname).readlines()
-    for l in f:
-        l=l.replace('"','')
-        table+='<tr>'
-        tmpsplit=l.split('\t')
+    try:
+        f=open(fname).readlines()
+        for l in f:
+            l=l.replace('"','')
+            table+='<tr>'
+            tmpsplit=l.split('\t')
         
-        for content in tmpsplit:
-            table+='<td>' + str(content) + '</td>'
-        table+='</tr>'
-        
+            for content in tmpsplit:
+                table+='<td>' + str(content) + '</td>'
+                table+='</tr>'
+    except:
+        table+='</table>'
     table+='</table>'
     return table
 
@@ -130,8 +132,9 @@ def generatePkCallingStats(result_dir):
     numpeaks,stats_html=getStatsTable(outputdir+"stats.tmp")
     feStats=getThrStatsTable(outputdir+"feStats.tmp", "Fold Enrichment")
     pvalStats=getThrStatsTable(outputdir+"pvalStats.tmp", "-10*log10(pvalue)")
+    bindTables='<div class=row><div class=span6>'+stats_html+'</div><div class=span6>'+feStats+pvalStats+'</div></div>'
     
-    pkcall_html+=macs_info + stats_html + feStats + pvalStats
+    pkcall_html+=macs_info + bindTables
     return pkcall_html
 
 #generate general job desc table
