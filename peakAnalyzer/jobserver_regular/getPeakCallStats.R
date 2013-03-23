@@ -3,7 +3,7 @@ outdir<-Args[2]
 result<-Args[3]
 
 peaks<-read.table(result)
-pkmat<-peaks[-1,]	
+pkmat<-as.matrix(peaks[-1,])	
 colnames(pkmat)<-as.matrix(peaks[1,])
 
 #num peaks
