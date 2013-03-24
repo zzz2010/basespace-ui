@@ -81,14 +81,11 @@ def generateMappingStats(result_dir):
     pkcall_outdir=result_dir+"/peakcalling_result/"
     maplogfiles= glob.glob(pkcall_outdir+"*.maplog.txt")
     if  maplogfiles:
-    
-        try:
             pcrfilterfile=glob.glob(pkcall_outdir+"*.unique")[0]
         
             map_table='<style>#table_map_stats td{width:16.6%;}</style><table id="table_map_stats" class="table table-bordered table-condensed">\
                     <thead><tr><th></th><th>%Non-Map</th><th>%Multi-Map</th><th>%Unique</th><th>%PCR-Filtered</th><th>Total No. of Reads</th></tr></thead>'
         
-            maplogfiles= glob.glob(pkcall_outdir+"*.maplog.txt")
             pct_reads_html=''
             for m in maplogfiles:
                 maplog=open(m,'r').readlines()
@@ -113,8 +110,7 @@ def generateMappingStats(result_dir):
             
                 map_table+='<tbody>'+pct_reads_html + '</tbody></table>' #end of mapping stats table
                 map_table+='</table>'
-        except:
-            map_table=''
+
     else:
         map_table=''    
     return map_table
