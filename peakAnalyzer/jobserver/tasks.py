@@ -158,7 +158,7 @@ def GREAT(peakfile,outdir2,genome):
     cmd_great="python "+settings.toolpath+"./GREAT/great.py "+bed3peak+" "+genome+" "+outdir2
     print cmd_great
     os.system(cmd_great)
-    cmd_table="for f in " + outdir2 +"*.great.out;do python " + settings.toolpath+ "./GREAT/generateHtmlTable.py $f > $f.html;done;"
+    cmd_table="for f in " + outdir2 +"*.great.xls;do python " + settings.toolpath+ "./GREAT/generateHtmlTable.py $f > $f.html; done;"
     print cmd_table
     os.system(cmd_table)
 
