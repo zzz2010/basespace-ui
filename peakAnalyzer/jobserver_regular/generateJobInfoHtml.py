@@ -79,40 +79,42 @@ def getPercentageReads(noreads, totreads):
 
 def generateMappingStats(result_dir):
     pkcall_outdir=result_dir+"/peakcalling_result/"
-  
-    try:
-        pcrfilterfile=glob.glob(pkcall_outdir+"*.unique")[0]
-
-        map_table='<style>#table_map_stats td{width:16.6%;}</style><table id="table_map_stats" class="table table-bordered table-condensed">\
-                <thead><tr><th></th><th>%Non-Map</th><th>%Multi-Map</th><th>%Unique</th><th>%PCR-Filtered</th><th>Total No. of Reads</th></tr></thead>'
-
-        maplogfiles= glob.glob(pkcall_outdir+"*.maplog.txt")
-        pct_reads_html=''
-        for m in maplogfiles:
-            maplog=open(m,'r').readlines()
-            maplog=maplog[1:5]
+    maplogfiles= glob.glob(pkcall_outdir+"*.maplog.txt")
+    if  maplogfiles:
+    
+        try:
+            pcrfilterfile=glob.glob(pkcall_outdir+"*.unique")[0]
         
-            numreads=list()
-            pctreads=list()
-            for l in maplog:
-                bracketIndex=l.find("(")
-                numreads.append(l[0:bracketIndex].strip())
+            map_table='<style>#table_map_stats td{width:16.6%;}</style><table id="table_map_stats" class="table table-bordered table-condensed">\
+                    <thead><tr><th></th><th>%Non-Map</th><th>%Multi-Map</th><th>%Unique</th><th>%PCR-Filtered</th><th>Total No. of Reads</th></tr></thead>'
         
-            status,output=commands.getstatusoutput("wc -l " + pcrfilterfile)
-            num_pcr=output.split()[0]
-            num_total=numreads[0]
-            num_unmap=numreads[1]
-            num_uniq=numreads[2]
-            num_mm=numreads[3]
-            fname=os.path.basename(m)
-            fname=fname.replace(".maplog.txt", "")
-        
-            pct_reads_html+='<tr><td>'+fname+'</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td><span class="label label-info">'+str(num_total)+'</span></td></tr>'
-        
-            map_table+='<tbody>'+pct_reads_html + '</tbody></table>' #end of mapping stats table
-            map_table+='</table>'
-    except:
-        map_table=''    
+            maplogfiles= glob.glob(pkcall_outdir+"*.maplog.txt")
+            pct_reads_html=''
+            for m in maplogfiles:
+                maplog=open(m,'r').readlines()
+                maplog=maplog[1:5]
+            
+                numreads=list()
+                pctreads=list()
+                for l in maplog:
+                    bracketIndex=l.find("(")
+                    numreads.append(l[0:bracketIndex].strip())
+            
+                status,output=commands.getstatusoutput("wc -l " + pcrfilterfile)
+                num_pcr=output.split()[0]
+                num_total=numreads[0]
+                num_unmap=numreads[1]
+                num_uniq=numreads[2]
+                num_mm=numreads[3]
+                fname=os.path.basename(m)
+                fname=fname.replace(".maplog.txt", "")
+            
+                pct_reads_html+='<tr><td>'+fname+'</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td><span class="label label-info">'+str(num_total)+'</span></td></tr>'
+            
+                map_table+='<tbody>'+pct_reads_html + '</tbody></table>' #end of mapping stats table
+                map_table+='</table>'
+        except:
+            map_table=''    
     return map_table
 
 
