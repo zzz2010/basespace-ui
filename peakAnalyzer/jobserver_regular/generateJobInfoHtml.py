@@ -291,7 +291,7 @@ if pkconfigcontent.strip():
             map_html+=map_table
         else:
             map_html=''
-    
+        map_html=''
         pkcallstats_html=generatePkCallingStats(result_dir)
         pkcall_html= map_html+pkcallstats_html
 
