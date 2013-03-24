@@ -281,11 +281,14 @@ pkconfigcontent=open(pkconfig).read()
 
 pkcall_html=''
 if pkconfigcontent.strip():
-    map_html='<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
+    try:
+        map_html='<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
     
-    map_table=generateMappingStats(result_dir)
+        map_table=generateMappingStats(result_dir)
  
-    map_html+=map_table
+        map_html+=map_table
+    except:
+        map_html=''
     pkcallstats_html=generatePkCallingStats(result_dir)
     pkcall_html= map_html+pkcallstats_html
 #    pkcall_html= ''
