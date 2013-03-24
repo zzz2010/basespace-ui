@@ -227,7 +227,7 @@ def generatePkCallingStats(result_dir):
     numpeaks,stats_html=getStatsTable(outputdir+"stats.tmp")
     feStats=getThrStatsTable(outputdir+"feStats.tmp", "Fold Enrichment")
     pvalStats=getThrStatsTable(outputdir+"pvalStats.tmp", "-10*log10(pvalue)")
-    bindTables='<div class="row-fluid"><div class="span6">'+stats_html+'</div><div class="span6">'+feStats+pvalStats+'</div></div>'
+  #  bindTables='<div class="row-fluid"><div class="span6">'+stats_html+'</div><div class="span6">'+feStats+pvalStats+'</div></div>'
     
     macs_version='1.4.2'
     macs_info='<style> #table_macs td{text-align:center;width:50%} #table_macs tr td:FIRST-CHILD{font-weight:bold;}</style> <table id="table_macs" class="table table-bordered table-condensed"><tr><td colspan="2"><strong>MACS Arguments</strong></td></tr>\
@@ -236,7 +236,7 @@ def generatePkCallingStats(result_dir):
     
     run_info=getRunInfo(numpeaks, peakxls)
 
-    bind_geninfo='<div class="row-fluid"><div class="span6">'+macs_info+'</div><div class="span6">' + run_info + '</div></div>'
+  #  bind_geninfo='<div class="row-fluid"><div class="span6">'+macs_info+'</div><div class="span6">' + run_info + '</div></div>'
   #  pkcall_html+=bind_geninfo + bindTables +'</div>'
     
     pkcall_html+='<div class="row-fluid"><div class="span6">'+macs_info+stats_html+'</div><div class="span6">'+run_info+feStats+pvalStats+'</div></div></div>'
