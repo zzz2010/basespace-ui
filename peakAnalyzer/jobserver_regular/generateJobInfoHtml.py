@@ -82,7 +82,7 @@ def generateMappingStats(result_dir):
     
     pcrfilterfile=glob.glob(pkcall_outdir+"*.unique")[0]
 
-    map_table='<table style="td{width:16.6%;}" class="table table-bordered table-condensed">\
+    map_table='<style>#table_map_stats td{width:16.6%;}</style><table id="table_map_stats" class="table table-bordered table-condensed">\
                 <thead><tr><th></th><th>%Non-Map</th><th>%Multi-Map</th><th>%Unique</th><th>%PCR-Filtered</th><th>Total No. of Reads</th></tr></thead>'
     
     try:
