@@ -238,6 +238,8 @@ def generatePkCallingStats(result_dir):
 
     bind_geninfo='<div class="row-fluid"><div class="span6">'+macs_info+'</div><div class="span6">' + run_info + '</div></div>'
     pkcall_html+=bind_geninfo + bindTables +'</div>'
+    
+    pkcall_html='<div class="row-fluid"><div class="span6">'+macs_info+stats_html+'</div><div class="span6">'+run_info+feStats+pvalStats+'</div></div></div>'
     return pkcall_html
 
 #generate general job desc table
