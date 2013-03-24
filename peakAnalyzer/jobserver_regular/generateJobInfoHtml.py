@@ -112,7 +112,7 @@ def generateMappingStats(result_dir):
             map_table+='<tbody>'+pct_reads_html + '</tbody></table>' #end of mapping stats table
             map_table+='</table>'
     except:
-        map_table+=''    
+        map_table=''    
     return map_table
 
 
@@ -282,11 +282,11 @@ pkconfigcontent=open(pkconfig).read()
 pkcall_html=''
 if pkconfigcontent.strip():
         map_table=generateMappingStats(result_dir)
-        if map_table=='':
+        if map_table:
             map_html='<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
             map_html+=map_table
         else:
-            map_html='<p>'+map_table+'</p>'
+            map_html=''
     
         pkcallstats_html=generatePkCallingStats(result_dir)
         pkcall_html= map_html+pkcallstats_html
