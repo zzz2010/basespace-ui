@@ -65,7 +65,10 @@ $(\'.table.table-striped.table-bordered.table-condensed\').dataTable({\
                 table=open(dir1 +"/"+f,'r').read()
             except:
                 print "file format error"
-    html_str=html_str+table + '</div>\n'
+    
+    fileurl=''
+    download_btn='<div style="padding-bottom:20px" id="great_download_btn"><a target="_blank" href="'+fileurl+'"><button class="btn btn-primary">Download GREAT Result</button></a></div>'
+    html_str=html_str+download_btn+table + '</div>\n'
     return html_str
 
 def denovoMotif_result(dir1):
