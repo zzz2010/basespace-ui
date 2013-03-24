@@ -114,7 +114,9 @@ def generateMappingStats(result_dir):
                 map_table+='<tbody>'+pct_reads_html + '</tbody></table>' #end of mapping stats table
                 map_table+='</table>'
         except:
-            map_table=''    
+            map_table=''
+    else:
+        map_table=''    
     return map_table
 
 
