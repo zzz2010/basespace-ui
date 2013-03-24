@@ -289,6 +289,8 @@ if pkconfigcontent.strip():
         map_html+=map_table
     except:
         map_html=''
+    
+    map_html=''
     pkcallstats_html=generatePkCallingStats(result_dir)
     pkcall_html= map_html+pkcallstats_html
 #    pkcall_html= ''
