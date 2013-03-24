@@ -65,8 +65,12 @@ $(\'.table.table-striped.table-bordered.table-condensed\').dataTable({\
                 table=open(dir1 +"/"+f,'r').read()
             except:
                 print "file format error"
-    
-    fileurl=''
+    #DEBUG URL
+    try:
+        fileurl=glob.glob(dir1+"*.xls")[0]  #renamed great output to xls filetype
+        fileurl=fileurl.replace("/home/sokemay/basespace/basespace-ui/basespace-ui/", "")
+    except:
+        fileurl=''
     download_btn='<div style="padding-bottom:20px" id="great_download_btn"><a target="_blank" href="'+fileurl+'"><button class="btn btn-success">Download GREAT Result <span class="icon-download icon-white"></button></span></a></div>'
     html_str=html_str+download_btn+table + '</div>\n'
     return html_str
