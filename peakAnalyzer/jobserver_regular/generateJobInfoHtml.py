@@ -282,7 +282,7 @@ pkconfigcontent=open(pkconfig).read()
 pkcall_html=''
 if pkconfigcontent.strip():
         map_table=generateMappingStats(result_dir)
-        if map_table:
+        if map_table=='':
             map_html='<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
             map_html+=map_table
         else:
