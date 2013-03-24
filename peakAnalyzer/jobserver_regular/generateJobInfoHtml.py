@@ -214,6 +214,7 @@ def getRunInfo(npeaks,fname):
     return runinfo+'</table>'
 
 def generatePkCallingStats(result_dir):
+    pkcall_html='<div id="pkcall_stats">'
     pkcall_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_outdir=result_dir+"/peakcalling_result/"
     peakxls= glob.glob(pkcall_outdir+"*.xls")[0]
@@ -236,7 +237,7 @@ def generatePkCallingStats(result_dir):
     run_info=getRunInfo(numpeaks, peakxls)
 
     bind_geninfo='<div class="row-fluid"><div class="span6">'+macs_info+'</div><div class="span6">' + run_info + '</div></div>'
-    pkcall_html+=bind_geninfo + bindTables 
+    pkcall_html+=bind_geninfo + bindTables +'</div>'
     return pkcall_html
 
 #generate general job desc table
@@ -287,7 +288,6 @@ if pkconfigcontent.strip():
             map_html+=map_table
         else:
             map_html=''
-        map_html=''
         pkcallstats_html=generatePkCallingStats(result_dir)
         pkcall_html= map_html+pkcallstats_html
 
