@@ -215,7 +215,7 @@ def getRunInfo(npeaks,fname):
 
 def generatePkCallingStats(result_dir):
     pkcall_html='<div id="pkcall_stats">'
-    pkcall_html='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
+    pkcall_html+='<div class="breadcrumb"><h4>Peak Calling Statistics</h4></div>'
     pkcall_outdir=result_dir+"/peakcalling_result/"
     peakxls= glob.glob(pkcall_outdir+"*.xls")[0]
     
