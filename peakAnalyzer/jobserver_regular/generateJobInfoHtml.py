@@ -31,49 +31,89 @@ def getPercentageReads(noreads, totreads):
     pctreads=round((fractionreads*100), 2)
     return str(pctreads) + "%"
 
+
+##include pie chart plot
+#def generateMappingStats(result_dir):
+#    pkcall_outdir=result_dir+"/peakcalling_result/"
+#    
+#    pcrfilterfile=glob.glob(pkcall_outdir+"*.unique")[0]
+#
+#    map_table='<table class="table table-bordered table-condensed">\
+#                <thead><tr><th></th><th>Non-Map</th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th><th>Total</th></tr></thead>'
+#    
+#    try:
+#        maplogfile= glob.glob(pkcall_outdir+"*.maplog.txt")[0]
+#        maplog=open(maplogfile,'r').readlines()
+#        maplog=maplog[1:5]
+#        
+#        numreads=list()
+#        pctreads=list()
+#        for l in maplog:
+#            bracketIndex=l.find("(")
+#            numreads.append(l[0:bracketIndex].strip())
+#        
+#        status,output=commands.getstatusoutput("wc -l " + pcrfilterfile)
+#        num_pcr=output.split()[0]
+#        num_total=numreads[0]
+#        num_unmap=numreads[1]
+#        num_uniq=numreads[2]
+#        num_mm=numreads[3]
+#        
+#        num_reads_html='<tr><td>Number of Reads</td><td>'+num_unmap+'</td><td>'+num_mm +'</td><td><span class="label label-info">'+num_uniq+'</span></td><td><span class="label label-important">'+num_pcr+'</span></td><td><span class="label label-inverse">'+num_total+'</span></td></tr>'
+#        
+#        pct_reads_html='<tr><td>% (of total) Reads</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td>-</td></tr>'
+#        
+#        #plot distribution of reads
+#        outputdir=result_dir+'/job_info/'
+#        cmd='R ' + outputdir+ ' '+ num_unmap +' '+num_mm+' ' + num_uniq + ' --no-save < '+toolpath+'/plotPie.R'
+#        os.system(cmd)
+#        
+#        #DEBUG URL
+#        imgurl=str(outputdir+'/reads_distribution.png').replace("/home/sokemay/basespace/basespace-ui/basespace-ui","")
+#        plot_html='<tr><td colspan="6"><img src="'+ imgurl +'"></td></tr>'
+#        map_table+='<tbody>'+num_reads_html+pct_reads_html+plot_html + '</tbody></table>' #end of mapping stats table
+#        
+#    except:
+#        map_table+='</table>'    
+#    return map_table
+
 def generateMappingStats(result_dir):
     pkcall_outdir=result_dir+"/peakcalling_result/"
     
     pcrfilterfile=glob.glob(pkcall_outdir+"*.unique")[0]
 
     map_table='<table class="table table-bordered table-condensed">\
-                <thead><tr><th></th><th>Non-Map</th><th>Multi-Map</th><th>Unique</th><th>PCR-Filtered</th><th>Total</th></tr></thead>'
+                <thead><tr><th></th><th>%Non-Map</th><th>%Multi-Map</th><th>%Unique</th><th>%PCR-Filtered</th><th>Total No. of Reads</th></tr></thead>'
     
     try:
-        maplogfile= glob.glob(pkcall_outdir+"*.maplog.txt")[0]
-        maplog=open(maplogfile,'r').readlines()
-        maplog=maplog[1:5]
+        maplogfiles= glob.glob(pkcall_outdir+"*.maplog.txt")
+        pct_reads_html=''
+        for m in maplogfiles:
+            maplog=open(m,'r').readlines()
+            maplog=maplog[1:5]
         
-        numreads=list()
-        pctreads=list()
-        for l in maplog:
-            bracketIndex=l.find("(")
-            numreads.append(l[0:bracketIndex].strip())
+            numreads=list()
+            pctreads=list()
+            for l in maplog:
+                bracketIndex=l.find("(")
+                numreads.append(l[0:bracketIndex].strip())
         
-        status,output=commands.getstatusoutput("wc -l " + pcrfilterfile)
-        num_pcr=output.split()[0]
-        num_total=numreads[0]
-        num_unmap=numreads[1]
-        num_uniq=numreads[2]
-        num_mm=numreads[3]
+            status,output=commands.getstatusoutput("wc -l " + pcrfilterfile)
+            num_pcr=output.split()[0]
+            num_total=numreads[0]
+            num_unmap=numreads[1]
+            num_uniq=numreads[2]
+            num_mm=numreads[3]
+            fname=m.replace(".maplog.txt", "")
         
-        num_reads_html='<tr><td>Number of Reads</td><td>'+num_unmap+'</td><td>'+num_mm +'</td><td><span class="label label-info">'+num_uniq+'</span></td><td><span class="label label-important">'+num_pcr+'</span></td><td><span class="label label-inverse">'+num_total+'</span></td></tr>'
+            pct_reads_html+='<tr><td>'+fname+'</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td>'+str(num_total)+'</td></tr>'
         
-        pct_reads_html='<tr><td>% (of total) Reads</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td>-</td></tr>'
-        
-        #plot distribution of reads
-        outputdir=result_dir+'/job_info/'
-        cmd='R ' + outputdir+ ' '+ num_unmap +' '+num_mm+' ' + num_uniq + ' --no-save < '+toolpath+'/plotPie.R'
-        os.system(cmd)
-        
-        #DEBUG URL
-        imgurl=str(outputdir+'/reads_distribution.png').replace("/home/sokemay/basespace/basespace-ui/basespace-ui","")
-        plot_html='<tr><td colspan="6"><img src="'+ imgurl +'"></td></tr>'
-        map_table+='<tbody>'+num_reads_html+pct_reads_html+plot_html + '</tbody></table>' #end of mapping stats table
+            map_table+='<tbody>'+pct_reads_html + '</tbody></table>' #end of mapping stats table
         
     except:
         map_table+='</table>'    
     return map_table
+
 
 def getStatsTable(fname):
     stats_table='<table class="table table-bordered table-condensed" id="stat_table"><thead><tr><th style="width:25%"></th><th>Length</th><th>Tags</th><th>Fold Enrichment</th></tr></thead><tbody>'
