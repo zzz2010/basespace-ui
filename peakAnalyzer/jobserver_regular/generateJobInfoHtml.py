@@ -286,7 +286,7 @@ if pkconfigcontent.strip():
             map_html='<div class="breadcrumb"><h4>Reads Mapping Statistics</h4></div>'
             map_html+=map_table
         else:
-            map_html=''
+            map_html='<p>'+map_table+'</p>'
     
         pkcallstats_html=generatePkCallingStats(result_dir)
         pkcall_html= map_html+pkcallstats_html
