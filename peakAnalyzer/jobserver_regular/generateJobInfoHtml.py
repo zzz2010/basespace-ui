@@ -107,7 +107,7 @@ def generateMappingStats(result_dir):
             fname=os.path.basename(m)
             fname=fname.replace(".maplog.txt", "")
         
-            pct_reads_html+='<tr><td>'+fname+'</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td><span class="label label-inverse">'+str(num_total)+'</span></td></tr>'
+            pct_reads_html+='<tr><td>'+fname+'</td><td>'+getPercentageReads(num_unmap, num_total)+'</td><td>'+getPercentageReads(num_mm, num_total) +'</td><td>'+getPercentageReads(num_uniq, num_total)+'</td><td>'+getPercentageReads(num_pcr, num_total)+'</td><td><span class="label label-info">'+str(num_total)+'</span></td></tr>'
         
             map_table+='<tbody>'+pct_reads_html + '</tbody></table>' #end of mapping stats table
         
