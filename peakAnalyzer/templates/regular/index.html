@@ -322,36 +322,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.username }}</
 </div>
 </div>
 </form>
-<!-- The template to display files available for upload -->
 
-	{% for file in o.files %}
-    <tr class="template-upload fade">
-        <td class="name"><span>{% file.name %}</span></td>
-        <td class="size"><span>{% o.formatFileSize(file.size) %}</span></td>
-        {% if not file.error  %}
-            <td class="error" colspan="2"><span class="label label-important">Error</span> {% file.error %}</td>
-        {% else %}
-            <td>
-                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div>
-	</td>
-	{% endif %}
-            <td class="start">{% if not o.options.autoUpload  %}
-                <button class="btn btn-primary">
-                    <i class="icon-upload icon-white"></i>
-                    <span>Start</span>
-                </button>
-            </td>
-        {%  else %}
-            <td colspan="2"></td>
-        {% endif %}
-        <td class="cancel">{% if not i  %}
-            <button class="btn btn-warning">
-                <i class="icon-ban-circle icon-white"></i>
-                <span>Cancel</span>
-            </button>
-        {% endif %}</td>
-    </tr>
-{% endfor %}
 <script src="http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"></script>
 <br>
 
