@@ -357,6 +357,10 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
     print known_match_cell
     taskconfig.set("task", "cellline", known_match_cell)
    
+    clFile=open(outdir+"/detected_cl.txt","w")
+    clFile.write(known_match_cell)
+    clFile.close()
+
     g = group(tasklist)()
     g.get(timeout=100*60*60)
  #  # return group(tasklist)()
@@ -371,6 +375,7 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         taskconfig=ConfigParser.ConfigParser()
         taskconfig.readfp(open(taskconfigfile))
         inputdir=taskconfig.get("task", "dataDIR")
+        outdir=taskconfig.get("task", "outputDIR")
         peaklist=glob.glob(inputdir+"/*summits.bed")
         print "running pipeline..."
       #  grouptasks=group(Pipeline_Processing_task_general.s(peaklist,taskconfig),Pipeline_Processing_task_cellline.s(peaklist,taskconfig, jobid))()
@@ -381,8 +386,14 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         print "change status"
         myjob=Job.objects.get(pk=jobid)
         myjob.status="Completed"
-        myjob.cell_line=taskconfig.get("task","cellline")
-        print myjob.cell_line
+        
+        try:
+            detected_cl=open(outdir+"/detected_cl.txt").readline()
+        except:
+            detected_cl=taskconfig.get("task","cellline")
+        
+        print detected_cl
+        myjob.cell_line=detected_cl
         myjob.save()
         print myjob.cell_line
     except Exception, e:
