@@ -211,7 +211,7 @@ $(function () {
                  $('<td id="td_' + file.name+ '" class="name"/>').text(file.name).appendTo(row);
  				var fsize=$('<td>'+ getReadableFileSizeString(file.size) + '</td>');
  				fsize.appendTo(row);
- 				var prog=$('<td><div id="progress_indv_"'+file.name +'class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div></td>');
+ 				var prog=$('<td><div id="progress_indv_'+file.name +'" class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div></td>');
             	prog.appendTo(row);
                 var button=$('<td class="cancel"> <button type="reset" id="button.cancel_'+ file.name+'" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i></button></td>');
                 button.appendTo(row);
