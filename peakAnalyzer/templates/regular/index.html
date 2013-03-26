@@ -240,7 +240,7 @@ $(function () {
            $.each(data.result.files, function (index, file) {
      //   	 alert(file.name + " uploaded!");
          	 var row= document.getElementById("tr_" + file.name);
-         	var progbar=$(row+":nth-child(3)")
+         	var progbar=$(row+":nth-child(2)")
     		row.removeChild(progbar);
          	 
          	 $('button #button.cancel_' + file.name).hide();
