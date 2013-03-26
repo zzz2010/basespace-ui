@@ -195,7 +195,7 @@ $(function () {
 
                 var row =$('<tr id=tr_' +file.name +'/>');
                  $('<td id="td_' + file.name+ '" class="name"/>').text(file.name).appendTo(row);
- 				var fsize=$('<td>'+file.size().toString() + '</td>');
+ 				var fsize=$('<td>'+file.size() + '</td>');
  				fsize.appendTo(row);
  				var prog=$('<td><div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div></td>');
             	prog.appendTo(row);
