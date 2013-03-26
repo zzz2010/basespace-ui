@@ -262,6 +262,11 @@ $(function () {
       
     });
 });
+
+$('#fileupload').bind('fileuploadprogress', function (e, data) {
+    // Log the current bitrate for this upload:
+    console.log(data.bitrate);
+});
 /*
 $('#localfile_list table tr').live("click",function()
 {
