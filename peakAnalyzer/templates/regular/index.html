@@ -225,7 +225,7 @@ $(function () {
             .success(function (result, textStatus, jqXHR) {/* ... */})
             .error(function (jqXHR, textStatus, errorThrown) {
             if (errorThrown === 'abort') {
-            alert('File Upload has been canceled');
+       //     alert('File Upload has been canceled');
                 	 var row= document.getElementById("tr_" + file.name);
                 	row.parentNode.removeChild(row);
         	}
