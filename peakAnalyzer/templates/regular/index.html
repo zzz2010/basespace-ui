@@ -280,15 +280,7 @@ $('#fileupload').bind('fileuploadprogress', function (e, data) {
     console.log(data.bitrate);
 });
 /*
-$('#localfile_list table tr').live("click",function()
-{
 
-var filename = $(this).text(); 
-var trigger = document.createElement("div");
-trigger.innerHTML = filename;
-add_list(trigger);
-});
-*/
      </script> 
 <head>
 <!-- Generic page styles -->
@@ -345,11 +337,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.username }}</
                     <i class="icon-ban-circle icon-white"></i>
                     <span>Cancel upload</span>
                 </button>
-                <button type="button" class="btn btn-danger delete">
-                    <i class="icon-trash icon-white"></i>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" class="toggle">
+
             </div>
             <!-- The global progress information -->
 	    <div class="fileupload-progress fade" >
@@ -357,7 +345,6 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.username }}</
                 <div id="progress_glob" class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
                     <div class="bar" style="width:0%;height:18px;"></div>
                 </div>
-				<div class="progress-extended">&nbsp;</div>
             </div>
  
         <!-- The loading indicator is shown during file processing -->
