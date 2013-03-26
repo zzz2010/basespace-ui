@@ -216,7 +216,7 @@ $(function () {
                 var button=$('<td class="cancel"> <button type="reset" id="button.cancel_'+ file.name+'" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i></button></td>');
          //       button.appendTo(row);
                
-               $('<td id="status"></td>').appendTo(row);
+           
                row.appendTo($("#localfile_list table"));
 
 		});
@@ -240,7 +240,12 @@ $(function () {
          done: function (e, data) {
            $.each(data.result.files, function (index, file) {
           	 var row= document.getElementById("tr_" + file.name);
-         	row.innerHTML='<td>'+file.name+'</td><td><span class="label label-success"> Uploaded!</span></td>'; 
+        	var fsize=$('<td>'+ getReadableFileSizeString(file.size) + '</td>');
+        	var fname=$('<td>'+ file.name + '</td>');
+        	var status=$('<td><span class="label label-success"> Uploaded!</span></td>');
+         	row.innerHTML=fname+fsize+status;
+    	
+    	
     	//	$('<td><span class="label label-success"> Uploaded!</span></td>').appendTo(row);
     	//	$('<input type="checkbox" name="delete" value="1">').appendTo(row);
     	      });
