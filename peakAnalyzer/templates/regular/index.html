@@ -238,7 +238,7 @@ $(function () {
         },
          done: function (e, data) {
            $.each(data.result.files, function (index, file) {
-         	 alert(file.name + " uploaded!");
+      //   	 alert(file.name + " uploaded!");
          	 var row= document.getElementById("tr_" + file.name);
          	 row.parentNode.removeChild(row);
          	 
