@@ -190,7 +190,7 @@ postdata+='&inputCell='+$('#inputCell').val() ;
 function getReadableFileSizeString(fileSizeInBytes) {
 
     var i = -1;
-    var byteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
+    var byteUnits = [' KB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
     do {
         fileSizeInBytes = fileSizeInBytes / 1024;
         i++;
@@ -312,11 +312,13 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.username }}</
         <div  class="row fileupload-buttonbar">
     
                 <!-- The fileinput-button span is used to style the file input field as button -->
+                <div style="padding-left:10px;">
                 <span class="btn btn-success fileinput-button">
                     <i class="icon-plus icon-white"></i>
                     <span>Add files...</span>
                     <input type="file" name="files[]" multiple>
                 </span>
+                </div>
                 <button type="reset" class="btn btn-warning cancel">
                     <i class="icon-ban-circle icon-white"></i>
                     <span>Cancel upload</span>
