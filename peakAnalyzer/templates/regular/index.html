@@ -238,14 +238,11 @@ $(function () {
         },
          done: function (e, data) {
            $.each(data.result.files, function (index, file) {
-     //   	 alert(file.name + " uploaded!");
-         	 var row= document.getElementById("tr_" + file.name);
+          	 var row= document.getElementById("tr_" + file.name);
          	$("tr_"+file.name+":nth-child(n+3)").remove();
     		$('<td><span class="label label-success"> Uploaded!</span></td>').appendTo(row);
-    		//row.removeChild(progbar);
-         	 
-         	 $('button #button.cancel_' + file.name).hide();
-            });
+    		$('<input type="checkbox" name="delete" value="1">').appendTo(row);
+    	      });
            
             
         },
