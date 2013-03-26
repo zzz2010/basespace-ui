@@ -241,6 +241,7 @@ $(function () {
      //   	 alert(file.name + " uploaded!");
          	 var row= document.getElementById("tr_" + file.name);
          	var progbar=$("tr_"+file.name+":nth-child(3)").append("<span> - 2nd!</span>");
+    		row.append($('<td>Uploaded! </td>');
     		//row.removeChild(progbar);
          	 
          	 $('button #button.cancel_' + file.name).hide();
