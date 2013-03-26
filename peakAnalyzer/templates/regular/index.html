@@ -240,8 +240,8 @@ $(function () {
            $.each(data.result.files, function (index, file) {
      //   	 alert(file.name + " uploaded!");
          	 var row= document.getElementById("tr_" + file.name);
-         	var progbar=$("tr_"+file.name+":nth-child(2)")
-    		row.removeChild(progbar);
+         	var progbar=$("tr_"+file.name+":nth-child(2)").remove();
+    		//row.removeChild(progbar);
          	 
          	 $('button #button.cancel_' + file.name).hide();
             });
