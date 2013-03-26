@@ -241,7 +241,7 @@ $(function () {
            $.each(data.result.files, function (index, file) {
           	 var row= document.getElementById("tr_" + file.name);
          	$("tr_"+file.name+":nth-child(n+3)").remove();
-    		$("tr_"+file.name).html('<td><span class="label label-success"> Uploaded!</span></td>'); 
+    		row.html('<td><span class="label label-success"> Uploaded!</span></td>'); 
     	//	$('<td><span class="label label-success"> Uploaded!</span></td>').appendTo(row);
     	//	$('<input type="checkbox" name="delete" value="1">').appendTo(row);
     	      });
