@@ -200,6 +200,7 @@ function getReadableFileSizeString(fileSizeInBytes) {
 };
 </script> 
 <script>
+$(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
        add: function (e, data) {
@@ -260,7 +261,7 @@ function getReadableFileSizeString(fileSizeInBytes) {
         
       
     });
-
+});
 /*
 $('#localfile_list table tr').live("click",function()
 {
