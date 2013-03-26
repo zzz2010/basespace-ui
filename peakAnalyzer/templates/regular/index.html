@@ -207,7 +207,7 @@ $(function () {
         
         $.each(data.files, function (index, file) {
 
-                var row =$('<tr id=tr_' +file.name +'/>');
+                var row =$('<tr id="tr_' +file.name +'" />');
                  $('<td id="td_' + file.name+ '" class="name"/>').text(file.name).appendTo(row);
  				var fsize=$('<td>'+ getReadableFileSizeString(file.size) + '</td>');
  				fsize.appendTo(row);
@@ -238,10 +238,10 @@ $(function () {
         },
          done: function (e, data) {
            $.each(data.result.files, function (index, file) {
-         //       $('<p/>').text(file.name).appendTo($("#localfile_list"));
          	 alert(file.name + " uploaded!");
-         	 var test= document.getElementById("tr_" + file.name);
-         	 //alert();
+         	 var row= document.getElementById("tr_" + file.name);
+         	 row.parentNode.removeChild(row);
+         	 
          	 $('button #button.cancel_' + file.name).hide();
             });
            
