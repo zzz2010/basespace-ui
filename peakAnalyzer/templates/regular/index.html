@@ -219,7 +219,7 @@ $(function () {
            
                row.appendTo($("#localfile_list table"));
 
-		});
+		
         
         var jqXHR = data.submit()
             .success(function (result, textStatus, jqXHR) {/* ... */})
@@ -237,7 +237,7 @@ $(function () {
 
 		});
             
-    
+    });
         },
          done: function (e, data) {
            $.each(data.result.files, function (index, file) {
