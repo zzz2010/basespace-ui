@@ -199,7 +199,8 @@ $(function () {
                 var button=$('<td class="cancel"> <button type="reset" id="button.cancel_'+ file.name+'" class="btn btn-warning cancel"><i class="icon-ban-circle icon-white"></i></button></td>');
                 button.appendTo(row);
                
-                row.appendTo($("#localfile_list table"));
+               row.appendTo($("#localfile_list table"));
+
 		});
         
         var jqXHR = data.submit()
@@ -311,7 +312,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.username }}</
                 <input type="checkbox" class="toggle">
             </div>
             <!-- The global progress information -->
-	    <div class="span5 fileupload-progress fade">
+	    <div class="fileupload-progress fade">
                 <!-- The global progress bar -->
                 <div id="progress" class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
                     <div class="bar" style="width:0%;height:18px;background:green"></div>
