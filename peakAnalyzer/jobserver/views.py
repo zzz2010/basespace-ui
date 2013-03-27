@@ -51,6 +51,7 @@ def GREAT_result(dir1):
     myTab=os.path.basename(dir1)
     html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"'>"+'<script> $(document).ready( function () {\
 $(\'.table.table-striped.table-bordered.table-condensed\').dataTable({\
+            "aaSorting": [[ 1, "asc" ], [7,"asc"]],\
             "sDom": "<\'row\'<\'span6\'l><\'span6\'f>r>t<\'row\'<\'span6\'i><\'span6\'p>>",\
             "sPaginationType": "bootstrap",\
             "aoColumns": [{ "sType": \'string\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'percent\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'percent\' },]\
