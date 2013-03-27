@@ -9,6 +9,8 @@
    var secs=60000*3
    var refreshId = setInterval(function() {
       $("#joblist_container").load("/peakAnalyzer/jobserver-regular/{{ user.id }}/listjob");
+        var oTable = $('#table_joblist').dataTable();
+        oTable.fnSort( [ [1,'asc'] ] );
    }, secs);
    $.ajaxSetup({ cache: false });
 });
