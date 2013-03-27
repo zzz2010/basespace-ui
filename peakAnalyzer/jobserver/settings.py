@@ -15,8 +15,8 @@ CENTDISTDIR='/home/sokemay/ChIPseqPipeline/webseqtools2/TASKS/Motif_Enrichment/'
 SEMEDIR='./SEME/'
 BedToolDIR='/home/sokemay/ChIPseqPipeline/webseqtools2/ZZZ'
 
-known_cells=['Gm10847', 'Gm12878', 'Gm12891', 'Gm12892', 'Gm15510', 'Gm18505', 'Gm18526', 'Gm18951', 'Gm19099', 'Gm19193', 'H1hesc', 'Hct116', 'Hek293', 'Helas3', 'Hepg2', 'Huvec', 'K562', 'Mcf10', 'Mcf7', 'Nb4', 'Nt2d1', 'Panc1', 'Pbde', 'Raji', 'Shsy5y', 'U2os']
-
+#known_cells=['Gm10847', 'Gm12878', 'Gm12891', 'Gm12892', 'Gm15510', 'Gm18505', 'Gm18526', 'Gm18951', 'Gm19099', 'Gm19193', 'H1hesc', 'Hct116', 'Hek293', 'Helas3', 'Hepg2', 'Huvec', 'K562', 'Mcf10', 'Mcf7', 'Nb4', 'Nt2d1', 'Panc1', 'Pbde', 'Raji', 'Shsy5y', 'U2os']
+known_cells=[ 'Gm12878',  'H1hesc', 'Hct116', 'Hek293', 'Helas3', 'Hepg2', 'Huvec', 'K562', 'Nb4', 'Nt2d1', 'Panc1',  'U2os']
 
 bowtie2_path='/opt/bowtie2-2.1.0/bowtie2'
 bowtie2_index = '/opt/bowtie2-2.1.0/hg19bowtie2/'
