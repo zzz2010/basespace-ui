@@ -51,8 +51,7 @@ def GREAT_result(dir1):
 $(\'.table.table-striped.table-bordered.table-condensed\').dataTable({\
             "sDom": "<\'row\'<\'span6\'l><\'span6\'f>r>t<\'row\'<\'span6\'i><\'span6\'p>>",\
             "sPaginationType": "bootstrap",\
-            "aaSorting": [[ 1, "asc" ]],"\
-            "aoColumns": [{ "sType": \'string\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'percent\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'percent\' },]\
+             "aoColumns": [{ "sType": \'string\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'percent\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'percent\' },]\
            }); } );</script>'
     
     filelist=os.listdir(dir1)
