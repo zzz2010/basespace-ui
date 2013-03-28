@@ -400,7 +400,7 @@ def PeakCalling_task(outdir,jobid):
     cfgFile=open(cfgFileName,'w')
     
     #copy summits files to outdir2 and rename to *summits.bed 
-    moveCmd = "cut -f1,2,3 {0} > " + outdir2 + "{1}"
+    moveCmd = "grep 'chr' {0} | cut -f1,2,3 > " + outdir2 + "{1}"
     cmdlist=list()
     for sfl in myjob.sampleFiles.split(','):
         if isRawFile(sfl):
