@@ -98,7 +98,7 @@ def generateMappingStats(result_dir):
                     numreads.append(l[0:bracketIndex].strip())
                 
                 pcrfilter=pcrfilterfile[i]
-                status,output=commands.getstatusoutput("wc -l " + pcrfilterfile)
+                status,output=commands.getstatusoutput("wc -l " + pcrfilter)
                 num_pcr=output.split()[0]
                 num_total=numreads[0]
                 num_unmap=numreads[1]
