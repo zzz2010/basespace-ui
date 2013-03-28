@@ -87,7 +87,7 @@ def generateMappingStats(result_dir):
                     <thead><tr><th></th><th>%Non-Map</th><th>%Multi-Map</th><th>%Unique</th><th>%PCR-Filtered</th><th>Total No. of Reads</th></tr></thead>'
         
             pct_reads_html=''
-            for i in xrange(maplogfiles):
+            for i in xrange(len(maplogfiles)):
                 maplog=open(maplogfiles[i],'r').readlines()
                 maplog=maplog[1:5]
             
