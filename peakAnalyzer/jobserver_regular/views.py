@@ -121,7 +121,7 @@ def jobinfo_html(job, result_dir):
         job_desc=open(job_desc_out).read()
     except:
         job_desc=''
-    html_str="<div class='tab-pane' id='job_info'>" +job_desc+ "</div>"
+    html_str="<div class='tab-pane active' id='job_info'>" +job_desc+ "</div>"
     
     
     return html_str
