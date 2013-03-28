@@ -10,4 +10,5 @@ for f in peaklist:
 	os.system("mv " + f + " " + tmp)
 	cmd="sort -k 5 -nr "+ tmp + " > " + f
 	os.system(cmd)
+	os.system("rm " +tmp)
 	 
