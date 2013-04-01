@@ -140,7 +140,7 @@ INSTALLED_APPS = (
     'jobserver_regular',
 )
 ACCOUNT_ACTIVATION_DAYS = 2
-DEFAULT_FROM_EMAIL='peakanalyzer-noreply@genome.com'
+DEFAULT_FROM_EMAIL='peakwhiz-noreply@genome.com'
 
 #LOGIN_URL ="http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/basespace/login"
 LOGIN_URL ="http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/accounts/login"
