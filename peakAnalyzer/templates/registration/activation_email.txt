@@ -1,5 +1,5 @@
 {% load humanize %}
-Thank you for signing up with PeakAnalyzer! To activate and use your account, click the link below or copy and paste it into your web browser's address bar:
+Thank you for signing up with PeakWhiz! To activate and use your account, click the link below or copy and paste it into your web browser's address bar:
 
 http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/accounts/activate/{{ activation_key }}/
 
