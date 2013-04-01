@@ -239,7 +239,8 @@ def ConvertToBam():
             os.system('bedToBam -i ' + tmpName + ' -g ' + genome_length_path + ' > ' + tmpName +'.bam')
             
         os.system('samtools sort -m 10000000000 ' + tmpName+'.bam ' + tmpName+'_sorted')
-        os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam' +' > ' + output_dir+tmpName+'.rmdup.log')        
+      #  os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam' +' > ' + output_dir+'/'+tmpName+'_rmdup.log')
+        os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam')        
         toMergeControls+=(tmpName+'_rmdup.bam ')
         
         #call function to create .tags.unique for zz
