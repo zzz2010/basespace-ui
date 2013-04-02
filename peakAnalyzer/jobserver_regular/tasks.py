@@ -324,7 +324,7 @@ def Pipeline_Processing_task_cellline(peaklist,taskconfig):
             else:
                 tasklist.append(histonePlot.s(peakfile,outdir2,genome,known_match_cell))
     print known_match_cell
-    taskconfig.set("task", "cellline", known_match_cell)
+    taskconfig.set("task", "alternative_cellline", known_match_cell)
     print "cell line set"
     
     clFile=open(outdir+"/detected_cl.txt","w")
@@ -358,13 +358,13 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
         myjob.status="Completed"
       
         
-        try:
-            detected_cl=open(outdir+"/detected_cl.txt").readline()
-        except:
-            detected_cl=taskconfig.get("task","cellline")
-        print detected_cl
-        myjob.cell_line=detected_cl
-        
+#        try:
+#            detected_cl=open(outdir+"/detected_cl.txt").readline()
+#        except:
+#            detected_cl=taskconfig.get("task","cellline")
+#        print detected_cl
+#        myjob.cell_line=detected_cl
+#        
         #myjob.cell_line=taskconfig.get("task","cellline")
         
         myjob.save()
