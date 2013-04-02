@@ -115,8 +115,16 @@ def jobinfo_html(job, result_dir):
     outdir=result_dir+'/job_info/'
     mkpath(outdir)
     job_desc_out=outdir+"jobdescription.html"
+    
+        #add alt cellline
+    try:
+        alt_cl=open(result_dir+"/pipeline_result/detected_cl.txt").readline()
+    except:
+        alt_cl=''
+
+
    # os.system("rm " + job_desc_out)
-    cmd="python "+toolpath+"/generateJobInfoHtml.py '" + job.jobtitle + "' '" + job.ref_genome+ "' '" + job.cell_line + "' '" + job.sampleFiles+ "' '" + job.controlFiles + "' " +result_dir+ " " + job_desc_out + ' '+toolpath
+    cmd="python "+toolpath+"/generateJobInfoHtml.py '" + job.jobtitle + "' '" + job.ref_genome+ "' '" + job.cell_line + "' '"+alt_cl +"' '" + job.sampleFiles+ "' '" + job.controlFiles + "' " +result_dir+ " " + job_desc_out + ' '+toolpath
 #    cmd="python "+toolpath+"/generateJobInfoHtml.py " + str(job.id) +" "+result_dir+ " " +job_desc_out
     print cmd
     os.system(cmd)
