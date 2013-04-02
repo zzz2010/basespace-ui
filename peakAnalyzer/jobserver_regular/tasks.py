@@ -210,6 +210,8 @@ def Pipeline_Processing_task_general(peaklist,taskconfig):
 
 def checkCellName(testName, knownName):
     if testName:
+        testName=testName.lower()
+        knownName=knownName.lower()
         return (testName in knownName) or (knownName in testName)
     else:
         return (False) 
