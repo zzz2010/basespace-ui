@@ -379,16 +379,17 @@ def Pipeline_Processing_task(taskconfigfile,jobid):
 
 toolpath=os.path.join(peakAnalyzer.settings.ROOT_DIR, '../jobserver').replace('\\','/')
 
-def isRawFile(inputFile):
+def isUnprocessedFile(inputFile):
     try:
         with open(inputFile, 'r') as f:
             lines = len(list(filter(lambda x: x.strip(), f)))
             isLarge=(lines>10000000)
-            isMapped=(".fastq" or ".fasta" or ".fq" or ".fa" ) in inputFile
-            isRaw= isLarge or isMapped 
+            isMapped=(".bam" or ".sam" ) in inputFile
+            isRaw=(".fastq" or ".fasta" or ".fq" or ".fa" ) in inputFile
+            isUnprocessed= isLarge or isMapped or isRaw 
     except:
-        isRaw=False
-    return isRaw
+        isUnprocessed=False
+    return isUnprocessed
 
 @task
 def PeakCalling_task(outdir,jobid):
@@ -405,7 +406,7 @@ def PeakCalling_task(outdir,jobid):
     moveCmd = "grep 'chr' {0} | cut -f1,2,3 > " + outdir2 + "{1}"
     cmdlist=list()
     for sfl in myjob.sampleFiles.split(','):
-        if isRawFile(sfl):
+        if isUnprocessedFile(sfl):
             print "raw file"
             cfgFile.write(sfl+"\n")
         else:
@@ -421,7 +422,7 @@ def PeakCalling_task(outdir,jobid):
     if myjob.controlFiles:
             cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
-        if isRawFile(cfl):
+        if isUnprocessedFile(cfl):
             cfgFile.write(cfl+"\n")
         else:
             #check for control files
