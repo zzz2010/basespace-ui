@@ -164,8 +164,8 @@ def MapFiles():
         if isControl==0:
             break
         if isMapped(extension) == 0:
-          ##  cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + controlfileName_List[cnt]+extension + " -S " + controlfileName_List[cnt]+".sam "
-            cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x "+ bowtie2_index_dir + " -U " + controlfileName_List[cnt]+extension + "-S " + controlfileName_List[cnt]+".sam 2>"+controlfileName_List[cnt]+".maplog.txt"
+      #      cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + controlfileName_List[cnt]+extension + " -S " + controlfileName_List[cnt]+".sam "
+            cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + controlfileName_List[cnt]+extension + " -S " + controlfileName_List[cnt]+".sam 2>"+targetfileName_List[cnt]+".maplog.txt"
             #cmd=batmis_dir+'batman -g '+batmis_index_dir+' -q '+ controlfileName_List[cnt]+extension + ' -o ' + controlfileName_List[cnt]+'.bin ' + ' -n 2 -U;'
             #cmd+=batmis_dir+'batdecode -g '+batmis_index_dir+' -i '+ controlfileName_List[cnt]+'.bin -o ' + controlfileName_List[cnt]+'.sam '
             print 'CMD: '+ cmd
@@ -213,7 +213,7 @@ def ConvertToBam():
         print genome_length_path
         if FileType(tmpName)==0:    #sam
             os.system('samtools view -bS -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
-        ##    os.system('rm '+tmpName)
+            os.system('rm '+tmpName)
         elif FileType(tmpName)==1:    #bam
             os.system('samtools view -b -q 10 ' + tmpName + ' > '+ tmpName+'.bam')
         elif FileType(tmpName)==2:    #bed
@@ -221,14 +221,14 @@ def ConvertToBam():
 
         #print tmpName+"-bamTMP"
         os.system('samtools sort -m 10000000000 ' + tmpName+'.bam ' + tmpName+'_sorted')
-        os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam' +' > ' + output_dir+tmpName+'.rmdup.log')
+        os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam')
         toMergeTargets+=(tmpName+'_rmdup.bam ')
         
         #call function to create .tags.unique for zz
         PrintTagsUnique(tmpName+'_rmdup.bam')
         
         # cleanup
-  ##      os.system('rm '+ tmpName+'.bam; rm '+tmpName+'_sorted.bam;')
+        os.system('rm '+ tmpName+'.bam; rm '+tmpName+'_sorted.bam;')
         delayDelete.append(tmpName+'_rmdup.bam ')
         
     for tmpName in controlMappings_List:
@@ -241,7 +241,6 @@ def ConvertToBam():
             os.system('bedToBam -i ' + tmpName + ' -g ' + genome_length_path + ' > ' + tmpName +'.bam')
             
         os.system('samtools sort -m 10000000000 ' + tmpName+'.bam ' + tmpName+'_sorted')
-      #  os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam' +' > ' + output_dir+'/'+tmpName+'_rmdup.log')
         os.system('samtools rmdup -s ' + tmpName+'_sorted.bam ' + tmpName+'_rmdup.bam')        
         toMergeControls+=(tmpName+'_rmdup.bam ')
         
