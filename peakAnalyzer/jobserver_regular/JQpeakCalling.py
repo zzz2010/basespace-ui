@@ -150,7 +150,7 @@ def MapFiles():
             print 'CMD: '+ cmd 
             print '1.Mapping _target_ sequences...: '+targetfileName_List[cnt]+extension
             os.system(cmd)
-            os.system("mv " + targetfileName_List[cnt]+".maplog.txt" + " " + output_dir)
+            os.system("cp " + targetfileName_List[cnt]+".maplog.txt" + " " + output_dir)
             #cmd = 'rm ' + targetfileName_List[cnt]+'.bin '
             #os.system(cmd)
             print '1.Mapping '+ targetfileName_List[cnt]+' Done.'
@@ -171,7 +171,7 @@ def MapFiles():
             print 'CMD: '+ cmd
             print '1.Mapping _control_ sequences...: '+controlfileName_List[cnt]+extension
             os.system(cmd)
-            os.system("mv " + controlfileName_List[cnt]+".maplog.txt" + " " + output_dir)
+            os.system("cp " + controlfileName_List[cnt]+".maplog.txt" + " " + output_dir)
             #cmd = 'rm ' + controlfileName_List[cnt]+'.bin '
             #os.system(cmd)
             print '1.Mapping '+ controlfileName_List[cnt]+' Done.'
