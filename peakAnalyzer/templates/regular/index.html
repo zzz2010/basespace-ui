@@ -303,8 +303,17 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.username }}</
             <ul class="nav nav-list">
 {% for project in projects_list %}
 	<li class="nav-header"><i class="icon-book"></i>{{ project.Name }}</li>
-	<hr>Demo</hr>
-	<div id='demo'></div>
+	<div id='demo'>
+	<a href="#demo_modal" role="button" class='btn btn-primary' data-toggle="modal">Demo</a>
+	<div id=demo_modal" class="modal hide fade">
+		<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Demo </h3>
+		</div>
+		<div class="modal-body">
+		</div>
+	</div>
+	</div>
 	 <hr>Local Files</hr>
 	 <div id="localfile_list">
 
