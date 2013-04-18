@@ -4,7 +4,12 @@
 	<li class="dropdown">	
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Demo</a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-							<table style=" .td{width:33%;}" class="table table-bordered">
+							<style>
+							#demo_table td{
+								width:33.3%;
+							}
+							</style>
+							<table id="demo_table" class="table table-bordered">
 							<thead><tr><th>TF</th><th>Cell Line</th><th>Reference</th></tr></thead>
 							<tr><li><td>Oct4</td><td>H1</td><td><a target="_blank" href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE20650">GSE20650</a></td></li></tr>
 							</table>
@@ -412,7 +417,7 @@ class="icon-home icon-white"></i> <i class="icon-user"></i>{{ user.username }}</
   			<option value="hg19">Human: GRCh37 (hg19)</option> 
   			<option value="hg18">Human: NCBI build 36.1 (hg18)</option>
  			</select></td></tr>
-         <tr><td> <label class="control-label" for="inputCell">Cell Type</label> </td> <td colspan="2"><input type="text" id="inputCell" name="inputCell" placeholder="cell"></td></tr>
+         <tr><td> <label class="control-label" for="inputCell">Cell Type</label> </td> <td colspan="2"><input type="text" id="inputCell" name="inputCell" placeholder="Cell"></td></tr>
          
          <tr><td>Data Type</td><td colspan="2">File Name</td></tr>
           
