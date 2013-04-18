@@ -55,14 +55,11 @@ $(\'.table.table-striped.table-bordered.table-condensed\').dataTable({\
              "aoColumns": [{ "sType": \'string\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'percent\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'numeric\' },{ "sType": \'percent\' },]\
            }); } );</script>'
     
-    filelist=os.listdir(dir1)
-    table=''
-    for f in filelist:
-        if 'html' in f:
-            try:
-                table=open(dir1 +"/"+f,'r').read()
-            except:
-                print "file format error"
+    htmlfile=glob.glob(dir1+"/*.html")
+    if htmlfile:
+        table=open(htmlfile[0],'r').read()
+    else:
+        table=''
     #DEBUG URL
     try:
         fileurl=glob.glob(dir1+"/*.xls")[0]  #renamed great output to xls filetype
