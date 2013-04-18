@@ -124,7 +124,9 @@ def genomeProfile(peakfile,outdir2,genome):
 def GREAT(peakfile,outdir2,genome):  
     mkpath(outdir2)
     bed3peak=outdir2+os.path.basename(peakfile)
-    os.system("cut -f 1-3 "+peakfile+" > "+bed3peak)
+#    os.system("cut -f 1-3 "+peakfile+" > "+bed3peak)
+    awkcmd="awk '" + '{print $1"\t"$2"\t"$3"\t"$1":"$2"-"$3}'+ "' " + peakfile +" > " + bed3peak
+    os.system(awkcmd)
     cmd_great="python "+settings.toolpath+"./GREAT/great.py "+bed3peak+" "+genome+" "+outdir2
     print cmd_great
     os.system(cmd_great)
