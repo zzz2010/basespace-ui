@@ -1,6 +1,7 @@
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 def aboutus(request):
-    return HttpResponse("aboutus")
+    return render_to_response("help/aboutus.html")
 
 def howtouse(request):
-    return HttpResponse("howtous")
+    return render_to_response("help/usage.html")
