@@ -130,9 +130,15 @@ def GREAT(peakfile,outdir2,genome):
     cmd_great="python "+settings.toolpath+"./GREAT/great.py "+bed3peak+" "+genome+" "+outdir2
     print cmd_great
     os.system(cmd_great)
-    cmd_table="for f in " + outdir2 +"*.great.xls;do python " + settings.toolpath+ "./GREAT/generateHtmlTable.py $f "+outdir2+" > $f.html;done;"
+    
+    great_out=glob.glob(outdir2+"*.great.out")[0]
+    cmd_table="python " + settings.toolpath+ "./GREAT/generateHtmlTable.py " +great_out+" > "+great_out+".html"
     print cmd_table
     os.system(cmd_table)
+    
+    pkgene_unprocessed=glob.glob(outdir2+"*.tmp")[0]
+    pkgene_out=outdir2+'peakGenePairs.xls'
+    cmd_extractPGpair="python " + settings.toolpath+ "./GREAT/extractPkGenePairs.py " +pkgene_unprocessed+" > "+pkgene_out
 
 @task
 def peakAnnotation(peakfile, outdir2, genome):
