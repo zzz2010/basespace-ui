@@ -65,7 +65,7 @@ $(\'.table.table-striped.table-bordered.table-condensed\').dataTable({\
                 print "file format error"
     #DEBUG URL
     try:
-        fileurl=glob.glob(dir1+"/*.tmp")[0]  #renamed great output to xls filetype
+        fileurl=glob.glob(dir1+"/*.xls")[0]  #renamed great output to xls filetype
         fileurl=fileurl.replace("/home/sokemay/basespace/basespace-ui/basespace-ui/peakAnalyzer/", "../../../")
     except:
         fileurl=''
