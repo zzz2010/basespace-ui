@@ -154,14 +154,24 @@ def genomeProfile(peakfile,outdir2,genome):
 def GREAT(peakfile,outdir2,genome):  
     mkpath(outdir2)
     bed3peak=outdir2+os.path.basename(peakfile)
-    os.system("cut -f 1-3 "+peakfile+" > "+bed3peak)
+#    os.system("cut -f 1-3 "+peakfile+" > "+bed3peak)
+    awkcmd="awk '" + '{print $1"\t"$2"\t"$3"\t"$1":"$2"-"$3}'+ "' " + peakfile +" > " + bed3peak
+    os.system(awkcmd)
     cmd_great="python "+settings.toolpath+"./GREAT/great.py "+bed3peak+" "+genome+" "+outdir2
     print cmd_great
     os.system(cmd_great)
-    cmd_table="for f in " + outdir2 +"*.great.xls;do python " + settings.toolpath+ "./GREAT/generateHtmlTable.py $f > $f.html; done;"
+    
+    great_out=glob.glob(outdir2+"*.great.out")[0]
+    cmd_table="python " + settings.toolpath+ "./GREAT/generateHtmlTable.py " +great_out+ " "+ outdir2+ " > "+great_out+".html"
     print cmd_table
     os.system(cmd_table)
-
+    
+    pkgene_unprocessed=glob.glob(outdir2+"*.tmp")[0]
+    pkgene_out=outdir2+'peakGenePairs.xls'
+    cmd_extractPGpair="python " + settings.toolpath+ "./GREAT/extractPkGenePairs.py " +pkgene_unprocessed+" > "+pkgene_out
+    os.system(cmd_extractPGpair)
+    #rm tmp files
+    os.system("rm "+outdir2+"*.tmp")
 
 @task
 def peakAnnotation(peakfile, outdir2, genome):

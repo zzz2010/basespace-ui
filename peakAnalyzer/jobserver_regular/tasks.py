@@ -140,6 +140,8 @@ def GREAT(peakfile,outdir2,genome):
     pkgene_out=outdir2+'peakGenePairs.xls'
     cmd_extractPGpair="python " + settings.toolpath+ "./GREAT/extractPkGenePairs.py " +pkgene_unprocessed+" > "+pkgene_out
     os.system(cmd_extractPGpair)
+    #rm tmp files
+    os.system("rm "+outdir2+"*.tmp")
 @task
 def peakAnnotation(peakfile, outdir2, genome):
     mkpath(outdir2)
