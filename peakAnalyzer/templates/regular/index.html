@@ -4,15 +4,16 @@
 	<li class="dropdown">	
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Demo</a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+
+							<table id="demo_table" class="table table-bordered">
+							<thead><tr><th>TF</th><th>Cell Line</th><th>Reference</th></tr></thead>
+							<tr><td onclick="alert('test')">Oct4</td><td onclick="alert('test')">H1</td><td><a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/?term=Transposable+elements+have+rewired+the+core+regulatory+network+of+human+embryonic+stem+cells.">Kunarso et al.2010</a></td></tr>
+							</table>
 							<style>
-							#demo_table th,td{
+							table#demo_table th,td{
 								width:33.3%;
 							}
 							</style>
-							<table id="demo_table" class="table table-bordered">
-							<thead><tr><th>TF</th><th>Cell Line</th><th>Reference</th></tr></thead>
-							<tr onclick="alert('test')"><td>Oct4</td><td>H1</td><td><a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/?term=Transposable+elements+have+rewired+the+core+regulatory+network+of+human+embryonic+stem+cells.">Kunarso et al.2010</a></td></tr>
-							</table>
 							</ul>
 	</li>
 {% endblock %}
