@@ -168,7 +168,7 @@ def GREAT(peakfile,outdir2,genome):
     
     pkgene_unprocessed=glob.glob(outdir2+"*.tmp")[0]
     pkgene_out=outdir2+'peakGenePairs.xls'
-    cmd_extractPGpair="python " + settings.toolpath+ "./GREAT/extractPkGenePairs.py " +pkgene_unprocessed+" > "+pkgene_out
+    cmd_extractPGpair="python " + settings.toolpath+ "./GREAT/extractPkGenePairs.py " +pkgene_unprocessed+" "+pkgene_out
     os.system(cmd_extractPGpair)
     #rm tmp files
     os.system("rm "+outdir2+"*.tmp")
