@@ -5,6 +5,6 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('urls.views',
-    url(r'/aboutus/$', 'aboutus'),
-     url(r'/usage/$', 'howtouse'),
+    url(r'aboutus/$', 'aboutus'),
+     url(r'usage/$', 'howtouse'),
 )
