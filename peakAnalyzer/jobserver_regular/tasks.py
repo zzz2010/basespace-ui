@@ -132,7 +132,7 @@ def GREAT(peakfile,outdir2,genome):
     os.system(cmd_great)
     
     great_out=glob.glob(outdir2+"*.great.out")[0]
-    cmd_table="python " + settings.toolpath+ "./GREAT/generateHtmlTable.py " +great_out+" > "+great_out+".html"
+    cmd_table="python " + settings.toolpath+ "./GREAT/generateHtmlTable.py " +great_out+ " "+ outdir2+ " > "+great_out+".html"
     print cmd_table
     os.system(cmd_table)
     
