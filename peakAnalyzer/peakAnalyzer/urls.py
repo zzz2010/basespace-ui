@@ -17,7 +17,7 @@ urlpatterns = patterns('',
      url(r'^regular/', include('regular.urls')),
      url(r'^jobserver-regular/', include('jobserver_regular.urls')),
      (r'^accounts/', include('registration.urls')),
-
+    url(r'^help/', include('help.urls')),
     # Uncomment the next line to enable the admin:
      
      url(r'^admin/', include(admin.site.urls)),
