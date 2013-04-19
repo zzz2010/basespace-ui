@@ -145,6 +145,39 @@ def submitJob(request):
     PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email)
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
+def runDemo(request):     
+    user        = User.objects.get(username=request.user.username)
+    samplefids=list()
+    controlfids=list()
+    cell_line=""
+    ref_genome="hg19"
+    jobtitle=""
+    demodir='/home/sokemay/basespace/basespace-ui/basespace-ui/peakAnalyzer/userdata/demo/'
+    
+    if 'Oct4H1' in request.POST:
+        jobtitle="DEMO Oct4 in H1 (FASTQ Raw Reads)"
+        cell_line='H1'
+        samplefids=[demodir+'H1_Oct4_seq_1.fastq.gz', demodir+'H1_Oct4_seq_2.fastq.gz']
+        for i in range(1,5):
+            controlfids.append(demodir+'Input_H1_Oct4_seq_'+str(i)+'.fastq.gz')
+ 
+    elif 'cMycH2171' in request.POST:
+        jobtitle='DEMO cMyc in H2171 (Summits BED)'
+        cell_line='H2171'
+        samplefids=[demodir+'cmyc_h2171_sclc_summits.bed']
+        
+    outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.email+"/"
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
+    samplefiles=""
+    controlfiles=""
+    
+    myjob=user.regularjob_set.create(status="Data_Ready",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
+    
+    PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email)
+    return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
+
+    
 def rerunJobs(jobs, outdir, useremail):
     if jobs:
         for jid in jobs:

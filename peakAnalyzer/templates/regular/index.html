@@ -6,13 +6,14 @@
 				
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 							<div class="container-fluid">
-							<form id="demo_submit_form" action="." onsubmit="addDemoJob(this.id)">
+							<form id="demo_submit_form" action="/peakAnalyzer/regular/runDemo/" method="post" onsubmit="addDemoJob(this.id)">
 							<h5>Select a data set to analyze</h5>
 							<table style="td{width:33.3%}" id="demo_list" class="table table-bordered">
 							<thead><tr><th>TF</th><th>Cell Line</th><th>Reference</th><th>File Type</th><th></th></tr></thead>
-							<tr id="Oct4H1"><td >Oct4</td><td>H1</td><td><a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/?term=Transposable+elements+have+rewired+the+core+regulatory+network+of+human+embryonic+stem+cells.">Kunarso et al, 2010</a></td><td>FASTQ</td><td><input type="radio" name=""></td></tr>
+							<tr id="Oct4H1"><td >Oct4</td><td>H1</td><td><a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/?term=Transposable+elements+have+rewired+the+core+regulatory+network+of+human+embryonic+stem+cells.">Kunarso et al, 2010</a></td><td>FASTQ</td><td><input type="radio" name="Oct4H1"></td></tr>
+							<tr id="cMycH2171"><td >c-Myc</td><td>H2171</td><td><a target="_blank" href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE41105">GEO GSE41105, 2012</a></td><td>Summits BED</td><td><input type="radio" name="cMycH2171"></td></tr>
 							</table>
-							<button class='btn'>Submit Job</button>
+							<button class='btn btn-danger'>Submit Job</button>
 							</form>
 							</div>							
 							</ul>
