@@ -7,6 +7,7 @@ from django.conf.urls import *
 
 urlpatterns = patterns('regular.views',
     url(r'^submitJob/$', 'submitJob'),
+    url(r'^runDemo/$', 'runDemo'),
     url(r'^listUploadedFiles/$', 'listUploadedFiles'),
     url(r'^uploadFiles/$', 'uploadFiles'),
     url(r'^listProject/$', 'listProject'),
