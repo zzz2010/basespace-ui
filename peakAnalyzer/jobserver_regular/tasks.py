@@ -470,10 +470,11 @@ def get_immediate_subdirectories(dir1):
             if os.path.isdir(os.path.join(dir1, name))]
 
 @task
-def PeakCalling_Processing(sfidlist,cfidlist,outdir,jobid, useremail):
+def PeakCalling_Processing(sfidlist,cfidlist,outdir,jobid, useremail, demoflag):
     
-    #update database
-    update_task(sfidlist,cfidlist,outdir,jobid)
+    if demoflag:
+        #update database for user uploaded files
+        update_task(sfidlist,cfidlist,outdir,jobid)
     
     outdir=outdir+str(jobid)#later files have to be in the jobid folder    
 

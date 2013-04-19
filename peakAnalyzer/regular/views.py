@@ -141,8 +141,9 @@ def submitJob(request):
     controlfiles=""
     
     myjob=user.regularjob_set.create(status="Data_Ready",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
+    demoflag=False
     
-    PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email)
+    PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email, demoflag)
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
 @csrf_exempt
@@ -179,8 +180,9 @@ def runDemo(request):
     controlfiles=""
     
     myjob=user.regularjob_set.create(status="Data_Ready",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
+    demoflag=True
     
-    PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email)
+    PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email,demoflag)
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 #    return HttpResponse(jobtitle)
     
