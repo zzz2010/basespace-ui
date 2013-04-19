@@ -470,9 +470,9 @@ def get_immediate_subdirectories(dir1):
             if os.path.isdir(os.path.join(dir1, name))]
 
 @task
-def PeakCalling_Processing(sfidlist,cfidlist,outdir,jobid, useremail, demoflag):
+def PeakCalling_Processing(sfidlist,cfidlist,outdir,jobid, useremail, demo):
     
-    if demoflag:
+    if not demo:
         #update database for user uploaded files
         update_task(sfidlist,cfidlist,outdir,jobid)
     
