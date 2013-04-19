@@ -167,18 +167,22 @@ def runDemo(request):
                 jobtitle='DEMO cMyc in H2171 (Summits BED)'
                 cell_line='H2171'
                 samplefids=[demodir+'cmyc_h2171_sclc_summits.bed']
-        
+                
+            elif 'treated' in postv:
+                jobtitle='DEMO treated.bed'
+                cell_line='-'
+                samplefids=[demodir+'treated2.bed']        
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.email+"/"
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     samplefiles=""
     controlfiles=""
     
-#    myjob=user.regularjob_set.create(status="Data_Ready",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
+    myjob=user.regularjob_set.create(status="Data_Ready",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
     
-#    PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email)
-#    return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
-    return HttpResponse(jobtitle)
+    PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email)
+    return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
+#    return HttpResponse(jobtitle)
     
 def rerunJobs(jobs, outdir, useremail):
     if jobs:
