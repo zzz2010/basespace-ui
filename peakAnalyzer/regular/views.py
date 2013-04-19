@@ -153,7 +153,7 @@ def runDemo(request):
     cell_line=""
     ref_genome="hg19"
     jobtitle=""
-    demodir='/home/sokemay/basespace/basespace-ui/basespace-ui/peakAnalyzer/userdata/demo/'
+    demodir='/home/sokemay/basespace/basespace-ui/basespace-ui/peakAnalyzer/peakAnalyzer/../userdata/demo/'
     for postid,postv in request.POST.iteritems():
         if 'dataset' in postid:
             if 'Oct4H1' in postv:
