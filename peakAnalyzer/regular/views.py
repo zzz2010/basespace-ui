@@ -145,6 +145,7 @@ def submitJob(request):
     PeakCalling_Processing.delay(samplefids,controlfids,outdir,myjob.id,user.email)
     return HttpResponse(simplejson.dumps({myjob.id:myjob.jobtitle}), mimetype="application/json");
 
+@csrf_exempt
 def runDemo(request):     
     user        = User.objects.get(username=request.user.username)
     samplefids=list()
