@@ -6,7 +6,7 @@
 				
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 							<div class="container-fluid">
-							<form id="demo_submit_form" action="/peakAnalyzer/regular/runDemo/" method="post" onsubmit="addDemoJob(this.id)">
+							<form id="demo_submit_form" action="/peakAnalyzer/regular/runDemo/" method="post">
 							<h5>Select a data set to analyze</h5>
 							<table style="td{width:33.3%}" id="demo_list" class="table table-bordered">
 							<thead><tr><th>TF</th><th>Cell Line</th><th>Reference</th><th>File Type</th><th></th></tr></thead>
@@ -20,8 +20,23 @@
 
 	</li>
 	<script>
+			 $('#demo_submit_form').ajaxForm(function() { 
+		    	refresh_table()
+            }); 
 	function addDemoJob(e){
-		alert(e);
+	
+	 var postdata = "";	
+		
+			$.ajax({   
+	        type: "POST",
+	        url: "/peakAnalyzer/regular/runDemo/", 
+	        data: postdata,      
+	        dataType:'text',   
+	        success: function(data, textStatus){
+	        		window.alert(data);
+	        		$("#joblist_container").load("/peakAnalyzer/jobserver-regular/{{ user.id }}/listjob");
+			}
+		})
 	}
 	</script>
 	
