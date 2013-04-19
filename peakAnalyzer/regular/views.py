@@ -176,8 +176,8 @@ def runDemo(request):
     outdir=peakAnalyzer.settings.MEDIA_ROOT+"/"+user.email+"/"
     if not os.path.exists(outdir):
         os.makedirs(outdir)
-    samplefiles=""
-    controlfiles=""
+    samplefiles=",".join(samplefids)
+    controlfiles=",".join(controlfids)
     
     myjob=user.regularjob_set.create(status="Data_Ready",ref_genome=ref_genome,cell_line=cell_line,jobtitle=jobtitle,sampleFiles=samplefiles,controlFiles=controlfiles,submitDate=timezone.now())
     demoflag=True
