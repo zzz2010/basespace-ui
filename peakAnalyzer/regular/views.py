@@ -156,14 +156,14 @@ def runDemo(request):
     demodir='/home/sokemay/basespace/basespace-ui/basespace-ui/peakAnalyzer/userdata/demo/'
     for postid,postv in request.POST.iteritems():
         if 'dataset' in postid:
-            if 'Oct4H1' in request.POST in postv:
+            if 'Oct4H1' in postv:
                 jobtitle="DEMO Oct4 in H1 (FASTQ Raw Reads)"
                 cell_line='H1'
                 samplefids=[demodir+'H1_Oct4_seq_1.fastq.gz', demodir+'H1_Oct4_seq_2.fastq.gz']
                 for i in range(1,5):
                     controlfids.append(demodir+'Input_H1_Oct4_seq_'+str(i)+'.fastq.gz')
  
-            elif 'cMycH2171' in request.POST:
+            elif 'cMycH2171' in postv:
                 jobtitle='DEMO cMyc in H2171 (Summits BED)'
                 cell_line='H2171'
                 samplefids=[demodir+'cmyc_h2171_sclc_summits.bed']

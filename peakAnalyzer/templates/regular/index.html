@@ -10,7 +10,7 @@
 							<table style="td{width:33.3%}" id="demo_list" class="table table-bordered">
 							<thead><tr><th>TF</th><th>Cell Line</th><th>Reference</th><th>File Type</th><th></th></tr></thead>
 							<tr id="Oct4H1"><td >Oct4</td><td>H1</td><td><a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/?term=Transposable+elements+have+rewired+the+core+regulatory+network+of+human+embryonic+stem+cells.">Kunarso et al, 2010</a></td><td>FASTQ</td><td><input type="radio" name='demo_data' value="Oct4H1"></td></tr>
-							<tr id="cMycH2171"><td >c-Myc</td><td>H2171</td><td><a target="_blank" href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE41105">GEO GSE41105, 2012</a></td><td>Summits BED</td><td><input type="radio" name='demo_data' value="cMycH2171 TEST VAL"></td></tr>
+							<tr id="cMycH2171"><td >c-Myc</td><td>H2171</td><td><a target="_blank" href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE41105">GEO GSE41105, 2012</a></td><td>Summits BED</td><td><input type="radio" name='demo_data' value="cMycH2171"></td></tr>
 							</table>
 							<button class='btn btn-danger' onclick='submitDemoJob()'>Submit Job</button>
 							</div>							
@@ -20,8 +20,8 @@
 	<script>
 
 	function submitDemoJob(){
-	alert($("input[type='radio']:checked").val())
-	 var postdata = "dataset=Oct4H1";	
+	 var dname=$("input[type='radio']:checked").val()
+	 var postdata = "dataset=" + dname;	
 	 	
 			$.ajax({   
 	        type: "POST",
