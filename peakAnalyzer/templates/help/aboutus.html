@@ -1,5 +1,6 @@
 {% extends "common/base.html" %}
 {% block content %}
+<div class='container'>
 <div class="row">
 <div class='span6'>
 <div class='hero-unit'>
@@ -21,12 +22,12 @@ Taken together, PeakWhiz aims to automate and streamline the ChIP-seq analysis p
 <br>
 <div class='span6'>
 <div class='hero-unit'>
-<h3><strong>PeakWhiz ChIP-seq Pipeline:</strong></h3>
+<h2><strong>PeakWhiz ChIP-seq Pipeline:</strong></h2>
 <p>
 <strong>Pre-processing:</strong><br>
 1)Read Mapping with <a href='http://www.ncbi.nlm.nih.gov/pubmed/?term=Fast+gapped-read+alignment+with+Bowtie+2'>Bowtie2</a><br>
 2)Peak Calling with <a href='http://www.ncbi.nlm.nih.gov/pubmed/18798982'>MAC</a><br>
-<br>
+
 <strong>Integrative Analysis:</strong><br>
 1) De Novo Motif Analysis with <a href='http://www.ncbi.nlm.nih.gov/pubmed/?term=Simultaneously+learning+DNA+motif+along+with+its+position+and+sequence+rank+preferences+through+EM+algorithm'>SEME</a><br>
 2) Motif Enrichment Analysis with <a href='http://www.ncbi.nlm.nih.gov/pubmed/?term=centdist'>CENTDIST</a><br>
@@ -42,6 +43,7 @@ Taken together, PeakWhiz aims to automate and streamline the ChIP-seq analysis p
 ..and more to come!<br>
 
 </p>
+</div>
 </div>
 </div>
 {% endblock %}
