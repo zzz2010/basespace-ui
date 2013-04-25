@@ -394,8 +394,8 @@ def isUnprocessedFile(inputFile):
         with open(inputFile, 'r') as f:
             lines = len(list(filter(lambda x: x.strip(), f)))
             isLarge=(lines>10000000)
-            isMapped=(".bam" or ".sam" ) in inputFile
-            isRaw=(".fastq" or ".fasta" or ".fq" or ".fa" ) in inputFile
+            isMapped=any(x in inputFile for x in [".bam", ".sam"])
+            isRaw=any(x in inputFile for x in [".fastq", ".fasta", "fq", "fa"])
             isUnprocessed= isLarge or isMapped or isRaw 
     except:
         isUnprocessed=False
@@ -408,8 +408,9 @@ def treatAlignmentBed(bedfile):
         tmpbed=bedfile+'.tmp'
         awkcmd="awk '" + '{print $1"\t"$2"\t"$3"\t"$1":"$2"-"$3"\t"1"\t"$4}' + "' " + bedfile +" > " + tmpbed
         os.system(awkcmd)
+        os.system("rm " + bedfile)
         os.system("mv " + tmpbed +" " + bedfile)
-        os.system("rm " + tmpbed)
+
     
 
 @task
