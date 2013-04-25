@@ -401,6 +401,17 @@ def isUnprocessedFile(inputFile):
         isUnprocessed=False
     return isUnprocessed
 
+def treatAlignmentBed(bedfile):
+    bed=open(bedfile, 'r')
+    line=bed.readline().split()
+    if any(x in line[3] for x in ['F','R','-','+']):
+        tmpbed=bedfile+'.tmp'
+        awkcmd="awk '" + '{print $1"\t"$2"\t"$3"\t"$1":"$2"-"$3"\t"1"\t"$4}' + "' " + bedfile +" > " + tmpbed
+        os.system(awkcmd)
+        os.system("mv " + tmpbed +" " + bedfile)
+        os.system("rm " + tmpbed)
+    
+
 @task
 def PeakCalling_task(outdir,jobid):
     #make configure file
@@ -417,6 +428,8 @@ def PeakCalling_task(outdir,jobid):
     cmdlist=list()
     for sfl in myjob.sampleFiles.split(','):
         if isUnprocessedFile(sfl):
+            if 'bed' in sfl:
+                treatAlignmentBed(sfl)
             print "raw file"
             cfgFile.write(sfl+"\n")
         else:
@@ -433,6 +446,8 @@ def PeakCalling_task(outdir,jobid):
             cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
         if isUnprocessedFile(cfl):
+            if 'bed' in sfl:
+                treatAlignmentBed(cfl)
             cfgFile.write(cfl+"\n")
         else:
             #check for control files
