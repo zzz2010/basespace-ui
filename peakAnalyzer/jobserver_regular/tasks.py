@@ -429,8 +429,8 @@ def PeakCalling_task(outdir,jobid):
     cmdlist=list()
     for sfl in myjob.sampleFiles.split(','):
         if isUnprocessedFile(sfl):
-            if 'bed' in sfl:
-                treatAlignmentBed(sfl)
+#            if 'bed' in sfl:
+#                treatAlignmentBed(sfl)
             print "raw file"
             cfgFile.write(sfl+"\n")
         else:
@@ -447,8 +447,8 @@ def PeakCalling_task(outdir,jobid):
             cfgFile.write("===\n")
     for cfl in myjob.controlFiles.split(','):
         if isUnprocessedFile(cfl):
-            if 'bed' in sfl:
-                treatAlignmentBed(cfl)
+  #          if 'bed' in sfl:
+ #               treatAlignmentBed(cfl)
             cfgFile.write(cfl+"\n")
         else:
             #check for control files
