@@ -196,12 +196,14 @@ def rerunJobs(jobs, outdir, useremail):
             PeakCalling_Processing.delay(myjob.sampleFiles,myjob.controlFiles,outdir,myjob.id, useremail)
     
                         
-def deleteJobs(jobs):
+def deleteJobs(jobs, outdir):
     if jobs:
         for jid in jobs:
             myjob=RegularJob.objects.get(pk=jid)
             print "deleting:",myjob
             myjob.delete()
+            jobdir=outdir+"/"+str(jid)
+            os.system("rm -r " + jobdir)
 
 def peaksetOverlap(jobs, outdir):
     outdir2=outdir+ "_".join(jobs) +"/"
@@ -243,7 +245,7 @@ def jobManagement(request):
     jobs_selected=request.POST.getlist('job')
     
     if 'delete' in request.POST:
-        deleteJobs(jobs_selected)
+        deleteJobs(jobs_selected, outdir)
         return HttpResponse("Successfully Deleted!")
     elif 'rerun' in request.POST:
         rerunJobs(jobs_selected, outdir, user.email)
