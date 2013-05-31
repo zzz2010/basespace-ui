@@ -101,6 +101,7 @@ def resultfolder_html(dir1):
     for fl in files_grabbed:
         weburl=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
         html_str+="<div><a  href='"+weburl+"' target=_blank><img src='"+weburl+"' width='500'/><br>"+os.path.basename(fl)+"</a></div>"
+        html_str+="\n<script type=\"text/javascript\">\n$(document).ready(function() {alert(\""+os.path.basename(dir1)+"\");})</script>"
     #show file download link with accept format
     
     html_str+="</div>\n"
