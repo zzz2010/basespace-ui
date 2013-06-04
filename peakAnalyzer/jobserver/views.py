@@ -106,7 +106,7 @@ def resultfolder_html(dir1):
     
     if 'TSS' in dir1:
         jsfile=(str(dir1)+"/test1.json").replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
-        html_str+="\n<div><script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {var chart = new Highcharts.Chart(data);});})\n</script></div>"
+        html_str+="\n<div class='tab-pane' id=\'jstest\'><script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {var chart = new Highcharts.Chart(data);});})\n</script></div>"
         #html_str+="\n<div><script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {alert(data.series[0].name);});})\n</script></div>"
     return html_str
 
