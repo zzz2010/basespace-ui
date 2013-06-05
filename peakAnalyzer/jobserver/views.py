@@ -102,13 +102,13 @@ def resultfolder_html(dir1):
         weburl=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
         html_str+="<div><a  href='"+weburl+"' target=_blank><img src='"+weburl+"' width='500'/><br>"+os.path.basename(fl)+"</a></div>"
     #show file download link with accept format
-    html_str+="</div>\n"
     
     if 'TSS' in dir1:
         jsfile=(str(dir1)+"/test1.json").replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
-        html_str+="<div class='tab-pane' id=\'jstest\'><script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {var chart = new Highcharts.Chart(data);});})\n</script></div>\n"
-        html_str+="<div id=\"container\" style=\"min-width: 400px; height: 400px; margin: 0 auto\"></div>\n"
+        html_str+="<script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {var chart = new Highcharts.Chart(data);});})\n</script>\n"
+        html_str+="<div id=\"container\" style=\"width: 800px\"></div>\n"
         #html_str+="\n<div><script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {alert(data.series[0].name);});})\n</script></div>"
+    html_str+="</div>\n"
     return html_str
 
 def jobinfo_html(job, result_dir):
