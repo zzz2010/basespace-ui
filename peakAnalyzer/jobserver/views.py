@@ -96,6 +96,7 @@ def resultfolder_html(dir1):
     #show image first
     types = ('*.jpg', '*.png','*.bmp') 
     files_grabbed = []
+    json_file=[]
     for files in types:
         files_grabbed.extend(glob.glob(str(dir1)+"/"+files))
     for fl in files_grabbed:
@@ -104,9 +105,13 @@ def resultfolder_html(dir1):
     #show file download link with accept format
     
     if 'TSS' in dir1:
-        jsfile=(str(dir1)+"/test1.json").replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
-        html_str+="<script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {var chart = new Highcharts.Chart(data);});})\n</script>\n"
-        html_str+="<div id=\"container\" style=\"width: 800px\"></div>\n"
+        json_file.extend(glob.glob(str(dir1)+"/*.json"))
+        i=1
+        for fl in json_file:
+            #jsfile=(str(dir1)+"/test1.json").replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
+            html_str+="<script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+fl+"\', function(data) {var chart = new Highcharts.Chart(data);});})\n</script>\n"
+            html_str+="<div id=\"container"+str(i)+"\" style=\"width: 800px\"></div>\n"
+            i+=1
         #html_str+="\n<div><script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {alert(data.series[0].name);});})\n</script></div>"
     html_str+="</div>\n"
     return html_str
