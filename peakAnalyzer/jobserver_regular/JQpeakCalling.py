@@ -2,7 +2,7 @@ import os
 import sys
 import glob
 import commands
-
+from jobserver_regular.models import RegularJob
 #Usage Line
 print "Welcome.\n Usage: python <.cfg> <bowtie2_path> <bowtie2_index> <genome_length_file> <output_dir>\n" 
 sys.stdout.flush()    
@@ -15,7 +15,7 @@ bowtie2_dir=sys.argv[2]
 bowtie2_index_dir=sys.argv[3]
 genome_length_path=sys.argv[4]
 output_dir=sys.argv[5]+"/"
-
+jobid=sys.argv[6]
 #tracking vars
 isControl=0
 targetArray=[]
@@ -143,6 +143,10 @@ def MapFiles():
     cnt=0
     for extension in targetfileExtension_List:        
         if isMapped(extension) == 0:
+            #change status
+            myjob=RegularJob.objects.get(pk=jobid)
+            myjob.status="Read Mapping"
+            myjob.save()
             #print extension
             cmd=" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -U " + targetfileName_List[cnt]+extension + " -S " + targetfileName_List[cnt]+".sam 2>"+targetfileName_List[cnt]+".maplog.txt"
             #cmd=batmis_dir+'batman -g '+batmis_index_dir+' -q '+ targetfileName_List[cnt]+extension + ' -o ' + targetfileName_List[cnt]+'.bin ' + ' -n 2 -U;'
@@ -280,6 +284,10 @@ def ConvertToBam():
         os.system('rm '+removeTmp)
 
 def PeakCall():
+    
+    myjob=RegularJob.objects.get(pk=jobid)
+    myjob.status="PeakCalling"
+    myjob.save()
 
     global targetfileName_List
     global controlfileName_List

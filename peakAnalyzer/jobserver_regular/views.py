@@ -22,6 +22,7 @@ def listjob(request,user_id):
     css=dict()
     css["Downloading"]=""
     css["Data_Ready"]="info"
+    css["Read Mapping"]="info"
     css["PeakCalling"]="info"
     css["Processing"]="warning"
     css["Completed"]="success"

@@ -417,8 +417,8 @@ def treatAlignmentBed(bedfile):
 def PeakCalling_task(outdir,jobid):
     #make configure file
     myjob=RegularJob.objects.get(pk=jobid)
-    myjob.status="PeakCalling"
-    myjob.save()
+#    myjob.status="PeakCalling"
+#    myjob.save()
     outdir2=outdir+ "/peakcalling_result/"
     mkpath(outdir2)
     cfgFileName=outdir2+"/pk.cfg"
@@ -465,7 +465,7 @@ def PeakCalling_task(outdir,jobid):
     #check if cfgfile is empty
     tmpFile=open(cfgFileName, "r")
     if tmpFile.read().strip() != "":   
-        cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2
+        cmd="python "+toolpath+"/JQpeakCalling.py "+outdir2+"/pk.cfg "+settings.bowtie2_path+" "+settings.bowtie2_index+myjob.ref_genome+" "+settings.genome_length_path+myjob.ref_genome+".txt "+outdir2 + " " + str(jobid)
         print(cmd)
         os.system(cmd)
         
