@@ -108,7 +108,7 @@ def resultfolder_html(dir1):
         #jsfile=(str(dir1)+"/test1.json").replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
         jsfile=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL);
         html_str+="<script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {var chart = new Highcharts.Chart(data);});})\n</script>\n"
-        html_str+="<div id=\""+os.path.basename(jsfile).split('.')[0]+"\" style=\"width: 800px\"></div>\n"
+        html_str+="<div id=\""+os.path.basename(jsfile).split('.json')[0]+"\" style=\"width: 800px\"></div>\n"
     
     html_str+="</div>\n"
     return html_str
