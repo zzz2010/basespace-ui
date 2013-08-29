@@ -8,4 +8,5 @@ urlpatterns = patterns('help.views',
     url(r'aboutus/$', 'aboutus'),
      url(r'usage/$', 'howtouse'),
      url(r'doc/$', 'helpDoc'),
+     url(r'result/$','jobserver_regular.views.viewDemoResult'),
 )
