@@ -95,12 +95,20 @@ def resultfolder_html(dir1):
     #show image first
     types = ('*.jpg', '*.png','*.bmp') 
     files_grabbed = []
+    json_file=[]
     for files in types:
         files_grabbed.extend(glob.glob(str(dir1)+"/"+files))
     for fl in files_grabbed:
         weburl=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
         html_str+="<div><a  href='"+weburl+"' target=_blank><img src='"+weburl+"' width='400'/><br>"+os.path.basename(fl)+"</a></div>"
     #show file download link with accept format
+    
+    json_file.extend(glob.glob(str(dir1)+"/*.json"))
+    for fl in json_file:
+        #jsfile=(str(dir1)+"/test1.json").replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
+        jsfile=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL);
+        html_str+="<script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {var chart = new Highcharts.Chart(data);});})\n</script>\n"
+        html_str+="<div id=\""+os.path.basename(jsfile).split('.')[0]+"\" style=\"width: 800px\"></div>\n"
     
     html_str+="</div>\n"
     return html_str
