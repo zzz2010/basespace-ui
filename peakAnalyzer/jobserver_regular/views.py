@@ -177,7 +177,7 @@ def viewresult(request,job_id):
         return render_to_response('jobserver/view_result_not_authorized.html')
 
     
-def viewDemoResult(request):
+def viewResultDemo(request):
     job_id='176'
     job=get_object_or_404(RegularJob, pk=job_id)
     result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/yrjie0@gmail.com/176/pipeline_result/"

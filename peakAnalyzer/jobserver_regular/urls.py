@@ -12,4 +12,5 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('jobserver_regular.views',
     url(r'^(?P<user_id>\d+)/listjob/$', 'listjob'),
      url(r'^(?P<job_id>\d+)/viewresult/$', 'viewresult'),
+     url(r'resultdemo/$','viewResultDemo'),
 )
