@@ -107,11 +107,14 @@ def resultfolder_html(dir1):
     for fl in json_file:
         #jsfile=(str(dir1)+"/test1.json").replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
         jsfile=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL);
+        wid='800'
         html_str+="<script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {"
         if 'repeat' in dir1 or 'peakAnno' in dir1:
             html_str+="data.series[0].dataLabels.formatter=eval('('+data.series[0].dataLabels.formatter+')');"
+            if 'repeat' in dir1:
+                wid='1200'
         html_str+="var chart = new Highcharts.Chart(data);});})\n</script>\n"
-        html_str+="<div id=\""+os.path.basename(jsfile).split('.json')[0]+"\" style=\"width: 800px\"></div>\n"
+        html_str+="<div id=\""+os.path.basename(jsfile).split('.json')[0]+"\" style=\"width: "+wid+"px\"></div>\n"
     
     html_str+="</div>\n"
     return html_str
