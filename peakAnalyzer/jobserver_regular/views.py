@@ -158,4 +158,26 @@ def viewresult(request,job_id):
             
     else:
         return render_to_response('jobserver/view_result_not_authorized.html')
-   
+
+    
+def viewDemoResult(request):
+    job_id='176'
+    job=get_object_or_404(RegularJob, pk=job_id)
+    result_dir=peakAnalyzer.settings.MEDIA_ROOT+"/yrjie0@gmail.com/176/pipeline_result/"
+    result_list=get_immediate_subdirectories(result_dir)
+
+    #generate job info html
+    job_info_html=jobinfo_html(job, str(result_dir)+"../")
+
+    content_html=" "                                      
+    for dir1 in result_list:
+        if "CENTDIST" in dir1:
+            content_html+=CENTDIST_result(str(result_dir)+"/"+str(dir1))
+        elif "denovo" in dir1:
+            content_html+=denovoMotif_result(str(result_dir)+"/"+str(dir1))
+        elif "GREAT" in dir1:
+            content_html+=GREAT_result(str(result_dir)+"/"+str(dir1))
+      
+        else:
+            content_html+=resultfolder_html(str(result_dir)+"/"+str(dir1))
+    return render_to_response('jobserver/viewresult.html', {'result_list':result_list,'job':job,'content_html':content_html, 'job_info':job_info_html})

@@ -5,3 +5,6 @@ def aboutus(request):
 
 def howtouse(request):
     return render_to_response("help/usage.html")
+
+def helpDoc(request):
+    return render_to_response("help/helpdoc.html")
