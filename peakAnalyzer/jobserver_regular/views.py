@@ -96,14 +96,9 @@ def resultfolder_html(dir1):
     types = ('*.jpg', '*.png','*.bmp') 
     files_grabbed = []
     json_file=[]
-    for files in types:
-        files_grabbed.extend(glob.glob(str(dir1)+"/"+files))
-    for fl in files_grabbed:
-        weburl=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
-        html_str+="<div><a  href='"+weburl+"' target=_blank><img src='"+weburl+"' width='400'/><br>"+os.path.basename(fl)+"</a></div>"
-    #show file download link with accept format
     
     json_file.extend(glob.glob(str(dir1)+"/*.json"))
+    hasJ=(len(json_file)>0)
     for fl in json_file:
         #jsfile=(str(dir1)+"/test1.json").replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
         jsfile=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL);
@@ -116,6 +111,14 @@ def resultfolder_html(dir1):
         html_str+="var chart = new Highcharts.Chart(data);});})\n</script>\n"
         html_str+="<div id=\""+os.path.basename(jsfile).split('.json')[0]+"\" style=\"width: "+wid+"px\"></div>\n"
     
+    #show file download link with accept format
+    if not hasJ:
+        for files in types:
+            files_grabbed.extend(glob.glob(str(dir1)+"/"+files))
+        for fl in files_grabbed:
+            weburl=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
+            html_str+="<div><a  href='"+weburl+"' target=_blank><img src='"+weburl+"' width='800'/><br>"+os.path.basename(fl)+"</a></div>"
+        
     html_str+="</div>\n"
     return html_str
 
