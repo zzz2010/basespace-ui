@@ -43,7 +43,7 @@ def CENTDIST_result(dir1):
     #html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"""'><iframe id="iFrame1" name="iFrame1" 
     #width="100%" onload="this.height=iFrame1.document.body.scrollHeight" frameborder="0" 
     #src='/~sokemay/Motif_Enrichment/viewresult_peakAnalyzer.php?rundir="""+dir1+"'></iframe></div>\n"
-    html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"""'>"<object data=""/~sokemay/Motif_Enrichment/viewresult_peakAnalyzer.php?rundir="""+dir1+""" type=""text/html""></object></div>\n"
+    html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"""'><object data=""/~sokemay/Motif_Enrichment/viewresult_peakAnalyzer.php?rundir="""+dir1+""" type=""text/html""></object></div>\n"
     
     
     return html_str
