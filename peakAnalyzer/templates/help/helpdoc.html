@@ -3,6 +3,2863 @@
 <div class="container">
 <div class='well'>
 <h2>PeakWhiz help document</h2>
-help
+<P STYLE="margin-bottom: 0in; page-break-before: always"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><BR>
+</P>
+<H1 CLASS="western" STYLE="page-break-before: always"><A NAME="_Toc356386821"></A><A NAME="_Toc353383842"></A>
+<FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">1	Introduction</SPAN></FONT></FONT></H1>
+<H2 CLASS="western"><A NAME="_Toc356386822"></A><FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">1.1	Project
+Description</SPAN></FONT></FONT></H2>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Chromatin
+Immunoprecipitation (ChIP) is an experimental procedure which can
+determine if proteins bind to particular region of DNA and is useful
+in discovering transcription factor binding sites. The advent of Next
+Generation Sequencing (NGS) technology paved the way for the
+increasingly widely adopted ChIP-sequencing (ChIP-seq) method which
+combines both the traditional ChIP approach and NGS for obtaining
+genome-wide measurements of protein-DNA interactions. The high
+throughput nature of ChIP-seq technology translates into a huge
+increase in volume of data which increasingly requires the use of
+computational methods to mine biological information more
+efficiently.  </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>The
+aim of this project is to integrate such data to learn the mechanisms
+of different transcription factors within our cells as well as
+understand how each transcription factor interact with their co-TFs
+in regulating the transcription process. For this purpose, PeakWhiz,
+a ChIP-seq processing pipeline was implemented which involves the
+pre-processing of data including read mapping and peak calling as
+well as integrative analysis consisting of motif analysis, peak
+annotation with gene and nongenic functional associations and
+conservation analysis. By integration with Illumina BaseSpace,
+PeakWhiz aims to automate and streamline the analysis process to
+enables users to conduct in-depth integrative analysis on ChIP-seq
+data on a large scale easily.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>This
+paper is divided into these following sections: A brief introduction
+to transcription factors and ChIP-seq technology and current steps in
+ChIP-seq analysis would first be given. This is followed by a
+literature review on available ChIP-seq analysis pipelines and a
+description of PeakWhiz design and implementation. Finally, we
+explore the use of PeakWhiz to analyze Oct4 ChIP-seq data. </FONT></FONT>
+</P>
+<H2 CLASS="western"><A NAME="_Toc356386823"></A><FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif">1.2	Key
+Players in Epigenetic Gene Regulation </FONT></FONT>
+</H2>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Comparative
+genomic studies have revealed that there is little correlation
+between the size of a genome of an organism and its complexity. For
+example, the small flowering plant, </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>Arabidopsis</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>&nbsp;</I></FONT></FONT><EM><FONT FACE="Times New Roman, serif"><FONT SIZE=3>thaliana
+</FONT></FONT></EM><FONT FACE="Times New Roman, serif"><FONT SIZE=3>encodes
+about as many genes (~25,000) as human beings (Arabidopsis, 2000).
+How then do we explain the amazing diversity of life found on earth?
+The answer lies in the regulation of gene expression (Phillips </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2008).</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Transcription
+factors (TFs) are a group of proteins that recognize and bind to
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>cis</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>-regulatory
+sequences in the DNA termed motifs to regulate the transcription
+process, thereby controlling the flow of genetic information from DNA
+to mRNA. While some transcription factors bind directly to
+transcription start site (TSS), others bind to regulatory sequences
+known as enhancers or silencers to either increase or reduce the rate
+of transcription. Regulation of gene expression by transcription
+factors usually involves the combinatorial effort of a group of
+cooperative transcription factors termed co-transcription factors
+(co-TFs). </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>The
+study of transcription factors can help us understand how TFs work
+together to repress or enable cancer causing genes. Some
+transcription factors have been found to be overactive in human
+cancer cells making them viable targets for developing anticancer
+drugs (Darnell, 2002). For example, oncogene c-Myc which encodes the
+c-Myc transcription factor plays a role in various cellular processes
+including cell growth, proliferation and apoptosis and has been shown
+to be implicated in tumour progression of Burkitt&rsquo;s lymphoma in
+humans (Pelengaris </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>).
+Other than the applications in drug discovery, transcription factors
+have also been used in the </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>in
+vitro</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+reprogramming of adult somatic cells into pluripotent (iPS) cells
+(Kim </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2009). iPS cells can be generated by inducing the expression of
+certain genes and transcription factors. Due to its similarity with
+embryonic stem cells (ESCs), iPS cells could potentially serve the
+same therapeutic purposes as ESCs without conflicting with the
+controversial use of stems cells. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Apart
+from transcription factors, chromatin modification is also an
+important component in the epigenetic regulation of gene expression.
+Histones are proteins that wrap around DNA to form repeating
+nucleosomal units which are essential building blocks of chromatin.
+Covalent modifications including methylation, acetylation,
+phosphorylation and ubiquitination alter the extent of DNA packing
+and play a fundamental role in many biological processes including
+DNA repair and replication, transcriptional regulation and chromosome
+compaction (Portela and Esteller, 2010). For example, phosphorylation
+of H3, which makes up one of the highly conserved family of core
+histones, is closely linked to both chromatin condensation and gene
+induction (Strahl and Allis, 2000). Given the importance of
+maintaining normal levels of transcription, disruptions to the
+epigenetic landscape of the cell have been attributed to having a
+causal link to cancer. One such notable alteration of histone
+modifications is the reduction in acetylation of Lys16 in H4 (H4K16)
+in a process mediated by histone deactylases (HDACs). Overexpression
+of HDACs in several tumour cell types brings about global imbalance
+of histone modification patterns which can lead to important
+consequences in cancer initiation and progression (Zhu </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2004).</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Evidently,
+understanding regulatory sequences in our genome and how co-TFs work
+in a coordinated fashion to initiate a biological response remains an
+interesting focus of study which has profound and far-reaching impact
+in the field of biology and medicine. Developments in biotechnology
+gave rise to useful techniques such as ChIP-on-ChIP and ChIP-seq to
+obtain genome wide measurements and global identification and mapping
+of transcription factor binding sites and histone marks, driving the
+establishment of initiatives such as the Encyclopedia of DNA Elements
+(ENCODE) project which aims to identify all functional elements in
+the human genome (Feingold </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2004). Despite advancements in this field, a complete understanding
+of the precise mechanisms by which transcription factors work and how
+covalent alterations to histones influence DNA-histone interactivity
+remains elusive. The massive increase in the magnitude of
+experimental data has also made data mining and the coherent
+interpretation of results challenging and increasingly reliant on the
+need for bioinformatics tools.  To that end, we have developed a
+ChIP-seq pipeline which aims to address this issue specifically in
+the processing of ChIP-seq data, and possibly provide important
+insight into the intricacies of our transcriptome. </FONT></FONT>
+</P>
+<H2 CLASS="western"><A NAME="_Toc356386824"></A><FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">1.3	Chromatin
+Immunoprecipitation Sequencing (ChIP-seq)  </SPAN></FONT></FONT>
+</H2>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Chromatin
+Immunoprecipitation (ChIP) is used widely in the analysis of
+DNA-protein interactions and can determine if proteins can bind to a
+particular region of DNA. Proteins in cells can be more tightly bound
+to chromatin by the addition of formaldehyde or other chemicals that
+covalently cross-links the protein to DNA. Following cross linking,
+cells are lysed and DNA is broken up into smaller pieces by
+sonification. An antibody specific for the protein of interest is
+then added. The selective binding of these antibodies causes the
+protein-DNA complex to aggregate and precipitate out of solution.
+After reversing cross-links and preparing a library for sequencing,
+associated DNA fragments can either be hybridized to a microarray
+(ChIP-chip) or sequenced on a modern NGS platform (ChIP-seq). By
+massively parallel DNA sequencing and subsequent mapping to the
+reference genome, ChIP-seq makes the identification of transcription
+factor binding sites and the study of histone modifications and DNA
+methylation possible on a genome-wide scale.   </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>In
+the immunoprecipitation step, some DNA fragments and proteins may
+also be extracted unspecifically leading to a mixture of real and
+background signals. Choice and quality of antibody, amount of
+starting material and precise experimental conditions are thus
+crucial in ensuring a high signal to noise ratio (Liu </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2010). To improve the reliability of the reads obtained, a control
+experiment termed the Input sample is usually set up in parallel and
+processed in a similar way without the immunoprecipitation step. </FONT></FONT>
+</P>
+<H2 CLASS="western"><A NAME="_Toc356386825"></A><FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">1.4	ChIP-seq
+Data Analysis Pipeline</SPAN></FONT></FONT></H2>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Once
+a library of ChIP-seq reads is generated, a bioinformatics pipeline
+is required for the proper annotation and interpretation of data. The
+ChIP-seq data analysis pipeline comprises 2 main sequential
+components namely, the pre-processing step which involves the
+alignment of reads and identification of potential binding sites (or
+peaks) followed by the integrative functional analysis of the called
+peaks. </SPAN></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>1.4.1	Read
+Mapping</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>The
+first step in ChIP-seq data analysis involves mapping the sequence
+reads to a reference genome or transcriptome sequence. The chosen
+reference genome to map to is usually one that is most complete and
+well-annotated. For example, the human genome assembly (the most
+recently updated assembly being GRCh37/hg19) provided by the Genome
+Reference Consortium (GRC) can be used for this purpose. For
+cross-species comparisons of ChIP-seq data or interconversion of
+genome assembly types, applications such as University of California
+Santa Cruz's (UCSC) LiftOver tool can be used to translate
+species-specific genome coordinates to a common reference (Bardet </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2011).  With millions of short DNA sequences to align optimally, the
+pre-processing step is in itself a computationally daunting task that
+requires the need for sophisticated indexing algorithms to
+efficiently map reads.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.17in; margin-bottom: 0in; line-height: 150%">
+<FONT FACE="Times New Roman, serif"><FONT SIZE=3>Notable read mapping
+tools include MAQ (Li </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2008), BWA (Li </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2010)</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 7pt">
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>and
+Bowtie2 (Langmead and Salzberg, 2012). MAQ uses a Burrows-Wheeler
+index for alignment and assigns a mapping quality to reads but does
+not support gapped alignment for unpaired reads. Taking that into
+account, BWA was implemented using a backwards search with
+Burrows-Wheeler Transform (BWT) and allows mismatches and gaps in
+aligning reads. A more recent aligner, Bowtie2 uses a full minute
+index, a fast and memory-efficient index, coupled with dynamic
+programming algorithms to achieve mappings at higher speed and
+efficiency, outperforming both of the abovementioned algorithms.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.17in; margin-bottom: 0in; line-height: 150%">
+<FONT FACE="Times New Roman, serif"><FONT SIZE=3>After read
+alignment, profiles can be visualized by uploading custom tracks to
+the UCSC genome browser, a portal for the visualization and
+collection of genome sequence data (Karolchik </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2003) and/or directed to the peak calling procedure.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Mapped
+reads can be classified into reads that are mapped to a unique
+genomic position or reads that are mapped to multiple regions in the
+genome (multi-mapped). The choice of using either type of reads for
+downstream analysis influences the specificity and sensitivity of the
+experiment. While uniquely mapped reads are primarily used in the
+calling of peaks, binding sites that occur in repeats might be
+missed. Conversely, using multi-mapped reads in the analysis might
+improve the detection of such sites but risk a higher amount of false
+positives. Choosing the appropriate reads for downstream analyses
+thus involves the careful weighing of these considerations (Pepke,
+Wold  and Mortazavi, 2009). </FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>1.4.2	Peak
+Calling </B></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>The
+immediate step following sequence reads alignment is the
+determination of highly enriched sequences in order to find potential
+transcription factor binding sites. An intuitive way for calling
+peaks is to define loci with a significantly higher number reads or
+fragments as enriched regions in the data with respect to a user
+specified library (background control). If a control is not
+specified, a Poisson or negative binomial distribution is usually
+used to model the background. However, it is important to note that
+while stronger signals are more inclined to be called as peaks, they
+are not the only biologically meaningful ones. Hence while this may
+be effective for highly defined regions with strong enrichment,
+inherent complexities in the signals due to experimental bias or
+artifacts makes the identification of false positives and false
+negatives challenging. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Typically,
+statistical methods such as p-values and false discovery rates (FDR)
+are used to measure the confidence of a peak (Liu </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2010)</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>.
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Different
+peak calling algorithms vary in terms of their need for a
+user-specified control library, consideration of strand information
+and confidence measure used. Peke </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al </I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(2009)
+provided a concise summary and analysis of different peak calling
+applications publicly available in ChIP-seq software packages
+including ERANGE (Mortazavi </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2008), MACS (Zhang </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2008), PeakSeq (Rozowsky </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2009) and QuEST (Valouev </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2008) to name a few and described their criteria for calling peaks,
+how background control is handled and the significance ranking
+methods implemented in each case</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>.
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>In
+general, the standard procedure for peak calling involves the
+estimation of fragment length, shifting of tags and building of a
+signal profile to determine if the sample contains significantly
+higher signals than the background. </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>In
+particular, </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Model-based
+Analysis for ChIP-seq (MACS) shifts tags on the positive and negative
+strands together and uses a Poisson distribution to model the reads
+and empirically estimate the average fragment length. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Notably,
+the peak calling procedure is very important for the downstream
+analyses of data as a &lsquo;middleman&rsquo; for ChIP-seq analysis.
+The success of a ChIP-seq experiment is thus heavily dependent on
+this step and requires accurate estimation of control or error models
+to improve the reliability of called peaks and subsequent integrative
+analysis.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>1.4.3	Motif
+Analysis</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Once
+peaks or enriched regions are identified, they need to be
+functionally annotated to provide biological context for the
+interpretation of results. One of the key downstream analyses of
+ChIP-seq data is motif analysis where the aim is to search for
+significantly enriched DNA sequences where TFs are most likely to
+bind. Motif analysis can also identify co-TFs that work together to
+activate or repress gene expression since the binding sites of co-TFs
+are expected to share similar DNA sequences or motifs. Two kinds of
+motif analysis exist depending on whether the sequence motif is
+unknown or given priorly. The former refers to </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>de
+novo</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+motif discovery while the latter refers to motif detection.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>1.4.3.1		De
+novo motif analysis </B></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>One
+approach in the identification of consensus sequences is by
+determining if they are overrepresented in a given set of sequences.
+Other approaches rely on the use of probabilistic models to estimate
+position weight matrices which can be used to represent DNA motifs.
+Multiple EM for Motif Elicitation (MEME)</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+(</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Bailey,
+2006</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>)</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+a popular tool for </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>de
+novo</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+motif discovery, looks for repeatedly occurring, statistically
+significant sequence patterns with no gaps in the provided sequences.
+An improvement to the motif finding process is the consideration of
+position and rank preferences. Transcription factor binding sites
+(TFBS) are preferentially clustered with respect to the transcription
+start site. Therefore, we are likely to find enriched ChIP-seq peaks
+that are close together and have position preferences. Motifs are
+also more likely to be found in regions of high peak intensity.
+Several methods have exploited these preferences to improve the motif
+finding procedure. For example, MDScan (Liu </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2002) considers highly ranked sequences in their motif finding
+algorithm. Some of these methods require user specified preference
+distributions which may or may not be known </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>a
+priori</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>.
+Moreover, not all transcription factors observe a similar pattern of
+preferences. To address this issue, Zhang </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+(2013) developed an algorithm Sampling with Expectation maximization
+for Motif Elicitation (SEME) which uses a mixture of a motif and
+background model and two EM procedures to perform an unsupervised
+model learning that learns the position and rank preferences as well
+as motifs simultaneously. By comparing the estimated preference
+distribution of estimated sites and known binding sites, SEME has
+shown to be able to estimate both sequence and positional preferences
+to a good degree. In determining highly conserved and significant
+motifs, SEME also outperformed other motif finding programs such as
+MEME, ChIPMunk (Kulakovskiy </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2010), Weeder (Pavesi </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2010) and Trawler (Ettwiller </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2007) in terms of both accuracy and speed.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>1.4.3.2	Motif
+Scanning and co-TF Discovery</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Following
+the motif discovery step, learned motifs can be compared to known
+motifs in public databases such as JASPAR (Sandelin </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2004) or TRANSFAC (Wingender </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+1996). Given a motif sequence and a set of peak summits, motif
+scanning usually begins with the extraction of nearby sequences
+associated with each peak. A motif is then checked for
+over-representation in those sequences. An important application of
+motif detection is in identifying co-TFs. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Enrichment
+based methods of co-TF discovery often require many user specified
+parameters including the background, PWM score and the enrichment
+window size which potentially makes motif detection less efficient.
+The revelation that ChIP-seq peaks of cooperating TFs occur at close
+proximity and that their relative distances often exhibit a peak like
+distribution have suggested the use of slope information in the
+prediction of co-motifs. Taking these factors into consideration,
+CENTDIST was developed to estimate these parameters automatically and
+rank motifs according to their centre distribution scores (Zhang </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2011).  Notably, the discovery and subsequent experimental validation
+of AP4 as a co-factor of the Androgen Receptor (AR) has shown that
+CENTDIST was capable of finding novel interactions between co-TFs
+along with known ones.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>1.4.4	Peak
+Annotation</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Peak
+annotation is also instrumental in the integrative analysis of
+ChIP-seq data. Functional association of binding sites often reveal
+important information and allows peaks to be analyzed in a biological
+context. Peaks can be annotated with known genomic features
+associated with transcription start sites (TSS), transcription
+termination sites (TTS), genes, repeat elements, CpG islands, histone
+modification sites to be biologically interpreted. A typical analysis
+would be to compute the frequency of regions found in the promoters,
+exons, introns, untranslated regions and intergenic regions to deduce
+the genomic feature(s) that is/are highly enriched in the data.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>1.4.5	Gene
+Annotation </B></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Peaks
+can also be annotated to associated genes and be further subject to
+GO enrichment and pathway analysis. Gene association analysis can
+provide insight for understanding how transcription factors function
+and the type of biological processes they regulate.  Cis-regulatory
+Element Annotation System (CEAS)</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+(Shin </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2009) </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>and
+the Genomic Regions Enrichment of Annotations Tool (GREAT)</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+(</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>McLean
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2010) are two applications that specialize in the functional
+annotation and interpretation of peaks. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>CEAS
+mainly associates enriched peaks and genes by proximity and
+calculates the distance to the centre of the nearest peaks upstream
+and downstream of the TSSs of all genes. It also supports peak
+annotation to non-genic references and provides average signal
+profiling near important genomic features. Extending the criterion
+for peak gene association, GREAT takes in consideration distal
+binding sites and controls for false positives using two statistical
+methods, namely a binomial test over genomic regions (50kb to 1 Mb)
+and a hypergeometric test over genes (2kb). This methodology and the
+incorporation of twenty ontologies spanning a broad range of
+biological annotations can enhance peak gene associations,
+particularly in the detection of transcription factors that bind far
+beyond proximal promoters.  </FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>1.4.6	Correlations
+Studies/ Peak Comparison </B></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Correlation
+studies and comparisons between peaks can provide us with information
+on whether transcription factors are co-localized. For example,
+highly overlapping peak regions suggests possible interaction between
+factors since transcription factors that work together are expected
+to share similar binding sites/peaks. Apart from being (possibly)
+able to identify co-TFs, overlap analysis can also verify the quality
+of replicates. Overlap analyses can be achieved with command line
+BEDtools (Quinlan, A. R., &amp; Hall, I. M. ,2010) that are
+specifically designed to handle general operations (e.g. counts
+overlap using windowBed, finds closest features using closestBed,
+etc) on genomic features. </FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>1.4.7	Conservation
+Analysis</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Functional
+DNA regions in genomes are often evolutionarily conserved between
+different species. Conservation analysis is a method of measuring the
+degree of cross genome sequence conservation across related species
+using phastCons or phyloP scores calculated from placental mammalian
+genomes available at the UCSC genome browser. phastCons conservation
+scores are produced by the PhastCons program that identifies
+evolutionarily conserved sequences with reference to a given
+phylogenetic model. Conservation analysis could thus be useful for
+finding highly conserved enhancers are likely to be functional. </FONT></FONT>
+</P>
+<H1 CLASS="western" STYLE="page-break-before: always"><A NAME="_Toc356386826"></A>
+<FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">2	Survey
+of Current ChIP-seq Data Processing Pipelines</SPAN></FONT></FONT></H1>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>In
+this section, current available ChIP-seq pipelines that streamline
+and simplify the routine analysis of ChIP-seq data will be discussed.
+</FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.1	CisGenome</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>CisGenome
+is one of the earliest standalone tools designed to meet the basic
+needs of the ChIP-seq data analyses namely, visualization, data
+normalization, peak calling and sequence and motif analysis.
+Visualization and normalization of raw ChIP-chip and ChIP-seq data
+can also be performed with pre-processing programs like MAT
+(ChIP-chip) or QuEST(ChIP-seq). While CisGenome provides a useful
+platform for the pre-processing of raw data and the calling of peaks,
+it does not conduct gene enrichment with GO terms and other
+functional pathways which may provide useful insight into the types
+of processes the TF in question regulates.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.2	Cistrome</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Cistrome
+is a bioinformatics workbench built upon the Galaxy framework which
+is a web-based service for the processing and integrative analysis of
+ChIP-seq and gene expression data. Cistrome incorporates many tools
+ranging from the interconversion of file types and pre-processing of
+raw reads (MACS for peak calling) to follow-up analyses including
+peak overlap analyses, correlation studies, gene feature association
+studies (CEAS) and motif finding(using an in-house motif scanner
+program, SeqPos). Visualization of peaks as custom tracks on the UCSC
+genome browser is also supported. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Although
+customisable workflows add flexibility to the pipeline, the output
+from one analysis cannot always be transferred to the next as
+effectively as it should because of the different requirements of
+each input file for specific analyses (i.e. a limit of the maximum
+number of peaks in a file for conservation analysis and motif
+analysis or the lack of support for different file formats). Also,
+users are required to supply parameters for each step of an analysis
+(e.g. the input file, plot titles, etc) which becomes quite
+repetitive and sometimes redundant, making the pipeline less
+efficient and user-friendly.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.3	ChIP-seeqer</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Amongst
+all surveyed programs, ChIP-seeqer is one of the most comprehensive
+frameworks that include gene-level annotation of peaks, pathway
+enrichment analysis, motif analysis using either a de novo approach
+or by motif scanning, non-genic peak annotation(repeats, CpG island,
+duplicates), conservation analysis, clustering analysis,
+visualization and the comparative analysis across different ChIP-seq
+experiments. Pathways annotations are obtained from a variety of
+sources including Gene Ontology, KEGG, Biocarta and SignatureDB
+Online Resource and Reactome pathways. For conservation analysis, the
+ChIP-seeqerCons tool in the framework estimates the conservation for
+a given set of peaks and outputs the peaks whose average conservation
+score is above a user specified threshold. Read density profiles can
+also be generated to help identify groups of genes with similar
+binding profiles in their promoters or groups of peaks with similar
+histone modifications. Despite having a wide array of tools to work
+with, the GUI version of ChIP-seeqer is not compatible with all
+operating systems, hence limiting the usability of the pipeline.
+Before integrative analysis can be conducted, ChIP-seeqer requires
+the user to download ENCODE data sets and annotation data from UCSC.
+Given the size of these data, downloading of files requires
+tremendous effort on the part of the user to maintain and keep up
+with the increasing amount of ChIP-seq data added into the database.
+Furthermore, large-scale comparative analysis of ChIP-seq data is not
+so convenient in ChIP-seeqer. For example, peak comparisons and peak
+overlaps with ENCODE TF ChIP-seq files are limited to comparing two
+user-specified peak files only.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.4	CASSys</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>CASSys
+offers a web-based user interface which conducts the pre-processing
+and visualization of raw reads, readmapping (Bowtie and BWA) and peak
+calling (MACS and FindPeaks) as well as follow up analyses such as
+motif detection and comparison (Weeder and MEME for de novo motif
+analysis and Tomtom for motif scanning), pathway analysis and genomic
+annotation. Genomic annotation is performed by the identifying
+over-represented GO terms by applying a hypergeometric test to detect
+statistical significant over representation in a set of candidate
+genes. Perhaps more interesting is the ability to interactively
+visualise protein-protein interactions with CASSys. Using the IntAct
+database as a reference to conduct enrichment analysis,
+protein-protein networks can be constructed using the
+immunoprecipitated TF, the genes they regulate and possible co-TFs.
+However, peak set comparisons and conservation analysis which are
+useful in ChIP-seq analysis are not provided. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.5	HOMER</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>HOMER
+is a collection of command line tools developed for de novo motif
+discovery and other ChIP-seq analysis including data visualization
+using heat plots and histograms, gene ontology analysis, peak gene
+associations. HOMER uses a score based motif discovery method based
+on the differential enrichment between two sets of sequences. The two
+sequences correspond to the target sequence of interest or the
+promoter of co-regulated genes and a background sequence (i.e.
+promoters of genes that are not co-regulated). While it is able to
+support a variety of useful ChIP-seq analyses such as peak calling
+and annotation, conservation analysis and peak set comparisons is not
+supported as with CASSys. Also the command-line interface may impose
+a higher learning curve for non-advanced computer users.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.6	PeakAnalyzer</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Made
+up of 2 main components,</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>
+</B></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>PeakAnalyzer
+can subdivide peak regions into enriched sub-peaks and annotate them
+with various functional information including genes, CpG islands,
+repeats, DNA I hypersensitive sites.  The PeakSplitter routine
+subdivides peak regions containing more than one site of enriched
+signals and retrieves DNA sequences corresponding to these sub-peaks
+which can be used for subsequent motif analysis. This allows for a
+more detailed analysis of individual subpeaks. PeakAnnotation
+contains 3 main subroutines: Nearest Downstream Gene (NDG),
+Transcription Start Site (TSS) and Overlap Datasets (ODS) which
+allows users to associate peaks relative to their closest genes and
+TSS sites and conduct overlap analysis across multiple datasets.
+However, PeakAnalyzer does not perform enrichment analysis with
+associated pathways which can shed light onto the TF localization in
+the cell and the types of processes they regulate.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.7	Sole-Search</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Like
+PeakAnalyzer, Sole-Search focuses on techniques for peak detection
+and functional annotation. It is able to convert raw data into a
+format for visualization on a genome browser. Sole-Search provides
+statistical information of peaks. Peak calling proceeds by
+identifying highly enriched and gapped regions. Following which
+background model estimation is carried out using sequenceable tags
+not limited to unique reads before eliminating peaks and keeping the
+significant ones. Peak annotation to nearest genes and gene
+structures are subsequent follow-up analyses on this web-based
+platform.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.8	SeqMiner</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>SeqMiner
+allows integration and comparison of multiple genome wide datasets in
+terms of read density. Given a set of peaks for a particular TF,
+seqMiner calculates the mid points of each peak and proposes two
+complementary methods (either by calculating the maximum number of
+overlaps per bin or by analyzing the number of reads per window) to
+analyze the signal enrichment status in multiple tracks. References
+are then combined across datasets upon which clustering analysis is
+performed. Results of analysis are later graphically represented
+using heat maps and dot plots. Although useful for integrating
+ChIP-set data sets, SeqMiner does not support conservation analysis,
+gene association analysis or motif discovery which are key components
+of a ChIP-seq pipeline, making it the least comprehensive in terms of
+integrative analysis tools amongst the pipelines surveyed. </FONT></FONT>
+</P>
+<TABLE WIDTH=659 BORDER=1 BORDERCOLOR="#000001" CELLPADDING=7 CELLSPACING=0>
+	<COL WIDTH=77>
+	<COL WIDTH=33>
+	<COL WIDTH=43>
+	<COL WIDTH=50>
+	<COL WIDTH=50>
+	<COL WIDTH=51>
+	<COL WIDTH=51>
+	<COL WIDTH=51>
+	<COL WIDTH=51>
+	<COL WIDTH=61>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=16>
+			<P ALIGN=JUSTIFY><A NAME="OLE_LINK1"></A><BR>
+			</P>
+		</TD>
+		<TD WIDTH=33>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=2 STYLE="font-size: 9pt">Cis-Genome</FONT><FONT SIZE=2 STYLE="font-size: 9pt">
+			</FONT></B></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=43>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=2 STYLE="font-size: 9pt">Cis-trome</FONT><FONT SIZE=2 STYLE="font-size: 9pt">
+			 </FONT></B></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=50>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=2 STYLE="font-size: 9pt">ChIP-seeqer</FONT><FONT SIZE=2 STYLE="font-size: 9pt">
+			</FONT></B></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=50>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=2 STYLE="font-size: 9pt">CASSys</FONT><FONT SIZE=2 STYLE="font-size: 9pt">
+			</FONT></B></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=2 STYLE="font-size: 9pt">HOMER</FONT><FONT SIZE=2 STYLE="font-size: 9pt">
+			</FONT></B></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=2 STYLE="font-size: 9pt">Peak-Analyzer
+			</FONT></B></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=2 STYLE="font-size: 9pt">Sole-Search</FONT><FONT SIZE=2 STYLE="font-size: 9pt">
+			 </FONT></B></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=2 STYLE="font-size: 9pt">seqMiner</FONT><FONT SIZE=2 STYLE="font-size: 9pt">
+			 </FONT></B></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=2 STYLE="font-size: 9pt">PeakWhiz</FONT></B></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=17>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=2>Read Mapping</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=33>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=43>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY STYLE="margin-left: 0.5in"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY STYLE="margin-left: 0.5in"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY STYLE="margin-left: 0.5in"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY STYLE="margin-left: 0.5in"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=17>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=2>Peak Calling</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=33>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=43>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=17>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=2>Motif Analysis</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=33>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=43>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=17>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=2>Gene
+			Annotation</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=33>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=43>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=17>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=2>Pathway
+			Analysis</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=33>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=43>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=17>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=2>Non-genic
+			Annotation (e.g. repeats, TSS, histone modifications)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=33>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=43>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=17>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=2>Conservation
+			Analysis</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=33>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=43>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=17>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=2>Large scale
+			comparison across ChIP-seq datasets</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=33>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=43>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=50>
+			<P ALIGN=JUSTIFY STYLE="margin-left: 0.25in"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=50>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=17>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=2>Web Interface</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=33>
+			<P ALIGN=JUSTIFY STYLE="margin-left: 0.5in"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=43>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=50>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=50>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=77 HEIGHT=16>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=2>Integration
+			with Illumina BaseSpace</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=33>
+			<P ALIGN=JUSTIFY STYLE="margin-left: 0.5in"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=43>
+			<P ALIGN=JUSTIFY STYLE="margin-left: 0.5in"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=50>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=50>
+			<P ALIGN=JUSTIFY STYLE="margin-left: 0.5in"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY STYLE="margin-left: 0.5in"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=51>
+			<P ALIGN=JUSTIFY><BR>
+			</P>
+		</TD>
+		<TD WIDTH=61 BGCOLOR="#f2f2f2">
+			<UL>
+				<LI><P ALIGN=JUSTIFY></P>
+			</UL>
+		</TD>
+	</TR>
+</TABLE>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.9	Summary
+of Approaches</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>As
+established, ChIP-seq analysis is a multi-step process which requires
+the careful execution of programs at each stage of analysis. As such,
+the pipelines discussed aim to integrate these analyses in one way or
+another into a single platform to enable more efficient analysis and
+to reduce the inconveniences associated with data transfer at each
+stage. An overview of each of the discussed pipelines in relation to
+PeakWhiz, our proposed solution is presented in Table 1. The
+following 2 sub-sections summarise current approaches in terms of
+functionality and usability of frameworks.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.9.1	Functionality</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>While
+most applications offer basic peak calling and gene annotation
+features, most of them do not provide comprehensive end-to-end
+analysis of ChIP-seq data starting from the pre-processing step to
+the derivation of fully annotated peaks. </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">At
+present, ChIP-seeqer and Cistrome are the 2 most comprehensive
+pipelines of those surveyed that </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>feature
+quite an elaborate set of tools targeted at</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">
+the integrative analysis of peaks. However, both frameworks have
+little or no support for the large scale comparison of ChIP-seq
+datasets which can reveal much biological insight in the functional
+interpretation of TF binding sites. Furthermore, ChIP-seeqer lacks
+tools for the preprocessing of data and Cistrome workflows are
+cumbersome to implement with many restrictions that impede the ease
+of data flow from one analysis to another. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>2.9.2	Usability</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Most
+read mapping and peak calling tools such as Bowtie and MACS exist
+only as command line tools which makes them less accessible to the
+regular computer user. Recognising the need to simplify this process,
+several pipelines including ChIP-seeqer and PeakAnalyzer have
+implemented GUI desktop applications to facilitate the ease of use of
+such tools. However desktop applications are platform dependent,
+limiting its use to only supported platform types.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.17in; margin-bottom: 0in; line-height: 150%">
+<FONT FACE="Times New Roman, serif"><FONT SIZE=3>For example,
+ChIP-seeqer does not support the MS Windows platform which can be a
+limiting factor in its spread of use. Also, peak annotation
+techniques implemented in ChIP-seeqer require users to download
+reference and annotation data from the UCSC Browser and/or other
+relevant databases. With the increasing number and size of publically
+available datasets, this places a huge burden on the storage
+requirements of the user.  This also imposes on the user the
+laborious task of maintaining and keeping up with the latest
+annotation data. To cope with these issues, CisGenome, Cistrome and
+SoleSearch have implemented web-based solutions which alleviate this
+problem. However, many of these frameworks do not include the full
+range of tools needed to properly analyze ChIP-seq data. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.17in; margin-bottom: 0in; line-height: 150%">
+<FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Despite
+the development of pipelines which aim to streamline the ChIP-seq
+analysis process, functionality and usability remain issues of great
+concern. Taking all of these factors into consideration, we propose a
+web based solution, PeakWhiz, for the comprehensive integrative
+analysis of ChIP-seq data. Running on a web-based platform, PeakWhiz
+eliminates the problems associated with platform discrepancies and
+data management</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+by absorbing the responsibility of data maintenance whilst providing
+a user-friendly framework for integrative analysis</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">.
+In terms of functionality, PeakWhiz endorses the full range of
+analyses starting from read mapping to peak calling and subsequent
+functional analysis, which is strikingly absent in most available
+pipelines. By providing support for each stage of processing, data
+transfer from one analysis to the next is seamless and efficient,
+requiring little user specified details to derive biologically
+meaningful results.</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+PeakWhiz takes the ease of data transfer to a whole new level with
+integration with Illumina&rsquo;s BaseSpace application. BaseSpace is
+a cloud platform that is directly integrated with Illumina&rsquo;s
+sequencing platforms to automatically retrieve results from
+sequencing runs. By removing the hassle of time-consuming manual data
+transfers, PeakWhiz can obtain the results of these runs and direct
+them to the ChIP-seq pipeline in an easy and straightforward manner.
+Alternatively, users can upload their own data sets in a variety of
+formats to be analyzed &lsquo;on-the- fly&rsquo; in a matter of
+clicks. Taken together, PeakWhiz aims to automate and streamline the
+ChIP-seq analysis pipeline like never before in an attempt to
+understand the complex mechanisms by which transcription factors and
+other epigenetic factors work. </FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<H1 CLASS="western" STYLE="page-break-before: always"><A NAME="_Toc356386827"></A>
+<FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">3	Methods</SPAN></FONT></FONT></H1>
+<H2 CLASS="western"><A NAME="_Toc356386828"></A><FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">3.1	PeakWhiz
+Design and Features</SPAN></FONT></FONT></H2>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">The
+PeakWhiz pipeline begins with users uploading files or extracting
+files from BaseSpace. PeakWhiz supports various file types that are
+well-established in ChIP-seq experiments including raw read files
+(FASTA and FASTQ), aligned reads (SAM, BAM or BED) and peak files
+represented by the popular USCS BED format. As illustrated in Figure
+1, different file formats enter the pipeline at different stages of
+analysis. This process is automated by PeakWhiz and is essentially
+hidden from users. </SPAN></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Analysis
+is primarily made up of 2 main components, the preprocessing of raw
+or aligned reads followed by integrative analysis consisting of motif
+analysis, peak enrichment analysis, conservation analysis and overlap
+analysis amongst others. Processed results are then visually
+represented by plots and tables which can be viewed at the PeakWhiz
+website or easily exported for examination.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">The
+current implementation of PeakWhiz supports 2 of the latest human
+genome reference assemblies (GRCh37 or hg19 and NCBI build 36.1 or
+hg18). Support for additional species and assembly builds will be
+added to the framework in future.</SPAN></FONT></FONT></P>
+<H2 CLASS="western"><A NAME="_Toc356386829"></A><FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">3.2	Implementation</SPAN></FONT></FONT></H2>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">The
+implementation of PeakWhiz is divided into 2 main parts comprising
+the front-end user interface and the backend analysis. The front end
+interface deals with data retrieval, job management on the users&rsquo;
+end and the visualization of results. Backend analysis is conducted
+on the Genome server where the ChIP-seq analysis tools reside. For
+the storage of ENCODE data and annotation tracks (i.e. phastCons
+scores, histone modifications, genomic regions, etc) from UCSC, the
+backend storage, BASIC Common Storage (BCS) was used. Programs
+requiring the use of these reference materials are made to query the
+backend storage in conducting their analyses (Figure 2). For this
+project, the focus is on &lsquo;wrapping&rsquo; these programs to
+query the backend storage and the implementation of ChIP-seq pipeline
+as a web service. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.1		User
+Interface</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">The
+PeakWhiz web interface was created using the Django Python web
+framework. Adhering to the Django framework which emphasizes the MVC
+(Model, Views, Controller) model, the PeakWhiz web framework is
+separated into 3 modules each for both BaseSpace and non-BaseSpace
+users, which specifically handles the front-end user job management,
+backend job management and visualization of results.  For BaseSpace
+users, there is an additional step for the downloading of data from
+BaseSpace and the uploading of results back onto the app. To address
+the different requirements needed on both sides, distinct models were
+defined for both regular and BaseSpace users. User registration is
+also included in the framework to enable users to have personal
+access to their data and results.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">The
+front end user interface was styled with HTML5 and Twitter Bootstrap
+which gives web pages a clean and stylish finish. JavaScript and
+jQuery were also used in the creation of the PeakWhiz UI to enable
+dynamic interaction with users in the uploading of files, creation of
+jobs, manipulation of data and the visualization of results. In
+collaboration, these tools aim to enhance the user experience both in
+terms of appeal and functionality. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.1.1		Job
+Management</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">PeakWhiz
+allows users to submit, view run information, rerun or delete jobs on
+the front end. To facilitate job management on the backend, Celery, a
+distributed task queue was used. With the exception of histone plot
+analysis and overlap analysis with ENCODE ChIP-seq data, all
+integrative analysis tools can be run in parallel hence speeding up
+the analysis. Upon completion of a job, an email notification would
+be sent to the user.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.1.2		Automated
+File Type Detection</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Depending
+on the file type, PeakWhiz would automatically determine if
+preprocessing of the file is required before integrative analysis.
+Raw read files (FASTA, FASTQ) and files containing mapped reads (SAM,
+BAM) can be easily identified by their suffixes and directed to the
+preprocessing step. On the other hand, BED file formats could either
+represent bowtie alignment reads which requires the peak calling
+procedure or a peak summits file which bypasses the pre-processing
+step to undergo downstream analyses directly. Given the significantly
+greater number of aligned reads (in millions) compared to the number
+of called peaks (in thousands), file size/number of lines in a BED
+file is a good differentiating factor for identification of the
+correct file type.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.1.3		Automated
+Cell Line Detection</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">A
+cell line has to be specified for the derivation of histone plots.
+However, not all cell lines have corresponding histone modification
+ENCODE files. To that end, automated cell line detection was
+implemented in PeakWhiz by using overlap analysis. By checking the
+frequency of occurrence of a particular cell line in the set of top
+overlapping data sets, the cell line that occurs most frequently will
+be detected and used for constructing the histone plot.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.1.4		Visualization
+of Results</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Results
+are displayed as informative plots and tables in easily navigable
+tabs on the result page. Peak files can also be downloaded by users
+to conduct further analysis on.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2		Backend
+Analysis</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Backend
+analysis comprises 2 groups of analyses that run predominantly on the
+genome server: one that requires the use of the backend storage and
+one that does not. With the exception of peak set overlap analysis,
+histone plot, TSS plot, peak annotation and repeat analysis, all
+other components of the PeakWhiz pipeline run independently of the
+backend database.  For most of the integrative tools, a combination
+of shell, python and R scripts as well as BEDtools (for the
+manipulation of peaks) were used to carry out the analyses and create
+plots for visualization. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2.1		Analyses
+involving the use of the backend storage</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>The
+first stage of the project involves the uploading of annotation
+tracks into appropriate data sources in the backend database BCS
+Common Storage. Standard UCSC file types are supported in the common
+storage including narrowPeak, BED, BigWig, BedGraph files and were
+uploaded to different data sources depending on the type of queries
+that needed to be returned. Tags specifying the assembly, library,
+cell line, target factor, producer and project, amongst others, were
+assigned appropriately to each track before uploading. Uploaded
+tracks were then identified via these tags, following which relevant
+queries can be made to the tracks of interests. Specifically, five
+programs in the integrative analysis pipeline were required to be
+wrapped at this stage. There are a total of 3 different types of data
+sources in BCS namely, max_ds, MongoDB and extsds_sum which will be
+discussed in the context of these wrapped programs.  </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2.1.1	</B></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Peak
+Set Overlap with ENCODE Data</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Peak
+set overlap allows the large scale comparison of the number of peaks
+in an input file with ENCODE ChIP-seq peak files. Given a specified
+input peak file and a chosen genome assembly, this analysis computes
+the number of overlaps between the input peak file and a list of
+ENCODE ChIP-seq peak files in the database. Datasets are then ranked
+in increasing order of their overlap counts and the top 50
+overlapping files are visualized in a histogram. Using the list of
+the top overlapping ENCODE peaks, a heat map is also generated by 2-D
+hierarchical clustering to identify highly overlapping peak regions
+in the input with respect to the ENCODE peaks.  </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>For
+each analysis, a query was made to identify all relevant entries in
+max_ds with the specified assembly and project type (wgEncode) by
+retrieving their database ids.   Bulk queries were then made to the
+each of the data sets selected in the prior step. Given a peak region
+of query (chromosome number, start and end) and a specified window
+size </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>w</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+the allowed operation </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>winsize</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+divides the given interval into </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>w</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+bins and returns the maximum value in each bin. For the purpose of
+this program, </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>w</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+was set to 1 to return the maximum value for each peak interval. The
+number of overlaps was then obtained by counting the number of
+non-zero entries.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2.1.2	Repeat
+Analysis</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Repeat
+regions in the genome are recently known to be rich sources of
+transcription factor binding sites (Bourque </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>et
+al</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">,
+2008)</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+it is therefore useful to understand peaks in the context of these
+repeat sequences</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">.
+</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Repeat
+analysis involves the annotation of peaks to the different kinds of
+repeats in a reference assembly. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>A
+repeat marker file containing the percentage of repeats in the genome
+was first uploaded to the MongoDB. Given a peak query region
+specifying the chromosome number, start and end, returned queries
+contain specific overlapping peak regions in the data base file. The
+file containing the repeat marker was initially identified by
+querying specific tags before a bulk query was performed on the
+chosen database file. The number of overlaps with a particular repeat
+element is computed and sorted before a significance value is
+assigned to each repeat type. The p-value is defined as the
+probability of obtaining a peak enriched in a particular repeat type
+given the distribution of repeat types in the genome. A bar plot of
+repeat elements enriched in the input peak (with their peak counts
+and p-values) is eventually obtained.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2.1.3	Peak
+Annotation</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>In
+PeakAnnotation, we are interested in finding the distribution of
+peaks with respect to their enriched gene regions (namely the
+promoters, exons, introns, 3&rsquo; region and TSS).  UCSC reference
+files pertaining to these gene regions were uploaded as BED files
+into MongoDB. Bulk query was executed in a sequential fashion so the
+input peak is overlapped with promoters, exons, introns, 3&rsquo;
+region and finally TSS to determine proximal promoter, exon, intron,
+3&rsquo; region, distal promoter and inter-genic peaks respectively.
+The p-value associated with each gene region and a bar plot
+describing the distribution of peaks is obtained in a similar way to
+that of repeat analysis. </FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2.1.4	Histone
+Plot</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Histone
+Plot relates the input peak file to histone modification and plots
+the peak distribution around a set of histone modification files in a
+specific cell line. If peaks are found to be enriched at histone
+modification sites, it is likely that the target factor in question
+is also involved in the regulation of histone modification or is
+exhibiting some form of combinatorial control. Histone modifications
+ChIP-seq files from ENCODE (Broad, SYDH and UW) were uploaded into
+the </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>extsds_sum
+</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>which
+returns the average value of </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>w</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+evenly split bins for each peak interval (as opposed to returning the
+maximum value as in max_ds). </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Peaks
+are centered and extended by 1000bp and split into 100 bins for
+analysis. </SPAN></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2.1.5	Conservation
+Plot</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Conservation
+plot shows the average conservation score profiles around the peak
+centers. Apart from being able to identify if the binding sites of
+the TF are highly conserved, evolutionary conservation of ChIP-seq
+peaks compared with flanking non-peak regions is also a good
+indicator of data quality and preprocessing. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>PhastCons-46
+way tracks from UCSC for each chromosome of the reference genome were
+uploaded to the data source, </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>extsds_sum</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+as a bedGraph file. The binding sites were extended to 4kb and 400 bp
+respectively to produce two input files (where peaks were aligned at
+the centres) and further separated by chromosome number on which to
+perform bulk query on.  Bulk query to the phastCons bedGraph file was
+then conducted separately using a bin size of 200. In each case, the
+translation of the retrieved queries produced a matrix where the rows
+referred to the peak intervals and the columns referred to the bin
+number. Entries thus corresponded to the average value in a
+particular bin of a given peak interval. Subsequently, the average
+values per bin (i.e. the column mean) were taken to obtain the
+conservation plot. </FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2.1.6	TSS
+plot</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">The
+TSS plot describes the peak distribution around the transcription
+start site and provides us with an idea of where the TF works in
+relation to the TSS. For each peak in the input file, the closest
+corresponding peak region with respect to the TSS is identified and
+assigned a &lsquo;distance&rsquo; based on the strand direction. If
+the peak corresponds to the positive strand, distance is defined as
+the distance to the closest TSS peak region (queried region) from the
+  input peak region. Conversely, for the negative strand, distance is
+calculated by taking the negative counterpart of the positive strand.
+Subsequently, the set of distances obtained are binned into a total
+of 50 portions and used to obtain the TSS plot.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2.2		Independent
+Processes</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2.2.1	Data
+Preprocessing</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Reads
+mapping of sample and control files was implemented using bowtie2.
+Reads are aligned to a user specified genome assembly. Reads that are
+not mapped (unmapped) or are mapped to multiple locations
+(multi-mapped) on the genome are discarded. Using samtools, PCR
+duplicates of uniquely mapped reads (i.e. reads aligned only once)
+are also removed. The retained </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>PCR
+filtered reads from all sample/control files are then combined into a
+single bam file each respectively for samples and controls and fed
+into the Peak Calling procedure. </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Peak
+calling of the aligned reads is performed using MACS (Version 1.4.2)
+which provides the flexibility of analyzing sample files alone or in
+conjunction with control files. A p-value cut-off of 0.000005 is used
+in deriving a set of significant peaks.</SPAN></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>3.2.2.2.2	Integrative
+Analysis</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Often,
+it is useful to visualize the distribution of peaks with respect to
+their locations in the genome. Genome profiling produces plots
+indicating peak locations for each chromosome of the reference
+genome. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">For
+motif analysis, de novo motif analysis and co-TF discovery was
+conducted using SEME and CENTDIST respectively. Both are
+well-established in this area as robust solutions requiring little
+input from the user (no need for traditionally needed user specified
+parameters including preference distributions for SEME and PWM score
+cut-off, enrichment window size and background for CENTDIST) whilst
+providing interpretable results, making them valuable additions to
+the pipeline which aims to serve the same purpose. SEME and CENTDIST
+were both run with their default parameters. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">For
+genomic enrichment of peaks, GREAT was chosen for its effectiveness
+in associating peaks with GO terms and pathways and its improved
+method in the consideration of distal promoters (or TFs which act
+over a distance) apart from just the closest associated genes by
+proximity. GREAT was implemented using the GREAT Programming
+Interface. While useful for generating lists of terms and pathways
+enriched for peaks, the current web-based UI for GREAT does not
+enable the automated retrieval of peak-gene lists associated with a
+certain pathway. If provided, this can enable users to conduct more
+in-depth and targeted analysis on a subset of significant peaks.
+PeakWhiz organizes GREAT results into separate sortable and
+searchable tables for each of the 20 pathways (GO terms, Disease
+Ontology, BioCyc Pathway, InterPro and MSigDB to name a few). 
+Enriched terms (having binomial and hypergeometric FDR q-values
+larger than 0.05) are sorted by q-value to quickly obtain a list of
+the most significant terms. PeakWhiz also generates a list of
+gene-peak sets which is downloadable by users.</SPAN></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<H1 CLASS="western" STYLE="page-break-before: always"><A NAME="_Toc356386830"></A>
+<FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">4	Results</SPAN></FONT></FONT></H1>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">To
+demonstrate the functionality of the PeakWhiz ChIP-seq pipeline, an
+analysis of ChIP-seq data comprising DNA sequences immunoprecipitated
+against Oct4 was carried out. Oct4 is a transcription factor encoded
+by the POU5F1 gene in humans which is known to play an important role
+in maintaining the pluripotency of embryonic stem cells, making it an
+important biomarker for undifferentiated cells. Increase in the
+expression of Oct4 above endogenous levels results in the
+differentiation of stem cells. Regulation of Oct4 and its interacting
+partners, including Nanog and Sox2 has been shown to enable the </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>in
+vitro</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">
+reprogramming of cells to become iPSCs (induced pluripotent stem
+cells). The potential for iPSCs in replacing embryonic stem cells
+(ESCs) for therapeutic purposes has made it a top priority in
+medicinal research and extremely relevant for our analysis.  </SPAN></FONT></FONT>
+</P>
+<H2 CLASS="western"><A NAME="_Toc356386831"></A><FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">4.1	Dataset
+Description</SPAN></FONT></FONT></H2>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">The
+ChIP-seq data set (accession GSE21200) is publically available at the
+Gene Expression Omnibus (</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>GEO</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">)
+and consists of a total of 12,909,881 short reads (supplied as 2
+sequencing files) obtained from Illumina Genome Analyzer sequencing
+of DNA immunoprecipitated against Oct4 in H1hESC cells. The control
+setup (comprising 4 control files) where no antibody was supplied in
+the experiment was also considered in this analysis. Downloaded
+archived raw reads files were converted into FASTQ format using
+SRAtools for analysis with PeakWhiz. In this execution of the
+PeakWhiz pipeline, the job title and reference genome assembly were
+the only necessary parameters for analysis.</SPAN></FONT></FONT></P>
+<H2 CLASS="western"><A NAME="_Toc356386832"></A><FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">4.2	Data
+Preprocessing</SPAN></FONT></FONT></H2>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">A
+summary of the reads mapping and peak calling statistics are provided
+in Tables 2 and 3. In all cases, we observe a majority of reads being
+uniquely mapped to the reference assembly and a comparatively lower
+number of unmapped and multi-mapped reads which are discarded for the
+purpose of this experiment. PCR-filtered reads from the sample and
+control files were then combined to form 2 distinct SAM files upon
+which peak calling is performed.   </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">MACS
+produced a total of 17,250 peaks representing the potential binding
+sites of Oct4. </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Only
+statistically significant reads (p-value&lt;1e-5) were retained and
+used for analysis. Of which, 93% of peaks had a fold enrichment of at
+least 10 and more than half a fold enrichment greater than 20. </FONT></FONT>
+</P>
+<TABLE WIDTH=627 BORDER=1 BORDERCOLOR="#000001" CELLPADDING=7 CELLSPACING=0>
+	<COL WIDTH=97>
+	<COL WIDTH=109>
+	<COL WIDTH=125>
+	<COL WIDTH=94>
+	<COL WIDTH=131>
+	<TR VALIGN=TOP>
+		<TD WIDTH=97 HEIGHT=16>
+			<P ALIGN=CENTER><BR>
+			</P>
+		</TD>
+		<TD WIDTH=109>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">%Non-Mapped</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=125>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">%Multi-Mapped</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=94>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">%Unique</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Total
+			No. of Reads</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=97 HEIGHT=17>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Sample
+			Seq 1</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=109>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">13.05</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=125>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">26.58</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=94>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">60.38</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">5511257</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=97 HEIGHT=17>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Sample
+			Seq 2</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=109>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">23.49</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=125>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">22.09</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=94>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">54.42</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">7398624</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=97 HEIGHT=17>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Control
+			Seq 1</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=109>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">18.96</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=125>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">28.38</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=94>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">52.66</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">3249841</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=97 HEIGHT=17>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Control
+			Seq 2</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=109>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">13.29</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=125>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">30.24</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=94>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">56.47</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">3476913</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=97 HEIGHT=17>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Control
+			Seq 3</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=109>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">10.61</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=125>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">30.99</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=94>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">58.40</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">3521837</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=97 HEIGHT=16>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Control
+			Seq 4</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=109>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">4.38</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=125>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">27.74</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=94>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">67.89</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">5903178</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<TABLE WIDTH=212 BORDER=1 BORDERCOLOR="#000001" CELLPADDING=7 CELLSPACING=0>
+	<COL WIDTH=67>
+	<COL WIDTH=56>
+	<COL WIDTH=45>
+	<TR>
+		<TD COLSPAN=3 WIDTH=196 HEIGHT=42 VALIGN=TOP>
+			<P ALIGN=CENTER STYLE="margin-bottom: 0in"><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">No.
+			Peaks at Various</SPAN></FONT></B></FONT></P>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Fold
+			Enrichment Thresholds</SPAN></FONT></B></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=67 HEIGHT=43>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">&gt;10</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=56>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>&gt;20</B></SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=45>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>&gt;50</B></SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=67 HEIGHT=42>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">16170</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=56>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">9160</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=45>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">864</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<TABLE WIDTH=393 BORDER=1 BORDERCOLOR="#000001" CELLPADDING=7 CELLSPACING=0>
+	<COL WIDTH=133>
+	<COL WIDTH=49>
+	<COL WIDTH=36>
+	<COL WIDTH=116>
+	<TR VALIGN=TOP>
+		<TD WIDTH=133 HEIGHT=42>
+			<P ALIGN=CENTER><BR>
+			</P>
+		</TD>
+		<TD WIDTH=49>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Length</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=36>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Tags</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=116>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Fold
+			Enrichment</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=133 HEIGHT=43>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Min</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=49>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">66</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=36>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">6</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=116>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">2.07</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=133 HEIGHT=43>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Max</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=49>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">4028</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=36>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">2271</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=116>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">327.94</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=133 HEIGHT=43>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Mean</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=49>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">234.5</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=36>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">14.79</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=116>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">24.32</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=133 HEIGHT=42>
+			<P ALIGN=CENTER><FONT FACE="Cambria, serif"><B><FONT SIZE=3><SPAN LANG="en-US">Standard
+			Deviation</SPAN></FONT></B></FONT></P>
+		</TD>
+		<TD WIDTH=49>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">103.85</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=36>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">26.87</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=116>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">15.44</SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<H2 CLASS="western"><A NAME="_Toc356386833"></A><FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif">4.3	Integrative
+Analysis</FONT></FONT></H2>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>After
+the pre-processing step and generation of potential binding sites,
+integrative analysis of peaks was performed. In this section, we show
+how important conclusions about the regulatory mechanism of Oct4 can
+be drawn by putting together pieces of information at each stage of
+PeakWhiz functional analysis. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.1		Deducing
+Interaction Partners of Oct4</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.1.1		De
+novo Motif Analysis (SEME)</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><IMG SRC="0016136001377826954_fyp%20final%20report_html_ce04cfa.png" ALIGN=LEFT HSPACE=12 WIDTH=602 HEIGHT=452 BORDER=0><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">De
+novo motif analysis with SEME produced 5 top scoring motifs enriched
+in the peak sequences (Figure 3).  Selected motif clusters (2 and 3)
+which have the highest AUC-ROC values are more concisely described in
+Table 2. Motif_clust2 (having the sequence motif TTTGCATACAAAG) share
+strong similarity to motifs of known transcription factors including
+Oct4, Sox2, SMADI, NANOG, SGF3, PAX2, STAT4 in increasing order of
+PWM divergence. In particular, Oct4 reference motifs (top 4 most
+similar TF) were very strongly correlated with the input peak file
+which is an indication of good data quality. We also observed that
+Motif_clust2 has a higher tendency to occur in the center of peak
+summits (i.e. has a position preference) as captured by the position
+distribution plot with strong enrichment at the center and has a
+preference for peaks with high intensity (sequence rank preference)
+as represented by the sequence rank distribution plot which indicates
+a reduction in occurrence of a motif with the increase in sequence
+rank.</SPAN></FONT></FONT></P>
+<TABLE WIDTH=945 BORDER=1 BORDERCOLOR="#00000a" CELLPADDING=7 CELLSPACING=0>
+	<COL WIDTH=49>
+	<COL WIDTH=279>
+	<COL WIDTH=194>
+	<COL WIDTH=175>
+	<COL WIDTH=176>
+	<TR VALIGN=TOP>
+		<TD WIDTH=49 HEIGHT=183>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>Motif</B></SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=279>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>Logo</B></SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=194>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>Known
+			TF|PWM Divergence</B></SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>Position
+			Distribution</B></SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=176>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>Sequence
+			Rank Distribution</B></SPAN></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=49 HEIGHT=184>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">2</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=279>
+			<P ALIGN=JUSTIFY><IMG SRC="0016136001377826954_fyp%20final%20report_html_m7696c0ab.png" ALIGN=BOTTOM WIDTH=241 HEIGHT=67 BORDER=0></P>
+		</TD>
+		<TD WIDTH=194>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Pou5f1|0.042762834578902516
+			V$OCT4_01|0.06156431138525473 V$OCT4_ES|0.062363047152897644
+			V$OCT_Q6|0.06416746974001394 V$SOX2_ES|0.08797890692964296
+			V$OCT1_Q5_01|0.10701863467699328 V$SMAD1_ES|0.13140301406399515
+			Sox2|0.13404326140896586 V$OCT1_B|0.13723811507229036
+			V$OCT4_02|0.15586206316956938 V$OCT_C|0.17266817390924732
+			V$OCT1_05|0.18245115876216814 V$OCT1_Q6|0.20445546507847387
+			V$OCT1_04|0.20700544118898226 V$NANOG_ES|0.2304264009000171
+			V$SOX10_Q6|0.23256248235716515 I$SGF3_Q6|0.23480407893676683
+			V$PAX2_02|0.23682118952285322 V$STAT4_01|0.23713244497779032
+			V$POU1F1_Q6|0.2399204671384604</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P ALIGN=JUSTIFY><IMG SRC="0016136001377826954_fyp%20final%20report_html_67835fa0.png" ALIGN=BOTTOM WIDTH=179 HEIGHT=134 BORDER=0></P>
+		</TD>
+		<TD WIDTH=176>
+			<P ALIGN=JUSTIFY><IMG SRC="0016136001377826954_fyp%20final%20report_html_5b3cca6a.png" ALIGN=BOTTOM WIDTH=179 HEIGHT=134 BORDER=0></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=49 HEIGHT=183>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">3</SPAN></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=279>
+			<P ALIGN=JUSTIFY><IMG SRC="0016136001377826954_fyp%20final%20report_html_3d534f84.png" ALIGN=BOTTOM WIDTH=283 HEIGHT=78 BORDER=0></P>
+		</TD>
+		<TD WIDTH=194>
+			<P ALIGN=CENTER><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">V$AP2_Q6_01|0.18269988894473585
+			V$MUSCLE_INI_B|0.21334679424768727 P$ERF2_01|0.21649666130555756
+			V$KROX_Q6|0.21745753288287042 V$MINI19_B|0.21825487911709202
+			V$HIC1_03|0.219289630651554 V$ETF_Q6|0.2209887355567625
+			V$WT1_Q6|0.22244976460938684 V$TATA_01|0.22488464415081394
+			TBP|0.22488464415088394 V$DEAF1_01|0.23184286057960066
+			V$E2F_Q2|0.23421266675013422 SP1|0.2364726960660127
+			F$GCN4_01|0.2371206134559424 V$ZF5_01|0.23838500678551275</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P ALIGN=JUSTIFY><IMG SRC="0016136001377826954_fyp%20final%20report_html_m377acb44.png" ALIGN=BOTTOM WIDTH=169 HEIGHT=127 BORDER=0></P>
+		</TD>
+		<TD WIDTH=176>
+			<P ALIGN=JUSTIFY STYLE="page-break-before: always"><IMG SRC="0016136001377826954_fyp%20final%20report_html_m3a963138.png" ALIGN=BOTTOM WIDTH=180 HEIGHT=135 BORDER=0></P>
+		</TD>
+	</TR>
+</TABLE>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%; page-break-before: always">
+<FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.1.2		Co-TF
+Discovery by CENTDIST</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><IMG SRC="0016136001377826954_fyp%20final%20report_html_12bbcb2b.png" ALIGN=BOTTOM WIDTH=602 HEIGHT=497 BORDER=0></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">The
+top 3 co-TFs of Oct4 predicted by CENTDIST were SOX, OCT and NANOG
+which share the same highly conserved sequence motifs (TTGTATGC) and
+had very similar motif distributions around the peak center. As the
+quality of peaks reduces (increase in peak rank number), there is a
+general reduction in the proportion of peaks having motifs with a
+score above the optimal cut-off or FDR cut-off which is expected.
+SOX, OCT and NANOG are known to be key regulators that work in tandem
+for the self-renewal of pluripotent ESCs. Oct4 being a member of the
+POU class of homeodomain proteins interacts with Sox2 to form a
+heterodimer to regulate the expression of genes in mouse ES cells.
+(</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Botquin
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+1998)</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Known
+targets of Oct4-Sox2 interaction include Sox2, Pou5f1 (gene encoding
+Oct4), Fgf4, Utfl and Fbx15. Analysis with GREAT was consistent with
+these observations, and identified highly enriched associated terms
+related to the homeobox domain, Wnt signaling pathway, Oct4, Sox2 and
+Nanog, amongst others.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Nanog,
+a  homeobox protein, was shown to be required at a later stage as
+compared to Oct4 in the regulation of genes that suppress cell
+differentiation but remains essential to the process nonetheless (Loh
+</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>et
+al</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">,
+2006).</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Gene
+expression analysis revealed that a higher percentage of Oct4 or
+Nanog-bound genes were down regulated upon cell differentiation as
+opposed to being induced, suggesting that Oct4 and Nanog play key
+roles in activating the transcription of stem cell specific genes.
+Further, the binding of the 2 factors was more strongly correlated
+with down regulated genes upon differentiation than up-regulated
+genes (Loh </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>et
+al</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">,
+2006).</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">To
+investigate the role of Nanog in collaboration with Oct4 in the
+regulation of gene expression in ES cells, ChIP-seq data comprising
+DNA sequences immunoprecipitated against Nanog was acquired
+(GSE21200) and analyzed with PeakWhiz. Of the top 10 proposed co-TFs
+of Oct4 and Nanog, 8 (Sox, Oct, Nanog, CTCF, SP1, WT1, ADF1 and E2F)
+were common to both TFs, indicating that Oct4 and Nanog are likely to
+be involved in the same pathways possibly in conjunction with the
+predicted co-TFs with which they share. Results from de novo motif
+analysis provided additional support for this where Nanog, Sox and
+Oct4 obtained small PWM divergence from the discovered motif.
+Moreover, overlap analysis of Oct4 and Nanog peaks showed a large
+proportion of Oct4 peaks (71.6%) overlapping with Nanog peaks which
+is an indication that they share many binding sites and suggests a
+strong relationship between them. </SPAN></FONT></FONT><IMG SRC="0016136001377826954_fyp%20final%20report_html_5471a043.png" ALIGN=LEFT HSPACE=12 WIDTH=350 HEIGHT=209 BORDER=0>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Other
+notable interacting partners of Oct4 proposed by motif analyses
+include SP1 and E2F which were identified by both SEME and CENTDIST
+to be significant co-TFs of Oct4 and Nanog. Specificity Protein
+1(SP1) has been previously identified to regulate the expression of
+Oct4 (Wang </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>et
+al</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">,
+2006)</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 9pt">.</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">
+The consensus sequence of Sp1 binding sites observed in Table 5
+contains GC boxes which are thought to protect CpG sites from
+methylation (</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Macleod
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+1994). Sp1 binding sites have also been found Nanog gene 5&rsquo;
+region of Murine, suggesting that Sp1 is also important for
+regulating Nanog gene expression (</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Da
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2006)</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>While
+direct links between E2F and Oct4 are not well established, there is
+some evidence that E2F plays a role to some extent in the maintenance
+of ES cell pluripotency. E2F forms a heterodimer with transcription
+factor DP (</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Maehara
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2005)</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 9pt">
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>and</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 9pt">
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>directly
+targets transcription factor c-Myc which has been used together with
+Oct4, Sox2 and Klf4 to obtain iPS cells from somatic cells (Kim,
+2008). In the induction of iPS cells, c-Myc is postulated to activate
+embryonic cell proliferation and metabolism. c-Myc is also a direct
+target of TCF4 which in turn is influenced by Oct4 activity.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%; page-break-before: always">
+<FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>4.3.1.3		Peak Set
+Overlap Analysis </B></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><IMG SRC="0016136001377826954_fyp%20final%20report_html_1acae4a1.png" ALIGN=LEFT HSPACE=12 WIDTH=582 HEIGHT=523 BORDER=0><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">To
+conduct large scale comparison against reference TF peak files from
+ENCODE, peak set overlap analysis was conducted which ranks the top
+50 top overlapping TF ENCODE ChIP-seq peaks by overlap count. With
+reference to Figure 5, the target transcription factors corresponding
+to the top 5 ENCODE peaks with the largest amount of overlap were
+Max, JunD, Tbp (TATA-binding protein), Znf263 (Zinc finger protein)
+and Rad21 (Double-strand-break repair protein rad21 homolog).
+Notably, MAX which </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>contains
+a basic Helix Loop Helix (bHLH) component is known to form a
+heterodimer with c-Myc (a pre-requisite for c-Myc transcriptional
+activity) which is responsible for cell growth and can induce
+epigenetic reprogramming of a somatic genome with other TFs (Kim </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+2009).</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+Other than known interaction partner MAX, c-Jun N terminal kinase
+(JNK) was shown to contribute to regulation of c-Myc protein
+stability (Alarcon-Vargas and Ronai, 2004). Consistent with this
+observation, GREAT identified V$MYCMAX in MSigDB Predicted Promoter
+Motifs as a significant term (given a binomial rank of 2 and assigned
+a binomial FDR value of 5.97e-9).</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>More
+significantly, the top 3 of 5 overlapping peaks corresponded to
+experiments that used the H1 cell line which provides support </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">for
+the identification of cell type</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+on the basis of the frequency of the number of overlaps. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">To
+further strengthen this point, a separate dataset (GSE21916) in which
+DNA immunoprecipitated against Oct4 in a different embryonic stem
+cell line, H9 was also analyzed. Unlike H1, there are no
+corresponding histone modification tracks for the H9 cell line to
+conduct histone plot analysis, hence the need to find the closest
+possible cell line. Consistent with the H1 dataset, the top 5
+overlapping ENCODE ChIP-seq data identified were the same and the
+cell line detected was H1 which belongs to the same embryonic stem
+cell type as H9. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><IMG SRC="0016136001377826954_fyp%20final%20report_html_m529e3bda.jpg" ALIGN=LEFT HSPACE=12 WIDTH=401 HEIGHT=400 BORDER=0><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Clustering
+analysis represented by the heat map in Figure 6 depicts 2
+comparatively dense regions. In general, a denser region on the heat
+map indicates a higher probability that 2 TFs interact. Most of the
+TFs associated with the dense regions are TFs that are related to
+c-Myc including c-Jun, BHLH, Tbp. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%; page-break-before: always">
+<FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.2		Functional
+Annotation of Oct4 Binding Sites</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.2.1		Genome
+Profile</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><IMG SRC="0016136001377826954_fyp%20final%20report_html_m655c3c2f.png" ALIGN=LEFT HSPACE=12 WIDTH=331 HEIGHT=412 BORDER=0><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><IMG SRC="0016136001377826954_fyp%20final%20report_html_401d079d.png" ALIGN=LEFT HSPACE=12 WIDTH=332 HEIGHT=421 BORDER=0><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Genome
+profile plots (Figure 7) revealed few, almost non-existent Oct4 peaks
+on chromosomes 2,4,10 and 21. Conversely, most high intensity peaks
+concentrated on chromosomes 3,7,17 and 19. Genome profiles were
+obtained for Nanog binding sites exhibited similar distribution of
+peaks especially on chromosome 13, 14 and 15, providing additional
+support that Oct4 and Nanog share very similar binding sites.  In
+particular, Sox2, Oct4 and Nanog orthologs are found in chromosomes
+3, 6 and 12 respectively which explain the relatively denser and more
+uniformly distributed peaks observed in those chromosomes in the
+profile.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.2.2		Peak
+Annotation</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><IMG SRC="0016136001377826954_fyp%20final%20report_html_mcc9e181.png" ALIGN=LEFT HSPACE=12 WIDTH=479 HEIGHT=480 BORDER=0><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">This
+distribution of peaks enriched in distinct gene regions (Figure 8)
+revealed that Oct is highly enriched in the promoter and distal
+promoter regions spanning a total of 4430 peaks (25.7% of potential
+binding sites).  Of the promoter regions, a larger proportion of Oct4
+binding sites targeted proximal promoters as opposed to distal
+promoters. In fact, it was shown in a study conducted by Rodda </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>et
+al</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">
+(2005) that Oct4 and Sox2 bind a composite sox-oct cis-regulatory
+module located in the proximal promoter of Nanog which contains
+sufficient information to up regulate Nanog expression in ESCs. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">The
+TSS plot (Figure 9) illustrates that a majority of Oct4 peaks were
+located near the transcription start site, with a sharp reduction in
+the number of peaks as its distance from the TSS increases. This can
+account for the relatively lower number of Oct4 peaks enriched in the
+distal promoter region as compared to the proximal promoters. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.2.3		TSS
+Plot</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><IMG SRC="0016136001377826954_fyp%20final%20report_html_d291054.png" ALIGN=LEFT HSPACE=12 WIDTH=601 HEIGHT=338 BORDER=0><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.2.4
+	Histone Plot</B></SPAN></FONT></FONT><IMG SRC="0016136001377826954_fyp%20final%20report_html_m41f3f518.png" ALIGN=LEFT HSPACE=12 WIDTH=602 HEIGHT=338 BORDER=0></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">In
+the histone plot (Figure 10), we observe strongest peak enrichment
+with respect to CTCF, HDAC2 and HDAC6. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">In
+particular, CENTDIST was also able to identify transcriptional
+repressor CTCF as highly ranked co-TFs of both Oct4 (4</SPAN></FONT></FONT><SUP><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">th</SPAN></FONT></FONT></SUP><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">)
+[Table 5] and Nanog (3</SPAN></FONT></FONT><SUP><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">rd</SPAN></FONT></FONT></SUP><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">)
+[Data not presented]. CTCF binding was shown to be flanked by 2 Oct4
+sites and influenced by the action of Oct4 (</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Levasseur
+</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>et
+al</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,
+2008).</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">
+Recent analysis also proposed that Oct4 forms a complex with CTCF and
+Yy1 to regulate ncRNA genes of the X-inactivation center when mouse
+ESCs undergo differentiation. In addition to CENTDIST validation,
+both studies provided important evidence to suggest that Oct4 and
+CTCF are potential binding partners that have roles in the regulating
+gene regulation in ESCs.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Histone
+deactylases (HDAC) are enzymes that remove acetyl groups from
+specific lysine residues on a histone. Mutations in HDACs can shift
+borders of functional regions in the genome. CTCF can interact with
+co-repressors to recruit HDAC activity which explains a correlation
+in their profile around the peak summits. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Histone
+modifications attaining the highest signals corresponded to H3K4me2
+(histone H3 lysine 4 di-methylation) and H3K9ac (H3 lysine 9
+acetylation), both of which produced bimodal profiles near the center
+of peaks. Given that H3K4me2 and H3K9ac mark actively transcribed
+protein coding promoters in eukaryotes (</SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Hon,
+Hawkins and Ren, 2009)</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">
+this is consistent with what is observed from the Peak Annotation and
+TSS plots (i.e. Oct4 binding sites are highly enriched in promoter
+regions given its close proximity to the TSS). Also considering that
+only about a quarter of peaks were significantly enriched in the
+promoter region, this accounts for the proportionately lower amount
+of enrichment of peaks with respect to histone modifications as
+compared to the controls. In a ChIP analysis against Oct4 and Nanog
+conducted by Freberg </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>et
+al</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">
+(2007) to examine the control of epigenetic factors in achieving ESC
+pluripotency, it was found that the Nanog promoter too displayed high
+levels of H3K9ac and H3K4me2 and correspondingly low levels of 
+H3K27me3. Taking the intimate relationship shared between Oct4 and
+Nanog into account, it is likely that the action of Oct4 and Nanog in
+regulating the expression of their target sequences is also regulated
+by the methylation of histone H3 lysine 4 and acetylation of lysine 9
+in close proximity.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.2.5		Repeat
+Analysis</B></SPAN></FONT></FONT><IMG SRC="0016136001377826954_fyp%20final%20report_html_7a2a747f.png" ALIGN=LEFT HSPACE=12 WIDTH=481 HEIGHT=428 BORDER=0></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Peak
+enrichment in repeat regions was conducted to find repeat associated
+binding sites (RABS) (Figure 11). By calculating the amount of
+overlap between the binding regions of Oct4 and the various repeat
+families, we can identify repeat regions by which the peaks were
+enriched in more commonly than that expected by chance. Of 17250
+called peaks of Oct4, 6600 (38.2%) were associated with repeat
+elements. ERV1 was found to be the largest group of peak-enriched
+repeats, making up 10.32% of RABs. Given that ERV1 repeats constitute
+about 2.9% of the human genome, we should expect 193 to have occurred
+by chance. Altogether, we observe a total of 1780 peaks enriched with
+ERV1 repeats which is a 9.2 fold increase from what should have been
+expected, indicating a high association to this repeat type. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Endogenous
+retro viruses 1(ERV1) are a type of transposable element involved in
+the cell division and maintenance of mitochondrial genomes in yeast.
+Mammalian phylogenetic studies and motif comparison have been
+performed in several studies including one by Bourque </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>et
+al</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">
+(2008) that have revealed ERV1 repeat types to be significantly
+over-represented in ChIP-seq sequences specific for Oct4 and Nanog as
+well. Although the underlying mechanism of how these transposable
+elements induce TF binding sites is unclear, is has been widely
+accepted that repeat elements are responsible for the diversity and
+the conservation of TF binding sites (Bourque </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>et
+al</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">,
+2008). </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.3		Oct4
+binding sites are highly conserved</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>4.3.3.1		Conservation
+Plot</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><IMG SRC="0016136001377826954_fyp%20final%20report_html_67be1b04.png" ALIGN=LEFT HSPACE=12 WIDTH=337 HEIGHT=337 BORDER=0><IMG SRC="0016136001377826954_fyp%20final%20report_html_m1265dfb3.png" ALIGN=LEFT HSPACE=12 WIDTH=346 HEIGHT=347 BORDER=0><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>The
+conservation plot on the left (Figure 12) shows the area around the
+centre of Oct4 peaks having an average PhastCons score nearly 2 times
+higher than that of the genomic background region. </FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">Conservation
+plots of Oct4 and Nanog peaks both show well-defined peaks in the
+center indicating a high degree of conservation their binding sites.
+In particular, plots centered at  200 bp reveal a better defined peak
+for Nanog than for Oct4 possibly implying a higher level of
+conservation of Nanog binding sites than that of Oct4. Phylogenetic
+footprinting of Nanog sequences collected from 5 species revealed the
+invariant nature of an inbound sox-oct composite element in the Nanog
+promoter over a period of 250 million years (Rodda </SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><I>et
+al</I></SPAN></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">,
+2005). That both Oct4 and Nanog are preserved over such a long span
+of time is a strong indication of the important functional roles they
+play in the regulation of our genes.</SPAN></FONT></FONT></P>
+<H1 CLASS="western" STYLE="page-break-before: always"><A NAME="_Toc356386834"></A>
+<FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif"><SPAN LANG="en-US">5	Discussion</SPAN></FONT></FONT></H1>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">The
+key component of any ChIP-seq analysis is to relate peaks (or
+correspondingly TF binding sites) to motifs or specific DNA sequences
+to which TFs bind and to compare them with motifs of known
+transcription factors. Through de novo motif analysis and co-TF
+discovery with SEME and CENTDIST respectively, we have shown that
+PeakWhiz was able to identify key interacting partners of Oct4 (Sox
+and Nanog) and propose other interactions (E2F, WT1) that may be
+experimentally validated. The close relationship between Oct4 and
+Nanog in the regulation of gene expression in ESCs was explored and
+strongly supported by results from most analyses in the PeakWhiz
+pipeline. By the functional annotation of Oct4 peaks with genes,
+repeat elements, histone modification and TSS sites, we are presented
+a grand overview of the localization and composition of Oct4 binding
+sites. Conservation analysis also provided information on whether the
+binding sites of Oct4 were evolutionarily conserved. Several
+biological revelations can be drawn from this integrative analysis.
+For instance, conserved binding sites of Oct4 frequently occur in
+proximal promoters. Also, the high conservation of Oct4 binding sites
+might be attributed to their strong association with ERV1 repeat
+types.  </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">While
+preprocessing tools and motif analysis remain central to the ChIP-seq
+analysis agenda, we often need more information before meaningful
+biological connections can be made. This makes the functional
+annotation of peaks to their genomic features an essential feature to
+have in any ChIP-seq pipeline. Overlap analyses can also reveal
+important insight into the correlation of data obtained from
+different ChIP-seq experiments. In particular, we have shown that the
+large scale comparison of ChIP-seq data sets can be useful in the
+prediction of possible co-TFs and/or the automatic detection of a
+cell line. Conservation analysis which is often left out in other
+ChIP-seq analysis pipelines is also instrumental in the understanding
+of the evolutionary history of binding sites and the functional
+importance of a transcription factor. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">In
+the analysis of Oct4 ChIP-seq data, we  have shown that PeakWhiz was
+able to provide good biological interpretation of ChIP-seq peaks and
+that we were able to extract valuable information by exploring from
+multiple perspectives through various analyses (peak annotation,
+motif analysis,etc) which when taken together can provide an insight
+into the mechanism of how transcription factors work. By providing a
+full range of ChIP-seq analysis tools which are computationally
+effective, PeakWhiz aims to redefine the workflow for the integrated
+analysis of ChIP-seq data with the need for less user specified
+details and the convenient integration with Illumina BaseSpace. With
+its user friendly web interface and tools, PeakWhiz is designed for
+sophisticated ChIP-seq analysis without the requirement of advanced
+computer skills from users. </SPAN></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">PeakWhiz
+is continuously improving. We aim to implement several additional
+components to improve functionality and usability of the pipeline.
+For example, more analytical tools will be provided to enhance the
+analysis (e.g. gene expression analysis), a wider variety of species
+and file types (possible integration with Gene Expression Omnibus
+(GEO database)) could be supported, and tasks could be run on a
+cluster to speed up running of programs, etc.</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US"><B>Addition
+Information:</B></SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><SPAN LANG="en-US">PeakWhiz
+and the details of its usage can be found at the following site:</SPAN></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; line-height: 150%"><A HREF="http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/regular/listProject/">http://genome.ddns.comp.nus.edu.sg/peakAnalyzer/regular/listProject/</A></P>
+<H1 CLASS="western" STYLE="page-break-before: always"><A NAME="_Toc356386835"></A>
+<FONT COLOR="#00000a"><FONT FACE="Times New Roman, serif">References</FONT></FONT></H1>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Alarcon-Vargas,
+D., &amp; Ronai, Z. E. (2004). c-Jun-NH2 kinase (JNK) contributes to
+the regulation of c-Myc protein stability. Journal of Biological
+Chemistry,279(6), 5008-5016.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Arabidopsis,
+G. I. (2000). Analysis of the genome sequence of the flowering plant
+Arabidopsis thaliana. Nature, 408(6814), 796.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Bailey,
+T. L., Williams, N., Misleh, C., &amp; Li, W. W. (2006). MEME:
+discovering and analyzing DNA and protein sequence motifs.</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>&nbsp;</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>Nucleic
+acids research</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>&nbsp;</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>34</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(suppl
+2), W369-W373.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Bardet,
+A. F., He, Q., Zeitlinger, J., &amp; Stark, A. (2011). A
+computational pipeline for comparative ChIP-seq analyses. nature
+protocols, 7(1), 45-61.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Botquin,
+V., Hess, H., Fuhrmann, G., Anastassiadis, C., Gross, M. K., Vriend,
+G., &amp; Sch&Atilde;&para;, H. R. (1998). New POU dimer
+configuration mediates antagonistic control of an osteopontin
+preimplantation enhancer by Oct-4 and Sox-2. Genes &amp; development,
+12(13), 2073-2090.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Bourque,
+G., Leong, B., Vega, V. B., Chen, X., Lee, Y. L., Srinivasan, K. G.,
+... &amp; Liu, E. T. (2008). Evolution of the mammalian transcription
+factor binding repertoire via transposable elements. Genome research,
+18(11), 1752-1762.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Darnell,
+J. E. (2002). Transcription factors as targets for cancer therapy.
+Nature Reviews Cancer, 2(10), 740-749.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Da
+Yong Wu, Z. Y. (2006). Functional analysis of two Sp1/Sp3 binding
+sites in murine Nanog gene promoter. Cell research, 16(3), 319-322.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Ettwiller,
+L., Paten, B., Ramialison, M., Birney, E., &amp; Wittbrodt, J.
+(2007). Trawler: de novo regulatory motif discovery pipeline for
+chromatin immunoprecipitation.Nature methods, 4(7), 563-565.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Feingold,
+E. A., Good, P. J., Guyer, M. S., Kamholz, S., Liefer, L.,
+Wetterstrand, K., ... &amp; Bekiranov, S. (2004). The ENCODE
+(ENCyclopedia of DNA elements) project. Science, 306(5696), 636-640.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Freberg,
+C. T., Dahl, J. A., Timoskainen, S., &amp; Collas, P. (2007).
+Epigenetic reprogramming of OCT4 and NANOG regulatory regions by
+embryonal carcinoma cell extract. Molecular biology of the cell,
+18(5), 1543-1553.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Gardner,
+L., Lee, L., &amp; Dang, C. (2002). The c-Myc oncogenic transcription
+factor. Encyclopedia of Cancer, 2.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Hestand,
+M. S., van Galen, M., Villerius, M. P., van Ommen, G. J. B., den
+Dunnen, J. T., &amp; AC't Hoen, P. (2008). CORE_TF: a user-friendly
+interface to identify evolutionary conserved transcription factor
+binding sites in sets of co-regulated genes. BMC bioinformatics,
+9(1), 495.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Hon,
+G. C., Hawkins, R. D., &amp; Ren, B. (2009). Predictive chromatin
+signatures in the mammalian genome. Human molecular genetics, 18(R2),
+R195-R201.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Ji,
+X., Li, W., Song, J., Wei, L., &amp; Liu, X. S. (2006). CEAS:
+cis-regulatory element annotation system. Nucleic acids research,
+34(suppl 2), W551-W554.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Karolchik,
+D., Baertsch, R., Diekhans, M., Furey, T. S., Hinrichs, A., Lu, Y.
+T., ... &amp; Kent, W. J. (2003). The UCSC genome browser database.
+Nucleic acids research, 31(1), 51-54.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Kim,
+J. B., Sebastiano, V., Wu, G., Ara&Atilde;&ordm;ravo, M. J., Sasse,
+P., Gentile, L., ... &amp; Sch&Atilde;&para;, H. R. (2009).
+Oct4-induced pluripotency in adult neural stem cells.Cell, 136(3),
+411-419.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Kim,
+J. B., Zaehres, H., Wu, G., Gentile, L., Ko, K., Sebastiano, V., ...
+&amp; Sch&Atilde;&para;, H. R. (2008). Pluripotent stem cells induced
+from adult neural stem cells by reprogramming with two factors.
+Nature, 454(7204), 646-650.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Kulakovskiy,
+I. V., Boeva, V. A., Favorov, A. V., &amp; Makeev, V. J. (2010). Deep
+and wide digging for binding motifs in ChIP-Seq data. Bioinformatics,
+26(20), 2622-2623.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Kunarso,
+G., Chia, N. Y., Jeyakani, J., Hwang, C., Lu, X., Chan, Y. S., ... &amp;
+Bourque, G. (2010). Transposable elements have rewired the core
+regulatory network of human embryonic stem cells. Nature genetics,
+42(7), 631</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Langmead,
+B., &amp; Salzberg, S. L. (2012). Fast gapped-read alignment with
+Bowtie 2. Nature Methods, 9(4), 357-359.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Levasseur,
+D. N., Wang, J., Dorschner, M. O., Stamatoyannopoulos, J. A., &amp;
+Orkin, S. H. (2008). Oct4 dependence of chromatin structure within
+the extended Nanog locus in ES cells. Genes &amp; development, 22(5),
+575-580.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Li,
+H., &amp; Durbin, R. (2009). Fast and accurate short read alignment
+with Burrows-Wheeler transform. Bioinformatics, 25(14), 1754-1760.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Li,
+H., Ruan, J., &amp; Durbin, R. (2008). Mapping short DNA sequencing
+reads and calling variants using mapping quality scores. Genome
+research, 18(11), 1851-1858.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Liu,
+E. T., Pott, S., &amp; Huss, M. (2010). Q&amp;A: ChIP-seq
+technologies and the study of gene regulation. BMC biology, 8(1), 56.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Liu,
+X. S., Brutlag, D. L., &amp; Liu, J. S. (2002). An algorithm for
+finding protein-DNA binding sites with applications to
+chromatin-immunoprecipitation microarray experiments. Nature
+biotechnology, 20(8), 835-839.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Loh,
+Y. H., Wu, Q., Chew, J. L., Vega, V. B., Zhang, W., Chen, X., ... &amp;
+Ng, H. H. (2006). The Oct4 and Nanog transcription network regulates
+pluripotency in mouse embryonic stem cells. Nature genetics, 38(4),
+431-440.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Macleod,
+D., Charlton, J., Mullins, J., &amp; Bird, A. P. (1994). Sp1 sites in
+the mouse aprt gene promoter are required to prevent methylation of
+the CpG island. Genes &amp; development, 8(19), 2282-2292.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Maehara,
+K., Yamakoshi, K., Ohtani, N., Kubo, Y., Takahashi, A., Arase, S.,
+... &amp; Hara, E. (2005). Reduction of total E2F/DP activity induces
+senescence-like cell cycle arrest in cancer cells lacking functional
+pRB and p53. The Journal of cell biology, 168(4), 553-560.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>McLean,
+C. Y., Bristor, D., Hiller, M., Clarke, S. L., Schaar, B. T., Lowe,
+C. B., ... &amp; Bejerano, G. (2010). GREAT improves functional
+interpretation of cis-regulatory regions. Nature biotechnology,
+28(5), 495-501.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Mortazavi,
+A., Williams, B. A., McCue, K., Schaeffer, L., &amp; Wold, B. (2008).
+Mapping and quantifying mammalian transcriptomes by RNA-Seq. Nature
+methods, 5(7), 621-628.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Nichols,
+J., Zevnik, B., Anastassiadis, K., Niwa, H., Klewe-Nebenius, D.,
+Chambers, I., ... &amp; Smith, A. (1998). Formation of pluripotent
+stem cells in the mammalian embryo depends on the POU transcription
+factor Oct4. Cell, 95(3), 379-391.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Pavesi,
+G., Mereghetti, P., Mauri, G., &amp; Pesole, G. (2004). Weeder Web:
+discovery of transcription factor binding sites in a set of sequences
+from co-regulated genes. Nucleic acids research, 32(suppl 2),
+W199-W203.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Pelengaris,
+S., Khan, M., &amp; Evan, G. (2002). c-MYC: more than just a matter
+of life and death. Nature Reviews Cancer, 2(10), 764-776.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Pepke,
+S., Wold, B., &amp; Mortazavi, A. (2009). Computation for ChIP-seq
+and RNA-seq studies. Nature methods, 6, S22-S32.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Phillips,
+T., &amp; Hoopes, L. (2008). Transcription factors and
+transcriptional control in eukaryotic cells. Nature Education, 1(1).</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Portela,
+A., &amp; Esteller, M. (2010). Epigenetic modifications and human
+disease.Nature biotechnology, 28(10), 1057-1068.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Quinlan,
+A. R., &amp; Hall, I. M. (2010). BEDTools: a flexible suite of
+utilities for comparing genomic features.</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>&nbsp;</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>Bioinformatics</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>&nbsp;</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>26</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(6),
+841-842.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Rodda,
+D. J., Chew, J. L., Lim, L. H., Loh, Y. H., Wang, B., Ng, H. H., &amp;
+Robson, P. (2005). Transcriptional regulation of nanog by OCT4 and
+SOX2. Journal of Biological Chemistry, 280(26), 24731-24737.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Rozowsky,
+J., Euskirchen, G., Auerbach, R. K., Zhang, Z. D., Gibson, T.,
+Bjornson, R., ... &amp; Gerstein, M. B. (2009). PeakSeq enables
+systematic scoring of ChIP-seq experiments relative to controls.
+Nature biotechnology, 27(1), 66-75.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Sandelin,
+A., Alkema, W., Engstr&Atilde;&para;P., Wasserman, W. W., &amp;
+Lenhard, B. (2004). JASPAR: an open?access database for eukaryotic
+transcription factor binding profiles. Nucleic acids research,
+32(suppl 1), D91-D94.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Shin,
+H., Liu, T., Manrai, A. K., &amp; Liu, X. S. (2009). CEAS:
+cis-regulatory element annotation system.</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>&nbsp;</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>Bioinformatics</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>&nbsp;</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>25</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(19),
+2605-2606.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Strahl,
+B. D., &amp; Allis, C. D. (2000). The language of covalent histone
+modifications. Nature, 403(6765), 41-45.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Valouev,
+A., Johnson, D. S., Sundquist, A., Medina, C., Anton, E., Batzoglou,
+S., ... &amp; Sidow, A. (2008). Genome-wide analysis of transcription
+factor binding sites based on ChIP-Seq data. Nature methods, 5(9),
+829-834.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Wang,
+J., Rao, S., Chu, J., Shen, X., Levasseur, D. N., Theunissen, T. W.,
+&amp; Orkin, S. H. (2006). A protein interaction network for
+pluripotency of embryonic stem cells. Nature, 444(7117), 364-368.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Wingender,
+E., Dietze, P., Karas, H., &amp; Kn&Atilde;&frac14; R. (1996).
+TRANSFAC: a database on transcription factors and their DNA binding
+sites. Nucleic acids research, 24(1), 238-241.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Zhang,
+Y., Liu, T., Meyer, C. A., Eeckhoute, J., Johnson, D. S., Bernstein,
+B. E., ... &amp; Liu, X. S. (2008). Model-based analysis of ChIP-Seq
+(MACS). Genome Biol,9(9), R137.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Zhang,
+Z., Chang, C. W., Goh, W. L., Sung, W. K., &amp; Cheung, E. (2011).
+CENTDIST: discovery of co-associated factors by motif
+distribution.</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>&nbsp;</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>Nucleic
+acids research</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>&nbsp;</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>39</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(suppl
+2), W391-W399.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Zhang,
+Z., Chang, C. W., Hugo, W., Cheung, E., &amp; Sung, W. K. (2013).
+Simultaneously Learning DNA Motif Along with Its Position and
+Sequence Rank Preferences Through Expectation Maximization Algorithm.
+Journal of Computational Biology, 20(3), 237-248.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Zhu,
+P., Martin, E., Mengwasser, J., Schlag, P., Janssen, K. P., &amp;
+G&ouml;ttlicher, M. (2004). Induction of HDAC2 expression upon loss
+of APC in colorectal tumorigenesis.</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>&nbsp;</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>Cancer
+cell</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>,</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>&nbsp;</FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3><I>5</I></FONT></FONT><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(5),
+455-463.</FONT></FONT></P>
 
 {% endblock %}
