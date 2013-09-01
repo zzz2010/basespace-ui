@@ -1,0 +1,2653 @@
+ARGUMENT 'test//AP2_mac_profile.txt' __ignored__
+
+ARGUMENT '273.95' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 721
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.3145235
+[1] 0.1596445
+[1] 0.1006059
+[1] 0.07115584
+[1] 0.05435516
+[1] 0.04320978
+[1] 0.03614116
+[1] 0.03075671
+[1] 0.02650958
+[1] 0.02298238
+[1] 0.02047612
+[1] 0.01818333
+[1] 0.01626685
+[1] 0.01476262
+[1] 0.01340199
+[1] 0.01232344
+[1] 0.01134462
+[1] 0.01045850
+[1] 0.009694257
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//AP2_mac_profile.txt"
+> minPval
+[1] 0.03138505
+> minFDR
+[1] 0.3145235
+> maxFC
+[1] 1.789836
+> noiselevel
+[1] 273.95
+> print(unlist(le))
+ [1] "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"     "REST_mac"    
+ [6] "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"      "E2F1_mac"    
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//EZH2_mac_profile.txt' __ignored__
+
+ARGUMENT '1.2' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 4
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 1.2
+[1] 0.24
+[1] 0.1
+[1] 0.03157895
+[1] 0.02926829
+[1] 0.02666667
+[1] 0.025
+[1] 0.02448980
+[1] 0.02264151
+[1] 0.02222222
+[1] 0.02142857
+[1] 0.02
+[1] 0.01904762
+[1] 0.01643836
+[1] 0.01395349
+[1] 0.0125
+[1] 0.01100917
+[1] 0.01034483
+[1] 0.00882353
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//EZH2_mac_profile.txt"
+> minPval
+[1] 0.0984322
+> minFDR
+[1] 0.24
+> maxFC
+[1] 3.555556
+> noiselevel
+[1] 1.2
+> print(unlist(le))
+ [1] "AP2_mac"      "HIC_mac"      "P300_mac"     "PCAF_mac"     "REST_mac"    
+ [6] "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"      "E2F1_mac"    
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//HIC_mac_profile.txt' __ignored__
+
+ARGUMENT '1.75' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 4
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.875
+[1] 0.35
+[1] 0.35
+[1] 0.1458333
+[1] 0.125
+[1] 0.07954545
+[1] 0.07954545
+[1] 0.07608696
+[1] 0.06730769
+[1] 0.05833333
+[1] 0.04861111
+[1] 0.04069767
+[1] 0.04069767
+[1] 0.03804348
+[1] 0.02822581
+[1] 0.02464789
+[1] 0.02034884
+[1] 0.01988636
+[1] 0.01988636
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//HIC_mac_profile.txt"
+> minPval
+[1] 0.1327897
+> minFDR
+[1] 0.35
+> maxFC
+[1] 4.058824
+> noiselevel
+[1] 1.75
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "P300_mac"     "PCAF_mac"     "REST_mac"    
+ [6] "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"      "E2F1_mac"    
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//P300_mac_profile.txt' __ignored__
+
+ARGUMENT '1.8' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 4
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.2
+[1] 0.18
+[1] 0.15
+[1] 0.08571429
+[1] 0.06923077
+[1] 0.05454545
+[1] 0.05454545
+[1] 0.05454545
+[1] 0.04736842
+[1] 0.0375
+[1] 0.03461538
+[1] 0.02571429
+[1] 0.025
+[1] 0.02432432
+[1] 0.024
+[1] 0.02022472
+[1] 0.0185567
+[1] 0.01538462
+[1] 0.01487603
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//P300_mac_profile.txt"
+> minPval
+[1] 0.5
+> minFDR
+[1] 0
+> maxFC
+[1] 1
+> noiselevel
+[1] 1.8
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "PCAF_mac"     "REST_mac"    
+ [6] "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"      "E2F1_mac"    
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//PCAF_mac_profile.txt' __ignored__
+
+ARGUMENT '1.35' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 5
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 1.35
+[1] 0.16875
+[1] 0.1125
+[1] 0.1038462
+[1] 0.07941176
+[1] 0.05625
+[1] 0.04354839
+[1] 0.04090909
+[1] 0.03857143
+[1] 0.03068182
+[1] 0.0254717
+[1] 0.02045455
+[1] 0.01928571
+[1] 0.01666667
+[1] 0.01569767
+[1] 0.01391753
+[1] 0.01336634
+[1] 0.01163793
+[1] 0.0108
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//PCAF_mac_profile.txt"
+> minPval
+[1] 0.06165137
+> minFDR
+[1] 1.35
+> maxFC
+[1] 8.631579
+> noiselevel
+[1] 1.35
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "REST_mac"    
+ [6] "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"      "E2F1_mac"    
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//REST_mac_profile.txt' __ignored__
+
+ARGUMENT '30.65' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 34
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.5894231
+[1] 0.2085034
+[1] 0.1216270
+[1] 0.07624378
+[1] 0.05849237
+[1] 0.04708141
+[1] 0.04032895
+[1] 0.03475057
+[1] 0.03111675
+[1] 0.02806777
+[1] 0.02562709
+[1] 0.02253676
+[1] 0.02095010
+[1] 0.01974871
+[1] 0.01845274
+[1] 0.01745444
+[1] 0.01639914
+[1] 0.01585618
+[1] 0.01492937
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//REST_mac_profile.txt"
+> minPval
+[1] 0.0846781
+> minFDR
+[1] 0.2085034
+> maxFC
+[1] 1.530612
+> noiselevel
+[1] 30.65
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"      "E2F1_mac"    
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//SP1_mac_profile.txt' __ignored__
+
+ARGUMENT '3.65' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 19
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.6083333
+[1] 0.1825
+[1] 0.1258621
+[1] 0.09125
+[1] 0.07156863
+[1] 0.05367647
+[1] 0.045625
+[1] 0.03613861
+[1] 0.03230088
+[1] 0.02991803
+[1] 0.02644928
+[1] 0.02417219
+[1] 0.01972973
+[1] 0.01754808
+[1] 0.01573276
+[1] 0.01317690
+[1] 0.01031073
+[1] 0.008990148
+[1] 0.007464213
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//SP1_mac_profile.txt"
+> minPval
+[1] 0.03230768
+> minFDR
+[1] 0.6083333
+> maxFC
+[1] 4.921053
+> noiselevel
+[1] 3.65
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SUZ_mac"      "BRG1_mac"     "BRM_mac"      "E2F1_mac"    
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//SUZ_mac_profile.txt' __ignored__
+
+ARGUMENT '1.25' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 5
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.4166667
+[1] 0.1785714
+[1] 0.1136364
+[1] 0.06578947
+[1] 0.04807692
+[1] 0.04464286
+[1] 0.03787879
+[1] 0.03289474
+[1] 0.02777778
+[1] 0.02551020
+[1] 0.02192982
+[1] 0.02083333
+[1] 0.01865672
+[1] 0.01712329
+[1] 0.01623377
+[1] 0.01488095
+[1] 0.01404494
+[1] 0.01225490
+[1] 0.009469697
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//SUZ_mac_profile.txt"
+> minPval
+[1] 0.07432301
+> minFDR
+[1] 0.4166667
+> maxFC
+[1] 3.105263
+> noiselevel
+[1] 1.25
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "BRG1_mac"     "BRM_mac"      "E2F1_mac"    
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//BRG1_mac_profile.txt' __ignored__
+
+ARGUMENT '35.65' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 68
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.2360927
+[1] 0.1192308
+[1] 0.07521097
+[1] 0.05640823
+[1] 0.04384994
+[1] 0.03626653
+[1] 0.03049615
+[1] 0.02672414
+[1] 0.02356246
+[1] 0.0207993
+[1] 0.01861619
+[1] 0.01658911
+[1] 0.01506126
+[1] 0.01382855
+[1] 0.01271852
+[1] 0.01172697
+[1] 0.01079322
+[1] 0.009991592
+[1] 0.009300809
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//BRG1_mac_profile.txt"
+> minPval
+[1] 0.0457493
+> minFDR
+[1] 0.2360927
+> maxFC
+[1] 1.388986
+> noiselevel
+[1] 35.65
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRM_mac"      "E2F1_mac"    
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//BRM_mac_profile.txt' __ignored__
+
+ARGUMENT '3.4' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 5
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.2833333
+[1] 0.2266667
+[1] 0.08947368
+[1] 0.085
+[1] 0.06071429
+[1] 0.04594595
+[1] 0.03736264
+[1] 0.02833333
+[1] 0.02741935
+[1] 0.02518519
+[1] 0.02312925
+[1] 0.02236842
+[1] 0.02011834
+[1] 0.01857923
+[1] 0.01752577
+[1] 0.01596244
+[1] 0.01511111
+[1] 0.01370968
+[1] 0.01236364
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//BRM_mac_profile.txt"
+> minPval
+[1] 0.09723521
+> minFDR
+[1] 0.2266667
+> maxFC
+[1] 2.185185
+> noiselevel
+[1] 3.4
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "E2F1_mac"    
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//E2F1_mac_profile.txt' __ignored__
+
+ARGUMENT '156.0' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 352
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.1937888
+[1] 0.09335727
+[1] 0.05771365
+[1] 0.04035178
+[1] 0.03117506
+[1] 0.02473442
+[1] 0.02058862
+[1] 0.01748879
+[1] 0.01518248
+[1] 0.01346918
+[1] 0.01209771
+[1] 0.01092743
+[1] 0.009963595
+[1] 0.00913242
+[1] 0.008452994
+[1] 0.007867662
+[1] 0.007337378
+[1] 0.006877397
+[1] 0.006478943
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//E2F1_mac_profile.txt"
+> minPval
+[1] 0.5
+> minFDR
+[1] 0
+> maxFC
+[1] 1
+> noiselevel
+[1] 156
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"     
+[11] "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//H3K14ACE_mac_profile.txt' __ignored__
+
+ARGUMENT '183.45' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 306
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.2207581
+[1] 0.1112492
+[1] 0.07466422
+[1] 0.05527267
+[1] 0.04364739
+[1] 0.03580211
+[1] 0.03015286
+[1] 0.02605824
+[1] 0.02272108
+[1] 0.02014606
+[1] 0.01812747
+[1] 0.01635172
+[1] 0.01482904
+[1] 0.01354674
+[1] 0.01245418
+[1] 0.01145489
+[1] 0.01061386
+[1] 0.00985231
+[1] 0.009193185
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//H3K14ACE_mac_profile.txt"
+> minPval
+[1] 0.04274621
+> minFDR
+[1] 0.2207581
+> maxFC
+[1] 1.302426
+> noiselevel
+[1] 183.45
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"     
+[11] "E2F1_mac"     "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//H3K27ACE_mac_profile.txt' __ignored__
+
+ARGUMENT '909.0' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 3204
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.6654466
+[1] 0.3251073
+[1] 0.2099792
+[1] 0.1535473
+[1] 0.1185137
+[1] 0.09436313
+[1] 0.0771909
+[1] 0.06374474
+[1] 0.05333568
+[1] 0.04504013
+[1] 0.03851695
+[1] 0.03321761
+[1] 0.02892417
+[1] 0.02539177
+[1] 0.02247274
+[1] 0.02002159
+[1] 0.01792263
+[1] 0.0161339
+[1] 0.01322586
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//H3K27ACE_mac_profile.txt"
+> minPval
+[1] 0.06525966
+> minFDR
+[1] 0.2099792
+> maxFC
+[1] 2.641841
+> noiselevel
+[1] 909
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"     
+[11] "E2F1_mac"     "H3K14ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//H3K27ME3_mac_profile.txt' __ignored__
+
+ARGUMENT '539.6' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 55
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 8.175758
+[1] 3.967647
+[1] 2.619417
+[1] 2.184615
+[1] 1.735048
+[1] 1.383590
+[1] 1.183333
+[1] 0.981091
+[1] 0.8717286
+[1] 0.7730659
+[1] 0.6944659
+[1] 0.6274419
+[1] 0.5808396
+[1] 0.5269531
+[1] 0.4878843
+[1] 0.4351613
+[1] 0.3938686
+[1] 0.3590153
+[1] 0.327626
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//H3K27ME3_mac_profile.txt"
+> minPval
+[1] 0.910175
+> minFDR
+[1] 0.327626
+> maxFC
+[1] 2.318761
+> noiselevel
+[1] 539.6
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"     
+[11] "E2F1_mac"     "H3K14ACE_mac" "H3K27ACE_mac" "H3K36ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//H3K36ME3_mac_profile.txt' __ignored__
+
+ARGUMENT '892.35' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 451
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 2.788594
+[1] 1.455710
+[1] 0.900454
+[1] 0.6575903
+[1] 0.5230657
+[1] 0.4290144
+[1] 0.3624492
+[1] 0.3131053
+[1] 0.2709016
+[1] 0.240396
+[1] 0.2153354
+[1] 0.1942848
+[1] 0.1792948
+[1] 0.1633742
+[1] 0.1497986
+[1] 0.1354303
+[1] 0.1231167
+[1] 0.1119355
+[1] 0.1007167
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//H3K36ME3_mac_profile.txt"
+> minPval
+[1] 0.4204489
+> minFDR
+[1] 0.2153354
+> maxFC
+[1] 1.783194
+> noiselevel
+[1] 892.35
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"     
+[11] "E2F1_mac"     "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K9ACE_mac" 
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//H3K9ACE_mac_profile.txt' __ignored__
+
+ARGUMENT '724.35' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 2285
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.4578698
+[1] 0.2221933
+[1] 0.1458325
+[1] 0.1063813
+[1] 0.0832682
+[1] 0.0677913
+[1] 0.05664738
+[1] 0.04813277
+[1] 0.04131117
+[1] 0.03560334
+[1] 0.03078541
+[1] 0.02689052
+[1] 0.02364838
+[1] 0.02102368
+[1] 0.0188094
+[1] 0.01694941
+[1] 0.01533016
+[1] 0.01391937
+[1] 0.01163353
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//H3K9ACE_mac_profile.txt"
+> minPval
+[1] 0.05424413
+> minFDR
+[1] 0.2221933
+> maxFC
+[1] 2.037866
+> noiselevel
+[1] 724.35
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"     
+[11] "E2F1_mac"     "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac"
+[16] "LaminaAC_mac" "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//LaminaAC_mac_profile.txt' __ignored__
+
+ARGUMENT '8.8' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 7
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.6769231
+[1] 0.352
+[1] 0.2146341
+[1] 0.1629630
+[1] 0.1353846
+[1] 0.1257143
+[1] 0.1073171
+[1] 0.09462366
+[1] 0.08979592
+[1] 0.08224299
+[1] 0.06984127
+[1] 0.06423358
+[1] 0.05986395
+[1] 0.05333333
+[1] 0.04916201
+[1] 0.04559585
+[1] 0.03876652
+[1] 0.03591837
+[1] 0.03308271
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//LaminaAC_mac_profile.txt"
+> minPval
+[1] 0.1991604
+> minFDR
+[1] 0.2146341
+> maxFC
+[1] 1.144907
+> noiselevel
+[1] 8.8
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"     
+[11] "E2F1_mac"     "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac"
+[16] "H3K9ACE_mac"  "PB1_mac"      "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//PB1_mac_profile.txt' __ignored__
+
+ARGUMENT '61.25' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 154
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.1175624
+[1] 0.06131131
+[1] 0.04107981
+[1] 0.02981986
+[1] 0.02351248
+[1] 0.01960627
+[1] 0.01658543
+[1] 0.01431744
+[1] 0.01262366
+[1] 0.01117701
+[1] 0.01002947
+[1] 0.009079454
+[1] 0.008310719
+[1] 0.007628596
+[1] 0.00706622
+[1] 0.006553606
+[1] 0.00610668
+[1] 0.005712554
+[1] 0.005347944
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//PB1_mac_profile.txt"
+> minPval
+[1] 0.5
+> minFDR
+[1] 0
+> maxFC
+[1] 1
+> noiselevel
+[1] 61.25
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"     
+[11] "E2F1_mac"     "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac"
+[16] "H3K9ACE_mac"  "LaminaAC_mac" "Ser5_peak"    "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//Ser5_peak_profile.txt' __ignored__
+
+ARGUMENT '548.65' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 787
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.4276306
+[1] 0.2092487
+[1] 0.1334266
+[1] 0.09659331
+[1] 0.07350616
+[1] 0.05879233
+[1] 0.04800087
+[1] 0.04024131
+[1] 0.03438303
+[1] 0.02980983
+[1] 0.02627131
+[1] 0.02340158
+[1] 0.02100739
+[1] 0.01904506
+[1] 0.01738435
+[1] 0.01596305
+[1] 0.01470478
+[1] 0.01360166
+[1] 0.01261293
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//Ser5_peak_profile.txt"
+> minPval
+[1] 0.05893258
+> minFDR
+[1] 0.2092487
+> maxFC
+[1] 1.877617
+> noiselevel
+[1] 548.65
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"     
+[11] "E2F1_mac"     "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac"
+[16] "H3K9ACE_mac"  "LaminaAC_mac" "PB1_mac"      "SUZ12_mac"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+ARGUMENT 'test//SUZ12_mac_profile.txt' __ignored__
+
+ARGUMENT '5.95' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> data <- as.matrix(read.table(Args[2], header=TRUE, sep ="\t"))
+> 
+> nRows=nrow(data)
+> myColors<-rainbow(nRows)
+> linetype <- c(1:length(myColors))
+> titlename<-"Other Peaks against Peak Score Distribution"
+> le<-rownames(data)
+> Position=sub("X","",colnames(data))
+> Position=as.numeric(Position)
+> #for(i in 1: nRows)
+> #{
+> #	data[i,]<-data[i,]/sum(data[i,])
+> #}
+> maxy <- max(data)
+> maxy
+[1] 6
+> csum<-colSums(data)
+> rsum<-rowSums(data)
+> noiselevel<-as.numeric(Args[3]) #nRows*min(rsum)/length(csum)
+> minPval=0.5
+> minIndex=0
+> maxFC=1
+> minFDR=0
+> confidence=1-0.05/length(csum)
+> for(i in 1:(length(csum)-1))
++ {
++ x=sum(csum[1:i])
++ n=sum(csum)
++ p=i/length(csum)
++ FC=(n-x)*p/(x*(1-p))
++ FDR=noiselevel/x
++ print(FDR)
++ pvalue=prop.test(x,n,p=p,alternative="less",conf.level=confidence)$conf.int[2]
++ if( FDR >0.2)
++ {
++   maxFC=FC
++   minFDR=FDR
++   minIndex=i
++   minPval=pvalue
++ }
++ }
+[1] 0.2833333
+[1] 0.1652778
+[1] 0.1239583
+[1] 0.09916667
+[1] 0.09444444
+[1] 0.07933333
+[1] 0.074375
+[1] 0.06329787
+[1] 0.05776699
+[1] 0.05458716
+[1] 0.04917355
+[1] 0.04685039
+[1] 0.0402027
+[1] 0.03672840
+[1] 0.03584337
+[1] 0.03342697
+[1] 0.03082902
+[1] 0.02902439
+[1] 0.02644444
+> png(paste(Args[2],"_peakcorr.png",sep=""),width = 800, height = 600,  res=100)
+> mat<-matrix(1:2,nrow=1)
+> layout(mat,widths = rep(c(4,1),1))
+> par(xpd=TRUE,oma=c(0,0,0,0),mar=c(4,4,2,0))
+> for(i in 1:nRows)
++ {
++ if(i <=1)
++ {
++ plot(Position,data[i,],ylim = c(0,maxy),main="",xlab="Peak Rank",ylab="Density",type="l",lwd=2,col=myColors[i],lty=linetype[i])
++ }
++ lines(Position,data[i,],ylim = c(0,maxy),col=myColors[i],lwd=2,lty=linetype[i])
++ }
+> if(minIndex>0)
++ {
++ yy=0:maxy
++ points(rep(Position[minIndex],length(yy)), yy, type="l",lty=2, col="black")
++ text(Position[minIndex],y=yy[length(yy)/2],labels=paste("x=",Position[minIndex]))
++ }
+> points(Position,rep(noiselevel/nRows,length(Position)), type="l",lty=2, col="black")
+> text(Position[length(Position)/2],y=noiselevel/nRows,labels=paste("noiselevel=",noiselevel))
+> 
+> title(titlename)
+> Args[2]
+[1] "test//SUZ12_mac_profile.txt"
+> minPval
+[1] 0.1416859
+> minFDR
+[1] 0.2833333
+> maxFC
+[1] 0.6090226
+> noiselevel
+[1] 5.95
+> print(unlist(le))
+ [1] "AP2_mac"      "EZH2_mac"     "HIC_mac"      "P300_mac"     "PCAF_mac"    
+ [6] "REST_mac"     "SP1_mac"      "SUZ_mac"      "BRG1_mac"     "BRM_mac"     
+[11] "E2F1_mac"     "H3K14ACE_mac" "H3K27ACE_mac" "H3K27ME3_mac" "H3K36ME3_mac"
+[16] "H3K9ACE_mac"  "LaminaAC_mac" "PB1_mac"      "Ser5_peak"   
+> par(mfg=c(1,2))
+> par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+> legend("left",legend=unlist(le),horiz=F,col=myColors , lty = linetype, xjust = 1, yjust = 1)
+> dev.off()
+null device 
+          1 
+> 
+> 
+> 
+['AP2_mac', 'EZH2_mac', 'HIC_mac', 'P300_mac', 'PCAF_mac', 'REST_mac', 'SP1_mac', 'SUZ_mac', 'BRG1_mac', 'BRM_mac', 'E2F1_mac', 'H3K14ACE_mac', 'H3K27ACE_mac', 'H3K27ME3_mac', 'H3K36ME3_mac', 'H3K9ACE_mac', 'LaminaAC_mac', 'PB1_mac', 'Ser5_peak', 'SUZ12_mac']
+ARGUMENT 'test//peakset_overlap.txt' __ignored__
+
+ARGUMENT 'test//peakcount.txt' __ignored__
+
+
+R version 2.9.1 (2009-06-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Args<-commandArgs()[grep("^--",commandArgs(),invert=T)]
+> overlapMatrix <- as.matrix(read.table(Args[2], header=TRUE, row.names=1))
+> peakcount<- as.matrix(read.table(Args[3], header=FALSE, row.names=1))
+> 
+> nLib=ncol(overlapMatrix)
+> 
+> for(i in 1:nLib)
++ {
++ 	p1count=peakcount[i,1]
++ 	for(j in i:nLib)
++ 	{
++ 		p2count=peakcount[j,1]
++ 		o1=overlapMatrix[i,j]
++ 		o2=overlapMatrix[j,i]
++ 		overlaprate=min(o1,o2)/min(p1count,p2count)
++ 		overlapMatrix[i,j]=overlaprate
++ 		overlapMatrix[j,i]=overlaprate
++ 	}
++ 
++ }
+> max(overlapMatrix)
+[1] 1
+> library(gplots)
+> png(paste(Args[2],"_heatmap.png",sep = ""),width = 9, height = 9, units = "in", res=400)
+> heatmap.2(overlapMatrix, symm = TRUE,scale='none',trace="none")
+> dev.off()
+null device 
+          1 
+> 

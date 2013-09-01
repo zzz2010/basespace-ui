@@ -1,0 +1,61 @@
+<html>
+<font size=3>
+As we would like to make it easy for users to upload their peak files, we try our best to make the input format as relaxed as possible, with the only strict requirement that the files are tab-separated<br>
+<br>
+<b>Input format type 1:</b> BED-like format.<br>
+<b>Description: </b>Any number of comments ("not starting with chrXXX") can precede the first valid line and will be ignored. Subsequently, after the first valid line, no invalid lines should be expected. Moreover, a valid line requires the 2nd and 3rd columns to be integers and 3rd column must be greater than 2nd column and not more than 10000. It would be converted to peak format by using the midpoint of the regions when running our program.<br>
+<b>Example:</b><br>
+<pre>
+track name="testing" genome="hg18"  #all these are ignored
+#comment1 ignored
+comment2 ignored
+comment3 ignored
+chr5	132612263	132614148	PEAK_5395	0.248100659
+chr16	84193534	84194372	PEAK_2254	0.084269774
+chr1	199588399	199590001	PEAK_818	0.925474932
+chr6	44133885	44135075	PEAK_5846	0.94464585
+chr4	75557636	75558727	PEAK_4856	0.332536892
+chr5	117372626	117374811	PEAK_5340	0.026345125
+chr3	134653998	134655207	PEAK_4552	0.698236307
+chr1	215778857	215780007	PEAK_933	0.008769131
+chr8	102547676	102549649	PEAK_7129	0.700820851
+chr14	63084136	63085084	PEAK_1595	0.466357564
+chrX	17219316	17220122	PEAK_3613	0.825708044
+chr2	237559442	237560848	PEAK_4320	0.81472037
+chr17	53823488	53824614	PEAK_2547	0.767269899
+chr12	45981720	45982640	PEAK_1121	0.664783407
+chr19	43503463	43504698	PEAK_2965	0.796133769
+chr3	198563756	198565180	PEAK_4751	0.11309352
+chrX	35786910	35787738	PEAK_3629	0.104217551
+chr11	48029876	48030967	PEAK_8599	0.810756506
+</pre>
+
+<b>Input format type 2:</b> Peak format.<br>
+<b>Description:</b>Files will be first checked if it satisfies BED-like format. If it fails, then after ignoring the comments, as long as the 2nd column is an integer, and the 1st column starts with chrXXX, then it is a valid line.<br>
+<b>Example:</b> 
+<pre>
+track name="testing" genome="hg18"  #all these are ignored
+#comment1 ignored
+comment2 ignored
+comment3 ignored
+chr5	132612263	325	0.248100659	PEAK_5395
+chr16	84193534	233	0.084269774	PEAK_2254
+chr1	199588399	200	0.925474932	PEAK_818
+chr6	44133885	21	0.94464585	PEAK_5846
+chr4	75557636	8	0.332536892	PEAK_4856
+chr5	117372626	8	0.026345125	PEAK_5340
+chr3	134653998	8	0.698236307	PEAK_4552
+chr1	215778857	8	0.008769131	PEAK_933
+chr8	102547676	8	0.700820851	PEAK_7129
+chr14	63084136	8	0.466357564	PEAK_1595
+chrX	17219316	8	0.825708044	PEAK_3613
+chr2	237559442	8	0.81472037	PEAK_4320
+chr17	53823488	8	0.767269899	PEAK_2547
+chr12	45981720	8	0.664783407	PEAK_1121
+chr19	43503463	8	0.796133769	PEAK_2965
+chr3	198563756	8	0.11309352	PEAK_4751
+chrX	35786910	8	0.104217551	PEAK_3629
+chr11	48029876	8	0.810756506	PEAK_8599
+</pre>
+</font>
+</html>

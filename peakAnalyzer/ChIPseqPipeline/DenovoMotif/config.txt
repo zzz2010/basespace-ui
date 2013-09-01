@@ -1,0 +1,15 @@
+genomedir	GDIR
+topN	10000
+Seed_Length	6
+peakfile	PFILE
+PWM_Divergence_Threshold	0.001
+Min_Range	50
+revcomp	True
+FDR	0.01
+Overlap_Threshold	0.2
+Max_Motif_Len	25
+No_of_Motif	5
+Max_Comotif_Dist	1000
+Resolution	50
+outputdir	OUTDIR
+Min_Support	0.01

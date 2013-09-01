@@ -1,0 +1,12 @@
+binSize	100000
+figureWidth	1000
+spaceBetweenTwoChroms	10
+heightForOneChrom	50
+topMargin	20
+bottomMargin	20
+leftMargin	20
+rightMargin	20
+strokeColor	red
+fillColor	orange
+axisColor	grey
+labelPosition	left

@@ -1,0 +1,14 @@
+binSize	10
+nBins	2000
+figureWidth	600
+spaceBetweenTwoChroms	10
+heightForOneChrom	50
+topMargin	20
+bottomMargin	20
+leftMargin	20
+rightMargin	20
+strokeColor	red
+fillColor	orange
+axisColor	grey
+labelPosition	left
+individualProfile	No

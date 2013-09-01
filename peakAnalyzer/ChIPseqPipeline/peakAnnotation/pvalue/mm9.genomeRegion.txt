@@ -1,0 +1,6 @@
+promoter	0.051967593
+exon	0.018892426
+intron	0.330523901
+3-prime	0.014045555
+distal_promoter	0.076426914
+inter-genic	0.50814361

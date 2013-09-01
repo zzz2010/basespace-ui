@@ -1,0 +1,2558 @@
+# Name
+abd-A
+
+# Matrix
+A|    5   10   22   36    0   11   33   18
+C|    2   15   15    0    0    2    1    2
+G|   13    3    0    0    0    0    0    4
+T|   17    9    0    1   37   24    3   13
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"7906203"
+"7821226"
+"7555708"
+"1358457"
+"8096172"
+"3215512"
+
+# Footprints
+TTGATGTCTCC
+AGTAATGCGACCATTAC
+ACCCATTTGGCTTCCCATTTCGA
+TATCAATTAG
+ACCCAATTAGTAATAAAT
+TGGCCATTAA
+TAATGATAATTACAAAC
+TGATAATTGACTTT
+TGAAACACATAAATCTTAAGTG
+ACATCATAAAAATATTAAAAA
+TCAATTATGCGCAATTTTGC
+GCAAATAATTTATTATCCA
+GTAATTATACAAGTTAATGTTAG
+TGCATTTAAAAGTAAATTT
+CTCATATTAAATGGACGTTATG
+AACAGATTATGGATTAG
+TTACCTTAATTGCTTATATATTA
+TGTTCATTAAATAAAATAATTT
+TGAATTAGTTA
+TGAAATAATTTT
+TAGGATAAATTGTTATTATAAATTT
+AGTAATATTCGAAATAATAATTACATTCA
+GGGCATAAATTAAATACACA
+TTGAAAGCAATAAAGAAA
+TAAATAATAGTTGTGG
+ATAATTAAATAAT
+GCCGATAATTGCTGCCATGAATATATAATAAT
+CAACATAATCACAAAAATTACC
+GAAATACAAAT
+CGGTATGGCTTCATTACGCCG
+CCTTTGCATATATTTAAGCACTAATTGCGTGAAGCCATAAATCTAAA
+CATTTAATGCATTT
+TGATTAAAAATCAACATACGACAATC
+ACCATCTTTAATAATATTT
+GTTAATTTAATTTATTTC
+GCACATTTAACATCCATTAAG
+ATCCCTAATGCACTTCC
+
+# Name
+Abd-B
+
+# Matrix
+A|    1    1    6    0    7    7    6    5
+C|    2    5    0    0    0    0    0    0
+G|    0    1    1    0    0    0    0    1
+T|    4    0    0    7    0    0    1    1
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9491376"
+
+# Footprints
+TGCTCATAAAT
+AAACGATAATG
+ATTTTATTTCG
+GTGTCATAAAAA
+TTTTTATGATT
+GTTTTATGATC
+ATTTTACGGCT
+
+# Name
+Adf1
+
+# Matrix
+A|    1    0    5    0    0    0    0    2
+C|    6    0    0    6    4    0    7    0
+G|    0    7    2    0    0    7    0    5
+T|    0    0    0    1    3    0    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"7791801"
+"2105454"
+"2318884"
+
+# Footprints
+TGCCGCGGTCGCAGCGCTGCCGCTGCCGC
+CGCTGCTGCTGCATCCGTCGACGTCGACTGCACTCGCC
+GAGATCGCGTAACGGTAGATAATGAAAAGCTCTACGTAA
+CGCAGTCCGCAGCCGCTGA
+CAGCGCAGTCGGCGGCGGCGGCGCGCAGTCAGCGGTGGCAGC
+ATGTGCGTCAGCGTCGGCCGCAACAGCG
+GCACTGGCAGCGACTGCGACCGCG
+
+# Name
+Aef1
+
+# Matrix
+A|    0    3    3    0    2    3    0    2
+C|    3    0    0    3    0    0    3    0
+G|    0    0    0    0    0    0    0    0
+T|    0    0    0    0    1    0    0    1
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"1547943"
+"9463385"
+
+# Footprints
+GGTGCACAACTACAATGTT
+CGACCGCAGCAACAACACGATCTTT
+AAACCAACAACTAACG
+
+# Name
+Antp
+
+# Matrix
+A|    8    0   11   12    0    3
+C|    0    0    0    0    0    0
+G|    0    0    1    0    3    0
+T|    4   12    0    0    9    9
+
+# Construction Info
+Meme was run on the footprints with fixed width 6 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8255758"
+"7555708"
+"11262224"
+"2903553"
+
+# Footprints
+ACAATTTAATTGTTTATT
+TAATGATAATTACAAAC
+TGATAATTGACTTT
+TGAAACACATAAATCTTAAGTG
+ACATCATAAAAATATTAAAAA
+ATTTCTTTGGCATTAATCAAAATAATTGGCGCATTTCA
+ACCCATAAATAATATTAA
+CCAACTCATAA
+GTTAAGTTCATTTCAA
+AAAAATGAATTATGATTATTGCCATGTAAAAGAG
+TATAATATAATAATAAAAATAATAATAATAATAATAATATAAT
+TACTAATAGTATATAATAATTTTAATAGTATGTTATATAAAT
+
+# Name
+ap
+
+# Matrix
+A|    1   12   12    0    4   11
+C|    4    0    0    1    3    0
+G|    2    0    0    1    1    1
+T|    5    0    0   10    4    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 6 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"14701680"
+
+# Footprints
+GCTAAATAA
+CTACAATTG
+GGATTATTA
+GCTTAATGA
+AGCCACAATCAAGCGA
+CATTTTCTGCTTCA
+TTAACAACACA
+TATTTTAATTA
+TCAATTAGCGCA
+AAGATGATTGCCAA
+GGAATTATA
+AGTAATAAT
+
+# Name
+ara
+
+# Matrix
+A|    0    0    1    2    0    0
+C|    0    0    0    0    0    0
+G|    0    0    1    0    0    0
+T|    2    2    0    0    2    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 6 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"8620542"
+
+# Footprints
+TTAATTAAC
+ACAGAAATCAAA
+
+# Name
+bab1
+
+# Matrix
+A|    1    6    0    2    4    2    0    3    0    0
+C|    0    0    0    0    0    0    0    0    0    0
+G|    0    0    0    0    1    0    0    3    0    1
+T|    5    0    6    4    1    4    6    0    6    5
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"12954775"
+
+# Footprints
+ATACAATATATATATG
+GTGCACAACTATATAGATGTG
+TATAAATAATAATTATCTTTT
+GTCGTTAATAGCGTTATTAATGTTAT
+TTTAATTATATTTATTATTATTGTTAT
+TATGTTTATTATTATT
+
+# Name
+bcd
+
+# Matrix
+A|    9    8   45   47    1    1    2    5
+C|   18    3    1    0    0   44   26   12
+G|    3    1    1    1   16    0    3   18
+T|   18   36    1    0   31    3   17   13
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"9376314"
+"2026328"
+"2065664"
+"1348871"
+"9250684"
+"9507113"
+"7617036"
+"2911348"
+"8620846"
+"2502714"
+"11731230"
+"8443106"
+
+# Footprints
+TCGAAGGGATTATA
+TAATTAAGCATGGC
+CGGATTTGCA
+CGGATTTGCA
+CAAAGGATTTGTCC
+CTCCGGCTTATCG
+CAAGCCGTTTTTC
+TGTTAATCCG
+CGAGATTATT
+CTATAATCGC
+TGGGATTAGC
+CGAAGGGATTAG
+CCTTCAGAAACGGATTAAATTTTTT
+AAATAATCCAGCCTTAAGCATGGTGATTAAGCTTG
+TGACGGATTTTCCTTAAATCCCTCTGTTAATCTCCGGCTTAGAGC
+GAACTAAATCCGGCTTAGGATTCTTG
+AGTCAATCTG
+CAAGATTAAA
+AATGATCAAC
+CTTTAGCCTT
+GACAAATCGC
+ACTTAAGCCG
+CAAGACTAAT
+TTTTAAGCCT
+AAAGGCTTAAA
+AAAAGTCAAA
+GATAATCTGCAGCTTAGGTAAGCTGATCCCGCGATTAGG
+CGAAATCGCTGGCTTAGG
+GTCAAGGGATTAGA
+GATCGCGGATTGAGG
+ATTCTGGATTAGAGC
+AAAAAATTATG
+TTGGATGATC
+GAGCTTAGCG
+CAGCTTAGCA
+TTCTATGGGGATTACG
+ACTTGGGATTAAAGGTGATTA
+GTCATCAGATTAGC
+ATTTAAATCCGTTTTGA
+GTGGCTTAACTTTTG
+AAATCCGTAATCTGCT
+GCGAGCTTAAGTCGAG
+CAAGCGAGATTAGAGG
+TGAATCCTAAAGGCTC
+AACGCCTAATCTGGCT
+TTAAAATAATTTTATT
+AAAAATTATTATTAAAAACGCAATCTGAGC
+GAAATGCAAATATTTGTTTTT
+
+# Name
+BEAF-32B
+
+# Matrix
+A|    1    0    0    2    0    2    0    0
+C|    0    2    0    0    0    0    1    0
+G|    1    0    2    0    0    0    0    0
+T|    0    0    0    0    2    0    1    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9001253"
+
+# Footprints
+AAAGTCACGATATTC
+AACCGATAGTATCGCACACT
+
+# Name
+BEAF-32
+
+# Matrix
+A|    0    2    0    0    0    2    0    2
+C|    0    0    0    2    0    0    0    0
+G|    0    0    0    0    2    0    0    0
+T|    2    0    2    0    0    0    2    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9819433"
+
+# Footprints
+AGATGCGATATTTATCGATA
+ACTATCGTTACTATCGATAGCT
+
+# Name
+bin
+
+# Matrix
+A|    0    4    4    4    0    5    3    2    0    4
+C|    0    0    0    1    5    0    0    2    0    0
+G|    0    0    0    0    0    0    2    1    5    1
+T|    5    1    1    0    0    0    0    0    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"11691840"
+"12175492"
+
+# Footprints
+GAAATAGTTAGTGTAAACAAGGAGG
+TTGAATCGCTGGTTAAATATTTAT
+CAATCGCTGTAAATAAATAGGAGCCG
+GCCGTAAATAAACAAAGAAAT
+CAGTGCCTTTGTTTATAG
+
+# Name
+brk
+
+# Matrix
+A|    1    0    0    0    0    1    1    0
+C|    5    4    0    0   10    0    8    5
+G|    4    0   10   10    0    9    0    1
+T|    0    6    0    0    0    0    1    4
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"11080162"
+"11159914"
+
+# Footprints
+AGCTTGGTGGCGCCTCAA
+GTCTGTTTAGCGCCATG
+CACAAGCTGACGCCAAGTTGATGGGGGCGCCGCAG
+GGATTGCCCGGCGCCGACT
+GCCCGACTGGCACCTCG
+ATCTGGCGTTGCGTG
+CGGAGTCTCGCCAG
+CCGGTGGCGGCGCT
+TTATTACTGGCGCTATC
+GCCTGGCGGCGCC
+
+# Name
+br-Z1
+
+# Matrix
+A|   12   12    9    0   14    1   11   16
+C|    0    2    0    3    0    4    3    1
+G|    2    3    0    0    2    9    2    0
+T|    3    0    8   14    1    3    1    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8062827"
+"8582299"
+"11583936"
+"8954742"
+
+# Footprints
+AATCTCTCAGAACA
+CAATAGAGCTGGTGATTGGT
+TGTATCTAATTGGCAAATGAC
+GTCTATGTCTAACCATCGCCACA
+AAATAATAAACAAAATAATAAACAAAACCACGA
+ATACCTTTCTATTCTGTAAATATTTGTGAAAGACAAGTTCG
+TTATTAATAGAAGT
+TGCTAATCAGTG
+TGAATACTAATTACT
+GATGATAATAGTTATAA
+ATATACATTTGTATCTACATACATACA
+TGAAAAGCTCCAAAATGCAAAAA
+ATATTATATTATATAGTATGTTTGT
+CAAGGAAGTGTTATGTTCCAAATAGGAC
+ACCTATTGAATTTGGATTGTTCA
+AGAATACTTAGTTTTATAATTCCAA
+TGCCAGGTCCTAACT
+
+# Name
+br-Z2
+
+# Matrix
+A|    7    0    0   21    1    2   12   11
+C|    3   15    0    0    0    5    1    4
+G|    1    4    0    0    5    5    1    1
+T|   10    2   21    0   15    9    7    5
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8062827"
+"8582299"
+"12464428"
+"11583936"
+
+# Footprints
+TTTATAGTAAAAGCTCCAGACCACG
+AAAATGGTTGAAAACAATAGAGCTGGTGATTGGT
+TGTATCTAATTGGCAAATGAC
+TCCTAGTTGAGTCTTGTCTATGTCTAACCATCGCCACA
+CAAAACTATTTGATTTGCTCA
+ACAACTAGTACACGCAAT
+AAATAATAAACAAAATAATAAACAAAACCACGA
+ATACCTTTCTATTCTG
+ACTGTCCTACACTTCACGA
+TATTAATAGAAGTGC
+GTTTTTGAAGATAGTGCTAAT
+ACTTGATAGGCAAAA
+TGATAATAGTTATAA
+TATTAATAGTTTA
+ATTCGTAGGAAA
+GTTATTAGAGCA
+TGTGCTAGGGGAAGTGGGCTAGGTTG
+ATATACATTTGTATCTACATACATACA
+ATGTGGTTACATAGCCAAG
+GGAGACTTTGCTAAAAATTTACTG
+ATATTATATTATATAGTATGTTTGT
+
+# Name
+br-Z3
+
+# Matrix
+A|    7   12   10    1    0    7    0    0
+C|    3    1    0   11    0    0    0    0
+G|    3    0    6    0    1    3   10    1
+T|    3    3    0    4   15    6    6   15
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8062827"
+"8582299"
+"11583936"
+
+# Footprints
+TTTATAGTAAAAGCTCCAGACCACG
+CAATAGAGCTGGTGATTGGT
+TCCTAGTTGAGTCTTGTCTAT
+CAAAACTATTTGATTTGCTCA
+ACAACTAGTACACGCAAT
+AAATAATAAACAAAATAATAAACAAAACCACGA
+GTAAACTAAAGCTGGTGC
+TGTGAAAGACAAGTTCG
+TCAACAAGTTTATCAT
+CGCTTACTTTTAGTTTCTTCA
+AATGCAGTGGGTATATAAAG
+AAGATAGTGCTAATCA
+TGATAATAGTTATAATAA
+TATTAATAGTTTAA
+ATATACATTTGTATCTACATACATACA
+ATATTATATTATATAGTATGTTTGT
+
+# Name
+br-Z4
+
+# Matrix
+A|    5    2    1    8    8    1
+C|    0    5    0    0    0    0
+G|    3    0    0    0    0    0
+T|    0    1    7    0    0    7
+
+# Construction Info
+Meme was run on the footprints with fixed width 6 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8062827"
+"8582299"
+
+# Footprints
+AAATAATAAACAAAATAATAAACAAAACCACGA
+GTAAACTAAAGCTGGTGC
+ATACCTTTCTATTCTGTAAATATTTGTGAAAGACAAGTTCG
+GAATGGTTAGAGCTAATA
+TTATTAATAGAAGT
+TGCTAATCAGTG
+TGAATACTAATTACT
+GATGATAATAGTTATAA
+
+# Name
+byn
+
+# Matrix
+A|    8    4    0    0    0    1    3    7
+C|    0    0    0    1    0    7    0    0
+G|    0    2    8    0    9    0    4    0
+T|    1    3    1    8    0    1    2    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"11850413"
+
+# Footprints
+CGGAAAGTGCTAATTTTTACACATA
+TGTTAGGTGCGATATCTCCA
+AAAGAAGTGCGACTTTTAACATCCA
+AAAATAGCGCCACTTCTCGAAATCGCACTTAG
+TGATTTTTTCACCTCG
+CAGTTGTAACACATAAAT
+AATTTATCGCGCAAGCAATTTGCACAATTT
+GGAGCGAACGACGCGATTTCTCCC
+CATGTGCATTCAGCAATGTG
+
+# Name
+cad
+
+# Matrix
+A|    0    2    0    1    6    0    3    7    0
+C|    5    0    0    0    2    4    1    3    4
+G|    3    3    0    0    1    3    9    2    0
+T|    5    8   13   12    4    6    0    1    9
+
+# Construction Info
+Meme was run on the footprints with fixed width equal to the width of the smallest footprint and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9376314"
+"7617036"
+"2571934"
+
+# Footprints
+GATTATAAT
+GCTTTGCGACAATTAAG
+CGTACTAATTA
+ACACCCATCATTTTTCAATATTTGAGCG
+AACGAAATCGCTG
+ATTGGCCTAAAAA
+CCACGTTTGCACG
+GTCATAAAGTCA
+GTAACCATAAAAATT
+CGAGCCAAACAA
+AAGCGGAAAA
+AATTTTTAGGGAACCATAAACGG
+AGTTTTTATGTCTTTATGATT
+
+# Name
+Cf2-II
+
+# Matrix
+A|    1    1    0    0    3    0    3    2
+C|    0    1    0    0    0    0    0    0
+G|    2    0    3    0    0    0    0    0
+T|    0    1    0    3    0    3    0    1
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"1411512"
+"2120114"
+
+# Footprints
+AAGTATAATATAA
+TAGTGTATATAGGTCACGT
+ATTTGCGTATAAAAGCGA
+
+# Name
+Deaf1
+
+# Matrix
+A|    0    0    0    0    0    1
+C|    3    0   10    0    0    3
+G|    0    0    0   10    5    4
+T|    7   10    0    0    5    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 6 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"11014815"
+"8617243"
+
+# Footprints
+AGCTCGTCGGA
+AAAACGAACGGCAGTTCGTTGCCTTCGTTCTTGCTTCGCGTGCTTCGTATCTTG
+ATTCGGCTGGC
+TCGTCGGCTACCTCTTCGGGTGGGGC
+CAGCGCTCGGTCCA
+CCACTCGTCAGTCAGTCG
+TTTTTCGTGGGGA
+CGTTTCGGAATTC
+CAACCGACTGGCGGCAAAAAGCGATCGATGGTTCGCTTTTAGCCCGAAGCTT
+AGCGATCGACTTCGACTCATTTAAGTGATTCGTGTAATTATTTTA
+
+# Name
+Dfd
+
+# Matrix
+A|    1    1   15   15    0    1    8    0
+C|    2    0    1    1    0    0    0    5
+G|    2    0    0    0    0    5    6    2
+T|   11   15    0    0   16   10    2    9
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"11014815"
+"1995417"
+"7910795"
+
+# Footprints
+TTTAATTTG
+TTGGCGGCTATTAAG
+ACTACATTAATTAT
+CCGCGATAAGTAA
+CCTATCATTAGA
+ACAATTATC
+TGATGACTTAATTAC
+CAACATCATTAAGC
+TGGCAATTAG
+TTAAATGGTC
+GCTTCATTAT
+CGAAATTAAATCAATCAGAGATAATC
+GGTAATGGGT
+GTGTAATTATT
+TTTAATTGTT
+TTTAATGACT
+
+# Name
+dl
+
+# Matrix
+A|    2    8    3   33   34   36   24    4    8    8
+C|    8    4    0    1    2    0    1   12   23   24
+G|   22   26   34    4    0    1    2    3    2    4
+T|    6    0    1    0    2    1   11   19    5    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8458580"
+"1644293"
+"1648449"
+"1325394"
+"8344257"
+
+# Footprints
+GAAGAATAATTTCCATTT
+ATCTGGTTTATCTAGA
+ATACCTGAATTTTCCACCT
+ATTTATATTCCCACT
+CAATGCGTACTTTCCGCTACC
+CAGTCGGATTTTCCTGA
+TCACGCGGAAATTCCACGG
+TTGAAATTTTTCCTAAGA
+TAAATGGCTTTTATATT
+ATTTCGCATTATTTTCCG
+TTATAGGGTCGAACAATAAAG
+ACTCGGAACCCAAC
+CCTCCGGTTGATTCCCGCT
+TCCCCGATTTCCCTG
+CGATGGGAAACTTTCCCAAC
+AGCGCGGAATTCCAATT
+ATTTCGTATTTCCCTGC
+TAAAGTAATTTCCCATC
+CTGGGGGTTTTCTATAT
+TGGTGGGTCATCCCGGA
+TCGCGGGAAAATCCGCAC
+GGTCGGGTTGGCCCGCT
+GCCAGTGTTTTCCGCTT
+TTTGGGGAAAACCCTTT
+TGACTTTTCGCT
+GTATTTTTCTGGATTTTCGGA
+GCGATTTTCTCG
+GGCATTTTCCCA
+GAGAGAAAACCC
+AACAGAAAAATC
+TCGAGAAAATCG
+TGGGAAAAACAC
+GCGGAATTTCCT
+GGGGAAATTCCC
+TGGGAAAAGCCC
+TTGGTTTTCCC
+TGGGAGAAACCC
+CTGGATTTCCC
+
+# Name
+Dref
+
+# Matrix
+A|    3    2    4    0    8    0    0    0    6    2    5    4
+C|    0    2    0    0    0    0    8    0    2    1    1    1
+G|    1    2    0    0    0    0    0    8    0    0    1    3
+T|    4    2    4    8    0    8    0    0    0    5    1    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9819433"
+"9748283"
+"8093616"
+"8662923"
+
+# Footprints
+GCGATATTTATCGATAGTCTCG
+TATTCGATATTACGATA
+GGCGGGAACATATCGATAACAGAGCTACGAT
+TGCAATGTAATATCGATAGTGTCGTT
+GTGGTAATATATCGATAGGTGGCAGCG
+ATGGGCGATAACAATCAC
+ACAGATCACGGTTATCGCAGCTC
+CTATGCTTATCGATAAGAAAACT
+
+# Name
+dsx-F
+
+# Matrix
+A|    0    0    2    0    2    3    2    0    0    0    2    0    1    3
+C|    3    0    0    3    0    0    0    0    0    1    0    1    1    0
+G|    0    0    1    0    0    0    0    3    0    1    1    0    0    0
+T|    0    3    0    0    1    0    1    0    3    1    0    2    1    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 14 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"1907913"
+
+# Footprints
+CACAACTACAATGTTGCAAT
+GGAGCCTACAAAGTGATTACAAATTAAAATA
+AGGTGCTGCTAAGTCATCA
+
+# Name
+dsx-M
+
+# Matrix
+A|    0    0    2    0    2    3    2    0    0    0    2    0    1    3
+C|    3    0    0    3    0    0    0    0    0    1    0    1    1    0
+G|    0    0    1    0    0    0    0    3    0    1    1    0    0    0
+T|    0    3    0    0    1    0    1    0    3    1    0    2    1    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 14 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"1907913"
+
+# Footprints
+CACAACTACAATGTTGCAAT
+GGAGCCTACAAAGTGATTACAAATTAAAATA
+AGGTGCTGCTAAGTCATCA
+
+# Name
+Eip74EF
+
+# Matrix
+A|    6    2    0    0    0    0    0    0    2    2
+C|    0    5    0    0    7    7    0    0    0    0
+G|    1    0    0    0    1    0    2    5    2    1
+T|    1    1    8    8    0    1    6    3    4    5
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8557043"
+"2208281"
+
+# Footprints
+GAGATTTCCTTTTGGCTT
+AACAAGGAAGTGTTAT
+ATTCTTCCTTGATCGATG
+TCAAAACTTCTGGTATTTT
+GGTCCTAACTCAGGAAGC
+CAATTGCTGTTGTTCCTACTGTGT
+TGATTGATCAGGAATTATGGT
+ATGAGTTACTTCCGGTTATTCA
+
+# Name
+ems
+
+# Matrix
+A|    0    1    3    0    0    3    0    3
+C|    0    0    0    0    0    0    2    0
+G|    1    1    0    0    2    0    1    0
+T|    2    1    0    3    1    0    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9491376"
+
+# Footprints
+AAACGATAATGACA
+ACATTTTTATGACA
+CAAGGATTAGATAT
+
+# Name
+en
+
+# Matrix
+A|   20    5    7   38   52    0    0   27
+C|    3   15    7    0    0    2    6    0
+G|   18   12    0    4    0    2   14   26
+T|   12   21   39   11    1   49   33    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"7600986"
+"8562421"
+"7713429"
+"2573829"
+"2895896"
+"3046753"
+"8404855"
+"8601485"
+"7600980"
+
+# Footprints
+CAGTAAAACAAAAAAGTAATGGTGTAAAATAATTATTATTATTATTAAATAATTATTATTATATTAAATAATTATTATTATATTATTAGGAAC
+ACTTACATATTAATATATTTATTAATTAATT
+CAGTGTGGTAATTATTTTCTTAATGCTACATTGTCACTTATTAAAGT
+CTGCAATAGATTGT
+CTGTGGTACGAATGACGTAACTCTACTAATGATTATACTATTATTCGGTGAAAAATATAATCTTGTTATCCCATTTCATAGATATAC
+AGTAATGCTTGTAAATACTACC
+TGAGCGGATTTAACGTTCTCCATTTTGATTTGCCTATA
+CAGAAGTATTGAAGAAAAATCCTAAGAAACTGTCATAATAACTGAACTAAATTACTGG
+AAGTGTTTACTAATCCTAAACAGAACAATAGACATTTAACTTAATACCTTTCGGTATGGAGAC
+ATTGAACTCCATGATTGTAAGCTATAAATTTTAAGTTATTAGCAATCGTTATTGGGACTTT
+TCGATACCCAAGAAGCAATTATT
+AAGTTGATTGAA
+GTCGCTGCTAATTGGCAGTACAAAATGC
+AGCTACTTAACTGCT
+GATGGATTGCTGATGA
+TCCGACTGACGGTGCAGAACCCAT
+AGCGCTAATT
+ATATAATTG
+GTTAATTAC
+ATTAATTGA
+CGATTAATTAT
+CAATTGCGCGC
+ATTTGCATTTCATTACAAATGACATTTGAGGGG
+ATAATAATCTATTTTA
+ATGATATCATTTGTTTC
+AACTCTCTAATTAG
+CGGCTAATTGG
+TAAATTATAATTTAATTGACC
+AAAGCTAATTGTTTTAATTTAAATGAA
+CTTCAATTAACCAGTTAAATGTG
+CGAAATTGATTGATATTTAATTGACATTTAATTTATT
+ACATCCAATTAATCAAC
+GTTAATTGCATAA
+GTGATTAGTCAAT
+ATCATTTGTTGATTAGTAAATCAAAGAAGCTCATTAATTTTCCTGAAAAGTAC
+TAGAGAATAAGAGTCATTGCAGGTCGG
+TTTCATTTGCCTAATTT
+TAAAATTAAATGCCTTTCAATGATAACTACTCAATAAATT
+CACTGTCTGATAGAAGTACCTCTTATCATCTGAA
+CATCCAGCAAAGTGGGCAATAGCATGCTAACAGGG
+GCCAAATTAGCAG
+TCACCATCGGC
+GGCCATTAAAAAAGG
+AAAAGATCGCTCATTAGCAG
+GCAAAAAATTATGATTGTTTC
+CAAAATCGATTTCAAGTTCAGCGATATG
+TCATAATAAATATTCGCGGGCCAGGCAATAAATAATAGTCCAAATAC
+ATGAATGAGTCAATGAATCACACAAATGAATTGTTTGGTTG
+GCTTGATAAAC
+ATTAATTAGACGT
+TGAAACGGGAA
+ATGCTCAATTACAT
+GCTTAATTAG
+
+# Name
+Espl
+
+# Matrix
+A|    0    0    0    0    1    0    1    0    0    0    0    0
+C|    1    0    0    0    2    4    1    2    1    0    0    3
+G|    0    3    0    4    1    0    1    1    3    0    4    1
+T|    3    1    4    0    0    0    1    1    0    4    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8078474"
+"9649507"
+
+# Footprints
+TGGCAGCCGGCACGCGACA
+ATGAGCGTGTGTTCATTTTATTTGTGCCCTGTGCTGCGCACG
+AGCACGTGTCAAATGCAGATGG
+GCCACGAGCCACAAGG
+
+# Name
+eve
+
+# Matrix
+A|    6    0    2    3   16   19    0    3    7    3    1    0
+C|    8    3    5    0    0    0    5    4    0    0    0    6
+G|    0   10    3    0    2    0    0    5    6    2    7    1
+T|    5    6    9   16    1    0   14    7    6   14   11   12
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"1671662"
+"2895896"
+"1968224"
+"10885752"
+"2569362"
+"10644409"
+"9362473"
+
+# Footprints
+CCAAAATATTATGGTGTGCCCCGCT
+GCACAGTCAGCGCGAATTTGCTGCGGTGAGTCGATGCT
+GTCCCGCCTCGTTATCGCCGCTCAGCACCGAGAG
+CTCAGCACCGCACGATTAGCACCGTT
+AAAGCTAATTGTTTTAATTTAAATGAA
+CTTCAATTAACCAGTTAAATGTG
+CGAAATTGATTGATATTTAATTGACATTTAATTTATT
+AACATTAAAATTAATAAATTATTACAAAATGACAATACATTAACGC
+CAGCTTTAATCATTCCTC
+CTGAAATAAATTTACTTTAATGTT
+ACAAACCATTAACACCCGAA
+TGTCGCATGATTAGGGGCCATTACAAA
+GTTACGATTATTACTATGTTTATTGTTATTGCAATTATTATTATTATTTTTATGGTTTTAACGATTTGAACGATTATTAGCCATAGT
+GGGCCAATAATAACAATAATGCCGCTGATAATGTGGATAATAAAACAA
+AACGGTAACTGTTCAA
+GACAAAATAAAAAAG
+TACGTAATATTAT
+CAGTTGTAAATCATTGT
+CGTCCTTAATTGCCTGATGAGCCATGAAATGATGTCA
+
+# Name
+exd
+
+# Matrix
+A|    0    1    0    1    2    3    1    0    2    3
+C|    0    0    0    2    0    0    1    2    0    1
+G|    1    0    0    1    3    0    1    1    0    1
+T|    5    5    6    2    1    3    3    3    4    1
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"7915199"
+"7859741"
+"9155029"
+
+# Footprints
+CATTTCGATTTC
+ATGTTTGTTTTA
+TATCAATTAG
+TAGTAATAAA
+TTTTATCGAT
+TTTGGAGCTAATGCGTGGCAAT
+
+# Name
+ey
+
+# Matrix
+A|    0    0    0    2    0    0    0    3    0    0    0    0    0    0    2    1    3    2
+C|    2    2    3    1    3    0    3    0    2    0    1    0    0    2    0    1    0    1
+G|    0    0    0    0    0    0    0    0    0    1    1    3    2    1    0    1    0    0
+T|    1    1    0    0    0    3    0    0    1    2    1    0    1    0    1    0    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 18 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"11830564"
+
+# Footprints
+GTTCTCCACTCATTCGTGTGAAAGTTAGTT
+TATAGACCAACTCACTCACGTGGCAAACTCG
+TAAAAATTAATTCCCCCTCACTGGGCACAACT
+
+# Name
+ftz-f1
+
+# Matrix
+A|    0    0    1    0    0    0    2    0    0    0    0    0    1    1    2    0    0    0
+C|    0    3    0    0    1    0    0    3    3    0    0    2    0    0    1    2    0    0
+G|    2    0    2    3    0    3    0    0    0    0    0    1    2    2    0    0    1    2
+T|    1    0    0    0    2    0    1    0    0    3    3    0    0    0    0    1    2    1
+
+# Construction Info
+Meme was run on the footprints with fixed width 18 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"9043065"
+"8164672"
+
+# Footprints
+CGTGAGCGGTGACCTTCGACCTGA
+TTGTGGCAGTGTCCTTCGGATTTA
+ACCGTCTCAAGGTCGCCGAG
+
+# Name
+ftz
+
+# Matrix
+A|   19   16    7   39   56    6   11   54
+C|    4   14   40   25    9    0    7    3
+G|   31   22    6    0    0    0    2    3
+T|   12   14   13    2    1   60   46    6
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9431813"
+"9043065"
+"3046753"
+"10885752"
+"1976571"
+"1982071"
+"8404855"
+"8601485"
+"1356761"
+
+# Footprints
+GTGCATTAG
+TGTATTTTCATAATTTTCATATTTCTCCG
+CGCTAAAGTG
+TGCCAAATTAGC
+CTCTAATTAGC
+GGCTAATTGGC
+ATTTAATTGAC
+GATTAATTCCT
+CGACCATAAAA
+AAGCACTTAAC
+CGTCAATTAAC
+GTCACATAAAG
+GCCTAATTGTG
+GATTTATGACAC
+CCTTCAATTAACCAGTTAAATGT
+AAATTGATTGATATTTAATTGACATTTAATTTA
+TGCGGTGTGTC
+ACAAACCATTAACACCCGAA
+TGTCGCATGATTAGGGGCCATTACAAA
+GACAAAATGTCTTTTACA
+CGAAACATTACTGCCATTACAG
+GTCTCGCATTAGACTGATGTTCT
+TGTTTATGGATAGTAAATGCA
+TGGGTCCTTAAGCGTCTTAATTGCCCGCGTA
+CAGCGCAATTGGTTTCCAAGGCGGAAATATTATTGGCACATCATAAAACTATAAAAC
+CATTGTTAATGGACGTTATCCTTATTAGA
+GTTAGGTATTAAGATCTGA
+GCTTCATTATATTATAGATTA
+ATTGTTATAGTGCACGGA
+ACACAAGGTACAAGGT
+CACATGACATTAT
+CAAAAAGCCATCAA
+CTAGGGGCCATAAGCAG
+TACGGGGTCATCATTGCTAAAAG
+GCAGGACAATTCGAATAAGT
+TGACAGGAGCAATTACAG
+GCAGGCAATTCAAGGA
+TGACTTTGATTGGTGCC
+TATATCCACCCATTGAG
+TGAAGATTACTTCATTTA
+TGTTTACCTTAATTGCTTATA
+AAACATTTAATGGACA
+GCTAATAGTAACA
+TAATATACTTATGTCAA
+CGATTACAATTACGATTACGGTTACGATTACGGTTATTATTATAATAATGGGTTTA
+TGTGCGACTGATT
+CGGTTCTAATTTTTTACGATTATTGTTATGATTATTTTT
+ACGGCCTTTATGATCTTAGCGGGCTGACAATTGGGA
+CTATAAAATCAATTAA
+AATAATTGTACAATTTAC
+CTGCTTAAGTACTTATAA
+GATGTTCTTAATTAA
+CAAAGCAAATT
+CTATTTAATAATAA
+TCACATCAG
+TTGCATAATTATTTAATAATGTGAAATTAACATAATGTATTTTTGTATAATAGTTACCATTACTC
+ACGCCCGGCACTTAACATTGTACTTTTTATGACCTCGTAAAAAAACTGCAC
+CGACCTTGAAGGCGGCGTCAAAAAGTTAATGATCACCATCGGCTCT
+ATGTTTCTCATGTG
+CCGCACACATA
+GCCGTCGGCCATTAAAAAAG
+CGGTAAAAGATCGCTCATTAGCAGCAGCT
+TTTATTAGCCATGG
+ATTATGATTGTTTCA
+TATATTACCTTGA
+TCATTTAATTTGTTTAGA
+
+# Name
+gl
+
+# Matrix
+A|    5    0    0    0    1    4    3    0    1    3    0    2
+C|    0    0    0    0    2    1    0    0    1    0    0    1
+G|    0    1    0    1    2    0    0    4    2    2    0    0
+T|    0    4    5    4    0    0    2    1    1    0    5    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"2010085"
+
+# Footprints
+GCGAGGCTTCTAAAATCAATGAAATACTTTTCGGGCTGCACCGATGGGGCTTCTC
+TTATGCTGCCACTCAAG
+GTTAAAGGCATTTCAAGGGTTTCCA
+AGCGATTTAATGTGTCA
+AATTTGAAGAATATTATGAAAACATATCGTAGCAGAAGAAATATCAGTATCG
+
+# Name
+grh
+
+# Matrix
+A|    2    0    0    1    0    0    0    2    3    1
+C|    6    1    0    0    1    0    3    1    2    3
+G|    0    0    6    6    0    0    1    1    3    0
+T|    0    7    2    1    7    8    4    4    0    4
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8543160"
+"2792757"
+"2606344"
+"8543159"
+
+# Footprints
+AGGACCGGTTCAAT
+AGGGGCAACAAGTTGCCTGGC
+ATGATTCGGTATCGAAA
+GGGGAGCTGTTTTTCC
+ATCGGATGGTTTTATATCCTACTCTACACCCTTATT
+ACTGCAAAACCAGAAAG
+CGCTCAAAACCAGATTG
+TGCGTTCCTTGCTCAATGAATTTT
+
+# Name
+gsb-n
+
+# Matrix
+A|    0    2    2    0    0    0    1    0    0    1    2    2
+C|    0    0    0    0    0    0    0    1    0    0    0    0
+G|    0    0    0    0    0    0    1    0    0    0    0    0
+T|    2    0    0    2    2    2    0    1    2    1    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"7906390"
+
+# Footprints
+GTTATAATTTATTTAATGGC
+TGAGTAATTTGCTAAACAT
+
+# Name
+gsb
+
+# Matrix
+A|    0    2    2    0    0    0    1    0    0    1    2    2
+C|    0    0    0    0    0    0    0    1    0    0    0    0
+G|    0    0    0    0    0    0    1    0    0    0    0    0
+T|    2    0    0    2    2    2    0    1    2    1    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"7906390"
+
+# Footprints
+GTTATAATTTATTTAATGGC
+TGAGTAATTTGCTAAACAT
+
+# Name
+gt
+
+# Matrix
+A|    3    0    5    0    0    6    0    0    0    5    5    2
+C|    0    0    0    0    0    2    5    0    3    0    1    0
+G|    0    1    2    0    5    0    2    4    0    0    0    1
+T|    5    7    1    8    3    0    1    4    5    3    2    5
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"2026328"
+"1576969"
+"7617036"
+"10644409"
+
+# Footprints
+GCGAGATTATTAGTCAATTGCAGTTGC
+AGACTTTATTGCAGCATCTTGAACAATCGTCGCAGTTTGGTAACAC
+AGAAAGTCATAAAAACACATAATA
+GATTCTTGCGTCATAAA
+TAATTTTACGTAACATT
+AAAAAACGCACAA
+AAAAAGTCAAAAAGCA
+TTTACGTAATATTATGAAAGGTGC
+
+# Name
+hb
+
+# Matrix
+A|   17    0    1    0    0    1   59   20
+C|   13    0    5    1    0    4    7   17
+G|    7    3    1    0    0    0   29   14
+T|   66  100   96  102  103   98    8   52
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9376314"
+"2507923"
+"1671661"
+"2065664"
+"8186146"
+"9250684"
+"9507113"
+"7617036"
+"1546296"
+"2797150"
+"8404855"
+"1902784"
+"12853632"
+"1687458"
+"10644409"
+
+# Footprints
+CAAGCCGTTTTTCAGG
+GTTTTTTGTTT
+GATTTTTGTGC
+TCTCTTTACGG
+CTTCTTTGTTC
+ATTTTTATGG
+GTTTTTTGTTC
+CTTTTTTCGC
+GTTTTTTTCCC
+ATTTTTTAATTC
+GTTTTTAAGA
+CGTTTTTACGA
+TCATAAAAACA
+GTTATTTTTTT
+ACGATTTTTTT
+GCCTTGAAAAA
+TTTATTTATTTG
+CATGATCATAAAAAGCAATTTGCTACAATTTATATTTTTTTGCTTTTCCTTCTTT
+ATCAGAAAAGAAAAAGTGTAA
+AATTTTTTCAGACA
+ACGCGTTTTTTCGC
+CATTGTTTTTTTTTTCAGTT
+TTCTCTTAAAAACAACAAAAAATGTCAAAGTAAAAACAATGCAAAAAAT
+GGAAGAAAAAAA
+GATTTTTGCGT
+AACATAAAAAGG
+ATGTTTTTATGA
+AATTTTTTTTCC
+CCATTTTTAGCG
+GTGACAAAAAAGATGAACAAACAAAAAAG
+AGATTTTTAGTG
+CATTTTTTGTTCTAATTATTTTTTATGA
+ACTTCTTTGTGG
+GATTTTTTATTT
+GTTCTTTTTGGC
+TCTTTTTTGTG
+CAATTTTTAGC
+CAATTTTTGTGG
+TCTTTTTTATT
+TTTTTTTTTTG
+TCCCAAAAAGT
+GCAGAAAAAAC
+GCACAAAAAAC
+CAATAAAAAAG
+TCGCAGTTTTTTACGATC
+CCGTCCGTTTTTTAAGCCTT
+AATAAAGTTTTTGACCAGATT
+TAGCGATTTTTTAAAATGTTTTTTTTTTTTTGTTTTTTTTAGA
+TTAAAAAACA
+GATAAAGAAGA
+AATGCGATTTTTTATG
+AGACAAAAAAGGGTTT
+ACCCTTTTAAAAGTC
+CACTTAACTCTTTTTATGAATATTTAT
+CCAAAAAGAAAGAAGGAGCTACCTG
+GGGAAAAAA
+TTGTAAAAAA
+CATAAAAAA
+ACAAAAAAC
+AAGTTTTTTGC
+ATAATAAAAAAA
+ATTGGCCTAAAAAACTC
+CAATTTTTTAAGCG
+CAGAAACAAAAAATTAT
+AAAACGCAAAACGGGAA
+TATAATTAAACAACTAT
+TGCCGTTTTTTGGCATC
+AATTGTTTTTTGGGCAA
+TCCACCTTTTTAAGCTA
+ACCAATTTTTTTCCCAA
+TGGACTAAAAAAAAAAA
+GCCCATAAAAAACTGCCAA
+TTGTACTTTTTATGACCTCGTAAAAAAACTGCAC
+TGGAACGATTTTTTAATGTTTCTC
+GCACACATAAAAAACGGTTCCCTAAA
+CACGCTCTTTTTACGCTGC
+ACAAAAATACGAGTTAG
+AAATTTTCACTGGGCAATTAAA
+CTCTCTTTTTGAGTTATCG
+ATTTCGCACTGGGGTTTTATGGCTCATTTTC
+TAAAAGGGCCGTAAAAAATATTTTTATTT
+GCTTTAAGTGATTTTTAGTGGCCTT
+TGCACTCATAAAAAAACTTGGTC
+CGTTTTAAATATTAATTTAGGGA
+AAACAAGTTTTTGTTGAAAAAGA
+ATTTTTATCTTGGGTTGCAT
+CCTGATATTTTTAAAAGTCA
+AGTTCTTTTTTTATCTTAATCTTTTTTCATCTTTATATTTTTTTTTAAAA
+ACCTGCAAGTTTTTTAAGAAATTTTC
+TCGGCATATTGAAAAACACCATAAAT
+ACAAAAATAGTTTATTTATTTCGT
+AGACAAACATAATTCTTTTT
+CTGTTGGTAAAAAACC
+GCGCCATAAAAAATGTG
+CCGCTTAAAAATTC
+GGCCATTAAAAAAGGTGCC
+GACGCAGTTTTTTATTAGCCATGGCAAAAAATTAT
+TAAATCATTTTTAAGGG
+TGTTTCTTATTTTT
+ATTTTTTGCG
+ACGGCAATTTTTTATGGTT
+AGACAAAATAAAAAAGGGA
+TCCGCTGCATTTTTTATGAG
+
+# Name
+His2B
+
+# Matrix
+A|    5    0    0    0    1    0    1    0    3    0    0    4    0    0    0    3    4    0
+C|    0    0    5    2    3    1    2    0    2    0    1    0    1    1    0    0    1    4
+G|    0    1    0    2    1    3    2    5    0    0    0    0    4    4    0    0    0    1
+T|    0    4    0    1    0    1    0    0    0    5    4    1    0    0    5    2    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 18 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"1480489"
+
+# Footprints
+AGGATAATCTGCAGCTTAGGTAAGCTGA
+AGCTTAGGTAAGCTGATCCCGCGATTA
+AAGCTGATCCCGCGATTAGGTAACGAAAT
+CGCGATTAGGTAACGAAATCGCTGGCT
+TAACGAAATCGCTGGCTTAGGTACCCAC
+
+# Name
+hkb
+
+# Matrix
+A|    0    0    0    1    0    0    0    0    0    0    0    0    1    0
+C|    0    1    2    0    0    0    0    0    2    0    0    0    0    2
+G|    0    0    0    1    1    2    2    2    0    2    0    0    1    0
+T|    2    1    0    0    1    0    0    0    0    0    2    2    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 14 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9376314"
+
+# Footprints
+TCCGTGGGCGTTGCAT
+TTTCAGGGGCGTTACC
+
+# Name
+HLHm5
+
+# Matrix
+A|    0    0    3    0    0    1    0    1    0    3
+C|    1    3    0    3    0    1    0    1    3    0
+G|    2    0    0    0    3    0    3    0    0    0
+T|    0    0    0    0    0    1    0    1    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8078474"
+
+# Footprints
+TGGCAGCCGGCACGCGACA
+AGCACGTGTCAAATGCAGATGG
+GCCACGAGCCACAAGG
+
+# Name
+Hr46
+
+# Matrix
+A|    3    2    0    0    0    0    0    0    0    2
+C|    0    0    0    0    0    0    0    0    2    0
+G|    0    0    1    0    3    3    3    0    0    0
+T|    0    1    2    3    0    0    0    3    1    1
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9165123"
+
+# Footprints
+TGAAAGTGGGTCACGAATT
+GCAATTGGGTTTGACTTCAATTTTG
+CGATATTTGGGTCACTCACA
+
+# Name
+Hsf
+
+# Matrix
+A|    0    0    0    3    0    4    4    1    2    0    0    0    0    3
+C|    0    5    0    2    0    0    0    1    1    0    0    5    0    2
+G|    0    0    2    0    5    0    0    2    0    0    0    0    3    0
+T|    5    0    3    0    0    1    1    1    2    5    5    0    2    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 14 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"3685975"
+"4028160"
+
+# Footprints
+TCCCTGGCATCCAGAAGCCTCTAGAAGTTTCTAGAGACTTCCA
+AAAATAAAGCGAATATTCTAGAATCCC
+AAAACTCGAGAAATTTCTCTGGCCGT
+GCACTGTTCTCGTTGCTTCGAGAGAGCG
+GCGCCTCGAATGTTCGCGAAAAGAGCGC
+
+# Name
+kni
+
+# Matrix
+A|    1   11    3    0    0    7    8    6    0    1
+C|    1    1    3   19    5   11    4    2    1    5
+G|   18    2    5    0    6    1    4    2    1    1
+T|    0    6    9    1    9    1    4   10   18   13
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8626035"
+"1348871"
+"8186146"
+"9250684"
+"7607084"
+"1687458"
+
+# Footprints
+TAGAAAACTAGATCA
+GCCCGGTGCTCTCTTT
+ATGGCCGCGTTCCCAT
+TAGGAAAGTAGATC
+GCTGCGCTAGTT
+AACTGAACTAAATCCGG
+TGACCGAAATA
+TGATCTCAATGTTCTGATCTCGTTC
+AGAGCGACCTG
+TGCTCGACATGTTCCCATTTTTTGTTCTAATTA
+AAGTAGAGCGC
+GGATCGCAGTTTTTTACGATC
+GTTTTACGACCTCCGTCCGTTTTT
+TGCTCTGCCATCCTCTGACCCGTTCAGTTCAAATCAGTTCGGTGTC
+CAAAGACGATC
+GGACCCATTT
+GAACTGGAAC
+ATTATGATTGTTTCATATTT
+GTTCCCAATT
+AAGCTCATTT
+
+# Name
+Kr
+
+# Matrix
+A|   37   33   20    2    4    6    1    8   28   16
+C|    0    6   11    0    1    3    3    4    6    8
+G|    4    1    9   40   37   35    4    4    5    5
+T|    3    4    4    2    2    0   36   28    5   15
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9376314"
+"2507923"
+"1683715"
+"1671661"
+"9250684"
+"7607084"
+"9507113"
+"7617036"
+"9311990"
+"2797150"
+"1687458"
+"10644409"
+
+# Footprints
+ATCGAAGGGATTAT
+GCAGCCATTACCCTTTTGTTGGCCAAAGGATTTGT
+TGAAATTTGTGCCATCCTTTT
+GTTAAGCAAAGGAGTGTCATAGAAATGGGTGAAATTCT
+TATAACCCAAT
+GTTACCCGGT
+GTAACTGGGACA
+GTTAATCCGTT
+GTAACACGCT
+TAGACGGAAT
+GAGGGACCCTG
+GACCGGGTTGC
+CTGGGATTAGCCAAGGGCTTGA
+ATCCAATCCCGATCCCTAGCCCGATCCCAATCCCAATCCCAATCCCT
+CGAAGGGATTAG
+AACTGGGTTAT
+CTTAACCCGTTT
+ATTAACCAGTT
+TGTCACTCCTT
+TTTAACTCAGC
+CTTTCCCTGCC
+CGAAACCCTTT
+CAAAGGGTTCG
+CAACGGGTTTT
+TTTAAGCCTTT
+TCTGACCCGTT
+TTTCGGGTTCT
+AAAAGGCTTAA
+CTTGGTGTTAA
+AAAAGGGTTTT
+CGTAAAAACTCTTTGCGAATC
+CTAATCCGTGGAAACTCTAAACTCTATCCCAGAGAGAACCTCTTTCGGCGCGAG
+TGTAACCCTTTTAAAAGTC
+ACTTAACTCTTTTTATGAATATTTA
+CCTGTTTAACCCTTTTATGCC
+TGCTTAACCCTTTTATGGGC
+CATTGTACCAAAAGGGTTGTTC
+TAAAAGGGGACTGT
+GTCTACCCTTTT
+GAAAAAGGGTAAT
+TTGCGGGACTTAA
+AAAGGGGCATTTA
+AAAAGGGTCAC
+CAGTGCGTGAAAGGGTGAAGCTAC
+
+# Name
+Mad
+
+# Matrix
+A|    1    1    3    3    0    0    6    0    5    1
+C|   12    5    0    8   16    0    2   15    0   15
+G|    5    7   16    8    1   20    6    4   15    0
+T|    2    7    1    1    3    0    6    1    0    4
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"9230443"
+"11159914"
+"9694800"
+
+# Footprints
+CGTGCCGGCCA
+CGAATCGCGACGGCAGCCA
+GCGACGGCAGCCA
+TAGGTAGACGACAT
+TCCGCCGACGCATC
+TGGACTGCCCGACTGGCACCTCGGAGACT
+TCTGGCGTTGCGTGAGAGACA
+AGTCTCGCCAGGTAGACGGGC
+CGGTGGCGGCGCTG
+AGCTGTTGTCGCGGCT
+GCTCGCCGTCCGC
+CCGACGCGGCGAATGCGAATCTGTCTCGGG
+GCCTGGCGGCGCCC
+CTGACCAGCCACGCCCCGTCGCGAAGGCGG
+ATTACTGTCTCGTCTTTCAATGTCGGCGGCA
+TGTTGCGGCGACGTTTGC
+CGGTCTGGAGTCTAGACCGGCGC
+GTTCGCCCTGGAGCGCCGT
+AGCCGCTGTCGCAGCTG
+AGCCTCCCACC
+
+# Name
+Med
+
+# Matrix
+A|    0    0    0    1    0    2    0    0    1    3    3    0
+C|    1    7    0    2    8    0    0    1    4    2    1    1
+G|    5    0    8    3    0    3    5    4    3    1    3    1
+T|    2    1    0    2    0    3    3    3    0    2    1    6
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"11783990"
+"9694800"
+
+# Footprints
+ATCGTCTTGGGAT
+AGATGCAGCCGCAG
+CCAAGTGGCGGGCAGC
+GTTTTTTGTCTGACTGACTGACTGCCGGTG
+AAGCCATGGCGCCT
+CTGACCAGCCACGCCCCGTCGCGAAGGCGG
+ATTACTGTCTCGTCTTTCAATGTCGGCGGCA
+CGGTCTGGAGTCTAGACCGGCGC
+
+# Name
+nub
+
+# Matrix
+A|    1    0    3    0    1    0    4    2    0    0
+C|    0    0    0    0    1    3    0    0    0    2
+G|    0    0    0    0    2    0    0    1    4    1
+T|    3    4    1    4    0    1    0    1    0    1
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9665883"
+
+# Footprints
+ATTATACAAGGCCGC
+TTTATGTAAGTAACC
+CTTTTGCATGCCCAT
+CCCGCCTGGATATTGCGGC
+
+# Name
+ovo
+
+# Matrix
+A|    0    3    0    0    0   11    2    5
+C|   12    6    0    1    0    0    7    2
+G|    0    0   12    0    0    1    1    0
+T|    0    3    0   11   12    0    2    5
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9634487"
+"10637336"
+"11290304"
+
+# Footprints
+TAACAACTTACAGTAACAGT
+AGAAAAATAAAGCCGTTAAAATTGAATTTA
+CATTTTAAATGTAACTGTTAATAT
+CACGACTACAGTTAGAATTAGAATGA
+TCCTTTTTACAGTTACATAGCAAT
+TGATTTTCCGTTGCTTTTTT
+TGTTTTCCTGTTACTTCTCTT
+GAGAAGTTCCGTTAATCGTACC
+CGCACCTAGCACCGTTACACGAAGAA
+TTAAAAAACTCCTGTTATCGCCGTCT
+ATGACACCGATAGCGGCATCATCTGT
+CCAGGAACCGTTACTTCTGC
+
+# Name
+p120
+
+# Matrix
+A|    0    1    2    0    0    1    2    3    0    1    0    1
+C|    2    0    0    0    0    0    0    0    0    0    0    0
+G|    0    0    0    0    0    2    0    0    0    2    0    0
+T|    1    2    1    3    3    0    1    0    3    0    3    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"12490953"
+
+# Footprints
+AATAATTTATTATTCATTATTAAATGTTT
+AGCGCCAATTGAATGTTA
+TGCTTTTGTATATAAATTCTACCAACGCAGCAGA
+
+# Name
+pan
+
+# Matrix
+A|    4    2    2    2    0   17    8    7
+C|   10    3    0    0    2    0    0   11
+G|    3    0    1    0   20    5    0    3
+T|    8   20   22   23    3    3   17    4
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"11076769"
+"11783990"
+"14701680"
+
+# Footprints
+GATATATAATTTTCAAAGGTCTTACGA
+TTATAATTGTCTTCATCTTTT
+CAATTAGTTTTGTCGCGGTTGTCA
+GTTGTTGCTGCTTTGATTGTTTTGTC
+TTGTCTAAGATATCAAACGCACAGTGC
+TCAATTGTTCTAACAAAACATGCC
+AACACTATGGACACAAAAA
+AAAGTCCGGACTTCAAAGTCCATTTCG
+ACTTCGTTTGATCCCAAAGGAT
+TGCCATCAATTAGCA
+GATCAAAGCGAC
+TCACTTCACAGT
+AGGCACTTAAGATAT
+GCGATCCTTTGGATGCC
+GAGTTGTCCTTTAAT
+GCTGATCTAAATAC
+GAAATATTTTTTGATCTTGA
+CATTTCGTTTTGTTCGA
+CGAGTTTACCGCTGACGAAATTT
+CCTTGATCATCCGCTGAGCTTAGTTT
+CGGCTCTTTTTGGTATTTT
+CATTCAATTAG
+TATTTCAAATGCGATCGCCG
+TGATGGAAAAAAGAGTCCGCAAG
+CTTATATCAAAAGATG
+
+# Name
+pho
+
+# Matrix
+A|    2    0    1    1    0    1    4    0    0    0    0    0    1    2
+C|    0    3    2    0    0    1    0    0    0    0    5    1    1    3
+G|    3    2    1    3    1    0    1    0    5    5    0    1    1    0
+T|    0    0    1    1    4    3    0    5    0    0    0    3    2    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 14 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"12853632"
+
+# Footprints
+CAGCAAACGATTATGAGGCCATCTCAGTCGCACTTAAAACGGCCATTACGAACGACAGTTATGGCGACGGAGCTGCAGAGGCAGCGACTGCGCCGCGACTGCGGAGAGAGGGAGAGATACGGTTAGCCTTCTCGCTCGGAT
+ACGGCGCAGCCATTATGGTGCGCG
+TGCCGTTATGGCTTCCGT
+AGGGGGCGTGGCCTAGAGAG
+TGGGGTTTTATGGCTCA
+
+# Name
+prd
+
+# Matrix
+A|    2    5    9    0    1    8    2    2
+C|    9    5    0    0    0    1    7    4
+G|    0    1    2    0    2    0    0    4
+T|    0    0    0   11    8    2    2    1
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"1672661"
+"7906390"
+"10885752"
+
+# Footprints
+TCCTGCTCCTCCGCTTTGTCCCGCCTCGTTATCG
+GCACCGCACGATTAGCACCGTTCCGCTC
+GTTATAATTTATTTAATGGC
+TGAGTAATTTGCTAAACAT
+TCAATTTCCGGCGAAAATCGCATGAAGTC
+AGATAACTAAATTACCGCAA
+CATAATTGCGGTGT
+ACAAACCATTAACACCCGAA
+TTCCACTTTTTGTCGCATGATTAGGGGCCATTACAAA
+TGGTCGCTGCGACACGG
+CCAATGATCGATTTGACACGCCAACG
+
+# Name
+sd
+
+# Matrix
+A|    3    8    4   14    1    3    0    3    4    5    5    4
+C|    0    1    8    0    1    0    8    5    1    6    1    3
+G|    8    1    1    0    0    1    0    3    2    3    7    4
+T|    3    4    1    0   12   10    6    3    7    0    1    3
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"11303087"
+"9869643"
+"12466192"
+
+# Footprints
+ATTTGTGAATGAAGT
+ATAACATTTAATT
+AGATAAACAGCAGTGT
+GGCTGTTTTTTTAAATGAATTTTCTCTA
+TAAAATTATTGAAATTAC
+CAATGTAATTCGAAAAATGTCGTC
+AATGGACATTCGTGGGATTCCAGAA
+AATGGACATTCGTGGGATTCCAGAA
+AGGAAATATCTT
+ATGGGAATTCCACGG
+GCACGCGGCATGGCA
+AGTTTGGAATGTT
+CTAAGAAATTCCTGGCATAGTTTAAGT
+TTACATTTGTCGCATAGTT
+
+# Name
+shn
+
+# Matrix
+A|    1    0    0    0    0    0    0    2    0    0    0    2    1    0
+C|    0    0    0    0    0    0    1    0    1    2    2    0    1    0
+G|    0    2    2    2    1    2    1    0    1    0    0    0    0    0
+T|    1    0    0    0    1    0    0    0    0    0    0    0    0    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 14 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"11071761"
+
+# Footprints
+ATGGGTGCACCCAATC
+TGGAAAGCAGGAAAATCAGGGGGGAGCCACT
+
+# Name
+slbo
+
+# Matrix
+A|    9    0    0    3    2    7    6   11
+C|    1    1    0    2   10    2    5    1
+G|    1    0    3    7    0    2    1    0
+T|    1   11    9    0    0    1    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 8 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"7720712"
+"1547943"
+"1459454"
+"7671793"
+
+# Footprints
+TACAATGTTGCAATCAGCGG
+AAGTGATTACAAATTAAAATA
+TCATCAGTGGGG
+GCAGTGATGCAACAGATTTTATA
+TTGTTTGCGCACAT
+TCCTTCCACAAAC
+GTTTTTTGCAATC
+AGCTCATTACGAAGGCAGGG
+TGCCGTGTTGGCAATAAAATATTAAACAATAATAA
+AAAATGACACAGATC
+GGAGATTTGGCAATATTTATTGATCCACTTA
+AAAAGAATAGTGGCACAATAG
+
+# Name
+sna
+
+# Matrix
+A|    0    4   10    1    1    0    0    1    0    3
+C|    7    5    1   10    5    0    0    6    2    2
+G|    3    1    0    0    0    0   10    0    2    3
+T|    1    1    0    0    5   11    1    4    7    3
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"1325394"
+"1533042"
+"9840810"
+
+# Footprints
+GCAACTTGCGG
+ACACCTTGCTG
+AAGCGCAAGTGG
+AGCACATGTTT
+CAGCTTCCCACCTGATAGGACA
+TTGGAAATTCCC
+GCTCATCCTACCTGTTTCCAT
+GTCGGCAAAAGTCAACCTGTTGAATGCAGGAGT
+CAATGGCAGGTTGTTTTCTCAGGATCAGGTAACAGATCCTT
+CAGTTGCAAACAGGTGATTGCAGG
+GAGCAAGTGCTGAGAAGGTG
+
+# Name
+srp
+
+# Matrix
+A|    0    0    3    1    0    0    1    0    2    0    3    0
+C|    2    0    1    0    3    0    1    1    0    0    1    1
+G|    1    0    0    0    1    4    2    0    0    4    0    1
+T|    1    4    0    3    0    0    0    3    2    0    0    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"8524261"
+"8187633"
+"10409761"
+
+# Footprints
+CGCTATCGATAGC
+GTAACGGTAGATAAT
+AGGCCTATCGCTTGACTCCCGATTGGG
+TATGTTTATCAGCCCAGAA
+
+# Name
+SuH
+
+# Matrix
+A|    1    2    0    0    0    0    0    0    3    1    1    1    0    0
+C|    0    0    0    0    0    2    1    3    0    2    1    0    0    2
+G|    0    1    3    0    0    0    0    0    0    0    1    0    0    1
+T|    2    0    0    3    3    1    2    0    0    0    0    2    3    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 14 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"8700202"
+"14701680"
+
+# Footprints
+CAGAAAAGTTCTCACGATCGC
+TTGTAGTTCCCAACTTGC
+TTGGTTTTCACATTCAAT
+
+# Name
+suHw
+
+# Matrix
+A|    2    2    1    0    6    0    0    0    6    5    0    1    2    4    2    3    0    0
+C|    0    0    0    0    0    0    0    6    0    0    3    0    1    0    0    0    0    0
+G|    4    4    5    0    0    0    6    0    0    1    0    5    0    0    0    0    0    1
+T|    0    0    0    6    0    6    0    0    0    0    3    0    3    2    4    3    6    5
+
+# Construction Info
+Meme was run on the footprints with fixed width 18 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"2850261"
+
+# Footprints
+GCAATATAATAATCTTTTATTGGGTATGCAACGAAAATTTGTTTCGTCAACGTATG
+GCAATATTTTTTATTAAAAGAGGGTATGCAATGTATTTTATTAAAAACGGGTATGC
+CAATATAATAATCTTTTATTGGGTATGCAACGAAAATTTGTTTCGTCAAAGTATG
+GCAATATTTTTTATTAAAAGAGGGTATGCAATGTATTTTATTAAAAACGGGTATGCAATA
+AAAAAATTATTTGGTTTCTCTAAAAAGTATGCAGCACTTATTTTTTGATAAGGTATG
+GCAACAAAATTTTACTTTGCCGAAAATATGCAATGTTTTTGCGAATAAATT
+
+# Name
+tin
+
+# Matrix
+A|    0    0    0    0   11   11    0    0    0    1    2    2
+C|    2    8    1    8    0    0    0    0    0    4    5    3
+G|    3    2    0    1    0    0   11    1   11    6    3    3
+T|    6    1   10    2    0    0    0   10    0    0    1    3
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"9034334"
+"11783990"
+"10588882"
+"10628847"
+"9694800"
+
+# Footprints
+GGTCTCAAGTGGGC
+AAGCCACTTGAGCC
+GCTTCACTTCACAGTT
+TCAGGCACTTAAGATA
+GTGGGCCCTTGAGAAG
+ATGCCCACTTGAGGAG
+CTGAAGCACTTGAGGAG
+TCCTCCCCACTTAGGCC
+GTCAAGTTCAAGTGCCAAA
+CATGTCAAGTGGCAC
+GCTCTCAAGTGGAGA
+
+# Name
+tll
+
+# Matrix
+A|   25   26   27    8    0    1   28
+C|    2    3    0    1    1   20    2
+G|    6    7    8   27    0    1    7
+T|    4    1    2    1   36   15    0
+
+# Construction Info
+Meme was run on the footprints with fixed width equal to the width of the smallest footprint and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"1348871"
+"9250684"
+"9507113"
+"1546296"
+"7555732"
+"11731230"
+"8404855"
+"8601485"
+
+# Footprints
+ACTGCTTTAACTTAATC
+GATTAAATTTT
+AAATAATCC
+CGTAATATTGA
+TGTTAATCTCCGG
+GGCAATTAAGAAGTCAAATT
+GGATTCTTGC
+AAACCAGTCAATCT
+TTCTATCAAGATTAAA
+ACTCCTTCTACTTTAA
+TGCCACAATTAAAA
+TCTGAGTCAGTTCT
+GTTCGGTGTCAACTCTTTC
+TAAGTCGAAAAGCCAAAAAGTCAAATGCGA
+TTTTAAAAGTCAACTTCC
+GCCTTATGGCGGCACTTAACTCTTTTT
+GCTCAAAGCCAAAAAGA
+TTTTATGCCGCTAACCGA
+ACCTTGACTTTTTCACTC
+AGCTGACTTCCCAGA
+AGATTTTCCATTTGACTTTCAT
+GTCGACACGCCACGAGATTTTATGAAGGCAACTCG
+TATCTATGAGTCTAATGGTC
+TGTGCGCGACCTCAACCCTTTC
+CACCTAATGTCGGCGTCATTGTCTTCTTT
+CTTTGGCGGACGAGAAAGTTG
+GCCGCGATCTT
+TCTTGGAATTAGTT
+AGCCATATATAACTTTAT
+TAAAAACCTGAAAGTGACATG
+TAACTTTTGCCTCT
+CTCTTCTGACTTTTGT
+TTTATGACCTCGTAAAAAAACTGCAC
+GGCGGCGTCAAAAAGTTAATGATCACCA
+ATGCATAAGTCAAGGATAA
+GCACCAAGGTCAAAA
+CTGACGACCTGACCTTGGA
+
+# Name
+Top2
+
+# Matrix
+A|    0    4    1    4    0    4    0    3    1    4    0    1    0    4
+C|    0    0    3    0    0    0    4    0    0    0    0    0    0    0
+G|    0    0    0    0    0    0    0    0    0    0    1    3    0    0
+T|    4    0    0    0    4    0    0    1    3    0    3    0    4    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 14 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"2557338"
+
+# Footprints
+ATAAAGTTAAATACTAAGATAT
+ATATTGAACTACATACATATACATACATACATATGTATGTACTTGTACATTT
+ATGTATATGTATATATGTACATACATATGTACATA
+CAACATATGTACATACATACATACATATGTA
+
+# Name
+toy
+
+# Matrix
+A|    0    1    2    1    0    0    5    0    0    0    3    0
+C|    5    4    2    4    0    5    0    3    1    3    0    1
+G|    0    0    1    0    0    0    0    0    1    2    2    1
+T|    0    0    0    0    5    0    0    2    3    0    0    3
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"11830564"
+
+# Footprints
+GTTCTCCACTCATTCGTGTGAAAGTTAGTT
+TATAGACCAACTCACTCACGTGGCAAACTCG
+CGATTCACCCCTCACCGATTCCG
+TAATCCGATCATGCATTATTACCA
+TAAAAATTAATTCCCCCTCACTGGGCACAACT
+
+# Name
+Trl
+
+# Matrix
+A|    4    6   12    0    3    1   13    5    7    9
+C|   22   23    6   64    0   70    0   54   13   33
+G|    9   11   30    3   14    0    2    7   11   10
+T|   36   31   23    4   54    0   56    5   40   19
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"7791801"
+"1408750"
+"2781290"
+"1985916"
+"8474442"
+"12200449"
+"2501151"
+"7984422"
+"2897243"
+"12853632"
+"8543159"
+
+# Footprints
+ACGTTTTCACTTATTTGTTTCTCAGTGCACTTTC
+AGTCATGCATTATTGTCTCAGTGCAGTTGTC
+CCCGAGAGAGTACG
+TTTCTCTCTCTCTCTCTCTCTCTCTTTC
+GCGTGTGAGCGGGAGA
+TGAGTGAGAATCT
+CCGAGACAGAGCGT
+AACCGCGAGTAATAT
+CAACTACCTCATTTTGC
+AAATCTCTCTACC
+TAGAGAGAGAGAAGAGAAGAGAGAGA
+ACAGAGAGAAAAAA
+ATGAGTGAGAGAGCCGAAG
+TTCTAGAAAGAGCGCAAAAGAAA
+CGCTGCTATTTGTCTCCAAC
+ACTCCCTTTGCTCTTCCTCTT
+GAAAAAGAGTACAGA
+TAGCTCTCTCTCTCTCTCTCTCT
+GTCTCACTCTCCCGCTCTCGCA
+CAGAGCGCGCGAGAGCGAG
+TAGCGCGCCACATTTAA
+GCGCACAAACTCAGA
+CATGAGACACGCA
+GTCACTCAGTT
+CCGCTCACGGAGCGCA
+ATCTTCTCACCGGAGCGCAA
+GCCTTCTCTTTCTCTT
+AACTCGAACTGAGACTGAGTAAA
+GATCGAATTTCGCTGCTCC
+GTTCTCTACTCGGGGAG
+ATCTATGAGAGAAGTG
+GCAACGCTCTTTGA
+TTGTCGAGCGGCAT
+AGATGGAGCGCAG
+ATGGAGAGGAGAGCAAGACGGC
+ACTCCACTCTGAAT
+GGTATCGAGC
+GAGACCCGCTCACGCACAC
+GCAGAGAAACGC
+GTTCACGCTCTGAACTTCA
+CGTAGAGAGCGCAAGCG
+CTAAGAGAGCGGAATGC
+CAGGGAGAGCCAAAGAGAGTAGGGAGC
+AACTAGTCCTGCAAAATA
+TTTAGAGAGACCAA
+ATTACCTCTCCCACTTC
+AATTAAAGAGAAAATGGCGAGAGAGTAAA
+AAAGTAGAGCAAA
+CTCTCTCACTCGCAC
+CCGTTATTCTCTATTCGTTTT
+CTCTCCCTCTTTGTACTATTGCTCTCTCACTCTG
+TGCTTCGAGAGAGCGCGCC
+AAAAGAGCGCCG
+GCTCTGCCGACTCAACTCACTC
+CAGAAACAGAGAGCCAG
+CGCTCTTGCGCTCTCTCTT
+GGCGCCTCTCGTTCAT
+GTGCGGTATGGAGAGATGCGC
+CGCTGCTCTCTCGCTCTAGCA
+AATACGAGTTAGAGAGAGTCCC
+AGCGAGAGCTTT
+CAACCAGCGAGAGAAGAAAGAGCAAGGC
+AAGAGAGCACCAAACAATTGAGACAAACCATTCA
+CCGCGACTGCGGAGAGAGGGAGAGATACGGTTAGCCTTCTCGCTC
+GATCGCTCTCGCTT
+TTATCTGTATCTCGCTCTTACGCAC
+TGGAATAGCCCTCTCTCTTTTTGA
+TGGCCTAGAGAGCAGTAG
+GTTCTTAACTTTGGATGCACTCATAAAA
+TTTTCGAGTTACTCTTATGAGATAATTCACGATAA
+CGTTCCTTGCTCAA
+
+# Name
+ttk
+
+# Matrix
+A|    2    0    3    6    0    0    7    0    3    1    0    0
+C|    1    4    4    0    0    0    0    5    4    1    3    2
+G|    4    2    0    1    7    7    0    0    0    0    1    3
+T|    0    1    0    0    0    0    0    2    0    5    3    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"1372245"
+"1640455"
+"12128207"
+
+# Footprints
+TCGCAGGACCTTCT
+CATGGCCAGGACCTCCTCATGGTCCTGCCGAGCA
+TGCTCCGGGTCCTGCTCCTCCG
+AATGGACGTTATCCTTATTA
+AGTTGCCAGGACCTCGGATA
+TGCCTGCAAGGACATTTCGCC
+TGCGCAGGGATATTTATGCGC
+
+# Name
+twi
+
+# Matrix
+A|    1    3    1    0   11    0    7    0    0    1    1    2
+C|    4    7    3   14    3    4    1    0    0    0    2    3
+G|    3    3   10    1    1    1    5    0   12    2    2    8
+T|    7    2    1    0    0   10    2   15    3   12   10    2
+
+# Construction Info
+Meme was run on the footprints with fixed width 12 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"1644293"
+"1325394"
+"9840810"
+"8404855"
+"8601485"
+"9211899"
+"9362473"
+
+# Footprints
+GTCGCCATTTGGTGG
+ACTCGCACGTGTGCG
+CTCGCATATGTTG
+TGAGCACATGTTT
+CCCCGGCATATGTTACG
+GCTTCCCACCTGATAGG
+CAGGACAGCGTGTGTTCTGG
+TGCACACATTTCT
+ATCACCATCGGCTCTGGAAC
+TTTCTCATGTGTTGCTCAGC
+TGTGTTGCCTTTTTCCGCTT
+TCAAAACAGCCGTCGGCCATT
+ATGTACATATGCACTACATATGCAATTATATACATATGT
+TGGGCTGGTCAACATGTGTGATTCGCATGTGTGGA
+ATGCAACATATGGCGGCCATATACGAGA
+
+# Name
+Ubx
+
+# Matrix
+A|   13   31   54    0    3   49
+C|   26   19    0    0    2    0
+G|    5    0    0    0    0    0
+T|   12    6    2   56   51    7
+
+# Construction Info
+Meme was run on the footprints with fixed width 6 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"7906203"
+"7915199"
+"7821226"
+"1673656"
+"12070087"
+"7555708"
+"10628847"
+"1358457"
+"8096172"
+"3215512"
+"2904838"
+
+# Footprints
+TTGATGTCTCC
+AGTAATGCGACCATTAC
+GCTAATGATG
+AGTACTACCCATTTGGC
+CCCATTTCG
+TCCCCATGCCCATTT
+GTTTGTTTTAT
+TATCAATTAG
+ACCCAATTAGTAATAAAT
+TGGCCATTAA
+ACCATTACCATTACCATTATCATTACCGTTACTATTACCATTA
+GCTTTTTAATAAGTT
+CTTTTATAATGTGCCCGTCTTAATATGAT
+ATTTTAATTACCAAC
+AATAATATTAATTAT
+CGGAGCATTATAAAAGTTTAATTGATT
+TAATGATAATTACAAAC
+TGATAATTGACTTT
+TGAAACACATAAATCTTAAGTG
+ACATCATAAAAATATTAAAAA
+AGCTTCATAATTGC
+CCAATTAAATTTGATGATCTTGC
+AAATTAAATC
+TCAATTATGCGCAATTTTGC
+CCATAGAAAATGATAAATGGCGGC
+GCAAATAATTTATTATCCA
+GTAATTATACAAGTTAATGTTAG
+TGCATTTAAAAGTAAATTT
+CTCATATTAAATGGACGTTATG
+AACAGATTATGGATTAG
+TTACCTTAATTGCTTATATATTA
+TGTTCATTAAATAAAATAATTT
+TGAATTAGTTA
+TGAAATAATTTT
+TAGGATAAATTGTTATTATAAATTT
+AGTAATATTCGAAATAATAATTACATTCA
+GGGCATAAATTAAATACACA
+TTGAAAGCAATAAAGAAA
+TAAATAATAGTTGTGG
+ATAATTAAATAAT
+GCCGATAATTGCTGCCATGAATATATAATAAT
+CAACATAATCACAAAAATTACC
+GAAATACAAAT
+CGGTATGGCTTCATTACGCCG
+CCTTTGCATATATTTAAGCACTAATTGCGTGAAGCCATAAATCTAAA
+CATTTAATGCATTT
+TGATTAAAAATCAACATACGACAATC
+ACCATCTTTAATAATATTT
+GTTAATTTAATTTATTTC
+GCACATTTAACATCCATTAAG
+ATCCCTAATGCACTTCC
+CCTGCGATTACAATTACGATTACGGTTACGATTACGGTTATTATTATAATAATGGGTTTATGACGATCT
+GCGGTTCTAATTTTTTACGATTATTGTTATGATTATTTTTACGGCCTTTATGATCTTAGCGGGC
+ATATAATATAATAATAAAAATAATAATAATAATAATAATATAATATATACTAATAGTATATAATAATTTTAATAGTATGTTATA
+CGTAAGCGTTACGATTATTACTATGTTTATTGTTATTGCAATTATTATTATTATTTTTATGGTTTTAACGATTTGAACGATTATTAGCCATAG
+GGCCAATAATAACAATAATGCCGCTGATAATGTGGATAATAAAACAAAG
+
+# Name
+vnd
+
+# Matrix
+A|    1    0    2    0    0    0    0    3    1    1
+C|    0    3    0    3    0    0    1    0    0    2
+G|    2    0    0    0    0    0    2    0    2    0
+T|    0    0    1    0    3    3    0    0    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"9832510"
+
+# Footprints
+CAGCACTTGAAA
+GCTCTTCAGCTCAAGTG
+GCACACTTGAGC
+
+# Name
+vvl
+
+# Matrix
+A|    0   11    2    0    3   11
+C|    2    0    2    0    8    0
+G|    0    0    0    6    0    0
+T|    9    0    7    5    0    0
+
+# Construction Info
+Meme was run on the footprints with fixed width 6 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"10862753"
+"8657157"
+"9012536"
+
+# Footprints
+CATCGTCATCAGCATGCATGGCA
+GTCGCTAATGATATGCACCCCT
+GCATTATGCAAATGTTCC
+TGAATAAATTAAAACC
+CGTGTGCATACATACATAAATCGG
+GATTATACTAAAAATTAATTTTGAAATAATT
+ATAACTTTATTAT
+TTTAATTGATTAAAATGC
+TGAATGTTAATTA
+TCCAGCTCATTACGAAGG
+GATTTTTGCATATC
+
+# Name
+zen
+
+# Matrix
+A|    1   12    3    0    7   10    8    5    2    0
+C|   10    0    1    0    0    0    0    3    1    1
+G|    1    0    0    0    0    0    0    2    0    2
+T|    0    0    8   12    5    2    4    2    9    9
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was not added and so footprints less than 9bp or the fixed width were excluded.
+
+# Pubmed Ids for Footprinted Sites
+"9053307"
+"2895896"
+"1968224"
+"2569362"
+"7905482"
+
+# Footprints
+GGAGATAAGTGCCCATTAGTT
+CATATTAATGATCTTCCA
+CCGATCTCGCATTAAAAATAAATAATG
+AAAGCTAATTGTTTTAATTTAAATGAA
+CTTCAATTAACCAGTTAAATGTG
+CGAAATTGATTGATATTTAATTGACATTTAATTTATT
+AACATTAAAATTAATAAATTATTACAAAATGACAATACATTAACGC
+CAGCTTTAATCATTCCTC
+CTGAAATAAATTTACTTTAAT
+GTTACGATTATTACTATGTTTATTGTTATTGCAATTATTATTATTATTTTTATGGTTTTAACGATTTGAACGATTATTAGCCATAGT
+GGGCCAATAATAACAATAATGCCGCTGATAATGTGGATAATAAAACAA
+AACTTAATCCCAAATTGCAATTTTATTATTAAGT
+
+# Name
+z
+
+# Matrix
+A|   11    1    1   41    1    8    2   18   10   14
+C|    3    7    0    0    0   10    6    7    5    6
+G|    5    3   40    0   40    0   29   11   12    2
+T|   22   30    0    0    0   23    4    5   14   19
+
+# Construction Info
+Meme was run on the footprints with fixed width 10 and flanking sequence was added for footprints less than 9bp or the fixed width.
+
+# Pubmed Ids for Footprinted Sites
+"3145199"
+"2501151"
+"3131017"
+"12853632"
+
+# Footprints
+TATTCGAGTGAAA
+TTATTGAGCGGCG
+AAGCGACTCAATT
+ATGAGTGCACTCA
+ACTTTGAGTGGAA
+ATTTTGAGTGAGA
+AAGCTGAGTGGCT
+AGGTTGAGTGGGA
+GTTTCACTCATTT
+TTTTCGCTCAGTG
+TGGTTGAGTGGAG
+CTAACTCACTCAAATGC
+TATTGTCACTCGCCTGT
+AAACCACTCAAAA
+TGGTTGAGTGTGT
+CGGCCACTCAAGA
+GAGACCCGCTCACGCAC
+GAGAAACGCTCAAGTTCAC
+GATTGGAGTGCTT
+TCGAGTGAGTG
+TTATATCTCATTT
+GCCGACTCAACTCACTC
+GCCTAAAAACGAGTGGAAAA
+CAGCGAAACGCTCAAA
+TGTTTTTGAGCGCTCT
+CTCTCTCTTGAGTGTTC
+GCGCCAACGTAACGATCTCGTTTCCA
+AGCGAGAGCTTTTCATAG
+GAGCAAGGCGAAAGAGAGCA
+AAACAATTGAGACAAACCAT
+GAGAGGGAGAGATACGGTT
+CTGTATCTCGCTCTTACGCACG
+CTTTTTGAGTTATCGGCAC
+GTTTTATGGCTCATTTT
+ATTTTGAGTGCGTTCTTCC
+GCCTTGCGGTGACAAATTGCTCCGGCAACAGAA
+ACTTTGGATGCACTCATAAAAAAACT
+ATAAAGGCTCATGAAAGTCTCGTTTTAAATA
+ATGTATCTATGAGTCAGTTCT
+CCTGCAAGTTTTTTAAGAAATTTTCGAGTT
+CTCTTATGAGATAATTCACGAT
+

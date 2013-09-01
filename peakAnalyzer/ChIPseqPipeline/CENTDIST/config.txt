@@ -1,0 +1,6 @@
+genomedir	GDIR
+peakfile	PFILE
+pwmfile	PWMFILE
+FDR	0.01
+w	1000
+outputdir	OUTDIR
