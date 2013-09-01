@@ -29,8 +29,13 @@ for k in sorted(pkgenedict.keys()):
 	for e in glist:
 		pk=list()  #create idv peak list of attributes
 		pkStr= e.split(":")
+
 		chrNo=pkStr[0]
-		pk.append(int(chrNo[3:]))  #chr no
+		chrNo=chrNo[3:]
+		if chrNo.isdigit():
+			chrNo=int(chrNo)
+		pk.append(chrNo) 
+
 		loc=pkStr[1].split("-")
 		pk.append(int(loc[0]))  #start
 		pk.append(int(loc[1]))  #end
