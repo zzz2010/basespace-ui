@@ -3,7 +3,8 @@ Created on Dec 25, 2012
 
 @author: zzz2010
 '''
-toolpath='/home/sokemay/ChIPseqPipeline/'
+#toolpath='/home/sokemay/ChIPseqPipeline/'
+toolpath='../../ChIPseqPipeline/'
 GenomeDIR='/home/sokemay/ChIPseqPipeline/genome/'
 ENCODEchipseqDIR='/home/sokemay/ChIPseqPipeline/encode_chipseq/'
 ENCODEhistoneDIR='/home/sokemay/ChIPseqPipeline/broad_histone/'
