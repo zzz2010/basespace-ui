@@ -43,7 +43,7 @@ def CENTDIST_result(dir1):
     #html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"""'><iframe id="iFrame1" name="iFrame1" 
     #width="100%" onload="this.height=iFrame1.document.body.scrollHeight" frameborder="0" 
     #src='/~sokemay/Motif_Enrichment/viewresult_peakAnalyzer.php?rundir="""+dir1+"'></iframe></div>\n"  #onload='this.height=iFrame1.document.body.scrollHeight'
-    html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"'><object id='iFrame1' name='iFrame1'  width='100%'  height='800'  border='0'  data='/~sokemay/Motif_Enrichment/viewresult_peakAnalyzer.php?rundir="+dir1+"' type='text/html'></object></div>\n"
+    html_str="<div class='tab-pane' id='"+os.path.basename(dir1)+"'><object id='iFrame1' name='iFrame1'  width='100%'  height='1000'  border='0'  data='/~sokemay/Motif_Enrichment/viewresult_peakAnalyzer.php?rundir="+dir1+"' type='text/html'></object></div>\n"
     
     
     return html_str
@@ -104,12 +104,10 @@ def resultfolder_html(dir1):
     for fl in json_file:
         #jsfile=(str(dir1)+"/test1.json").replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
         jsfile=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL);
-        wid='800'
+        wid='1200'
         html_str+="<script type=\"text/javascript\">\n$(document).ready(function() {$.getJSON(\'"+jsfile+"\', function(data) {"
         if 'repeat' in dir1 or 'peakAnno' in dir1:
             html_str+="data.series[0].dataLabels.formatter=eval('('+data.series[0].dataLabels.formatter+')');"
-            if 'repeat' in dir1:
-                wid='1200'
         html_str+="var chart = new Highcharts.Chart(data);});})\n</script>\n"
         html_str+="<div id=\""+os.path.basename(jsfile).split('.json')[0]+"\" style=\"width: "+wid+"px\"></div>\n"
     
@@ -117,9 +115,11 @@ def resultfolder_html(dir1):
     if not hasJ:
         for files in types:
             files_grabbed.extend(glob.glob(str(dir1)+"/"+files))
+        html_str+="<tr>"
         for fl in files_grabbed:
             weburl=fl.replace(peakAnalyzer.settings.MEDIA_ROOT,"/peakAnalyzer"+peakAnalyzer.settings.MEDIA_URL)
-            html_str+="<div><a  href='"+weburl+"' target=_blank><img src='"+weburl+"' width='800'/><br>"+os.path.basename(fl)+"</a></div>"
+            html_str+="<td><a  href='"+weburl+"' target=_blank><img src='"+weburl+"' height='1000'/><br>"+os.path.basename(fl)+"</a></td>"
+        html_str+="</tr>"
         
     html_str+="</div>\n"
     return html_str
