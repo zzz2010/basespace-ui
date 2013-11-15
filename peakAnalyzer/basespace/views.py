@@ -120,7 +120,7 @@ def listUploadedFiles(request, session_id):
             sam.append(f)
         if ".bam" in f:
             bam.append(f)
-        if ".bed" in f:
+        if ".bed" in f or ".narrowPeak" in f or ".broadPeak" in f:
             bed.append(f)
         if ".fasta" in f:
             fasta.append(f)
