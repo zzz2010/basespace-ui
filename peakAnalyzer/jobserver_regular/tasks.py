@@ -395,7 +395,7 @@ def isUnprocessedFile(inputFile):
             lines = len(list(filter(lambda x: x.strip(), f)))
             isLarge=(lines>10000000)
             isMapped=any(x in inputFile for x in [".bam", ".sam"])
-            isRaw=any(x in inputFile for x in [".fastq", ".fasta", "fq", "fa"])
+            isRaw=any(x in inputFile for x in [".fastq", ".fasta", ".fq", ".fa"])
             isUnprocessed= isLarge or isMapped or isRaw 
     except:
         isUnprocessed=False

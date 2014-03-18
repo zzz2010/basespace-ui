@@ -4,7 +4,7 @@ import glob
 import commands
 
 #Usage Line
-print "Welcome.\n Usage: python <.cfg> <bowtie2_path> <bowtie2_index> <genome_length_file> <output_dir>\n" 
+print "Welcome.\n Usage: python <.cfg> <bowtie2_path> <bowtie2_index> <genome_length_file> <output_dir> [jobOption]\n" 
 sys.stdout.flush()    
 
 #parameters for tweak/tune
@@ -15,6 +15,9 @@ bowtie2_dir=sys.argv[2]
 bowtie2_index_dir=sys.argv[3]
 genome_length_path=sys.argv[4]
 output_dir=sys.argv[5]+"/"
+mapOnly=False
+if len(sys.argv)>6 and 'map' in sys.argv[6]:
+    mapOnly=True
 
 #tracking vars
 isControl=0
@@ -106,10 +109,10 @@ def setReadFiles():
                         #bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
                         name, ext = os.path.splitext(line[0])
                         if isControl==0:
-                            targetPair.append(" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -1 " + line[0] + " -2 " + line[1] + " -S " + name+".sam ")
+                            targetPair.append(" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -1 " + line[0] + " -2 " + line[1] + " -S " + name+".sam >"+output_dir+os.path.basename(line[0])+".maplog.txt")
                             targetArray.append(name+".sam")                            
                         else:
-                            controlPair.append(" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -1 " + line[0] + " -2 " + line[1] + " -S " + name+".sam ")
+                            controlPair.append(" "+bowtie2_dir + " -p " +num_proc+ " --very-fast -x " + bowtie2_index_dir + " -1 " + line[0] + " -2 " + line[1] + " -S " + name+".sam >"+output_dir+os.path.basename(line[1])+".maplog.txt")
                             controlArray.append(name+".sam")
                         #print " "+bowtie2_dir + " -p 2 -x " + bowtie2_index_dir + " -1 " + line[0] + " -2 " + line[1] + " -S " + name+".sam "
                 #print line
@@ -296,14 +299,17 @@ def PeakCall():
     os.system(macsCMD)        
         
 def main():
+    if not os.path.isdir(output_dir):
+        os.mkdir(output_dir)
     print "0.Open Config File: "+sys.argv[1]
     setReadFiles()
     MapFiles()
     print "2.samtools sort/rmdup/merge on all aln files"
     ConvertToBam()
-    print "3.Peak-Calling with MACS-1.4.2"
-    PeakCall()
-    print "4.MACS is done."
+    if not mapOnly:
+        print "3.Peak-Calling with MACS-1.4.2"
+        PeakCall()
+        print "4.MACS is done."
     
     os.system('rm batman.log; rm decode.log;')
 
